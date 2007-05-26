@@ -805,6 +805,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\core\avmplusVersion.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\core\BigInteger.h"
 				>
 			</File>
