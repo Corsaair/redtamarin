@@ -174,7 +174,7 @@ public final dynamic class XML extends Object
    	XML.settings = function():Object {
 		return AS3::settings()
 	}
-	XML.setSettings = function(o=undefined):void {
+	XML.setSettings = function(o=null):void {
 		AS3::setSettings(o)
 	}
 	XML.defaultSettings = function():Object {
