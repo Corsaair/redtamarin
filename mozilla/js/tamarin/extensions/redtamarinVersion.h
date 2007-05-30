@@ -39,8 +39,7 @@
 
 // build number counts 1-n for development builds, and restarts at 1-n for release builds
 
-//$Rev$
-//$Date$
+//$Test$
 // the visible build code d for development, r for release candidate
 #define REDTAMARIN_BUILD_CODE		"red_dzwetan_2007-05-28_01-01"
 
