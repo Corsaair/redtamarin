@@ -39,16 +39,15 @@
 
 // build number counts 1-n for development builds, and restarts at 1-n for release builds
 
-//$Test$
 // the visible build code d for development, r for release candidate
-#define REDTAMARIN_BUILD_CODE		"red_dzwetan_2007-05-28_01-01"
+#define REDTAMARIN_BUILD_CODE		"red_dzwetan_2007-05-30_01-06"
 
 #define REDTAMARIN_VERSION_USER		"0.1"
 
 // Version codes
 // Major version, minor version, build number high order value, build number low order value
-#define REDTAMARIN_VERSION_NUMBER		0,1,0,red_dzwetan_2007-05-28_01-01
-#define REDTAMARIN_VERSION_STRING		"0,1,0,red_dzwetan_2007-05-28_01-01"
+#define REDTAMARIN_VERSION_NUMBER		0,1,0,red_dzwetan_2007-05-30_01-06
+#define REDTAMARIN_VERSION_STRING		"0,1,0,red_dzwetan_2007-05-30_01-06"
 #define REDTAMARIN_MAJOR_VERSION		0
 #define REDTAMARIN_MINOR_VERSION		1
 #define REDTAMARIN_BUILD_NUMBER			0
