@@ -121,7 +121,6 @@ namespace avmshell
 
 	BEGIN_NATIVE_CLASSES(Shell)
 		NATIVE_CLASS(abcclass_avmplus_System,          SystemClass,        ScriptObject)
-		NATIVE_CLASS(abcclass_avmplus_Standard,        StandardClass,      ScriptObject)
 		NATIVE_CLASS(abcclass_avmplus_File,            FileClass,          ScriptObject)
 		NATIVE_CLASS(abcclass_avmplus_Domain,          DomainClass,        DomainObject)
 		NATIVE_CLASS(abcclass_avmplus_StringBuilder,   StringBuilderClass, StringBuilderObject)		
@@ -134,6 +133,7 @@ namespace avmshell
 		NATIVE_CLASS(abcclass_flash_utils_FloatArray,   FloatArrayClass,    FloatArrayObject)		
 		NATIVE_CLASS(abcclass_flash_utils_DoubleArray,  DoubleArrayClass,   DoubleArrayObject)	
 		NATIVE_CLASS(abcclass_flash_utils_Dictionary,   DictionaryClass,    DictionaryObject)
+		NATIVE_CLASS(abcclass_standard__std,			StandardClass,		ScriptObject)
 	END_NATIVE_CLASSES()
 
 	BEGIN_NATIVE_SCRIPTS(Shell)
