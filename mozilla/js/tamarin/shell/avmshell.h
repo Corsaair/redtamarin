@@ -74,6 +74,8 @@ namespace avmplus
 #include "DictionaryGlue.h"
 #include "JavaGlue.h"
 
+#include "StandardClass.h"
+
 #ifdef _MSC_VER
 #pragma warning(disable:4996)
 #endif

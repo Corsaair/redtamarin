@@ -121,6 +121,7 @@ namespace avmshell
 
 	BEGIN_NATIVE_CLASSES(Shell)
 		NATIVE_CLASS(abcclass_avmplus_System,          SystemClass,        ScriptObject)
+		NATIVE_CLASS(abcclass_avmplus_Standard,        StandardClass,      ScriptObject)
 		NATIVE_CLASS(abcclass_avmplus_File,            FileClass,          ScriptObject)
 		NATIVE_CLASS(abcclass_avmplus_Domain,          DomainClass,        DomainObject)
 		NATIVE_CLASS(abcclass_avmplus_StringBuilder,   StringBuilderClass, StringBuilderObject)		

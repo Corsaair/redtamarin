@@ -37,6 +37,7 @@
 
 
 #include "avmshell.h"
+#include "redtamarinVersion.h"
 
 #include <stdlib.h>
 
@@ -46,6 +47,7 @@ namespace avmshell
 		NATIVE_METHOD(avmplus_System_exit, SystemClass::exit)
 		NATIVE_METHOD(avmplus_System_exec, SystemClass::exec)
 		NATIVE_METHOD(avmplus_System_getAvmplusVersion, SystemClass::getAvmplusVersion)
+		NATIVE_METHOD(avmplus_System_getRedTamarinVersion, SystemClass::getRedTamarinVersion)
 		NATIVE_METHOD(avmplus_System_trace, SystemClass::trace)
 		NATIVE_METHOD(avmplus_System_write, SystemClass::write)
 		NATIVE_METHOD(avmplus_System_debugger, SystemClass::debugger)
@@ -98,6 +100,11 @@ namespace avmshell
 	Stringp SystemClass::getAvmplusVersion()
 	{
 		return core()->newString(AVMPLUS_VERSION_USER " " AVMPLUS_BUILD_CODE);
+	}
+	
+	Stringp SystemClass::getRedTamarinVersion()
+	{
+		return core()->newString(REDTAMARIN_VERSION_USER " " REDTAMARIN_BUILD_CODE);
 	}
 
 	void SystemClass::write(Stringp s)
@@ -208,4 +215,5 @@ namespace avmshell
 		}
 		return s;
 	}
+
 }

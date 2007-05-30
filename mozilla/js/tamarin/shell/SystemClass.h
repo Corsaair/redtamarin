@@ -78,6 +78,14 @@ namespace avmshell
 		 * "1.0 d100"
 		 */
 		Stringp getAvmplusVersion();
+		
+		/**
+		 * Implementation of System.getRedTamarinVersion
+		 * AS usage: System.getRedTamarinVersion();
+		 * Returns the current version of the RedTamarin library in the form
+		 * "1.0 d100"
+		 */
+		Stringp getRedTamarinVersion();
 
 		/**
 		 * Implementation of System.exec
