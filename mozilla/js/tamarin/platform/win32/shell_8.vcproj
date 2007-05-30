@@ -404,6 +404,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\extensions\StandardClass.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\shell\StringBuilderClass.cpp"
 				>
 			</File>
@@ -467,6 +471,14 @@
 			</File>
 			<File
 				RelativePath="..\..\extensions\JavaGlue.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\shell\redtamarinVersion.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\extensions\StandardClass.h"
 				>
 			</File>
 			<File
