@@ -49,3 +49,9 @@ include "shell\\UShortArray.as"
 include "shell\\Dictionary.as"
 include "shell\\Endian.as"
 include "shell\\Java.as"
+
+//RedTamarin
+include "shell\\standard.Errors.as"
+include "shell\\standard.Operations.as"
+include "shell\\standard.as"
+
