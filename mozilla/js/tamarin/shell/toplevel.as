@@ -20,6 +20,7 @@
  *
  * Contributor(s):
  *   Adobe AS3 Team
+ *   zwetan <zwetan@gmail.com>
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -42,6 +43,7 @@ package avmplus
 		public native static function exit(status:int):void
 		public native static function exec(command:String):int
 		public native static function getAvmplusVersion():String
+		public native static function getRedTamarinVersion():String
 		public native static function trace(a:Array):void
 		public native static function write(s:String):void
 		public native static function debugger():void
@@ -58,7 +60,7 @@ package avmplus
 		public native static function read(filename:String):String;
 		public native static function write(filename:String, data:String):void;
 	}
-
+        
 	public function debugger()
 	{
 		System.debugger()
@@ -73,11 +75,11 @@ package flash.system
 	
 	public final class Capabilities
 	{
-		public static function get playerType():String { return "AVMPlus"; }
+		public static function get playerType():String { return "RedTamarin"; }
 		public static function get isDebugger():Boolean { return System.isDebugger(); }
 	}
 }
-		
+
 package {
 
 	import avmplus.*
