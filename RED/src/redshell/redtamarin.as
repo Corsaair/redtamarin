@@ -1,7 +1,7 @@
 package redtamarin
 	{
 	
-	public static function getVersion():String
+	public function getVersion():String
 		{
 		return "0.1";
 		}
