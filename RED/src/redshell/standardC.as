@@ -15,6 +15,6 @@ package C.stdlib
 	   info:
 	   char *getenv(const char *name);
 	*/
-	public native function get getenv( name:String ):String;
+	public native function getenv( name:String ):String;
 	
 	}
