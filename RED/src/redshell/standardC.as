@@ -1,4 +1,4 @@
-package C.stdlib
+package C
 	{
 	/* <stdlib.h>
 	   http://en.wikipedia.org/wiki/Stdlib.h
@@ -11,10 +11,20 @@ package C.stdlib
 	   The name "stdlib" stands for standard library.
 	*/
 	
-	/* Retrieve an environment variable.
-	   info:
-	   char *getenv(const char *name);
-	*/
-	public native function getenv( name:String ):String;
+	public class stdlib
+		{
+		
+		/* Retrieve an environment variable.
+		   info:
+		   char *getenv(const char *name);
+		*/
+		public native static function getenv( name:String ):String;		
+		
+		}
+	
+	public function getenv( name:String ):String
+		{
+		return stdlib.getenv( name );
+		}
 	
 	}
