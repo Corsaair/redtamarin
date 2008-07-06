@@ -15,64 +15,53 @@ package C
 	   http://en.wikipedia.org/wiki/ANSI_C
 	   http://en.wikipedia.org/wiki/Category:C_standard_library
 	   http://www.cplusplus.com/reference/clibrary/
+	   
+	   note:
+	   this class exists only to obtain a abcclass_C_standard in toplevel.h
+	   so we can declare in avmshell.cpp
+	   NATIVE_CLASS(abcclass_C_standard, StandardCClass, ScriptObject)
+	   
+	   but we keep the declaration of native function in their own package
+	   to avoid indirection
+	   
+	   we want:
+	   ----
+	   package C.stdlib
+	   {
+	       public native function rand():int;
+	   }
+	   ----
+	   
+	   we don't want:
+	   ----
+	   package C
+	   {
+	       public class standard
+	       {
+	           public native static function rand():int;
+	       }
+	   }
+	   
+	   package C.stdlib
+	   {
+	       import C.standard;
+	       
+	       public function rand():int
+	       {
+	           return standard.rand();
+	       }
+	   }
+	   ----
 	*/
-	public class standard
+	internal class standard
 		{
-		/* <stdlib.h>
-		*/
-		
-		//atof
-		//atoi
-		//atol
-		//strtod
-		//strtol
-		//strtoul
-		
-		/* int rand( void ); */
-		//public native static function rand():int;
-		
-		//srand
-		//malloc
-		//calloc
-		//realloc
-		//free
-		//abort
-		//atexit
-		
-		/* void exit( int status );
-		   http://en.wikipedia.org/wiki/Exit_(operating_system)
-		*/
-		public native static function exit( status:int ):void;
-		
-		/* char *getenv( const char *name ); */
-		public native static function getenv( name:String ):String;		
-		
-		/* int system ( const char *command );
-		   http://en.wikipedia.org/wiki/System_(C_Standard_Library)
-		*/
-		public native static function system( command:String ):int;
-		
-		//bsearch
-		//qsort
-		//abs
-		//labs
-		//div
-		//ldiv
-		
-		//-----------------------------------------------------------
-		
-		/* <stdio.h>
-		*/
-		
-		//-----------------------------------------------------------
-		
-		//etc.
 		
 		}
 	
 	}
 
-/* http://en.wikipedia.org/wiki/Stdlib.h
+/* <stdlib.h>
+   http://en.wikipedia.org/wiki/Stdlib.h
    
    stdlib.h is the header of the general purpose standard library
    of C programming language which includes functions involving memory allocation,
@@ -83,7 +72,6 @@ package C
 */
 package C.stdlib
 	{
-	import C.standard;
 	
 	/* Type Conversion */
 	
@@ -98,9 +86,15 @@ package C.stdlib
 	
 	/* Pseudo-random sequence generation */
 	
-	//rand
+	/* Generate a pseudo-random value.
+	   
+	   info:
+	   int rand( void );
+	*/
 	public native function rand():int;
 	
+	/* Set the pseudo-random generator seed.
+	*/
 	//srand
 	
 	//-----------------------------------------------------------
@@ -120,28 +114,30 @@ package C.stdlib
 	//atexit
 	
 	/* Terminate program execution.
+	   
+	   info:
+	   void exit( int status );
+	   http://en.wikipedia.org/wiki/Exit_(operating_system)
 	*/
-	public function exit( status:int ):void
-		{
-		standard.exit( status );
-		}
+	public native function exit( status:int ):void;
 	
 	/* Retrieve an environment variable.
 	   
 	   note:
 	   return an empty string if env var not found
+	   
+	   info:
+	   char *getenv( const char *name );
 	*/
-	public function getenv( name:String ):String
-		{
-		return standard.getenv( name );
-		}
+	public native function getenv( name:String ):String;
 	
 	/* Execute an external command.
+	   
+	   info:
+	   int system ( const char *command );
+	   http://en.wikipedia.org/wiki/System_(C_Standard_Library)
 	*/
-	public function system( command:String ):int
-		{
-		return standard.system( command );
-		}
+	public native function system( command:String ):int;
 	
 	//-----------------------------------------------------------
 	
