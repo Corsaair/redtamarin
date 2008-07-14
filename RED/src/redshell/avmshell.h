@@ -20,6 +20,7 @@
  *
  * Contributor(s):
  *   Adobe AS3 Team
+ *   Zwetan Kjukov <zwetan@gmail.com>
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -80,6 +81,9 @@ namespace avmplus
 #include "SamplerScript.h"
 #include "JavaGlue.h"
 
+#include "RedTamarinClass.h"
+#include "StandardCClass.h"
+
 #ifdef _MSC_VER
 #pragma warning(disable:4996)
 #endif
@@ -122,6 +126,7 @@ namespace avmshell
 		void setEnv(Toplevel *toplevel, int argc, char *argv[]);
 
 		SystemClass* systemClass;
+		RedTamarinClass* redtamarinClass;
 		
 		virtual Toplevel* createToplevel(VTable *vtable);
 

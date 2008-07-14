@@ -51,6 +51,6 @@ asc = javacmd+" macromedia.asc.embedding.ScriptCompiler "
 
 print("building toplevel.abc, toplevel.cpp, toplevel.h")
 # add -d to include debug symbols
-os.system(asc+" -abcfuture -builtin -import ../core/builtin.abc -out toplevel toplevel.as Domain.as StringBuilder.as ByteArray.as ../extensions/Sampler.as ../extensions/Trace.as ../extensions/Dictionary.as Endian.as Java.as")
+os.system(asc+" -abcfuture -builtin -import ../../core/builtin.abc -out toplevel toplevel.as Domain.as StringBuilder.as ByteArray.as ../../extensions/Sampler.as ../../extensions/Trace.as ../../extensions/Dictionary.as Endian.as Java.as redtamarin.as standardC.as")
 
 

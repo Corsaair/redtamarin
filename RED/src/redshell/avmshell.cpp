@@ -145,6 +145,8 @@ namespace avmshell
 		NATIVE_CLASS(abcclass_flash_sampler_NewObjectSample, NewObjectSampleClass, NewObjectSampleObject)
 		NATIVE_CLASS(abcclass_flash_sampler_DeleteObjectSample, SampleClass, SampleObject)
 		NATIVE_CLASS(abcclass_flash_trace_Trace,		TraceClass,			ScriptObject)
+        NATIVE_CLASS(abcclass_redtamarin_sys,           RedTamarinClass,    ScriptObject)
+        NATIVE_CLASS(abcclass_C_standard,               StandardCClass,     ScriptObject)
 	END_NATIVE_CLASSES()
 
 	BEGIN_NATIVE_SCRIPTS(Shell)
