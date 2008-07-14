@@ -17,6 +17,8 @@ package redtamarin
 		sys.assert( expression );
 		}
 	
+	public native function sleep( second:uint ):void; //not WIN32 
+	
 	public function getRedTamarinVersion():String
 		{
 		return sys.version;
