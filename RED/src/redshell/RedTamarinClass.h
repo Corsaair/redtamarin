@@ -51,7 +51,7 @@ namespace avmshell
 		
 		void sysAssert(int expression);
         
-        void sysSleep(uint second);
+        void sysSleep(uint32 second);
 		
 		DECLARE_NATIVE_MAP(RedTamarinClass)
     };
