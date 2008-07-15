@@ -44,6 +44,8 @@
 #ifdef WIN32
     #include <windows.h>
 	#define sleep Sleep
+#else
+    #include <unistd.h>
 #endif
 
 
@@ -77,7 +79,11 @@ namespace avmshell
     
     void RedTamarinClass::sysSleep(uint32 second)
     {
-		sleep( second );
+        #ifdef WIN32
+            sleep( second * 1000 ); //Sleep take millisec
+        #else
+            sleep( second );
+        #endif
     }
     
 }
