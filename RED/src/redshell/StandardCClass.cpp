@@ -121,16 +121,15 @@ namespace avmshell
         
 		#ifdef WIN32
 			AvmCore* core = this->core();
-			Stringp original  = core->kEmptyString;
+			Stringp original  = core->newString( getenv( nameUTF8->c_str() ) );
 			Stringp envstring = core->concatStrings(name, core->newString("=") ); // name=
-
-			if( rewrite == 0 )
+            
+			if( (rewrite == 0) && (original->length() > 0) )
 			{
-				original = core->concatStrings(original, core->newString( getenv( nameUTF8->c_str() ) ));
+				return 0;
 			}
-			envstring = core->concatStrings(envstring,original); // name=original
-			envstring = core->concatStrings(envstring,value);    // name=original+value
-
+			envstring = core->concatStrings(envstring,value);    // name=value
+			
 			UTF8String *envstringUTF8 = envstring->toUTF8String();
 			return setenv( envstringUTF8->c_str() );
 		#else
