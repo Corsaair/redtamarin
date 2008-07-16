@@ -45,6 +45,7 @@
 #ifdef WIN32
     #include <direct.h>
 	#define getcwd _getcwd
+    #define setenv _putenv
 #else
     #include <unistd.h>
 #endif
@@ -117,9 +118,25 @@ namespace avmshell
 		}
         
         UTF8String *nameUTF8  = name->toUTF8String();
-        UTF8String *valueUTF8 = value->toUTF8String();
         
-        return setenv( nameUTF8->c_str(), valueUTF8->c_str(), rewrite );
+		#ifdef WIN32
+			AvmCore* core = this->core();
+			Stringp original  = core->kEmptyString;
+			Stringp envstring = core->concatStrings(name, core->newString("=") ); // name=
+
+			if( rewrite == 0 )
+			{
+				original = core->concatStrings(original, core->newString( getenv( nameUTF8->c_str() ) ));
+			}
+			envstring = core->concatStrings(envstring,original); // name=original
+			envstring = core->concatStrings(envstring,value);    // name=original+value
+
+			UTF8String *envstringUTF8 = envstring->toUTF8String();
+			return setenv( envstringUTF8->c_str() );
+		#else
+			UTF8String *valueUTF8 = value->toUTF8String();
+			return setenv( nameUTF8->c_str(), valueUTF8->c_str(), rewrite );
+		#endif
     }
     
     int StandardCClass::stdlibSystem(Stringp command)
