@@ -9,7 +9,7 @@ package redtamarin
 			{
 			return "0.1.0." + parseInt( "$Rev$".split( " " )[1] );
 			}
-		
+		 
 		}
 	
 	public function assert( expression:int ):void

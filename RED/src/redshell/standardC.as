@@ -138,7 +138,7 @@ package C.stdlib
 	   void exit( int status );
 	   http://en.wikipedia.org/wiki/Exit_(operating_system)
 	*/
-	public native function exit( status:int ):void;
+	public native function exit( status:int = 0 ):void;
 	
 	/* Retrieve an environment variable.
 	   
