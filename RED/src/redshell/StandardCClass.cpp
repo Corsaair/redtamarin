@@ -39,14 +39,29 @@
 #include "avmshell.h"
 
 #include <stdlib.h>
+#include <errno.h>
+#include <string.h>
+
+#ifdef WIN32
+    #include <direct.h>
+	#define getcwd _getcwd
+#else
+    #include <unistd.h>
+#endif
 
 namespace avmshell
 {
 	BEGIN_NATIVE_MAP(StandardCClass)
-		NATIVE_METHOD(C_stdlib_rand,   StandardCClass::stdlibRand)
-        NATIVE_METHOD(C_stdlib_exit,   StandardCClass::stdlibExit)
-        NATIVE_METHOD(C_stdlib_getenv, StandardCClass::stdlibGetenv)
-        NATIVE_METHOD(C_stdlib_system, StandardCClass::stdlibSystem)
+		NATIVE_METHOD(C_stdlib_rand,     StandardCClass::stdlibRand)
+        NATIVE_METHOD(C_stdlib_abort,    StandardCClass::stdlibAbort)
+        NATIVE_METHOD(C_stdlib_exit,     StandardCClass::stdlibExit)
+        NATIVE_METHOD(C_stdlib_getenv,   StandardCClass::stdlibGetenv)
+        NATIVE_METHOD(C_stdlib_setenv,   StandardCClass::stdlibSetenv)
+        NATIVE_METHOD(C_stdlib_system,   StandardCClass::stdlibSystem)
+        NATIVE_METHOD(C_unistd_getcwd,   StandardCClass::unistdGetcwd)
+        NATIVE_METHOD(C_errno_errno_set, StandardCClass::errnoSeterrno)
+        NATIVE_METHOD(C_errno_errno_get, StandardCClass::errnoGeterrno)
+        NATIVE_METHOD(C_string_strerror, StandardCClass::stringStrerror)
 	END_NATIVE_MAP()
 	
 	StandardCClass::StandardCClass(VTable *cvtable)
@@ -63,6 +78,11 @@ namespace avmshell
     int StandardCClass::stdlibRand()
     {
         return rand();
+    }
+    
+    void StandardCClass::stdlibAbort()
+    {
+        abort();
     }
     
     void StandardCClass::stdlibExit( int status )
@@ -84,6 +104,24 @@ namespace avmshell
         return s;
 	}
     
+    int StandardCClass::stdlibSetenv(Stringp name, Stringp value, int rewrite)
+    {
+        if( !name )
+        {
+			toplevel()->throwArgumentError(kNullArgumentError, "name");
+		}
+        
+        if( !value )
+        {
+			toplevel()->throwArgumentError(kNullArgumentError, "value");
+		}
+        
+        UTF8String *nameUTF8  = name->toUTF8String();
+        UTF8String *valueUTF8 = value->toUTF8String();
+        
+        return setenv( nameUTF8->c_str(), valueUTF8->c_str(), rewrite );
+    }
+    
     int StandardCClass::stdlibSystem(Stringp command)
     {
         if( !command )
@@ -95,5 +133,29 @@ namespace avmshell
 		return system( commandUTF8->c_str() );
     }
     
+    Stringp StandardCClass::unistdGetcwd()
+    {
+        char path[1024];
+        getcwd( path, (size_t)1024 );
+        Stringp s = core()->newString( path );
+        return s;
+    }
+    
+    void StandardCClass::errnoSeterrno(int value)
+    {
+        errno = value;
+    }
+    
+    int StandardCClass::errnoGeterrno()
+    {
+        return errno;
+    }
+    
+    Stringp StandardCClass::stringStrerror(int errnum)
+    {
+        char *errstr = strerror(errnum);
+        Stringp s = core()->newString( errstr );
+        return s;
+    }
     
 }

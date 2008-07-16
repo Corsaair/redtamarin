@@ -55,11 +55,23 @@ namespace avmshell
 		
         int stdlibRand();
         
+        void stdlibAbort();
+        
         void stdlibExit( int status );
         
 		Stringp stdlibGetenv(Stringp name);
+        
+        int stdlibSetenv(Stringp name, Stringp value, int rewrite);
 		
         int stdlibSystem(Stringp command);
+        
+        Stringp unistdGetcwd();
+        
+        void errnoSeterrno(int value);
+        
+        int errnoGeterrno();
+        
+        Stringp stringStrerror(int errnum);
         
 		DECLARE_NATIVE_MAP(StandardCClass)
     };

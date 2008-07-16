@@ -9,7 +9,7 @@
 			8DD76FA90486AB0100D96B5E /* redshell */,
 		);
 		breakpoints = (
-			589A528B0E2034A00092A06A /* avmshell.cpp:126 */,
+			589A528B0E2034A00092A06A /* avmshell.cpp:127 */,
 		);
 		codeSenseManager = 589A51220E1ED3160092A06A /* Code sense */;
 		executables = (
@@ -967,17 +967,17 @@
 	};
 	589A515A0E1ED7620092A06A /* SystemClass.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {885, 2506}}";
-			sepNavSelRange = "{5263, 0}";
-			sepNavVisRange = "{1632, 1072}";
+			sepNavIntBoundsRect = "{{0, 0}, {938, 2968}}";
+			sepNavSelRange = "{2704, 0}";
+			sepNavVisRange = "{1793, 1379}";
 			sepNavWindowFrame = "{{1405, 312}, {944, 580}}";
 		};
 	};
 	589A515B0E1ED7620092A06A /* toplevel.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {938, 4844}}";
+			sepNavIntBoundsRect = "{{0, 0}, {938, 5250}}";
 			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{28656, 4388}";
+			sepNavVisRange = "{28656, 4416}";
 		};
 	};
 	589A515C0E1ED7620092A06A /* SystemClass.h */ = {
@@ -1017,9 +1017,9 @@
 	};
 	589A51620E1ED7620092A06A /* toplevel.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {885, 1848}}";
-			sepNavSelRange = "{5791, 0}";
-			sepNavVisRange = "{0, 1417}";
+			sepNavIntBoundsRect = "{{0, 0}, {938, 1918}}";
+			sepNavSelRange = "{5041, 17}";
+			sepNavVisRange = "{4021, 1876}";
 			sepNavWindowFrame = "{{1486, 58}, {944, 580}}";
 		};
 	};
@@ -1061,9 +1061,9 @@
 	};
 	589A516A0E1ED7620092A06A /* ByteArrayGlue.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {885, 9282}}";
+			sepNavIntBoundsRect = "{{0, 0}, {938, 9254}}";
 			sepNavSelRange = "{5696, 0}";
-			sepNavVisRange = "{8824, 614}";
+			sepNavVisRange = "{1800, 3036}";
 			sepNavWindowFrame = "{{1540, 87}, {944, 580}}";
 		};
 	};
@@ -1077,8 +1077,8 @@
 	589A516E0E1ED7620092A06A /* DomainClass.cpp */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {938, 2688}}";
-			sepNavSelRange = "{5542, 102}";
-			sepNavVisRange = "{4841, 1343}";
+			sepNavSelRange = "{5610, 0}";
+			sepNavVisRange = "{0, 2028}";
 		};
 	};
 	589A516F0E1ED7620092A06A /* Profiler.h */ = {
@@ -1090,17 +1090,17 @@
 	};
 	589A51700E1ED7620092A06A /* avmshell.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {938, 17276}}";
-			sepNavSelRange = "{4631, 81}";
-			sepNavVisRange = "{3402, 1770}";
+			sepNavIntBoundsRect = "{{0, 0}, {1304, 17458}}";
+			sepNavSelRange = "{30456, 0}";
+			sepNavVisRange = "{33057, 747}";
 			sepNavWindowFrame = "{{19, 114}, {944, 580}}";
 		};
 	};
 	589A51710E1ED7620092A06A /* ByteArrayGlue.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {938, 2450}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{2308, 1259}";
+			sepNavIntBoundsRect = "{{0, 0}, {746, 2632}}";
+			sepNavSelRange = "{4573, 19}";
+			sepNavVisRange = "{4526, 104}";
 		};
 	};
 	589A51E10E1EDA220092A06A /* redshell */ = {
@@ -1133,32 +1133,32 @@
 	589A52500E2018450092A06A /* RedTamarinClass.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {938, 854}}";
-			sepNavSelRange = "{2001, 27}";
-			sepNavVisRange = "{603, 1519}";
+			sepNavSelRange = "{1992, 0}";
+			sepNavVisRange = "{600, 1524}";
 			sepNavWindowFrame = "{{1516, 58}, {944, 580}}";
 		};
 	};
 	589A52510E2018560092A06A /* RedTamarinClass.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {746, 1302}}";
-			sepNavSelRange = "{2541, 0}";
-			sepNavVisRange = "{2462, 93}";
+			sepNavIntBoundsRect = "{{0, 0}, {938, 1190}}";
+			sepNavSelRange = "{825, 36}";
+			sepNavVisRange = "{474, 1621}";
 			sepNavWindowFrame = "{{1698, 303}, {944, 580}}";
 		};
 	};
 	589A52570E201B800092A06A /* StandardCClass.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {926, 1078}}";
-			sepNavSelRange = "{2293, 37}";
-			sepNavVisRange = "{2044, 249}";
+			sepNavIntBoundsRect = "{{0, 0}, {938, 1134}}";
+			sepNavSelRange = "{2541, 36}";
+			sepNavVisRange = "{1692, 983}";
 			sepNavWindowFrame = "{{199, 101}, {944, 580}}";
 		};
 	};
 	589A52580E201B8C0092A06A /* StandardCClass.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {938, 1400}}";
-			sepNavSelRange = "{2434, 0}";
-			sepNavVisRange = "{2190, 884}";
+			sepNavIntBoundsRect = "{{0, 0}, {938, 2268}}";
+			sepNavSelRange = "{2668, 0}";
+			sepNavVisRange = "{1880, 1288}";
 			sepNavWindowFrame = "{{1364, 31}, {944, 580}}";
 		};
 	};
@@ -1169,12 +1169,12 @@
 		path = "/buRRRn/products/redTamarin/working-trunk/tamarin-central/red/platform/mac/redshell/../../../redshell/avmshell.h";
 		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {746, 2800}}";
-			sepNavSelRange = "{2116, 23}";
-			sepNavVisRange = "{1940, 222}";
+			sepNavIntBoundsRect = "{{0, 0}, {938, 2870}}";
+			sepNavSelRange = "{2043, 0}";
+			sepNavVisRange = "{3668, 907}";
 		};
 	};
-	589A528B0E2034A00092A06A /* avmshell.cpp:126 */ = {
+	589A528B0E2034A00092A06A /* avmshell.cpp:127 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1185,7 +1185,7 @@
 		fileReference = 589A51700E1ED7620092A06A /* avmshell.cpp */;
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 126;
+		lineNumber = 127;
 		modificationTime = 236991648.73693;
 		state = 1;
 	};
@@ -1364,7 +1364,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 54";
 		rLen = 0;
-		rLoc = 2445;
+		rLoc = 3093;
 		rType = 0;
 		vrLen = 603;
 		vrLoc = 1728;
@@ -1384,7 +1384,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 61";
 		rLen = 0;
-		rLoc = 2763;
+		rLoc = 3411;
 		rType = 0;
 		vrLen = 1470;
 		vrLoc = 864;
@@ -1404,7 +1404,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 61";
 		rLen = 0;
-		rLoc = 2763;
+		rLoc = 3411;
 		rType = 0;
 		vrLen = 1395;
 		vrLoc = 939;
@@ -1424,7 +1424,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 59";
 		rLen = 0;
-		rLoc = 2763;
+		rLoc = 3411;
 		rType = 0;
 		vrLen = 1466;
 		vrLoc = 699;
@@ -1444,7 +1444,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 58";
 		rLen = 0;
-		rLoc = 2763;
+		rLoc = 3411;
 		rType = 0;
 		vrLen = 1464;
 		vrLoc = 699;
@@ -1484,7 +1484,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 58";
 		rLen = 0;
-		rLoc = 2763;
+		rLoc = 3411;
 		rType = 0;
 		vrLen = 1466;
 		vrLoc = 699;
@@ -1734,7 +1734,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 59";
 		rLen = 0;
-		rLoc = 2763;
+		rLoc = 3411;
 		rType = 0;
 		vrLen = 1477;
 		vrLoc = 669;
@@ -1768,6 +1768,27 @@
 		rType = 0;
 		vrLen = 1493;
 		vrLoc = 772;
+	};
+	589A53120E2053330092A06A /* ByteArray.as */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {938, 7588}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1777}";
+		};
+	};
+	589A53130E2053330092A06A /* Domain.as */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {938, 798}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{546, 1574}";
+		};
+	};
+	589A53170E2053330092A06A /* standardC.as */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {938, 2268}}";
+			sepNavSelRange = "{3041, 0}";
+			sepNavVisRange = "{2356, 884}";
+		};
 	};
 	589A53190E2053330092A06A /* toplevel.as */ = {
 		uiCtxt = {
@@ -1921,7 +1942,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 61";
 		rLen = 0;
-		rLoc = 2763;
+		rLoc = 3411;
 		rType = 0;
 		vrLen = 1598;
 		vrLoc = 699;
@@ -1941,7 +1962,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 61";
 		rLen = 0;
-		rLoc = 2763;
+		rLoc = 3411;
 		rType = 0;
 		vrLen = 1480;
 		vrLoc = 819;
@@ -1981,7 +2002,7 @@
 		fRef = 589A51700E1ED7620092A06A /* avmshell.cpp */;
 		name = "avmshell.cpp: 134";
 		rLen = 0;
-		rLoc = 3569;
+		rLoc = 3607;
 		rType = 0;
 		vrLen = 1006;
 		vrLoc = 1399;
@@ -2081,7 +2102,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 61";
 		rLen = 0;
-		rLoc = 2763;
+		rLoc = 3411;
 		rType = 0;
 		vrLen = 1480;
 		vrLoc = 819;
@@ -2101,7 +2122,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 52";
 		rLen = 0;
-		rLoc = 2445;
+		rLoc = 3093;
 		rType = 0;
 		vrLen = 1552;
 		vrLoc = 772;
@@ -2321,7 +2342,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 49";
 		rLen = 108;
-		rLoc = 2115;
+		rLoc = 2690;
 		rType = 0;
 		vrLen = 1556;
 		vrLoc = 772;
@@ -2351,7 +2372,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 49";
 		rLen = 108;
-		rLoc = 2115;
+		rLoc = 2690;
 		rType = 0;
 		vrLen = 1629;
 		vrLoc = 699;
@@ -2431,7 +2452,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 48";
 		rLen = 0;
-		rLoc = 2114;
+		rLoc = 2689;
 		rType = 0;
 		vrLen = 1623;
 		vrLoc = 699;
@@ -2481,7 +2502,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 48";
 		rLen = 0;
-		rLoc = 2114;
+		rLoc = 2689;
 		rType = 0;
 		vrLen = 1505;
 		vrLoc = 819;
@@ -2501,7 +2522,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 55";
 		rLen = 0;
-		rLoc = 2261;
+		rLoc = 2836;
 		rType = 0;
 		vrLen = 1523;
 		vrLoc = 772;
@@ -2541,7 +2562,7 @@
 		fRef = 589A51700E1ED7620092A06A /* avmshell.cpp */;
 		name = "avmshell.cpp: 134";
 		rLen = 0;
-		rLoc = 3569;
+		rLoc = 3607;
 		rType = 0;
 		vrLen = 1620;
 		vrLoc = 3337;
@@ -2581,7 +2602,7 @@
 		fRef = 589A51700E1ED7620092A06A /* avmshell.cpp */;
 		name = "avmshell.cpp: 134";
 		rLen = 0;
-		rLoc = 3569;
+		rLoc = 3607;
 		rType = 0;
 		vrLen = 1614;
 		vrLoc = 3337;
@@ -2641,7 +2662,7 @@
 		fRef = 589A51700E1ED7620092A06A /* avmshell.cpp */;
 		name = "avmshell.cpp: 149";
 		rLen = 0;
-		rLoc = 4532;
+		rLoc = 4570;
 		rType = 0;
 		vrLen = 1738;
 		vrLoc = 3337;
@@ -2661,7 +2682,7 @@
 		fRef = 589A51700E1ED7620092A06A /* avmshell.cpp */;
 		name = "avmshell.cpp: 148";
 		rLen = 0;
-		rLoc = 4532;
+		rLoc = 4570;
 		rType = 0;
 		vrLen = 1912;
 		vrLoc = 2801;
@@ -2731,7 +2752,7 @@
 		fRef = 589A51700E1ED7620092A06A /* avmshell.cpp */;
 		name = "avmshell.cpp: 151";
 		rLen = 0;
-		rLoc = 4649;
+		rLoc = 4687;
 		rType = 0;
 		vrLen = 1610;
 		vrLoc = 3392;
@@ -2791,7 +2812,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 55";
 		rLen = 0;
-		rLoc = 2261;
+		rLoc = 2836;
 		rType = 0;
 		vrLen = 1523;
 		vrLoc = 772;
@@ -2831,7 +2852,7 @@
 		fRef = 589A51700E1ED7620092A06A /* avmshell.cpp */;
 		name = "avmshell.cpp: 149";
 		rLen = 0;
-		rLoc = 4688;
+		rLoc = 4726;
 		rType = 0;
 		vrLen = 1775;
 		vrLoc = 3402;
@@ -2851,7 +2872,7 @@
 		fRef = 589A51700E1ED7620092A06A /* avmshell.cpp */;
 		name = "avmshell.cpp: 149";
 		rLen = 0;
-		rLoc = 4669;
+		rLoc = 4707;
 		rType = 0;
 		vrLen = 1769;
 		vrLoc = 3402;
@@ -2871,7 +2892,7 @@
 		fRef = 589A51700E1ED7620092A06A /* avmshell.cpp */;
 		name = "avmshell.cpp: 149";
 		rLen = 0;
-		rLoc = 4699;
+		rLoc = 4737;
 		rType = 0;
 		vrLen = 1770;
 		vrLoc = 3402;
@@ -2901,7 +2922,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 48";
 		rLen = 0;
-		rLoc = 2114;
+		rLoc = 2689;
 		rType = 0;
 		vrLen = 1436;
 		vrLoc = 939;
@@ -2961,7 +2982,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 74";
 		rLen = 49;
-		rLoc = 2794;
+		rLoc = 3943;
 		rType = 0;
 		vrLen = 1019;
 		vrLoc = 1477;
@@ -2971,7 +2992,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 58";
 		rLen = 0;
-		rLoc = 2283;
+		rLoc = 2524;
 		rType = 0;
 		vrLen = 1558;
 		vrLoc = 699;
@@ -2991,7 +3012,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 74";
 		rLen = 49;
-		rLoc = 2794;
+		rLoc = 3943;
 		rType = 0;
 		vrLen = 816;
 		vrLoc = 1692;
@@ -3011,7 +3032,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 58";
 		rLen = 0;
-		rLoc = 2283;
+		rLoc = 2524;
 		rType = 0;
 		vrLen = 1479;
 		vrLoc = 819;
@@ -3021,7 +3042,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 80";
 		rLen = 0;
-		rLoc = 2955;
+		rLoc = 4104;
 		rType = 0;
 		vrLen = 932;
 		vrLoc = 1773;
@@ -3051,9 +3072,9 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 58";
 		rLen = 30;
-		rLoc = 2160;
+		rLoc = 2197;
 		rType = 0;
-		vrLen = 1523;
+		vrLen = 1517;
 		vrLoc = 864;
 	};
 	589A53BE0E206EFB0092A06A /* PBXTextBookmark */ = {
@@ -3061,7 +3082,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 62";
 		rLen = 0;
-		rLoc = 2434;
+		rLoc = 3082;
 		rType = 0;
 		vrLen = 970;
 		vrLoc = 1752;
@@ -3073,7 +3094,7 @@
 		rLen = 17;
 		rLoc = 2125;
 		rType = 0;
-		vrLen = 1526;
+		vrLen = 1520;
 		vrLoc = 861;
 	};
 	589A53C00E206EFB0092A06A /* PBXTextBookmark */ = {
@@ -3081,7 +3102,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 49";
 		rLen = 0;
-		rLoc = 2094;
+		rLoc = 2669;
 		rType = 0;
 		vrLen = 1033;
 		vrLoc = 1728;
@@ -3111,7 +3132,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 49";
 		rLen = 0;
-		rLoc = 2093;
+		rLoc = 2380;
 		rType = 0;
 		vrLen = 1060;
 		vrLoc = 1692;
@@ -3131,7 +3152,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 47";
 		rLen = 0;
-		rLoc = 1928;
+		rLoc = 2140;
 		rType = 0;
 		vrLen = 1012;
 		vrLoc = 1692;
@@ -3153,7 +3174,7 @@
 		rLen = 17;
 		rLoc = 2125;
 		rType = 0;
-		vrLen = 1526;
+		vrLen = 1520;
 		vrLoc = 861;
 	};
 	589A53C80E206EFB0092A06A /* PBXTextBookmark */ = {
@@ -3161,7 +3182,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 51";
 		rLen = 0;
-		rLoc = 2114;
+		rLoc = 2689;
 		rType = 0;
 		vrLen = 1010;
 		vrLoc = 1692;
@@ -3181,7 +3202,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 47";
 		rLen = 0;
-		rLoc = 1956;
+		rLoc = 2168;
 		rType = 0;
 		vrLen = 1026;
 		vrLoc = 1752;
@@ -3193,7 +3214,7 @@
 		rLen = 0;
 		rLoc = 2140;
 		rType = 0;
-		vrLen = 1526;
+		vrLen = 1520;
 		vrLoc = 861;
 	};
 	589A53CC0E206EFB0092A06A /* PBXTextBookmark */ = {
@@ -3271,7 +3292,7 @@
 		fRef = 589A51700E1ED7620092A06A /* avmshell.cpp */;
 		name = "avmshell.cpp: 149";
 		rLen = 81;
-		rLoc = 4631;
+		rLoc = 4669;
 		rType = 0;
 		vrLen = 1770;
 		vrLoc = 3402;
@@ -3311,7 +3332,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 70";
 		rLen = 0;
-		rLoc = 2434;
+		rLoc = 3082;
 		rType = 0;
 		vrLen = 884;
 		vrLoc = 2190;
@@ -3381,7 +3402,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 60";
 		rLen = 0;
-		rLoc = 2269;
+		rLoc = 2844;
 		rType = 0;
 		vrLen = 1072;
 		vrLoc = 1892;
@@ -3411,7 +3432,7 @@
 		fRef = 589A51700E1ED7620092A06A /* avmshell.cpp */;
 		name = "avmshell.cpp: 149";
 		rLen = 81;
-		rLoc = 4631;
+		rLoc = 4669;
 		rType = 0;
 		vrLen = 1770;
 		vrLoc = 3402;
@@ -3461,7 +3482,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 50";
 		rLen = 0;
-		rLoc = 2112;
+		rLoc = 2687;
 		rType = 0;
 		vrLen = 1045;
 		vrLoc = 1555;
@@ -3491,7 +3512,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 70";
 		rLen = 0;
-		rLoc = 2434;
+		rLoc = 3082;
 		rType = 0;
 		vrLen = 884;
 		vrLoc = 2190;
