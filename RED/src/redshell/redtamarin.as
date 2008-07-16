@@ -7,7 +7,7 @@ package redtamarin
 		
 		public static function get version():String
 			{
-			return "0.1"
+			return "0.1.0." + parseInt( "$Rev$".split( " " )[1] );
 			}
 		
 		}
@@ -17,7 +17,7 @@ package redtamarin
 		sys.assert( expression );
 		}
 	
-	public native function sleep( second:uint ):void; //not WIN32 
+	public native function sleep( second:uint ):void;
 	
 	public function getRedTamarinVersion():String
 		{
