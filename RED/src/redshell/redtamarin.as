@@ -19,7 +19,7 @@ package redtamarin
 	
 	public native function sleep( second:uint ):void;
 	
-	public native function saveFunction( f:Function ):void;
+	public native function saveFunction( f:* ):void;
 	public native function callFunction():void;
 	
 	public function getRedTamarinVersion():String
