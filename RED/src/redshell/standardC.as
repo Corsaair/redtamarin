@@ -245,30 +245,31 @@ package C.unistd
        for difference
        
        note:
-       in short under WIN32 you can't test for execute (X_OK)
-       but you can test for read and write (RW_OK),
-       to be on the safe side you should use only F_OK, W_OK and R_OK
+       access can not use the same modes in OSX and WIN32
+       so we kept only F_OK / W_OK / R_OK
+       and added a non-POSIX.1 RW_OK
+       all the rest is commented out because it will work only on OSX (and LINUX)
     */
     public const    F_OK:int        = 0;              /* test for existence of file */
-    public const    X_OK:int        = (1<<0);         /* test for execute or search permission */
+//    public const    X_OK:int        = (1<<0);         /* test for execute or search permission */
     public const    W_OK:int        = (1<<1);         /* test for write permission */
     public const    R_OK:int        = (1<<2);         /* test for read permission */
-    public const    RW_OK:int       = 6;              /* test for read and write permission */
+    public const    RW_OK:int       = W_OK | R_OK;    /* test for read and write permission */
 	
 	/* Extended access functions. */
-    public const    _READ_OK:int    = (1<<9);         /* read file data / read directory */
-    public const    _WRITE_OK:int   = (1<<10);        /* write file data / add file to directory */
-    public const    _EXECUTE_OK:int = (1<<11);        /* execute file / search in directory*/
-    public const    _DELETE_OK:int  = (1<<12);        /* delete file / delete directory */
-    public const    _APPEND_OK:int  = (1<<13);        /* append to file / add subdirectory to directory */
-    public const    _RMFILE_OK:int  = (1<<14);        /* - / remove file from directory */
-    public const    _RATTR_OK:int   = (1<<15);        /* read basic attributes */
-    public const    _WATTR_OK:int   = (1<<16);        /* write basic attributes */
-    public const    _REXT_OK:int    = (1<<17);        /* read extended attributes */
-    public const    _WEXT_OK:int    = (1<<18);        /* write extended attributes */
-    public const    _RPERM_OK:int   = (1<<19);        /* read permissions */
-    public const    _WPERM_OK:int   = (1<<20);        /* write permissions */
-    public const    _CHOWN_OK:int   = (1<<21);        /* change ownership */
+//    public const    _READ_OK:int    = (1<<9);         /* read file data / read directory */
+//    public const    _WRITE_OK:int   = (1<<10);        /* write file data / add file to directory */
+//    public const    _EXECUTE_OK:int = (1<<11);        /* execute file / search in directory*/
+//    public const    _DELETE_OK:int  = (1<<12);        /* delete file / delete directory */
+//    public const    _APPEND_OK:int  = (1<<13);        /* append to file / add subdirectory to directory */
+//    public const    _RMFILE_OK:int  = (1<<14);        /* - / remove file from directory */
+//    public const    _RATTR_OK:int   = (1<<15);        /* read basic attributes */
+//    public const    _WATTR_OK:int   = (1<<16);        /* write basic attributes */
+//    public const    _REXT_OK:int    = (1<<17);        /* read extended attributes */
+//    public const    _WEXT_OK:int    = (1<<18);        /* write extended attributes */
+//    public const    _RPERM_OK:int   = (1<<19);        /* read permissions */
+//    public const    _WPERM_OK:int   = (1<<20);        /* write permissions */
+//    public const    _CHOWN_OK:int   = (1<<21);        /* change ownership */
 	
 	/* Determine accessibility of file.
 	   
