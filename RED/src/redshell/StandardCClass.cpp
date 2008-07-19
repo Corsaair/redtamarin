@@ -46,9 +46,11 @@
 #ifdef WIN32
     #include <windows.h>
     #include <direct.h>
+    #include <io.h>
 	#define getcwd _getcwd
 	#define sleep Sleep
     #define setenv _putenv
+    #define access _access
 #else
     #include <unistd.h>
 #endif
