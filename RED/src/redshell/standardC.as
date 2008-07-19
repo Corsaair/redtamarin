@@ -130,7 +130,44 @@ package C.stdlib
 	*/
 	public native function abort():void;
 	
-	//atexit
+	
+	//public native function _registerAtexit( f:Function ):void;
+	
+	internal var _exitFunctions:Array = [];
+	
+	internal function _atexitCallback():void
+	    {
+	    for( var i:int = 0; i<_exitFunctions.length; i++ )
+	        {
+	        _exitFunctions[i]();
+	        }
+	    }
+	
+	/* Register a callback function for program exit.
+	   
+	   note:
+	   ideally we would want to do that directly from C
+	   but because I failed to do that we gonna fake it in AS ;)
+	   the limitation is that your atexit function will only
+	   be called if you call exit(0) at the edn of your programm
+	   
+	   info:
+	   int atexit ( void ( * function ) (void) );
+	*/
+	public function atexit( f:Function ):int
+	    {
+	    /*
+	    if( _exitFunctions.length == 0 )
+	        {
+	        _registerAtexit( _atexitCallback );
+	        }
+	    */
+	    
+	    _exitFunctions.unshift( f );
+	    return 0;
+	    }
+	
+	internal native function _exit( status:int = 0 ):void;
 	
 	/* Terminate program execution.
 	   
@@ -138,7 +175,11 @@ package C.stdlib
 	   void exit( int status );
 	   http://en.wikipedia.org/wiki/Exit_(operating_system)
 	*/
-	public native function exit( status:int = 0 ):void;
+	public function exit( status:int = 0 ):void
+	    {
+	    _atexitCallback();
+	    _exit( status );
+	    }
 	
 	/* Retrieve an environment variable.
 	   
@@ -232,7 +273,8 @@ package C.unistd
 	/* Determine accessibility of file.
 	   
 	   info:
-	   int access(char *path, int mode);
+	   int access( const char *path, int mode );
+	   int _access( const char *path, int mode );
 	*/
 	public native function access( path:String, mode:int ):int;
 	
@@ -243,6 +285,13 @@ package C.unistd
 	*/
 	public native function getcwd():String;
 	
+	/* Suspend execution for an interval of time.
+	   http://www.opengroup.org/onlinepubs/000095399/functions/sleep.html
+	   
+	   info:
+	   unsigned sleep(unsigned time);
+	*/
+	public native function sleep( second:uint ):void;
 	
 	}
 
@@ -409,5 +458,48 @@ package C.string
 	
 	
 	}
+
+/* <time.h>
+   http://www.opengroup.org/onlinepubs/009695399/basedefs/time.h.html
+   http://en.wikipedia.org/wiki/Time.h
+   
+   time types
+   functions to get and manipulate date and time information.
+   
+   note:
+   this lib have fery few chances to get implemented
+   1. you can use Date Object
+   2. you can use getTimer()
+   
+   but later it could be possible that some of function get implemented
+   for ex:
+   double difftime ( time_t time2, time_t time1 );
+   will become
+   difftime( time2:Date, time1:Date ):Number
+   difftime( time2:Number, time1:Number ):Number
+   
+   or another ex:
+   size_t strftime ( char * ptr, size_t maxsize, const char * format, const struct tm * timeptr );
+   will become
+   strftime( format:String, time:Date ):String
+   used like strftime( "Now is %I:%M%p.", new Date() ); //Now is 10:21PM.
+   
+*/
+package C.time
+	{
+	
+	/* A number used to convert the value returned by the clock() function into seconds.
+	*/
+	//public native function get CLOCKS_PER_SEC():Number;
+	
+	/* Return number of clock ticks since process start.
+	    
+	   info:
+	   clock_t clock(void);
+	*/
+	//public native function clock():Number;
+	
+	}
+
 
 

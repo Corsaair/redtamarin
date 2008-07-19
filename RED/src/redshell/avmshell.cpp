@@ -176,7 +176,7 @@ namespace avmshell
 		int dummy;
 		int sp = (int)(&dummy);
 		sp &= ~(sysinfo.dwPageSize-1);
-
+        
 		MEMORY_BASIC_INFORMATION buf;
 		if (VirtualQuery((void*)sp, &buf, sizeof(buf)) == sizeof(buf)) {
 			minstack = (uint32)buf.AllocationBase + kStackMargin;

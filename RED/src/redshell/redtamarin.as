@@ -5,11 +5,6 @@ package redtamarin
 		{
 		public native static function assert( expression:int ):void; //test only
 		
-		public static function get version():String
-			{
-			return "0.1.0." + parseInt( "$Rev$".split( " " )[1] );
-			}
-		
 		}
 	
 	public function assert( expression:int ):void
@@ -19,12 +14,17 @@ package redtamarin
 	
 	public native function sleep( second:uint ):void;
 	
-	public native function saveFunction( f:* ):void;
-	public native function callFunction():void;
+	/* note:
+	   test to save AS function in C
+	   and call the AS function from C
+	   
+	public native function testSave( f:Function ):void;
+	public native function testCall():void;
+	*/
 	
-	public function getRedTamarinVersion():String
+	public function get version():String
 		{
-		return sys.version;
+		return "0.1.0." + parseInt( "$Rev$".split( " " )[1] );
 		}
 	
 	}

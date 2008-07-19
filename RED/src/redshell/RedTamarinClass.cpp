@@ -53,7 +53,9 @@ namespace avmshell
 {
 	BEGIN_NATIVE_MAP(RedTamarinClass)
 		NATIVE_METHOD(redtamarin_sys_assert, RedTamarinClass::sysAssert)
-		NATIVE_METHOD(redtamarin_sleep, RedTamarinClass::sysSleep)
+		NATIVE_METHOD(redtamarin_sleep,      RedTamarinClass::sysSleep)
+        /*NATIVE_METHOD(redtamarin_testCall,   RedTamarinClass::testCall)*/
+        /*NATIVE_METHOD(redtamarin_testSave,   RedTamarinClass::testSave)*/
 	END_NATIVE_MAP()
 					  
 	RedTamarinClass::RedTamarinClass(VTable *cvtable)
@@ -85,5 +87,19 @@ namespace avmshell
             sleep( second );
         #endif
     }
+    
+    /*
+    void RedTamarinClass::testCall()
+    {
+        Atom argv[1] = { test_fcn->atom() };
+        test_fcn->call( 0, argv );
+    }
+    
+    void RedTamarinClass::testSave(ScriptObject* f)
+    {
+        
+        test_fcn = f;
+    }
+    */
     
 }

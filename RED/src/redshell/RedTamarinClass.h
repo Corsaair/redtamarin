@@ -53,6 +53,12 @@ namespace avmshell
         
         void sysSleep(uint32 second);
 		
+        /* void testCall(); */
+        
+        /* void testSave(ScriptObject* f); */
+        
+        /* DRCWB(ScriptObject*) test_fcn; */
+        
 		DECLARE_NATIVE_MAP(RedTamarinClass)
     };
 }

@@ -41,10 +41,13 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include <time.h>
 
 #ifdef WIN32
+    #include <windows.h>
     #include <direct.h>
 	#define getcwd _getcwd
+	#define sleep Sleep
     #define setenv _putenv
 #else
     #include <unistd.h>
@@ -53,16 +56,18 @@
 namespace avmshell
 {
 	BEGIN_NATIVE_MAP(StandardCClass)
-		NATIVE_METHOD(C_stdlib_rand,     StandardCClass::stdlibRand)
-        NATIVE_METHOD(C_stdlib_abort,    StandardCClass::stdlibAbort)
-        NATIVE_METHOD(C_stdlib_exit,     StandardCClass::stdlibExit)
-        NATIVE_METHOD(C_stdlib_getenv,   StandardCClass::stdlibGetenv)
-        NATIVE_METHOD(C_stdlib_setenv,   StandardCClass::stdlibSetenv)
-        NATIVE_METHOD(C_stdlib_system,   StandardCClass::stdlibSystem)
-        NATIVE_METHOD(C_unistd_getcwd,   StandardCClass::unistdGetcwd)
-        NATIVE_METHOD(C_errno_errno_set, StandardCClass::errnoSeterrno)
-        NATIVE_METHOD(C_errno_errno_get, StandardCClass::errnoGeterrno)
-        NATIVE_METHOD(C_string_strerror, StandardCClass::stringStrerror)
+		NATIVE_METHOD(C_stdlib_rand,             StandardCClass::stdlibRand)
+        NATIVE_METHOD(C_stdlib_abort,            StandardCClass::stdlibAbort)
+        NATIVE_METHOD(C_stdlib__exit,            StandardCClass::stdlibExit)
+        NATIVE_METHOD(C_stdlib_getenv,           StandardCClass::stdlibGetenv)
+        NATIVE_METHOD(C_stdlib_setenv,           StandardCClass::stdlibSetenv)
+        NATIVE_METHOD(C_stdlib_system,           StandardCClass::stdlibSystem)
+        NATIVE_METHOD(C_unistd_access,           StandardCClass::unistdAccess)
+        NATIVE_METHOD(C_unistd_getcwd,           StandardCClass::unistdGetcwd)
+        NATIVE_METHOD(C_unistd_sleep,            StandardCClass::unistdSleep)
+        NATIVE_METHOD(C_errno_errno_set,         StandardCClass::errnoSeterrno)
+        NATIVE_METHOD(C_errno_errno_get,         StandardCClass::errnoGeterrno)
+        NATIVE_METHOD(C_string_strerror,         StandardCClass::stringStrerror)
 	END_NATIVE_MAP()
 	
 	StandardCClass::StandardCClass(VTable *cvtable)
@@ -83,12 +88,12 @@ namespace avmshell
     
     void StandardCClass::stdlibAbort()
     {
-        abort();
+        ::abort();
     }
     
     void StandardCClass::stdlibExit( int status )
     {
-        exit( status );
+        ::exit( status );
     }
     
 	Stringp StandardCClass::stdlibGetenv(Stringp name)
@@ -149,12 +154,34 @@ namespace avmshell
 		return system( commandUTF8->c_str() );
     }
     
+    
+    int StandardCClass::unistdAccess( Stringp path, int mode )
+    {
+        if( !path )
+        {
+			toplevel()->throwArgumentError(kNullArgumentError, "path");
+		}
+        
+        UTF8String *pathUTF8 = path->toUTF8String();
+        
+        return access( pathUTF8->c_str(), mode );
+    }
+    
     Stringp StandardCClass::unistdGetcwd()
     {
         char path[1024];
         getcwd( path, (size_t)1024 );
         Stringp s = core()->newString( path );
         return s;
+    }
+    
+    void StandardCClass::unistdSleep(uint32 second)
+    {
+        #ifdef WIN32
+            sleep( second * 1000 ); //WIN32 Sleep take millisec
+        #else
+            sleep( second );
+        #endif
     }
     
     void StandardCClass::errnoSeterrno(int value)
@@ -173,5 +200,47 @@ namespace avmshell
         Stringp s = core()->newString( errstr );
         return s;
     }
+    
+    /* note:
+       does not work, better to use Date and getTimer
+    */
+    /*
+    double StandardCClass::timeGetCLOCKS_PER_SEC()
+    {
+        return (double) CLOCKS_PER_SEC;
+    }
+    
+    double StandardCClass::timeClock()
+    {
+        return (double) ::clock();
+    }
+    
+    double StandardCClass::timeGetClock()
+    {
+        return (double) clock() * (double) CLOCKS_PER_SEC;
+    }
+    */
+    
+    /* note:
+       crashes
+       you can store and call an AS function from C
+       but you can not use it with atexit
+    */
+    /*
+    DRCWB(ScriptObject*) StandardCClass::atexit_callback;
+    
+    void StandardCClass::registerAtexit(ScriptObject* f)
+    {
+        atexit_callback = f;
+        atexit( callAtexit );
+        (void)f;
+    }
+    
+    void StandardCClass::callAtexit()
+    {
+        Atom argv[1] = { atexit_callback->atom() };
+        atexit_callback->call( 0, argv );
+    }
+    */
     
 }

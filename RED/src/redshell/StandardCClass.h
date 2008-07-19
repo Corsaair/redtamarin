@@ -65,13 +65,31 @@ namespace avmshell
 		
         int stdlibSystem(Stringp command);
         
+        int unistdAccess( Stringp path, int mode );
+        
         Stringp unistdGetcwd();
+        
+        void unistdSleep(uint32 second);
         
         void errnoSeterrno(int value);
         
         int errnoGeterrno();
         
         Stringp stringStrerror(int errnum);
+        
+        
+        
+        /*double timeGetCLOCKS_PER_SEC();*/
+        
+        /*double timeClock();*/
+        
+        
+        /* static DRCWB(ScriptObject*) atexit_callback; */
+        
+        /* void registerAtexit(ScriptObject* f); */
+        
+        /* static void callAtexit(); */
+        
         
 		DECLARE_NATIVE_MAP(StandardCClass)
     };

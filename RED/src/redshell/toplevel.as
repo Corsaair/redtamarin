@@ -56,7 +56,7 @@ package avmplus
 	
 	public class File
 	{
-		public native static function exists(filename:String):String;
+		public native static function exists(filename:String):Boolean;
 		public native static function read(filename:String):String;
 		public native static function write(filename:String, data:String):void;
 

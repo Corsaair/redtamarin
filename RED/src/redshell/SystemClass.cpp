@@ -97,7 +97,7 @@ namespace avmshell
 	
 	Stringp SystemClass::getAvmplusVersion()
 	{
-		return core()->newString(AVMPLUS_VERSION_USER " " AVMPLUS_BUILD_CODE);
+		return core()->newString(AVMPLUS_VERSION_USER " " AVMPLUS_BUILD_CODE " (redshell)" );
 	}
 
 	void SystemClass::write(Stringp s)
