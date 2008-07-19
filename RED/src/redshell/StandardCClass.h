@@ -67,6 +67,8 @@ namespace avmshell
         
         int unistdAccess( Stringp path, int mode );
         
+        int unistdChdir( Stringp path );
+        
         Stringp unistdGetcwd();
         
         void unistdSleep(uint32 second);

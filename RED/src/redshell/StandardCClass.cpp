@@ -51,6 +51,7 @@
 	#define sleep Sleep
     #define setenv _putenv
     #define access _access
+    #define chdir _chdir
 #else
     #include <unistd.h>
 #endif
@@ -65,6 +66,7 @@ namespace avmshell
         NATIVE_METHOD(C_stdlib_setenv,           StandardCClass::stdlibSetenv)
         NATIVE_METHOD(C_stdlib_system,           StandardCClass::stdlibSystem)
         NATIVE_METHOD(C_unistd_access,           StandardCClass::unistdAccess)
+        NATIVE_METHOD(C_unistd_chdir,            StandardCClass::unistdChdir)
         NATIVE_METHOD(C_unistd_getcwd,           StandardCClass::unistdGetcwd)
         NATIVE_METHOD(C_unistd_sleep,            StandardCClass::unistdSleep)
         NATIVE_METHOD(C_errno_errno_set,         StandardCClass::errnoSeterrno)
@@ -165,8 +167,18 @@ namespace avmshell
 		}
         
         UTF8String *pathUTF8 = path->toUTF8String();
-        
         return access( pathUTF8->c_str(), mode );
+    }
+    
+    int StandardCClass::unistdChdir( Stringp path )
+    {
+        if( !path )
+        {
+			toplevel()->throwArgumentError(kNullArgumentError, "path");
+		}
+        
+        UTF8String *pathUTF8 = path->toUTF8String();
+        return chdir( pathUTF8->c_str() );
     }
     
     Stringp StandardCClass::unistdGetcwd()

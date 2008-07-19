@@ -279,6 +279,15 @@ package C.unistd
 	*/
 	public native function access( path:String, mode:int ):int;
 	
+	/* Change working directory.
+	   http://www.opengroup.org/onlinepubs/009695399/functions/chdir.html
+	   
+	   info:
+	   int chdir( const char *path );
+	   int _chdir( const char *path );
+	*/
+	public native function chdir( path:String ):int;
+	
 	/* Get the pathname of the current working directory.
 	   
 	   info:

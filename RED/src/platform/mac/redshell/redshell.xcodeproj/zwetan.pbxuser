@@ -926,6 +926,8 @@
 			58F513EB0E325D5400348F96 /* PBXTextBookmark */ = 58F513EB0E325D5400348F96 /* PBXTextBookmark */;
 			58F513EC0E325D5400348F96 /* PBXTextBookmark */ = 58F513EC0E325D5400348F96 /* PBXTextBookmark */;
 			58F513ED0E325D5400348F96 /* PBXTextBookmark */ = 58F513ED0E325D5400348F96 /* PBXTextBookmark */;
+			58F513F00E32747100348F96 /* PBXTextBookmark */ = 58F513F00E32747100348F96 /* PBXTextBookmark */;
+			58F513F10E32747100348F96 /* PBXTextBookmark */ = 58F513F10E32747100348F96 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 589A51210E1ED3160092A06A /* Source Control */;
 		userBookmarkGroup = 589A51160E1ED2F70092A06A /* PBXBookmarkGroup */;
@@ -1597,9 +1599,9 @@
 	};
 	589A51620E1ED7620092A06A /* toplevel.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {938, 1946}}";
-			sepNavSelRange = "{5211, 15}";
-			sepNavVisRange = "{4234, 1812}";
+			sepNavIntBoundsRect = "{{0, 0}, {938, 1960}}";
+			sepNavSelRange = "{5211, 14}";
+			sepNavVisRange = "{4234, 1802}";
 			sepNavWindowFrame = "{{1486, 58}, {944, 580}}";
 		};
 	};
@@ -1728,17 +1730,17 @@
 	};
 	589A52570E201B800092A06A /* StandardCClass.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {938, 1386}}";
-			sepNavSelRange = "{2415, 43}";
-			sepNavVisRange = "{1992, 1014}";
+			sepNavIntBoundsRect = "{{0, 0}, {938, 1414}}";
+			sepNavSelRange = "{2500, 0}";
+			sepNavVisRange = "{1992, 1046}";
 			sepNavWindowFrame = "{{199, 101}, {944, 580}}";
 		};
 	};
 	589A52580E201B8C0092A06A /* StandardCClass.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {938, 3402}}";
-			sepNavSelRange = "{6146, 0}";
-			sepNavVisRange = "{5483, 983}";
+			sepNavIntBoundsRect = "{{0, 0}, {938, 3654}}";
+			sepNavSelRange = "{5619, 0}";
+			sepNavVisRange = "{5060, 1132}";
 			sepNavWindowFrame = "{{1364, 31}, {944, 580}}";
 		};
 	};
@@ -1944,7 +1946,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 54";
 		rLen = 0;
-		rLoc = 3396;
+		rLoc = 3499;
 		rType = 0;
 		vrLen = 603;
 		vrLoc = 1728;
@@ -1964,7 +1966,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 61";
 		rLen = 0;
-		rLoc = 3716;
+		rLoc = 3819;
 		rType = 0;
 		vrLen = 1470;
 		vrLoc = 864;
@@ -1984,7 +1986,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 61";
 		rLen = 0;
-		rLoc = 3716;
+		rLoc = 3819;
 		rType = 0;
 		vrLen = 1395;
 		vrLoc = 939;
@@ -2004,7 +2006,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 59";
 		rLen = 0;
-		rLoc = 3716;
+		rLoc = 3819;
 		rType = 0;
 		vrLen = 1466;
 		vrLoc = 699;
@@ -2024,7 +2026,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 58";
 		rLen = 0;
-		rLoc = 3716;
+		rLoc = 3819;
 		rType = 0;
 		vrLen = 1464;
 		vrLoc = 699;
@@ -2064,7 +2066,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 58";
 		rLen = 0;
-		rLoc = 3716;
+		rLoc = 3819;
 		rType = 0;
 		vrLen = 1466;
 		vrLoc = 699;
@@ -2314,7 +2316,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 59";
 		rLen = 0;
-		rLoc = 3716;
+		rLoc = 3819;
 		rType = 0;
 		vrLen = 1477;
 		vrLoc = 669;
@@ -2522,7 +2524,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 61";
 		rLen = 0;
-		rLoc = 3716;
+		rLoc = 3819;
 		rType = 0;
 		vrLen = 1598;
 		vrLoc = 699;
@@ -2542,7 +2544,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 61";
 		rLen = 0;
-		rLoc = 3716;
+		rLoc = 3819;
 		rType = 0;
 		vrLen = 1480;
 		vrLoc = 819;
@@ -2682,7 +2684,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 61";
 		rLen = 0;
-		rLoc = 3716;
+		rLoc = 3819;
 		rType = 0;
 		vrLen = 1480;
 		vrLoc = 819;
@@ -2702,7 +2704,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 52";
 		rLen = 0;
-		rLoc = 3396;
+		rLoc = 3499;
 		rType = 0;
 		vrLen = 1552;
 		vrLoc = 772;
@@ -2922,7 +2924,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 49";
 		rLen = 108;
-		rLoc = 2991;
+		rLoc = 3094;
 		rType = 0;
 		vrLen = 1556;
 		vrLoc = 772;
@@ -2952,7 +2954,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 49";
 		rLen = 108;
-		rLoc = 2991;
+		rLoc = 3094;
 		rType = 0;
 		vrLen = 1629;
 		vrLoc = 699;
@@ -3032,7 +3034,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 48";
 		rLen = 0;
-		rLoc = 2990;
+		rLoc = 3093;
 		rType = 0;
 		vrLen = 1623;
 		vrLoc = 699;
@@ -3082,7 +3084,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 48";
 		rLen = 0;
-		rLoc = 2990;
+		rLoc = 3093;
 		rType = 0;
 		vrLen = 1505;
 		vrLoc = 819;
@@ -3102,7 +3104,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 55";
 		rLen = 0;
-		rLoc = 3137;
+		rLoc = 3240;
 		rType = 0;
 		vrLen = 1523;
 		vrLoc = 772;
@@ -3392,7 +3394,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 55";
 		rLen = 0;
-		rLoc = 3137;
+		rLoc = 3240;
 		rType = 0;
 		vrLen = 1523;
 		vrLoc = 772;
@@ -3502,7 +3504,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 48";
 		rLen = 0;
-		rLoc = 2990;
+		rLoc = 3093;
 		rType = 0;
 		vrLen = 1436;
 		vrLoc = 939;
@@ -3562,7 +3564,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 74";
 		rLen = 49;
-		rLoc = 4248;
+		rLoc = 4351;
 		rType = 0;
 		vrLen = 1019;
 		vrLoc = 1477;
@@ -3572,7 +3574,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 58";
 		rLen = 0;
-		rLoc = 2635;
+		rLoc = 2685;
 		rType = 0;
 		vrLen = 1558;
 		vrLoc = 699;
@@ -3592,7 +3594,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 74";
 		rLen = 49;
-		rLoc = 4248;
+		rLoc = 4351;
 		rType = 0;
 		vrLen = 816;
 		vrLoc = 1692;
@@ -3612,7 +3614,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 58";
 		rLen = 0;
-		rLoc = 2635;
+		rLoc = 2685;
 		rType = 0;
 		vrLen = 1479;
 		vrLoc = 819;
@@ -3622,7 +3624,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 80";
 		rLen = 0;
-		rLoc = 4409;
+		rLoc = 4512;
 		rType = 0;
 		vrLen = 932;
 		vrLoc = 1773;
@@ -3662,7 +3664,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 62";
 		rLen = 0;
-		rLoc = 3385;
+		rLoc = 3488;
 		rType = 0;
 		vrLen = 970;
 		vrLoc = 1752;
@@ -3682,7 +3684,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 49";
 		rLen = 0;
-		rLoc = 2970;
+		rLoc = 3073;
 		rType = 0;
 		vrLen = 1033;
 		vrLoc = 1728;
@@ -3712,7 +3714,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 49";
 		rLen = 0;
-		rLoc = 2492;
+		rLoc = 2517;
 		rType = 0;
 		vrLen = 1060;
 		vrLoc = 1692;
@@ -3732,7 +3734,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 47";
 		rLen = 0;
-		rLoc = 2220;
+		rLoc = 2245;
 		rType = 0;
 		vrLen = 1012;
 		vrLoc = 1692;
@@ -3762,7 +3764,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 51";
 		rLen = 0;
-		rLoc = 2990;
+		rLoc = 3093;
 		rType = 0;
 		vrLen = 1010;
 		vrLoc = 1692;
@@ -3782,7 +3784,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 47";
 		rLen = 0;
-		rLoc = 2256;
+		rLoc = 2281;
 		rType = 0;
 		vrLen = 1026;
 		vrLoc = 1752;
@@ -3912,7 +3914,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 70";
 		rLen = 0;
-		rLoc = 3385;
+		rLoc = 3488;
 		rType = 0;
 		vrLen = 884;
 		vrLoc = 2190;
@@ -3982,7 +3984,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 60";
 		rLen = 0;
-		rLoc = 3145;
+		rLoc = 3248;
 		rType = 0;
 		vrLen = 1072;
 		vrLoc = 1892;
@@ -4062,7 +4064,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 50";
 		rLen = 0;
-		rLoc = 2988;
+		rLoc = 3091;
 		rType = 0;
 		vrLen = 1045;
 		vrLoc = 1555;
@@ -4092,7 +4094,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 70";
 		rLen = 0;
-		rLoc = 3385;
+		rLoc = 3488;
 		rType = 0;
 		vrLen = 884;
 		vrLoc = 2190;
@@ -5602,7 +5604,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 0;
-		rLoc = 2947;
+		rLoc = 2997;
 		rType = 0;
 		vrLen = 1001;
 		vrLoc = 1801;
@@ -5612,7 +5614,7 @@
 		comments = "error: cannot declare member function 'static void avmshell::StandardCClass::callAtexit()' to have static linkage";
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		rLen = 0;
-		rLoc = 237;
+		rLoc = 249;
 		rType = 1;
 	};
 	58F511EB0E30BDB700348F96 /* PBXTextBookmark */ = {
@@ -5710,7 +5712,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 90";
 		rLen = 0;
-		rLoc = 3385;
+		rLoc = 3488;
 		rType = 0;
 		vrLen = 1272;
 		vrLoc = 1901;
@@ -6180,7 +6182,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 0;
-		rLoc = 2996;
+		rLoc = 3046;
 		rType = 0;
 		vrLen = 997;
 		vrLoc = 1692;
@@ -6200,7 +6202,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 0;
-		rLoc = 2996;
+		rLoc = 3046;
 		rType = 0;
 		vrLen = 1045;
 		vrLoc = 1689;
@@ -6210,7 +6212,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 179";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 899;
 		vrLoc = 4428;
@@ -6230,7 +6232,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 18;
-		rLoc = 2966;
+		rLoc = 3016;
 		rType = 0;
 		vrLen = 979;
 		vrLoc = 1801;
@@ -6240,7 +6242,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 177";
 		rLen = 0;
-		rLoc = 6671;
+		rLoc = 7036;
 		rType = 0;
 		vrLen = 926;
 		vrLoc = 4419;
@@ -6260,7 +6262,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 18;
-		rLoc = 2966;
+		rLoc = 3016;
 		rType = 0;
 		vrLen = 1015;
 		vrLoc = 1765;
@@ -6270,7 +6272,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 179";
 		rLen = 0;
-		rLoc = 6671;
+		rLoc = 7036;
 		rType = 0;
 		vrLen = 929;
 		vrLoc = 4419;
@@ -6290,7 +6292,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 180";
 		rLen = 0;
-		rLoc = 6671;
+		rLoc = 7036;
 		rType = 0;
 		vrLen = 924;
 		vrLoc = 4522;
@@ -6310,7 +6312,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 185";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 937;
 		vrLoc = 4522;
@@ -6320,7 +6322,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 80";
 		rLen = 0;
-		rLoc = 2996;
+		rLoc = 3046;
 		rType = 0;
 		vrLen = 1014;
 		vrLoc = 1765;
@@ -6330,7 +6332,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 66";
 		rLen = 0;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 1341;
 		vrLoc = 1812;
@@ -6350,7 +6352,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 187";
 		rLen = 1;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 937;
 		vrLoc = 4685;
@@ -6360,7 +6362,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 0;
-		rLoc = 2982;
+		rLoc = 3032;
 		rType = 0;
 		vrLen = 1018;
 		vrLoc = 1765;
@@ -6370,7 +6372,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 178";
 		rLen = 0;
-		rLoc = 6671;
+		rLoc = 7036;
 		rType = 0;
 		vrLen = 940;
 		vrLoc = 4682;
@@ -6380,7 +6382,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 0;
-		rLoc = 2982;
+		rLoc = 3032;
 		rType = 0;
 		vrLen = 1014;
 		vrLoc = 1765;
@@ -6390,7 +6392,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 181";
 		rLen = 0;
-		rLoc = 6671;
+		rLoc = 7036;
 		rType = 0;
 		vrLen = 851;
 		vrLoc = 4791;
@@ -6400,7 +6402,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 0;
-		rLoc = 2966;
+		rLoc = 3016;
 		rType = 0;
 		vrLen = 1026;
 		vrLoc = 1802;
@@ -6410,7 +6412,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 181";
 		rLen = 0;
-		rLoc = 6613;
+		rLoc = 6978;
 		rType = 0;
 		vrLen = 905;
 		vrLoc = 4678;
@@ -6420,7 +6422,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 0;
-		rLoc = 2966;
+		rLoc = 3016;
 		rType = 0;
 		vrLen = 1019;
 		vrLoc = 1802;
@@ -6430,7 +6432,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 181";
 		rLen = 0;
-		rLoc = 6613;
+		rLoc = 6978;
 		rType = 0;
 		vrLen = 779;
 		vrLoc = 4955;
@@ -6440,7 +6442,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 80";
 		rLen = 1;
-		rLoc = 2996;
+		rLoc = 3046;
 		rType = 0;
 		vrLen = 1019;
 		vrLoc = 1802;
@@ -6450,7 +6452,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 187";
 		rLen = 0;
-		rLoc = 6671;
+		rLoc = 7036;
 		rType = 0;
 		vrLen = 883;
 		vrLoc = 4839;
@@ -6460,7 +6462,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 80";
 		rLen = 1;
-		rLoc = 2996;
+		rLoc = 3046;
 		rType = 0;
 		vrLen = 1019;
 		vrLoc = 1802;
@@ -6470,7 +6472,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 188";
 		rLen = 0;
-		rLoc = 6671;
+		rLoc = 7036;
 		rType = 0;
 		vrLen = 925;
 		vrLoc = 4839;
@@ -6490,7 +6492,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 0;
-		rLoc = 2947;
+		rLoc = 2997;
 		rType = 0;
 		vrLen = 1001;
 		vrLoc = 1801;
@@ -6500,7 +6502,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 959;
 		vrLoc = 4685;
@@ -6510,7 +6512,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 0;
-		rLoc = 2947;
+		rLoc = 2997;
 		rType = 0;
 		vrLen = 1001;
 		vrLoc = 1801;
@@ -6520,7 +6522,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 962;
 		vrLoc = 4682;
@@ -6530,7 +6532,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 962;
 		vrLoc = 4682;
@@ -6540,7 +6542,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 0;
-		rLoc = 2947;
+		rLoc = 2997;
 		rType = 0;
 		vrLen = 1001;
 		vrLoc = 1801;
@@ -6550,7 +6552,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 185";
 		rLen = 0;
-		rLoc = 6852;
+		rLoc = 7217;
 		rType = 0;
 		vrLen = 934;
 		vrLoc = 4682;
@@ -6610,7 +6612,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 81";
 		rLen = 0;
-		rLoc = 2996;
+		rLoc = 3046;
 		rType = 0;
 		vrLen = 1001;
 		vrLoc = 1801;
@@ -6620,7 +6622,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 179";
 		rLen = 0;
-		rLoc = 6702;
+		rLoc = 7067;
 		rType = 0;
 		vrLen = 872;
 		vrLoc = 4744;
@@ -6630,7 +6632,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 185";
 		rLen = 0;
-		rLoc = 6852;
+		rLoc = 7217;
 		rType = 0;
 		vrLen = 788;
 		vrLoc = 4682;
@@ -6650,7 +6652,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 179";
 		rLen = 0;
-		rLoc = 6702;
+		rLoc = 7067;
 		rType = 0;
 		vrLen = 872;
 		vrLoc = 4744;
@@ -6720,7 +6722,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 0;
-		rLoc = 2947;
+		rLoc = 2997;
 		rType = 0;
 		vrLen = 1001;
 		vrLoc = 1801;
@@ -6730,7 +6732,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 179";
 		rLen = 0;
-		rLoc = 6702;
+		rLoc = 7067;
 		rType = 0;
 		vrLen = 872;
 		vrLoc = 4744;
@@ -6740,7 +6742,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 81";
 		rLen = 0;
-		rLoc = 2996;
+		rLoc = 3046;
 		rType = 0;
 		vrLen = 1001;
 		vrLoc = 1801;
@@ -6750,7 +6752,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 187";
 		rLen = 0;
-		rLoc = 6852;
+		rLoc = 7217;
 		rType = 0;
 		vrLen = 951;
 		vrLoc = 4744;
@@ -6760,7 +6762,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 983;
 		vrLoc = 4744;
@@ -6790,7 +6792,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 81";
 		rLen = 0;
-		rLoc = 2996;
+		rLoc = 3046;
 		rType = 0;
 		vrLen = 1001;
 		vrLoc = 1801;
@@ -6800,7 +6802,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 983;
 		vrLoc = 4744;
@@ -6810,7 +6812,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 983;
 		vrLoc = 4744;
@@ -6840,7 +6842,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 81";
 		rLen = 0;
-		rLoc = 2996;
+		rLoc = 3046;
 		rType = 0;
 		vrLen = 1001;
 		vrLoc = 1801;
@@ -6850,7 +6852,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 190";
 		rLen = 0;
-		rLoc = 6931;
+		rLoc = 7296;
 		rType = 0;
 		vrLen = 942;
 		vrLoc = 4785;
@@ -6860,7 +6862,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 912;
 		vrLoc = 4785;
@@ -6879,7 +6881,7 @@
 		isa = PBXTextBookmark;
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 42";
-		rLen = 1249;
+		rLen = 1299;
 		rLoc = 1803;
 		rType = 0;
 		vrLen = 1071;
@@ -6980,7 +6982,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 180";
 		rLen = 0;
-		rLoc = 6739;
+		rLoc = 7104;
 		rType = 0;
 		vrLen = 1936;
 		vrLoc = 939;
@@ -6990,7 +6992,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 1345;
 		vrLoc = 1931;
@@ -7010,7 +7012,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 953;
 		vrLoc = 4744;
@@ -7019,7 +7021,7 @@
 		isa = PBXTextBookmark;
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 42";
-		rLen = 1249;
+		rLen = 1299;
 		rLoc = 1803;
 		rType = 0;
 		vrLen = 1071;
@@ -7030,7 +7032,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 180";
 		rLen = 0;
-		rLoc = 6739;
+		rLoc = 7104;
 		rType = 0;
 		vrLen = 1936;
 		vrLoc = 939;
@@ -7130,7 +7132,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 183";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 927;
 		vrLoc = 4785;
@@ -7190,7 +7192,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 183";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 927;
 		vrLoc = 4785;
@@ -7200,7 +7202,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 183";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 927;
 		vrLoc = 4785;
@@ -7270,7 +7272,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 929;
 		vrLoc = 4785;
@@ -7280,7 +7282,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 941;
 		vrLoc = 4785;
@@ -7419,7 +7421,7 @@
 		isa = PBXTextBookmark;
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 42";
-		rLen = 1249;
+		rLen = 1299;
 		rLoc = 1803;
 		rType = 0;
 		vrLen = 1035;
@@ -7450,7 +7452,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 192";
 		rLen = 0;
-		rLoc = 6964;
+		rLoc = 7329;
 		rType = 0;
 		vrLen = 947;
 		vrLoc = 4791;
@@ -7460,7 +7462,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 927;
 		vrLoc = 4785;
@@ -7629,7 +7631,7 @@
 		isa = PBXTextBookmark;
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 42";
-		rLen = 1249;
+		rLen = 1299;
 		rLoc = 1803;
 		rType = 0;
 		vrLen = 1035;
@@ -7640,7 +7642,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 192";
 		rLen = 0;
-		rLoc = 6964;
+		rLoc = 7329;
 		rType = 0;
 		vrLen = 947;
 		vrLoc = 4791;
@@ -7680,7 +7682,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 192";
 		rLen = 0;
-		rLoc = 6964;
+		rLoc = 7329;
 		rType = 0;
 		vrLen = 951;
 		vrLoc = 4791;
@@ -7690,7 +7692,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 967;
 		vrLoc = 4791;
@@ -7700,7 +7702,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 192";
 		rLen = 0;
-		rLoc = 6964;
+		rLoc = 7329;
 		rType = 0;
 		vrLen = 948;
 		vrLoc = 4796;
@@ -7710,7 +7712,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 950;
 		vrLoc = 4796;
@@ -7720,7 +7722,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 181";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 952;
 		vrLoc = 4796;
@@ -7740,7 +7742,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 77";
 		rLen = 0;
-		rLoc = 2947;
+		rLoc = 2997;
 		rType = 0;
 		vrLen = 1039;
 		vrLoc = 1803;
@@ -7750,7 +7752,7 @@
 		comments = "error: invalid cast from type 'void (*)(avmplus::ScriptObject*)' to type 'void (avmplus::ScriptObject::*)()'";
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		rLen = 0;
-		rLoc = 69;
+		rLoc = 71;
 		rType = 1;
 	};
 	58F512DC0E30E1BA00348F96 /* PBXTextBookmark */ = {
@@ -7758,7 +7760,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 181";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 957;
 		vrLoc = 4791;
@@ -7778,7 +7780,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 77";
 		rLen = 0;
-		rLoc = 2947;
+		rLoc = 2997;
 		rType = 0;
 		vrLen = 1039;
 		vrLoc = 1803;
@@ -7788,7 +7790,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 66";
 		rLen = 0;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 1338;
 		vrLoc = 1938;
@@ -7838,7 +7840,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 0;
-		rLoc = 2947;
+		rLoc = 2997;
 		rType = 0;
 		vrLen = 1051;
 		vrLoc = 1802;
@@ -7848,7 +7850,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 185";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 955;
 		vrLoc = 4791;
@@ -7858,7 +7860,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 66";
 		rLen = 0;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 1338;
 		vrLoc = 1938;
@@ -7938,7 +7940,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 66";
 		rLen = 0;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 950;
 		vrLoc = 4805;
@@ -7948,7 +7950,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 77";
 		rLen = 0;
-		rLoc = 2947;
+		rLoc = 2997;
 		rType = 0;
 		vrLen = 1040;
 		vrLoc = 1802;
@@ -7958,7 +7960,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 66";
 		rLen = 0;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 1335;
 		vrLoc = 1826;
@@ -7968,7 +7970,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 0;
-		rLoc = 2947;
+		rLoc = 2997;
 		rType = 0;
 		vrLen = 1036;
 		vrLoc = 1802;
@@ -7978,7 +7980,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 185";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 955;
 		vrLoc = 4791;
@@ -7988,7 +7990,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 0;
-		rLoc = 2947;
+		rLoc = 2997;
 		rType = 0;
 		vrLen = 1051;
 		vrLoc = 1802;
@@ -7998,7 +8000,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 187";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 1046;
 		vrLoc = 4785;
@@ -8008,7 +8010,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 182";
 		rLen = 0;
-		rLoc = 6748;
+		rLoc = 7113;
 		rType = 0;
 		vrLen = 1030;
 		vrLoc = 4791;
@@ -8018,7 +8020,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 190";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 1043;
 		vrLoc = 4791;
@@ -8028,7 +8030,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 0;
-		rLoc = 2877;
+		rLoc = 2927;
 		rType = 0;
 		vrLen = 1060;
 		vrLoc = 1802;
@@ -8038,7 +8040,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 188";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 879;
 		vrLoc = 4973;
@@ -8048,7 +8050,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 188";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 879;
 		vrLoc = 4973;
@@ -8058,7 +8060,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 0;
-		rLoc = 2877;
+		rLoc = 2927;
 		rType = 0;
 		vrLen = 1060;
 		vrLoc = 1802;
@@ -8068,7 +8070,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 188";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 896;
 		vrLoc = 4955;
@@ -8078,7 +8080,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 0;
-		rLoc = 2837;
+		rLoc = 2887;
 		rType = 0;
 		vrLen = 1053;
 		vrLoc = 1802;
@@ -8088,7 +8090,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 188";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 943;
 		vrLoc = 4908;
@@ -8098,7 +8100,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 188";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 943;
 		vrLoc = 4908;
@@ -8108,7 +8110,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 0;
-		rLoc = 2837;
+		rLoc = 2887;
 		rType = 0;
 		vrLen = 1053;
 		vrLoc = 1802;
@@ -8118,7 +8120,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 188";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 938;
 		vrLoc = 4908;
@@ -8128,7 +8130,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 84";
 		rLen = 0;
-		rLoc = 2996;
+		rLoc = 3046;
 		rType = 0;
 		vrLen = 1035;
 		vrLoc = 1878;
@@ -8138,7 +8140,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 188";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 913;
 		vrLoc = 4979;
@@ -8148,7 +8150,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 188";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 913;
 		vrLoc = 4979;
@@ -8158,7 +8160,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 84";
 		rLen = 0;
-		rLoc = 2996;
+		rLoc = 3046;
 		rType = 0;
 		vrLen = 1035;
 		vrLoc = 1878;
@@ -8168,7 +8170,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 189";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 905;
 		vrLoc = 4979;
@@ -8188,7 +8190,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 79";
 		rLen = 0;
-		rLoc = 2947;
+		rLoc = 2997;
 		rType = 0;
 		vrLen = 1036;
 		vrLoc = 1824;
@@ -8198,7 +8200,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 186";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 974;
 		vrLoc = 4796;
@@ -8208,7 +8210,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 186";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 974;
 		vrLoc = 4796;
@@ -8228,7 +8230,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 79";
 		rLen = 0;
-		rLoc = 2947;
+		rLoc = 2997;
 		rType = 0;
 		vrLen = 1036;
 		vrLoc = 1824;
@@ -8238,7 +8240,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 186";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 7191;
 		rType = 0;
 		vrLen = 974;
 		vrLoc = 4796;
@@ -8248,7 +8250,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 183";
 		rLen = 0;
-		rLoc = 6777;
+		rLoc = 7142;
 		rType = 0;
 		vrLen = 972;
 		vrLoc = 4796;
@@ -8258,7 +8260,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 195";
 		rLen = 0;
-		rLoc = 6971;
+		rLoc = 7336;
 		rType = 0;
 		vrLen = 974;
 		vrLoc = 4796;
@@ -8268,7 +8270,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 183";
 		rLen = 0;
-		rLoc = 6777;
+		rLoc = 7142;
 		rType = 0;
 		vrLen = 976;
 		vrLoc = 4796;
@@ -8288,7 +8290,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 0;
-		rLoc = 2837;
+		rLoc = 2887;
 		rType = 0;
 		vrLen = 1045;
 		vrLoc = 1822;
@@ -8298,7 +8300,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 178";
 		rLen = 0;
-		rLoc = 6671;
+		rLoc = 7036;
 		rType = 0;
 		vrLen = 929;
 		vrLoc = 4839;
@@ -8308,7 +8310,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 178";
 		rLen = 0;
-		rLoc = 6671;
+		rLoc = 7036;
 		rType = 0;
 		vrLen = 929;
 		vrLoc = 4839;
@@ -8328,7 +8330,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 76";
 		rLen = 0;
-		rLoc = 2837;
+		rLoc = 2887;
 		rType = 0;
 		vrLen = 1045;
 		vrLoc = 1822;
@@ -8338,7 +8340,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 178";
 		rLen = 0;
-		rLoc = 6671;
+		rLoc = 7036;
 		rType = 0;
 		vrLen = 931;
 		vrLoc = 4839;
@@ -8348,7 +8350,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 183";
 		rLen = 0;
-		rLoc = 6777;
+		rLoc = 7142;
 		rType = 0;
 		vrLen = 974;
 		vrLoc = 4796;
@@ -8368,7 +8370,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 80";
 		rLen = 0;
-		rLoc = 2966;
+		rLoc = 3016;
 		rType = 0;
 		vrLen = 1052;
 		vrLoc = 1822;
@@ -8378,7 +8380,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 66";
 		rLen = 1;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 1289;
 		vrLoc = 1907;
@@ -8388,7 +8390,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 183";
 		rLen = 0;
-		rLoc = 6777;
+		rLoc = 7142;
 		rType = 0;
 		vrLen = 931;
 		vrLoc = 4839;
@@ -8398,7 +8400,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 0;
-		rLoc = 2898;
+		rLoc = 2948;
 		rType = 0;
 		vrLen = 1052;
 		vrLoc = 1822;
@@ -8408,7 +8410,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 66";
 		rLen = 1;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 1294;
 		vrLoc = 1907;
@@ -8428,7 +8430,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 80";
 		rLen = 0;
-		rLoc = 2966;
+		rLoc = 3016;
 		rType = 0;
 		vrLen = 1052;
 		vrLoc = 1822;
@@ -8438,7 +8440,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 184";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 974;
 		vrLoc = 4796;
@@ -8458,7 +8460,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 80";
 		rLen = 0;
-		rLoc = 2959;
+		rLoc = 3009;
 		rType = 0;
 		vrLen = 1040;
 		vrLoc = 1822;
@@ -8468,7 +8470,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 177";
 		rLen = 0;
-		rLoc = 6618;
+		rLoc = 6983;
 		rType = 0;
 		vrLen = 976;
 		vrLoc = 4717;
@@ -8478,7 +8480,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 184";
 		rLen = 0;
-		rLoc = 6815;
+		rLoc = 7180;
 		rType = 0;
 		vrLen = 974;
 		vrLoc = 4796;
@@ -8498,7 +8500,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 58";
 		rLen = 0;
-		rLoc = 2239;
+		rLoc = 2264;
 		rType = 0;
 		vrLen = 1309;
 		vrLoc = 1729;
@@ -8518,7 +8520,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 177";
 		rLen = 0;
-		rLoc = 6618;
+		rLoc = 6983;
 		rType = 0;
 		vrLen = 933;
 		vrLoc = 4760;
@@ -8528,7 +8530,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 80";
 		rLen = 0;
-		rLoc = 2959;
+		rLoc = 3009;
 		rType = 0;
 		vrLen = 1040;
 		vrLoc = 1822;
@@ -8538,7 +8540,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 177";
 		rLen = 0;
-		rLoc = 6613;
+		rLoc = 6978;
 		rType = 0;
 		vrLen = 967;
 		vrLoc = 4665;
@@ -8548,7 +8550,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 177";
 		rLen = 0;
-		rLoc = 6613;
+		rLoc = 6978;
 		rType = 0;
 		vrLen = 967;
 		vrLoc = 4665;
@@ -8598,7 +8600,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 177";
 		rLen = 0;
-		rLoc = 6613;
+		rLoc = 6978;
 		rType = 0;
 		vrLen = 967;
 		vrLoc = 4665;
@@ -8698,7 +8700,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 70";
 		rLen = 0;
-		rLoc = 2549;
+		rLoc = 2599;
 		rType = 0;
 		vrLen = 1068;
 		vrLoc = 1803;
@@ -8728,7 +8730,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 74";
 		rLen = 0;
-		rLoc = 3131;
+		rLoc = 3234;
 		rType = 0;
 		vrLen = 1316;
 		vrLoc = 3277;
@@ -8808,7 +8810,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 160";
 		rLen = 26;
-		rLoc = 5537;
+		rLoc = 5902;
 		rType = 0;
 		vrLen = 1031;
 		vrLoc = 4435;
@@ -8828,7 +8830,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 70";
 		rLen = 0;
-		rLoc = 2549;
+		rLoc = 2599;
 		rType = 0;
 		vrLen = 1068;
 		vrLoc = 1803;
@@ -8838,7 +8840,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 74";
 		rLen = 0;
-		rLoc = 3131;
+		rLoc = 3234;
 		rType = 0;
 		vrLen = 1326;
 		vrLoc = 3277;
@@ -8898,7 +8900,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 65";
 		rLen = 78;
-		rLoc = 2679;
+		rLoc = 2782;
 		rType = 0;
 		vrLen = 1296;
 		vrLoc = 1773;
@@ -8938,7 +8940,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 65";
 		rLen = 78;
-		rLoc = 2679;
+		rLoc = 2782;
 		rType = 0;
 		vrLen = 1301;
 		vrLoc = 1773;
@@ -8958,7 +8960,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 65";
 		rLen = 0;
-		rLoc = 2715;
+		rLoc = 2818;
 		rType = 0;
 		vrLen = 1340;
 		vrLoc = 1773;
@@ -8968,7 +8970,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 65";
 		rLen = 0;
-		rLoc = 2715;
+		rLoc = 2818;
 		rType = 0;
 		vrLen = 1340;
 		vrLoc = 1773;
@@ -9028,7 +9030,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 65";
 		rLen = 0;
-		rLoc = 2715;
+		rLoc = 2818;
 		rType = 0;
 		vrLen = 1340;
 		vrLoc = 1773;
@@ -9118,7 +9120,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 82;
-		rLoc = 2716;
+		rLoc = 2766;
 		rType = 0;
 		vrLen = 1119;
 		vrLoc = 1829;
@@ -9148,7 +9150,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 58";
 		rLen = 0;
-		rLoc = 2100;
+		rLoc = 2125;
 		rType = 0;
 		vrLen = 1537;
 		vrLoc = 1947;
@@ -9178,7 +9180,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 70";
 		rLen = 0;
-		rLoc = 2549;
+		rLoc = 2599;
 		rType = 0;
 		vrLen = 1067;
 		vrLoc = 1803;
@@ -9198,7 +9200,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 70";
 		rLen = 0;
-		rLoc = 2549;
+		rLoc = 2599;
 		rType = 0;
 		vrLen = 1067;
 		vrLoc = 1803;
@@ -9248,7 +9250,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 82;
-		rLoc = 2716;
+		rLoc = 2766;
 		rType = 0;
 		vrLen = 1119;
 		vrLoc = 1829;
@@ -9258,7 +9260,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 69";
 		rLen = 0;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 1481;
 		vrLoc = 1985;
@@ -9278,7 +9280,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 69";
 		rLen = 0;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 1470;
 		vrLoc = 2004;
@@ -9298,7 +9300,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 58";
 		rLen = 0;
-		rLoc = 2100;
+		rLoc = 2125;
 		rType = 0;
 		vrLen = 1537;
 		vrLoc = 1947;
@@ -9318,7 +9320,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 194";
 		rLen = 0;
-		rLoc = 6250;
+		rLoc = 6615;
 		rType = 0;
 		vrLen = 950;
 		vrLoc = 5495;
@@ -9364,7 +9366,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 197";
 		rLen = 0;
-		rLoc = 6272;
+		rLoc = 6637;
 		rType = 0;
 		vrLen = 937;
 		vrLoc = 5495;
@@ -9374,7 +9376,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 82;
-		rLoc = 2716;
+		rLoc = 2766;
 		rType = 0;
 		vrLen = 1119;
 		vrLoc = 1829;
@@ -9384,7 +9386,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 197";
 		rLen = 0;
-		rLoc = 6272;
+		rLoc = 6637;
 		rType = 0;
 		vrLen = 937;
 		vrLoc = 5495;
@@ -9394,7 +9396,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 80";
 		rLen = 0;
-		rLoc = 2785;
+		rLoc = 2835;
 		rType = 0;
 		vrLen = 1125;
 		vrLoc = 1829;
@@ -9414,7 +9416,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 80";
 		rLen = 0;
-		rLoc = 2785;
+		rLoc = 2835;
 		rType = 0;
 		vrLen = 1001;
 		vrLoc = 1997;
@@ -9434,7 +9436,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 80";
 		rLen = 0;
-		rLoc = 2785;
+		rLoc = 2835;
 		rType = 0;
 		vrLen = 1006;
 		vrLoc = 1992;
@@ -9444,7 +9446,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 197";
 		rLen = 0;
-		rLoc = 6272;
+		rLoc = 6637;
 		rType = 0;
 		vrLen = 935;
 		vrLoc = 5495;
@@ -9454,7 +9456,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 80";
 		rLen = 0;
-		rLoc = 2785;
+		rLoc = 2835;
 		rType = 0;
 		vrLen = 1001;
 		vrLoc = 1997;
@@ -9464,7 +9466,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 197";
 		rLen = 0;
-		rLoc = 6272;
+		rLoc = 6637;
 		rType = 0;
 		vrLen = 935;
 		vrLoc = 5495;
@@ -9474,7 +9476,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 80";
 		rLen = 0;
-		rLoc = 2785;
+		rLoc = 2835;
 		rType = 0;
 		vrLen = 1006;
 		vrLoc = 1992;
@@ -9484,7 +9486,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 194";
 		rLen = 0;
-		rLoc = 6235;
+		rLoc = 6600;
 		rType = 0;
 		vrLen = 976;
 		vrLoc = 5451;
@@ -9514,7 +9516,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 79";
 		rLen = 0;
-		rLoc = 2768;
+		rLoc = 2818;
 		rType = 0;
 		vrLen = 1004;
 		vrLoc = 1992;
@@ -9524,7 +9526,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 74";
 		rLen = 0;
-		rLoc = 3017;
+		rLoc = 3120;
 		rType = 0;
 		vrLen = 1605;
 		vrLoc = 1812;
@@ -9534,7 +9536,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 194";
 		rLen = 0;
-		rLoc = 6235;
+		rLoc = 6600;
 		rType = 0;
 		vrLen = 976;
 		vrLoc = 5451;
@@ -9544,7 +9546,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 82";
 		rLen = 0;
-		rLoc = 2809;
+		rLoc = 2859;
 		rType = 0;
 		vrLen = 1004;
 		vrLoc = 1992;
@@ -9554,7 +9556,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 72";
 		rLen = 0;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 1637;
 		vrLoc = 2002;
@@ -9574,7 +9576,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 82";
 		rLen = 0;
-		rLoc = 2809;
+		rLoc = 2859;
 		rType = 0;
 		vrLen = 1004;
 		vrLoc = 1992;
@@ -9584,7 +9586,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 74";
 		rLen = 0;
-		rLoc = 3017;
+		rLoc = 3120;
 		rType = 0;
 		vrLen = 1605;
 		vrLoc = 1812;
@@ -9594,7 +9596,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 79";
 		rLen = 0;
-		rLoc = 2768;
+		rLoc = 2818;
 		rType = 0;
 		vrLen = 1004;
 		vrLoc = 1992;
@@ -9604,7 +9606,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 74";
 		rLen = 0;
-		rLoc = 3017;
+		rLoc = 3120;
 		rType = 0;
 		vrLen = 1605;
 		vrLoc = 1812;
@@ -9624,7 +9626,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 82";
 		rLen = 0;
-		rLoc = 2809;
+		rLoc = 2859;
 		rType = 0;
 		vrLen = 1004;
 		vrLoc = 1992;
@@ -9634,7 +9636,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 74";
 		rLen = 0;
-		rLoc = 3017;
+		rLoc = 3120;
 		rType = 0;
 		vrLen = 950;
 		vrLoc = 5368;
@@ -9644,7 +9646,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 74";
 		rLen = 0;
-		rLoc = 3017;
+		rLoc = 3120;
 		rType = 0;
 		vrLen = 955;
 		vrLoc = 5368;
@@ -9654,7 +9656,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 82";
 		rLen = 0;
-		rLoc = 2809;
+		rLoc = 2859;
 		rType = 0;
 		vrLen = 1004;
 		vrLoc = 1992;
@@ -9664,7 +9666,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 200";
 		rLen = 0;
-		rLoc = 6341;
+		rLoc = 6706;
 		rType = 0;
 		vrLen = 1012;
 		vrLoc = 5368;
@@ -9684,7 +9686,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 195";
 		rLen = 0;
-		rLoc = 6235;
+		rLoc = 6600;
 		rType = 0;
 		vrLen = 1014;
 		vrLoc = 5368;
@@ -9714,7 +9716,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 0;
-		rLoc = 2706;
+		rLoc = 2756;
 		rType = 0;
 		vrLen = 997;
 		vrLoc = 1992;
@@ -9724,7 +9726,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 195";
 		rLen = 0;
-		rLoc = 6235;
+		rLoc = 6600;
 		rType = 0;
 		vrLen = 1014;
 		vrLoc = 5368;
@@ -9734,7 +9736,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 195";
 		rLen = 0;
-		rLoc = 6235;
+		rLoc = 6600;
 		rType = 0;
 		vrLen = 1014;
 		vrLoc = 5368;
@@ -9754,7 +9756,7 @@
 		fRef = 589A52570E201B800092A06A /* StandardCClass.h */;
 		name = "StandardCClass.h: 78";
 		rLen = 0;
-		rLoc = 2706;
+		rLoc = 2756;
 		rType = 0;
 		vrLen = 997;
 		vrLoc = 1992;
@@ -9764,7 +9766,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 69";
 		rLen = 0;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 1492;
 		vrLoc = 2003;
@@ -9814,7 +9816,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 69";
 		rLen = 0;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 1473;
 		vrLoc = 2022;
@@ -9824,7 +9826,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 69";
 		rLen = 0;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 1492;
 		vrLoc = 2003;
@@ -9864,7 +9866,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 171";
 		rLen = 0;
-		rLoc = 5511;
+		rLoc = 5876;
 		rType = 0;
 		vrLen = 1113;
 		vrLoc = 4417;
@@ -9894,7 +9896,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 171";
 		rLen = 0;
-		rLoc = 5511;
+		rLoc = 5876;
 		rType = 0;
 		vrLen = 1055;
 		vrLoc = 4475;
@@ -9904,7 +9906,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 171";
 		rLen = 0;
-		rLoc = 5511;
+		rLoc = 5876;
 		rType = 0;
 		vrLen = 1113;
 		vrLoc = 4417;
@@ -9924,7 +9926,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 70";
 		rLen = 0;
-		rLoc = 2997;
+		rLoc = 3100;
 		rType = 0;
 		vrLen = 1514;
 		vrLoc = 1730;
@@ -9944,7 +9946,7 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 65";
 		rLen = 0;
-		rLoc = 2599;
+		rLoc = 2624;
 		rType = 0;
 		vrLen = 1099;
 		vrLoc = 4398;
@@ -9964,7 +9966,7 @@
 		comments = "error: no 'double avmshell::StandardCClass::timeGetCLOCKS_PER_SEC()' member function declared in class 'avmshell::StandardCClass'";
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		rLen = 1;
-		rLoc = 207;
+		rLoc = 219;
 		rType = 1;
 	};
 	58F513EC0E325D5400348F96 /* PBXTextBookmark */ = {
@@ -9972,12 +9974,32 @@
 		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
 		name = "StandardCClass.cpp: 206";
 		rLen = 0;
-		rLoc = 6146;
+		rLoc = 6511;
 		rType = 0;
 		vrLen = 983;
 		vrLoc = 5483;
 	};
 	58F513ED0E325D5400348F96 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 58F513A40E3134D100348F96 /* time.h */;
+		name = "time.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1510;
+		vrLoc = 3548;
+	};
+	58F513F00E32747100348F96 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 589A52580E201B8C0092A06A /* StandardCClass.cpp */;
+		name = "StandardCClass.cpp: 249";
+		rLen = 0;
+		rLoc = 7397;
+		rType = 0;
+		vrLen = 932;
+		vrLoc = 3171;
+	};
+	58F513F10E32747100348F96 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 58F513A40E3134D100348F96 /* time.h */;
 		name = "time.h: 1";
