@@ -41,23 +41,15 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#ifdef WIN32
-    #include <windows.h>
-	#define sleep Sleep
-#else
-    #include <unistd.h>
-#endif
-
 
 namespace avmshell
 {
 	BEGIN_NATIVE_MAP(RedTamarinClass)
-		NATIVE_METHOD(redtamarin_sys_assert, RedTamarinClass::sysAssert)
-		NATIVE_METHOD(redtamarin_sleep,      RedTamarinClass::sysSleep)
+		NATIVE_METHOD(redtamarin_sys_assert,      RedTamarinClass::sysAssert)
         /*NATIVE_METHOD(redtamarin_testCall,   RedTamarinClass::testCall)*/
         /*NATIVE_METHOD(redtamarin_testSave,   RedTamarinClass::testSave)*/
 	END_NATIVE_MAP()
-					  
+    
 	RedTamarinClass::RedTamarinClass(VTable *cvtable)
 		: ClassClosure(cvtable)
     {
@@ -65,13 +57,13 @@ namespace avmshell
 		if (core->redtamarinClass == NULL) {
 			core->redtamarinClass = this;
 		}
-		
 		createVanillaPrototype();
+        
 	}
 
 	RedTamarinClass::~RedTamarinClass()
 	{
-		
+        
 	}
 	
 	void RedTamarinClass::sysAssert(int expression)
@@ -79,15 +71,7 @@ namespace avmshell
 		assert( expression );
 	}
     
-    void RedTamarinClass::sysSleep(uint32 second)
-    {
-        #ifdef WIN32
-            sleep( second * 1000 ); //Sleep take millisec
-        #else
-            sleep( second );
-        #endif
-    }
-    
+        
     /*
     void RedTamarinClass::testCall()
     {

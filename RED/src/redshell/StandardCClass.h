@@ -53,6 +53,10 @@ namespace avmshell
 		StandardCClass(VTable* cvtable);
 		~StandardCClass();
 		
+        int stdlibEXIT_SUCCESS();
+        
+        int stdlibEXIT_FAILURE();
+        
         int stdlibRand();
         
         void stdlibAbort();
@@ -92,6 +96,25 @@ namespace avmshell
         
         /* static void callAtexit(); */
         
+        int socketSOCK_STREAM();
+        
+        int socketSOCK_DGRAM();
+        
+        int socketSOCK_RAW();
+        
+        int socketSOCK_RDM();
+        
+        int socketSOCK_SEQPACKET();
+        
+        int socketAF_UNSPEC();
+        
+        int socketAF_UNIX();
+        
+        int socketAF_LOCAL();
+        
+        int socketAF_INET();
+        
+        int socketSocket(int domain, int type, int protocol);
         
 		DECLARE_NATIVE_MAP(StandardCClass)
     };

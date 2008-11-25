@@ -93,7 +93,7 @@ namespace avmshell
 		bool isDebugger();
 		/*@}*/
 
-				/**
+        /**
 		 * @name ActionScript Extensions
 		 * ActionScript extensions to ECMAScript
 		 */

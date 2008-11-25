@@ -38,7 +38,6 @@
 #ifndef __avmshell_RedTamarinClass__
 #define __avmshell_RedTamarinClass__
 
-
 namespace avmshell
 {
 	
@@ -51,8 +50,6 @@ namespace avmshell
 		
 		void sysAssert(int expression);
         
-        void sysSleep(uint32 second);
-		
         /* void testCall(); */
         
         /* void testSave(ScriptObject* f); */

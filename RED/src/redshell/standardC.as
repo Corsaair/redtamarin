@@ -1,5 +1,6 @@
 package C
 	{
+	import redtamarin.onClose;
 	
 	/* Combine some native call to the C standard library
 	   
@@ -85,6 +86,14 @@ package C
 */
 package C.stdlib
 	{
+	
+	/* Success termination code.
+	*/
+	public native function get EXIT_SUCCESS():int;
+	
+	/* Failure termination code.
+	*/
+	public native function get EXIT_FAILURE():int;
 	
 	/* Type Conversion */
 	
@@ -177,6 +186,7 @@ package C.stdlib
 	*/
 	public function exit( status:int = 0 ):void
 	    {
+	    redtamarin.onClose();
 	    _atexitCallback();
 	    _exit( status );
 	    }
@@ -511,5 +521,115 @@ package C.time
 	
 	}
 
+
+package BSD.socket
+	{
+	
+	/* types */
+	
+	public native function get SOCK_STREAM():int;            /* stream socket */
+	public native function get SOCK_DGRAM():int;             /* datagram socket */
+	public native function get SOCK_RAW():int;               /* raw-protocol interface */
+	public native function get SOCK_RDM():int;               /* reliably-delivered message */
+	public native function get SOCK_SEQPACKET():int;         /* sequenced packet stream */
+	
+	
+	/* Address families */
+	
+	public native function get AF_UNSPEC():int;              /* unspecified */
+	public native function get AF_UNIX():int;                /* local to host (pipes) */
+	public native function get AF_LOCAL():int;               /* backward compatibility */
+	public native function get AF_INET():int;                /* internetwork: UDP, TCP, etc. */
+	
+	
+	/* Protocol families */
+	
+	public native function get PF_UNSPEC():int;               /* same as AF */
+	public native function get PF_LOCAL():int;                /* same as AF */
+	public native function get PF_UNIX():int;                 /* backward compatibility */
+	public native function get PF_INET():int;                 /* same as AF */
+	
+	
+	/* howto arguments for shutdown() */
+	public native function get SHUT_RD():int;                 /* shut down the reading side */
+	public native function get SHUT_WR():int;                 /* shut down the writing side */
+	public native function get SHUT_RDWR():int;               /* shut down both sides */
+	
+	
+	//public native function get SOCK_MAXADDRLEN():int;
+	
+	
+	public class sockaddr
+		{
+		
+		public var sa_family:uint;
+		public var sa_data:String;
+		
+		public function sockaddr()
+			{
+			
+			}
+		
+		}
+	
+
+	
+	
+	/* connect
+	   
+	   info:
+	   int socket( int domain, int type, int protocol );
+	*/
+	public native function socket( domain:int, type:int, protocol:int ):int;
+	
+	}
+
+package BSD.netinet.in
+    {
+    
+    public native function get INADDR_ANY():uint;
+    public native function get INADDR_BROADCAST():uint;
+    public native function get INADDR_LOOPBACK():uint;
+    public native function get INADDR_NONE():uint;
+    
+    public native function get INET_ADDRSTRLEN():int;
+    
+    
+	public class in_addr
+		{
+		
+		public var s_addr:uint;
+		
+		public function in_addr()
+			{
+			
+			}
+		
+		}
+    
+	public class sockaddr_in
+		{
+		
+		public var sin_family:int;
+		public var sin_port:uint;
+		public var sin_addr:in_addr;
+		public var sin_zero:Array;
+		
+		public function sockaddr_in()
+			{
+			
+			}
+		
+		}
+    
+    }
+
+package BSD.arpa.inet
+    {
+    
+    
+    
+    
+    }
 
 

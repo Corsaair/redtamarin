@@ -54,12 +54,16 @@
     #define chdir _chdir
 #else
     #include <unistd.h>
+    #include <sys/types.h>
+    #include <sys/socket.h>
 #endif
 
 namespace avmshell
 {
 	BEGIN_NATIVE_MAP(StandardCClass)
-		NATIVE_METHOD(C_stdlib_rand,             StandardCClass::stdlibRand)
+		NATIVE_METHOD(C_stdlib_EXIT_SUCCESS_get, StandardCClass::stdlibEXIT_SUCCESS)
+        NATIVE_METHOD(C_stdlib_EXIT_FAILURE_get, StandardCClass::stdlibEXIT_FAILURE)
+        NATIVE_METHOD(C_stdlib_rand,             StandardCClass::stdlibRand)
         NATIVE_METHOD(C_stdlib_abort,            StandardCClass::stdlibAbort)
         NATIVE_METHOD(C_stdlib__exit,            StandardCClass::stdlibExit)
         NATIVE_METHOD(C_stdlib_getenv,           StandardCClass::stdlibGetenv)
@@ -84,6 +88,16 @@ namespace avmshell
 	{
 		
 	}
+    
+    int StandardCClass::stdlibEXIT_SUCCESS()
+    {
+        return EXIT_SUCCESS;
+    }
+    
+    int StandardCClass::stdlibEXIT_FAILURE()
+    {
+        return EXIT_FAILURE;
+    }
     
     int StandardCClass::stdlibRand()
     {
@@ -214,6 +228,59 @@ namespace avmshell
         Stringp s = core()->newString( errstr );
         return s;
     }
+    
+    
+    int StandardCClass::socketSOCK_STREAM()
+    {
+        return SOCK_STREAM;
+    }
+    
+    int StandardCClass::socketSOCK_DGRAM()
+    {
+        return SOCK_DGRAM;
+    }
+    
+    int StandardCClass::socketSOCK_RAW()
+    {
+        return SOCK_RAW;
+    }
+    
+    int StandardCClass::socketSOCK_RDM()
+    {
+        return SOCK_RDM;
+    }
+    
+    int StandardCClass::socketSOCK_SEQPACKET()
+    {
+        return SOCK_SEQPACKET;
+    }
+    
+    int StandardCClass::socketAF_UNSPEC()
+    {
+        return AF_UNSPEC;
+    }
+    
+    int StandardCClass::socketAF_UNIX()
+    {
+        return AF_UNIX;
+    }
+    
+    int StandardCClass::socketAF_LOCAL()
+    {
+        return AF_LOCAL;
+    }
+    
+    int StandardCClass::socketAF_INET()
+    {
+        return AF_INET;
+    }
+    
+    
+    int StandardCClass::socketSocket(int domain, int type, int protocol)
+    {
+        return socket(domain, type, protocol);
+    }
+    
     
     /* note:
        does not work, better to use Date and getTimer

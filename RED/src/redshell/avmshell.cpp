@@ -408,6 +408,7 @@ namespace avmshell
 		#endif
 
 		systemClass = NULL;
+        redtamarinClass = NULL;
 		
 		gracePeriod = false;
 		inStackOverflow = false;
@@ -473,7 +474,7 @@ namespace avmshell
 
 			SystemClass::user_argc = argc-1;
 			SystemClass::user_argv = &argv[1];
-		
+		    
 			// init toplevel internally
 			Toplevel* toplevel = initShellBuiltins();
 
@@ -488,10 +489,10 @@ namespace avmshell
 
 			ShellCodeContext* codeContext = new (GetGC()) ShellCodeContext();
 			codeContext->m_domainEnv = domainEnv;
-				
+            
 			// parse new bytecode
 			handleActionBlock(code, 0, domainEnv, toplevel, NULL, NULL, NULL, codeContext);
-
+            
 			#ifdef DEBUGGER
 			delete profiler;
 			#endif
@@ -520,7 +521,7 @@ namespace avmshell
 		#ifdef AVMPLUS_PROFILE
 			dump();
 		#endif
-
+        
 		exitCode = 0;
 		return true;
 	}
@@ -528,7 +529,7 @@ namespace avmshell
 	int Shell::main(int argc, char *argv[])
 	{
 		bool show_mem = false;
-
+        
 		TRY(this, kCatchAction_ReportAsError)
 		{
 			#if defined (AVMPLUS_IA32) || defined(AVMPLUS_AMD64)
@@ -747,7 +748,7 @@ namespace avmshell
 				debugCLI->stepInto();
 			}
 			#endif
-
+            
 			// start the 15 second timeout if applicable
 			if (interrupts) {
 				#ifdef WIN32
@@ -768,7 +769,7 @@ namespace avmshell
 				endFilenamePos = argc;
 			SystemClass::user_argc = argc-endFilenamePos-1; 
 			SystemClass::user_argv = &argv[endFilenamePos+1];
-		
+		    
 			// init toplevel internally
 			Toplevel* toplevel = initShellBuiltins();
 
@@ -814,6 +815,7 @@ namespace avmshell
 					ScriptBuffer code = newScriptBuffer(f.available());
 					f.read(code.getBuffer(), f.available());
 					handleActionBlock(code, 0, domainEnv, toplevel, NULL, NULL, NULL, codeContext);
+                    //console << "end of script \n";
 				}
 
 				lastCodeContext = codeContext;
@@ -1043,7 +1045,7 @@ namespace avmshell
 				}
 			}
 			#endif //AVMPLUS_INTERACTIVE
-
+            
 			#ifdef DEBUGGER
 			delete profiler;
 			#endif
@@ -1082,6 +1084,8 @@ namespace avmshell
 #ifdef AVMPLUS_WITH_JNI
 		if (Java::startup_options) delete Java::startup_options;
 #endif /* AVMPLUS_WITH_JNI */
+        
+        //console << "end of code \n";
 		return 0;
 	}
 

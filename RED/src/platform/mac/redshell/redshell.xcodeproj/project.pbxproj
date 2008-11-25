@@ -407,7 +407,7 @@
 		589A516F0E1ED7620092A06A /* Profiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profiler.h; sourceTree = "<group>"; };
 		589A51700E1ED7620092A06A /* avmshell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = avmshell.cpp; sourceTree = "<group>"; };
 		589A51710E1ED7620092A06A /* ByteArrayGlue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ByteArrayGlue.h; sourceTree = "<group>"; };
-		589A51E00E1EDA220092A06A /* redshell */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = redshell; sourceTree = BUILT_PRODUCTS_DIR; };
+		589A51E00E1EDA220092A06A /* redshell_d */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = redshell_d; sourceTree = BUILT_PRODUCTS_DIR; };
 		589A51F30E1EDC450092A06A /* JavaGlue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JavaGlue.cpp; sourceTree = "<group>"; };
 		589A51F40E1EDC450092A06A /* JavaGlue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JavaGlue.h; sourceTree = "<group>"; };
 		589A52500E2018450092A06A /* RedTamarinClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedTamarinClass.h; sourceTree = "<group>"; };
@@ -472,7 +472,7 @@
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				589A51E00E1EDA220092A06A /* redshell */,
+				589A51E00E1EDA220092A06A /* redshell_d */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -818,8 +818,8 @@
 				589A53140E2053330092A06A /* Endian.as */,
 				589A53150E2053330092A06A /* Java.as */,
 				589A53160E2053330092A06A /* redtamarin.as */,
-				589A53170E2053330092A06A /* standardC.as */,
 				589A53180E2053330092A06A /* StringBuilder.as */,
+				589A53170E2053330092A06A /* standardC.as */,
 				589A53190E2053330092A06A /* toplevel.as */,
 				589A51700E1ED7620092A06A /* avmshell.cpp */,
 				589A51630E1ED7620092A06A /* avmshell.h */,
@@ -908,7 +908,7 @@
 			name = redshell;
 			productInstallPath = "$(HOME)/bin";
 			productName = shell;
-			productReference = 589A51E00E1EDA220092A06A /* redshell */;
+			productReference = 589A51E00E1EDA220092A06A /* redshell_d */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
