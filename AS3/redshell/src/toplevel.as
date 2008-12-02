@@ -20,6 +20,7 @@
  *
  * Contributor(s):
  *   Adobe AS3 Team
+ *   Zwetan Kjukov <zwetan@gmail.com>.
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -38,87 +39,74 @@
 package avmplus 
 {
     import flash.utils.ByteArray
-
-	public class System
-	{
-		public native static function exit(status:int):void
-		public native static function exec(command:String):int
-		public native static function getAvmplusVersion():String
-		public native static function trace(a:Array):void
-		public native static function write(s:String):void
-		public native static function debugger():void
-		public native static function isDebugger():Boolean
-		public native static function getTimer():uint
-		private native static function getArgv():Array
-		public static const argv:Array = getArgv();
-		public native static function readLine():String
-	}	
-	
-	public class File
-	{
-		public native static function exists(filename:String):Boolean;
-		public native static function read(filename:String):String;
-		public native static function write(filename:String, data:String):void;
-
-		public static function fileToByteArray(filename:String, readOnly:Boolean):ByteArray
-		{
-			return ByteArray.readFile(filename)
-		}
-
-		public static function writeByteArray(filename:String, bytes:ByteArray):Boolean
-		{
-			bytes.writeFile(filename)
-			return true
-		}
-	}
-
-	public function debugger()
-	{
-		System.debugger()
-	}
+    
+    public class System
+    {
+        public native static function exit(status:int):void
+        public native static function exec(command:String):int
+        public native static function getAvmplusVersion():String
+        public native static function trace(a:Array):void
+        public native static function write(s:String):void
+        public native static function debugger():void
+        public native static function isDebugger():Boolean
+        public native static function getTimer():uint
+        private native static function getArgv():Array
+        public static const argv:Array = getArgv();
+        public native static function readLine():String
+    }
+    
+    public class File
+    {
+        public native static function exists(filename:String):Boolean;
+        public native static function read(filename:String):String;
+        public native static function write(filename:String, data:String):void;
+        
+        public static function fileToByteArray(filename:String, readOnly:Boolean):ByteArray
+        {
+            return ByteArray.readFile(filename)
+        }
+        
+        public static function writeByteArray(filename:String, bytes:ByteArray):Boolean
+        {
+            bytes.writeFile(filename)
+            return true
+        }
+    }
+    
+    public function debugger()
+    {
+        System.debugger()
+    }
 }
 
-// The flash.system package is present so identical ATS test media can be used
-// in the command-line VM and the Player
-package flash.system
+package
 {
-	import avmplus.*;
-	
-	public final class Capabilities
-	{
-		public static function get playerType():String { return "AVMPlus"; }
-		public static function get isDebugger():Boolean { return System.isDebugger(); }
-	}
-}
-		
-package {
-
-	import avmplus.*
-
-	public function getClassByName(name:String):Class
-	{
-		return Domain.currentDomain.getClass(name);
-	}
-		
-	// nonstandard extensions to ECMAScript
-	public function print(...s)
-	{
-		System.trace(s)
-	}
-
-	// nonstandard Flash Player extensions
-	public function trace(...s)
-	{
-		System.trace(s)
-	}
-
-	public function getTimer():uint
-	{
-		return System.getTimer()
-	}
-
-	public function readLine():String
-	{
-		return System.readLine()
-	}
+    import avmplus.System;
+    
+//    public function getClassByName(name:String):Class
+//    {
+//        return Domain.currentDomain.getClass(name);
+//    }
+    
+    // nonstandard extensions to ECMAScript
+    public function print(...s)
+    {
+        System.trace(s)
+    }
+    
+    // nonstandard Flash Player extensions
+    public function trace(...s)
+    {
+        System.trace(s)
+    }
+    
+//    public function getTimer():uint
+//    {
+//        return System.getTimer()
+//    }
+    
+    public function readLine():String
+    {
+        return System.readLine()
+    }
 }
