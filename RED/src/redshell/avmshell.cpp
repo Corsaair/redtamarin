@@ -20,7 +20,7 @@
  *
  * Contributor(s):
  *   Adobe AS3 Team
- *   Zwetan Kjukov <zwetan@gmail.com>
+ *   Zwetan Kjukov <zwetan@gmail.com>.
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -148,6 +148,12 @@ namespace avmshell
 		NATIVE_CLASS(abcclass_flash_trace_Trace,		TraceClass,			ScriptObject)
         NATIVE_CLASS(abcclass_redtamarin_sys,           RedTamarinClass,    ScriptObject)
         NATIVE_CLASS(abcclass_C_standard,               StandardCClass,     ScriptObject)
+        NATIVE_CLASS(abcclass_flash_errors_IOError,                NativeErrorClass,   ErrorObject)
+        NATIVE_CLASS(abcclass_flash_errors_IllegalOperationError,  NativeErrorClass,   ErrorObject)
+        NATIVE_CLASS(abcclass_flash_errors_MemoryError,            NativeErrorClass,   ErrorObject)
+        NATIVE_CLASS(abcclass_flash_errors_ScriptTimeoutError,     NativeErrorClass,   ErrorObject)
+        NATIVE_CLASS(abcclass_flash_errors_StackOverflowError,     NativeErrorClass,   ErrorObject)
+        NATIVE_CLASS(abcclass_flash_errors_EOFError,               NativeErrorClass,   ErrorObject)
 	END_NATIVE_CLASSES()
 
 	BEGIN_NATIVE_SCRIPTS(Shell)

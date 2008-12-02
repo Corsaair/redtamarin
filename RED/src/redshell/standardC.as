@@ -1,3 +1,40 @@
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1/GPL 2.0/LGPL 2.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is [Open Source Virtual Machine.].
+ *
+ * The Initial Developer of the Original Code is
+ * Adobe System Incorporated.
+ * Portions created by the Initial Developer are Copyright (C) 2004-2006
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   Zwetan Kjukov <zwetan@gmail.com>.
+ *
+ * Alternatively, the contents of this file may be used under the terms of
+ * either the GNU General Public License Version 2 or later (the "GPL"), or
+ * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+ * in which case the provisions of the GPL or the LGPL are applicable instead
+ * of those above. If you wish to allow use of your version of this file only
+ * under the terms of either the GPL or the LGPL, and not to allow others to
+ * use your version of this file under the terms of the MPL, indicate your
+ * decision by deleting the provisions above and replace them with the notice
+ * and other provisions required by the GPL or the LGPL. If you do not delete
+ * the provisions above, a recipient may use your version of this file under
+ * the terms of any one of the MPL, the GPL or the LGPL.
+ *
+ * ***** END LICENSE BLOCK ***** */
+
 package C
 	{
 	import redtamarin.onClose;
@@ -522,114 +559,114 @@ package C.time
 	}
 
 
-package BSD.socket
-	{
-	
-	/* types */
-	
-	public native function get SOCK_STREAM():int;            /* stream socket */
-	public native function get SOCK_DGRAM():int;             /* datagram socket */
-	public native function get SOCK_RAW():int;               /* raw-protocol interface */
-	public native function get SOCK_RDM():int;               /* reliably-delivered message */
-	public native function get SOCK_SEQPACKET():int;         /* sequenced packet stream */
-	
-	
-	/* Address families */
-	
-	public native function get AF_UNSPEC():int;              /* unspecified */
-	public native function get AF_UNIX():int;                /* local to host (pipes) */
-	public native function get AF_LOCAL():int;               /* backward compatibility */
-	public native function get AF_INET():int;                /* internetwork: UDP, TCP, etc. */
-	
-	
-	/* Protocol families */
-	
-	public native function get PF_UNSPEC():int;               /* same as AF */
-	public native function get PF_LOCAL():int;                /* same as AF */
-	public native function get PF_UNIX():int;                 /* backward compatibility */
-	public native function get PF_INET():int;                 /* same as AF */
-	
-	
-	/* howto arguments for shutdown() */
-	public native function get SHUT_RD():int;                 /* shut down the reading side */
-	public native function get SHUT_WR():int;                 /* shut down the writing side */
-	public native function get SHUT_RDWR():int;               /* shut down both sides */
-	
-	
-	//public native function get SOCK_MAXADDRLEN():int;
-	
-	
-	public class sockaddr
-		{
-		
-		public var sa_family:uint;
-		public var sa_data:String;
-		
-		public function sockaddr()
-			{
-			
-			}
-		
-		}
-	
+//package BSD.socket
+//	{
+//	
+//	/* types */
+//	
+//	public native function get SOCK_STREAM():int;            /* stream socket */
+//	public native function get SOCK_DGRAM():int;             /* datagram socket */
+//	public native function get SOCK_RAW():int;               /* raw-protocol interface */
+//	public native function get SOCK_RDM():int;               /* reliably-delivered message */
+//	public native function get SOCK_SEQPACKET():int;         /* sequenced packet stream */
+//	
+//	
+//	/* Address families */
+//	
+//	public native function get AF_UNSPEC():int;              /* unspecified */
+//	public native function get AF_UNIX():int;                /* local to host (pipes) */
+//	public native function get AF_LOCAL():int;               /* backward compatibility */
+//	public native function get AF_INET():int;                /* internetwork: UDP, TCP, etc. */
+//	
+//	
+//	/* Protocol families */
+//	
+//	public native function get PF_UNSPEC():int;               /* same as AF */
+//	public native function get PF_LOCAL():int;                /* same as AF */
+//	public native function get PF_UNIX():int;                 /* backward compatibility */
+//	public native function get PF_INET():int;                 /* same as AF */
+//	
+//	
+//	/* howto arguments for shutdown() */
+//	public native function get SHUT_RD():int;                 /* shut down the reading side */
+//	public native function get SHUT_WR():int;                 /* shut down the writing side */
+//	public native function get SHUT_RDWR():int;               /* shut down both sides */
+//	
+//	
+//	//public native function get SOCK_MAXADDRLEN():int;
+//	
+//	
+//	public class sockaddr
+//		{
+//		
+//		public var sa_family:uint;
+//		public var sa_data:String;
+//		
+//		public function sockaddr()
+//			{
+//			
+//			}
+//		
+//		}
+//	
+//
+//	
+//	
+//	/* connect
+//	   
+//	   info:
+//	   int socket( int domain, int type, int protocol );
+//	*/
+//	public native function socket( domain:int, type:int, protocol:int ):int;
+//	
+//	}
 
-	
-	
-	/* connect
-	   
-	   info:
-	   int socket( int domain, int type, int protocol );
-	*/
-	public native function socket( domain:int, type:int, protocol:int ):int;
-	
-	}
-
-package BSD.netinet.in
-    {
-    
-    public native function get INADDR_ANY():uint;
-    public native function get INADDR_BROADCAST():uint;
-    public native function get INADDR_LOOPBACK():uint;
-    public native function get INADDR_NONE():uint;
-    
-    public native function get INET_ADDRSTRLEN():int;
-    
-    
-	public class in_addr
-		{
-		
-		public var s_addr:uint;
-		
-		public function in_addr()
-			{
-			
-			}
-		
-		}
-    
-	public class sockaddr_in
-		{
-		
-		public var sin_family:int;
-		public var sin_port:uint;
-		public var sin_addr:in_addr;
-		public var sin_zero:Array;
-		
-		public function sockaddr_in()
-			{
-			
-			}
-		
-		}
-    
-    }
-
-package BSD.arpa.inet
-    {
-    
-    
-    
-    
-    }
+//package BSD.netinet.in
+//    {
+//    
+//    public native function get INADDR_ANY():uint;
+//    public native function get INADDR_BROADCAST():uint;
+//    public native function get INADDR_LOOPBACK():uint;
+//    public native function get INADDR_NONE():uint;
+//    
+//    public native function get INET_ADDRSTRLEN():int;
+//    
+//    
+//	public class in_addr
+//		{
+//		
+//		public var s_addr:uint;
+//		
+//		public function in_addr()
+//			{
+//			
+//			}
+//		
+//		}
+//    
+//	public class sockaddr_in
+//		{
+//		
+//		public var sin_family:int;
+//		public var sin_port:uint;
+//		public var sin_addr:in_addr;
+//		public var sin_zero:Array;
+//		
+//		public function sockaddr_in()
+//			{
+//			
+//			}
+//		
+//		}
+//    
+//    }
+//
+//package BSD.arpa.inet
+//    {
+//    
+//    
+//    
+//    
+//    }
 
 

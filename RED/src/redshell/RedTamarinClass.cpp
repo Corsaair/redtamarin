@@ -19,7 +19,7 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
- *   Zwetan Kjukov <zwetan@gmail.com>
+ *   Zwetan Kjukov <zwetan@gmail.com>.
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -45,7 +45,10 @@
 namespace avmshell
 {
 	BEGIN_NATIVE_MAP(RedTamarinClass)
-		NATIVE_METHOD(redtamarin_sys_assert,      RedTamarinClass::sysAssert)
+		NATIVE_METHOD(redtamarin_sys___assert,      RedTamarinClass::sysAssert)
+        NATIVE_METHOD(redtamarin_sys___getOperatingSystem, RedTamarinClass::sysGetOperatingSystem)
+        NATIVE_METHOD(redtamarin_sys___getQualifiedClassName, RedTamarinClass::reflectGetQualifiedClassName)
+        NATIVE_METHOD(redtamarin_sys___getQualifiedSuperclassName, RedTamarinClass::reflectGetQualifiedSuperclassName)
         /*NATIVE_METHOD(redtamarin_testCall,   RedTamarinClass::testCall)*/
         /*NATIVE_METHOD(redtamarin_testSave,   RedTamarinClass::testSave)*/
 	END_NATIVE_MAP()
@@ -71,7 +74,63 @@ namespace avmshell
 		assert( expression );
 	}
     
+    Stringp RedTamarinClass::sysGetOperatingSystem()
+    {
+        AvmCore* core = this->core();
         
+        #ifdef WIN32
+        return core->newString("Windows");
+        #elif defined _MAC
+        return core->newString("Macintosh");
+        #elif defined AVMPLUS_UNIX
+        return core->newString("Linux");
+        #endif
+    }
+    
+    Stringp RedTamarinClass::reflectGetQualifiedClassName(Atom atomObj)
+    {
+        AvmCore* core = this->core();
+        
+        if( core->istype(atomObj, CLASS_TYPE) )
+        {
+            ClassClosure *cc = (ClassClosure *)AvmCore::atomToScriptObject(atomObj);
+            Traits*		t = cc->ivtable()->traits;
+            return t->formatClassName();
+        }
+        else
+        {
+            Traits*		t = toplevel()->toTraits(atomObj);
+            return t->formatClassName();
+        }
+    }
+    
+    Stringp  RedTamarinClass::reflectGetQualifiedSuperclassName(Atom atomObj)
+    {
+        AvmCore* core = this->core();
+        
+        if( core->istype(atomObj, CLASS_TYPE) )
+        {
+            ClassClosure *cc = (ClassClosure *)AvmCore::atomToScriptObject(atomObj);
+            Traits*		t = cc->ivtable()->traits;
+            if( t->base )
+            {
+            Traits*     s = t->base;
+            return s->formatClassName();
+            }
+            return t->formatClassName();
+        }
+        else
+        {
+            Traits*		t = toplevel()->toTraits(atomObj);
+            if( t->base )
+            {
+            Traits*     s = t->base;
+            return s->formatClassName();
+            }
+            return t->formatClassName();
+        }
+    }
+    
     /*
     void RedTamarinClass::testCall()
     {
