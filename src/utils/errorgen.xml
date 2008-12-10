@@ -1,0 +1,368 @@
+<?xml version='1.0' encoding='utf-8' standalone='no' ?>
+<!-- ***** BEGIN LICENSE BLOCK ***** 
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1 
+   - 
+   - The contents of this file are subject to the Mozilla Public License Version 1.1 (the 
+   - "License"); you may not use this file except in compliance with the License. You may obtain 
+   - a copy of the License at http://www.mozilla.org/MPL/ 
+   - 
+   - Software distributed under the License is distributed on an "AS IS" basis, WITHOUT 
+   - WARRANTY OF ANY KIND, either express or implied. See the License for the specific 
+   - language governing rights and limitations under the License. 
+   - 
+   -  The Original Code is [Open Source Virtual Machine.] 
+   - 
+   - The Initial Developer of the Original Code is Adobe System Incorporated.  Portions created 
+   - by the Initial Developer are Copyright (C)[ #YEARS# ] Adobe Systems Incorporated. All Rights 
+   - Reserved. 
+   - 
+   - Contributor(s): Adobe AS3 Team
+   - 
+   - Alternatively, the contents of this file may be used under the terms of either the GNU 
+   - General Public License Version 2 or later (the "GPL"), or the GNU Lesser General Public 
+   - License Version 2.1 or later (the "LGPL"), in which case the provisions of the GPL or the 
+   - LGPL are applicable instead of those above. If you wish to allow use of your version of this 
+   - file only under the terms of either the GPL or the LGPL, and not to allow others to use your 
+   - version of this file under the terms of the MPL, indicate your decision by deleting provisions 
+   - above and replace them with the notice and other provisions required by the GPL or the 
+   - LGPL. If you do not delete the provisions above, a recipient may use your version of this file 
+   - under the terms of any one of the MPL, the GPL or the LGPL. 
+   - 
+   - ***** END LICENSE BLOCK ***** -->
+
+<ErrorGenerator>
+    <Generate>
+		<File name='../core/ErrorConstants.h' >
+			<![CDATA[{{ErrorGenerator.Copyright}}{{ErrorGenerator.dotH}}]]> 
+		</File>
+		<File name='../core/ErrorConstants.cpp' >
+			<![CDATA[{{ErrorGenerator.Copyright}}{{ErrorGenerator.dotCpp}}]]> 
+		</File>
+		<File name='../core/ErrorConstants.as' >
+			<![CDATA[{{ErrorGenerator.Copyright}}{{ErrorGenerator.dotAs}}]]> 
+		</File>
+
+    </Generate>
+
+
+		<Languages>
+				<language id='0'>en</language>
+				<language id='1'>cs</language>
+				<language id='2'>de</language>
+				<language id='3'>es</language>
+				<language id='4'>fr</language>
+				<language id='5'>it</language>
+				<language id='6'>ja</language>
+				<language id='7'>ko</language>
+				<language id='8'>nl</language>
+				<language id='9'>pl</language>
+				<language id='10'>pt</language>
+				<language id='11'>ru</language>
+				<language id='12'>sv</language>
+				<language id='13'>tr</language>
+				<language id='14'>zh_CN</language>
+				<language id='15'>zh_TW</language>
+		</Languages>
+
+		<LangFile_en    file='../core/ErrorConstants.xml' />
+		<LangFile_cs    file='../localization/lang/cs/ErrorConstants.xml' />
+		<LangFile_de    file='../localization/lang/de/ErrorConstants.xml' />
+		<LangFile_es    file='../localization/lang/es/ErrorConstants.xml' />
+		<LangFile_fr    file='../localization/lang/fr/ErrorConstants.xml' />
+		<LangFile_it    file='../localization/lang/it/ErrorConstants.xml' />
+		<LangFile_ja    file='../localization/lang/ja/ErrorConstants.xml' />
+		<LangFile_ko    file='../localization/lang/ko/ErrorConstants.xml' />
+		<LangFile_nl    file='../localization/lang/nl/ErrorConstants.xml' />
+		<LangFile_pl    file='../localization/lang/pl/ErrorConstants.xml' />
+		<LangFile_pt    file='../localization/lang/pt/ErrorConstants.xml' />
+		<LangFile_ru    file='../localization/lang/ru/ErrorConstants.xml' />
+		<LangFile_sv    file='../localization/lang/sv/ErrorConstants.xml' />
+		<LangFile_tr    file='../localization/lang/tr/ErrorConstants.xml' />
+		<LangFile_zh_CN file='../localization/lang/zh_CN/ErrorConstants.xml' />
+		<LangFile_zh_TW file='../localization/lang/zh_TW/ErrorConstants.xml' />
+
+		<dotAs>
+<![CDATA[
+/**
+ * Errors defines the ID's of error messages output
+ * by the Debugger verisons of the Player
+ */
+class Errors
+{
+{{ErrorGenerator.AsConsts}}
+};
+]]>
+		</dotAs>
+		<AsConsts repeat='ErrorGenerator.LangFile_en.errors' trim='1' >
+				<![CDATA[        public static const {{error.@label}} {{column(62)}}= {{error.@id}};
+]]>
+		</AsConsts>
+
+
+        <dotCpp>
+<![CDATA[
+#include "avmplus.h"
+
+namespace avmplus
+{
+    namespace ErrorConstants
+    {
+        // Error message strings only in DEBUGGER builds.
+        #ifdef DEBUGGER
+		LangName languageNames[kLanguages] =
+		{
+{{ErrorGenerator.LangNames}}
+		};
+
+        int errorMappingTable[2*kNumErrorConstants] =
+        {
+{{ErrorGenerator.LangMap}}
+        };
+
+        const char* errorConstants[kLanguages][kNumErrorConstants] =
+        {
+                // en
+            {
+{{ErrorGenerator.LangTable_en}}
+            },
+                // cs
+            {
+{{ErrorGenerator.LangTable_cs}}
+            },
+                // de
+            {
+{{ErrorGenerator.LangTable_de}}
+            },
+                // es
+            {
+{{ErrorGenerator.LangTable_es}}
+            },
+                // fr
+            {
+{{ErrorGenerator.LangTable_fr}}
+            },
+                // it
+            {
+{{ErrorGenerator.LangTable_it}}
+            },
+                // ja
+            {
+{{ErrorGenerator.LangTable_ja}}
+            },
+                // ko
+            {
+{{ErrorGenerator.LangTable_ko}}
+            },
+                // nl
+            {
+{{ErrorGenerator.LangTable_nl}}
+            },
+                // pl
+            {
+{{ErrorGenerator.LangTable_pl}}
+            },
+                // pt
+            {
+{{ErrorGenerator.LangTable_pt}}
+            },
+                // ru
+            {
+{{ErrorGenerator.LangTable_ru}}
+            },
+                // sv
+            {
+{{ErrorGenerator.LangTable_sv}}
+            },
+                // tr
+            {
+{{ErrorGenerator.LangTable_tr}}
+            },
+                // zh_CN
+            {
+{{ErrorGenerator.LangTable_zh_CN}}
+            },
+                // zh_TW
+            {
+{{ErrorGenerator.LangTable_zh_TW}}
+            }
+        };
+        #endif /* DEBUGGER */
+    }
+}
+]]>
+        </dotCpp>
+
+		<LangMap repeat='ErrorGenerator.LangFile_en.errors' trim='2' >
+				<![CDATA[            {{error.@id}}, {{LangMap.count}},
+]]>
+		</LangMap>
+			
+		<LangNames repeat='ErrorGenerator.Languages'>
+				<![CDATA[            { "{{escape(language.*.0, _, &#045; )}}", {{column(24)}}LANG_{{language.*.0}} },
+]]>
+		</LangNames>		
+
+		<LangTable_en repeat='ErrorGenerator.LangFile_en.errors' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_en.count}}*/ "{{escape(error.*.0)}}",
+]]>
+		</LangTable_en>
+		<LangTable_cs repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_cs.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_cs.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_cs>
+		<LangTable_de repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_de.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_de.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_de>
+		<LangTable_es repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_es.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_es.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_es>
+		<LangTable_fr repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_fr.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_fr.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_fr>
+		<LangTable_it repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_it.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_it.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_it>
+		<LangTable_ja repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_ja.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_ja.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_ja>
+		<LangTable_ko repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_ko.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_ko.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_ko>
+		<LangTable_nl repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_nl.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_nl.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_nl>
+		<LangTable_pl repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_pl.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_pl.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_pl>
+		<LangTable_pt repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_pt.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_pt.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_pt>
+		<LangTable_ru repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_ru.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_ru.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_ru>
+		<LangTable_sv repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_sv.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_sv.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_sv>
+		<LangTable_tr repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_tr.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_tr.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_tr>
+		<LangTable_zh_CN repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_zh_CN.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_zh_CN.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_zh_CN>
+		<LangTable_zh_TW repeat='ErrorGenerator.LangFile_en.errors' mergeWith='ErrorGenerator.LangFile_zh_TW.errors' mergeAttribute='id' trim='2' >
+				<![CDATA[                /*{{error.@id}},{{LangTable_zh_TW.count}}*/ "{{escape(merge.error.*.0)}}",
+]]>
+		</LangTable_zh_TW>
+
+
+        <dotH>
+<![CDATA[
+#ifndef __avmplus_ErrorConstants__
+#define __avmplus_ErrorConstants__
+	
+namespace avmplus
+{ 
+    namespace ErrorConstants
+    {
+        enum LangID
+        {
+{{ErrorGenerator.LanguageEnums}}
+            LANG_count = {{ErrorGenerator.last_repeat_count}}
+        };
+
+		typedef struct _LangName
+		{
+			const char*	str;
+			LangID		id;
+		}
+		LangName;
+
+        enum
+        {
+{{ErrorGenerator.ConstantEnums}}
+        };
+
+        // Error message strings only in DEBUGGER builds.
+        #ifdef DEBUGGER
+		const int kLanguages = LANG_count;
+        const int kNumErrorConstants = {{ErrorGenerator.last_repeat_count}};
+        extern const char* errorConstants[kLanguages][kNumErrorConstants];
+        extern int errorMappingTable[2*kNumErrorConstants];
+		extern LangName languageNames[kLanguages];
+        #endif
+    }
+}
+
+#endif /*__avmplus_ErrorConstants__*/
+]]>
+        </dotH>
+		<LanguageEnums repeat='ErrorGenerator.Languages' trim='1' >
+				<![CDATA[{{column(12)}}LANG_{{language.*.0}}{{column(23)}}= {{language.@id}},
+]]>
+		</LanguageEnums>
+		<ConstantEnums repeat='ErrorGenerator.LangFile_en.errors' trim='2' >
+			<![CDATA[{{column(12)}}{{error.@label}}{{column(60)}}= {{error.@id}},
+]]>
+		</ConstantEnums>
+
+
+        <Copyright>
+<![CDATA[
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1/GPL 2.0/LGPL 2.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is [Open Source Virtual Machine.].
+ *
+ * The Initial Developer of the Original Code is
+ * Adobe System Incorporated.
+ * Portions created by the Initial Developer are Copyright (C) 2004-2006
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   Adobe AS3 Team
+ *
+ * Alternatively, the contents of this file may be used under the terms of
+ * either the GNU General Public License Version 2 or later (the "GPL"), or
+ * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+ * in which case the provisions of the GPL or the LGPL are applicable instead
+ * of those above. If you wish to allow use of your version of this file only
+ * under the terms of either the GPL or the LGPL, and not to allow others to
+ * use your version of this file under the terms of the MPL, indicate your
+ * decision by deleting the provisions above and replace them with the notice
+ * and other provisions required by the GPL or the LGPL. If you do not delete
+ * the provisions above, a recipient may use your version of this file under
+ * the terms of any one of the MPL, the GPL or the LGPL.
+ *
+ * ***** END LICENSE BLOCK ***** 
+ *  
+ * THIS FILE IS AUTO-GENERATED. DO NOT EDIT THIS FILE.
+ * Use the script 'errorgen' to generate this file.
+ */
+]]>
+        </Copyright>
+
+
+</ErrorGenerator>
