@@ -82,7 +82,7 @@ package avmplus
         
         public static function get version():String
         {
-            return "0.1.0." + parseInt( "$Rev: 128 $".split( " " )[1] );
+            return "0.1.0." + parseInt( "$Rev$".split( " " )[1] );
         }
         
     }
