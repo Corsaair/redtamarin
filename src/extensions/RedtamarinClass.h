@@ -15,11 +15,11 @@
  *
  * The Initial Developer of the Original Code is
  * Adobe System Incorporated.
- * Portions created by the Initial Developer are Copyright (C) 2004-2006
+ * Portions created by the Initial Developer are Copyright (C) 1993-2006
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
- *   Zwetan Kjukov <zwetan@gmail>.
+ *   Zwetan Kjukov <zwetan@gmail.com>.
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -35,57 +35,23 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-package avmplus
+
+#ifndef REDTAMARIN_INCLUDED
+#define REDTAMARIN_INCLUDED
+
+namespace avmshell
 {
-    
-    public class CompatibilityMode
-    {
-        public static const tamarin:uint     = 0;
-        public static const redtamarin:uint  = 1;
-        public static const flashPlayer:uint = 2;
-    }
-    
-    [native(cls="RedtamarinClass", methods="auto")]
-    public class redtamarin
-    {
-        /* note:
-           the assert here is just an example,
-           use it will crash the avmshell.
-           
-           ex:
-           import avmplus.redtamarin;
-           redtamarin.assert( 0 );
-           
-           result:
-           redtamarin-trunk/src/shell/../extensions/RedtamarinClass.cpp:65:
-           failed assertion `expression'
-           ./test.sh: line 11: 58465 Abort trap   $avmshell test.abc
-        */
-        private native static function ___assert( expression:int ):void;
+	class RedtamarinClass : public ClassClosure
+	{
+	public:
+		RedtamarinClass(VTable* cvtable);
+		~RedtamarinClass();
         
-        private static var _compatibility:uint = CompatibilityMode.redtamarin;
+        void ___assert(int expression);
         
-        public static function assert( expression:int ):void
-        {
-            redtamarin.___assert( expression );
-        }
-        
-        public static function get compatibility():uint
-        {
-            return _compatibility;
-        }
-        
-        public static function set compatibility( mode:uint ):void
-        {
-            _compatibility = mode;
-        }
-        
-        public static function get version():String
-        {
-            return "0.1.0." + parseInt( "$Rev$".split( " " )[1] );
-        }
-        
-    }
-    
+	};
 }
+
+#endif /* REDTAMARIN_INCLUDED */
+
 

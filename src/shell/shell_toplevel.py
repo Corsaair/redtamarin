@@ -61,7 +61,12 @@ print("ASC="+classpath)
 print("Building shell_toplevel...")
 
 # compile builtins
-os.system(asc+" -abcfuture -import ../core/builtin.abc -builtin -out shell_toplevel shell_toplevel.as Domain.as StringBuilder.as ByteArray.as ../extensions/Sampler.as ../extensions/Trace.as ../extensions/Dictionary.as Endian.as Java.as")
+shell_class = "shell_toplevel.as Domain.as StringBuilder.as ByteArray.as"
+extensions_class = "../extensions/Sampler.as ../extensions/Trace.as ../extensions/Dictionary.as"
+redtamarin_class = "../redtamarin.as ../extensions/stdlib.as ../extensions/errors.as ../extensions/System.as ../extensions/ApplicationDomain.as ../extensions/Capabilities.as ../extensions/Socket.as"
+end_shell_class = "Endian.as Java.as"
+all_class = shell_class+" "+extensions_class+" "+redtamarin_class+" "+end_shell_class
+os.system(asc+" -abcfuture -import ../core/builtin.abc -builtin -out shell_toplevel "+all_class)
 
 print("Generating native thunks...")
 os.system("python ../utils/nativegen.py ../core/builtin.abc shell_toplevel.abc")

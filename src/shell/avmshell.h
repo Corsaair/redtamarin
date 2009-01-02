@@ -81,6 +81,12 @@ namespace avmplus
 #include "SamplerScript.h"
 #include "JavaGlue.h"
 
+/* redtamarin extensions */
+#include "RedtamarinClass.h"
+#include "StdlibClass.h"
+#include "CapabilitiesClass.h"
+#include "SocketClass.h"
+
 #ifdef _MSC_VER
 #pragma warning(disable:4996)
 #endif

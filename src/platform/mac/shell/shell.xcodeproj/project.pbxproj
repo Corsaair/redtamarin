@@ -16,6 +16,10 @@
 		07DFE9ED0EB8B3430046B322 /* WordcodeTranslator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DFE9EC0EB8B3430046B322 /* WordcodeTranslator.cpp */; };
 		1A91570F0B012A3F00744986 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A91570E0B012A3F00744986 /* libz.dylib */; };
 		4E5ADFA30E5CD46C00038D0B /* vprof.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E5ADFA20E5CD46C00038D0B /* vprof.cpp */; };
+		5851DC6B0F02FB6600C4E029 /* SocketClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5851DC670F02FB6600C4E029 /* SocketClass.cpp */; };
+		5851DD2C0F04069500C4E029 /* StdlibClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5851DD2A0F04069500C4E029 /* StdlibClass.cpp */; };
+		5851DDB50F06C89500C4E029 /* RedtamarinClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5851DDB30F06C89500C4E029 /* RedtamarinClass.cpp */; };
+		5851DDBD0F06FE4500C4E029 /* CapabilitiesClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5851DDBB0F06FE4500C4E029 /* CapabilitiesClass.cpp */; };
 		6803D2C90A5064FD00C797BB /* JavaGlue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6803D2C70A5064FD00C797BB /* JavaGlue.cpp */; };
 		6803D2CA0A5064FD00C797BB /* JavaGlue.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6803D2C80A5064FD00C797BB /* JavaGlue.h */; };
 		858088D70C8F604F0093F49B /* Sampler.as in CopyFiles */ = {isa = PBXBuildFile; fileRef = 858088D40C8F604F0093F49B /* Sampler.as */; };
@@ -400,6 +404,20 @@
 		4E62BF3F0D62451F00A24F2D /* solarisbuild.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = solarisbuild.h; sourceTree = "<group>"; };
 		4E62BF400D62451F00A24F2D /* winbuild.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = winbuild.h; sourceTree = "<group>"; };
 		4E62BF410D62451F00A24F2D /* WriteBarrier.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WriteBarrier.h; sourceTree = "<group>"; };
+		5851DC660F02FB6600C4E029 /* Socket.as */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Socket.as; path = ../../../extensions/Socket.as; sourceTree = SOURCE_ROOT; };
+		5851DC670F02FB6600C4E029 /* SocketClass.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = SocketClass.cpp; path = ../../../extensions/SocketClass.cpp; sourceTree = SOURCE_ROOT; };
+		5851DC680F02FB6600C4E029 /* SocketClass.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = SocketClass.h; path = ../../../extensions/SocketClass.h; sourceTree = SOURCE_ROOT; };
+		5851DD2A0F04069500C4E029 /* StdlibClass.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = StdlibClass.cpp; path = ../../../extensions/StdlibClass.cpp; sourceTree = SOURCE_ROOT; };
+		5851DD2B0F04069500C4E029 /* StdlibClass.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = StdlibClass.h; path = ../../../extensions/StdlibClass.h; sourceTree = SOURCE_ROOT; };
+		5851DD2D0F0406AF00C4E029 /* stdlib.as */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = stdlib.as; path = ../../../extensions/stdlib.as; sourceTree = SOURCE_ROOT; };
+		5851DDB30F06C89500C4E029 /* RedtamarinClass.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = RedtamarinClass.cpp; path = ../../../extensions/RedtamarinClass.cpp; sourceTree = SOURCE_ROOT; };
+		5851DDB40F06C89500C4E029 /* RedtamarinClass.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RedtamarinClass.h; path = ../../../extensions/RedtamarinClass.h; sourceTree = SOURCE_ROOT; };
+		5851DDBB0F06FE4500C4E029 /* CapabilitiesClass.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CapabilitiesClass.cpp; path = ../../../extensions/CapabilitiesClass.cpp; sourceTree = SOURCE_ROOT; };
+		5851DDBC0F06FE4500C4E029 /* CapabilitiesClass.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CapabilitiesClass.h; path = ../../../extensions/CapabilitiesClass.h; sourceTree = SOURCE_ROOT; };
+		5851DDBE0F091D6C00C4E029 /* ApplicationDomain.as */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ApplicationDomain.as; path = ../../../extensions/ApplicationDomain.as; sourceTree = SOURCE_ROOT; };
+		5851DDBF0F091D6C00C4E029 /* Capabilities.as */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Capabilities.as; path = ../../../extensions/Capabilities.as; sourceTree = SOURCE_ROOT; };
+		5851DDC00F091D6C00C4E029 /* errors.as */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = errors.as; path = ../../../extensions/errors.as; sourceTree = SOURCE_ROOT; };
+		5851DDC10F091D6C00C4E029 /* System.as */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = System.as; path = ../../../extensions/System.as; sourceTree = SOURCE_ROOT; };
 		6803D2C70A5064FD00C797BB /* JavaGlue.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JavaGlue.cpp; path = ../../../extensions/JavaGlue.cpp; sourceTree = SOURCE_ROOT; };
 		6803D2C80A5064FD00C797BB /* JavaGlue.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JavaGlue.h; path = ../../../extensions/JavaGlue.h; sourceTree = SOURCE_ROOT; };
 		858088D40C8F604F0093F49B /* Sampler.as */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = Sampler.as; path = ../../../extensions/Sampler.as; sourceTree = SOURCE_ROOT; };
@@ -908,6 +926,20 @@
 		8EDDB9E409AAD1BF00FB9EE5 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5851DDBE0F091D6C00C4E029 /* ApplicationDomain.as */,
+				5851DDBF0F091D6C00C4E029 /* Capabilities.as */,
+				5851DDC00F091D6C00C4E029 /* errors.as */,
+				5851DDC10F091D6C00C4E029 /* System.as */,
+				5851DDBB0F06FE4500C4E029 /* CapabilitiesClass.cpp */,
+				5851DDBC0F06FE4500C4E029 /* CapabilitiesClass.h */,
+				5851DDB30F06C89500C4E029 /* RedtamarinClass.cpp */,
+				5851DDB40F06C89500C4E029 /* RedtamarinClass.h */,
+				5851DD2D0F0406AF00C4E029 /* stdlib.as */,
+				5851DD2A0F04069500C4E029 /* StdlibClass.cpp */,
+				5851DD2B0F04069500C4E029 /* StdlibClass.h */,
+				5851DC660F02FB6600C4E029 /* Socket.as */,
+				5851DC670F02FB6600C4E029 /* SocketClass.cpp */,
+				5851DC680F02FB6600C4E029 /* SocketClass.h */,
 				8EDDB9E509AAD1D300FB9EE5 /* Dictionary.as */,
 				8EDDB9E609AAD1D300FB9EE5 /* DictionaryGlue.cpp */,
 				8EDDB9E709AAD1D300FB9EE5 /* DictionaryGlue.h */,
@@ -1018,6 +1050,10 @@
 				074E40EE0E8E750100146B6F /* wopcodes.cpp in Sources */,
 				074A00520EA5FBBC0016A8AC /* WordcodeEmitter.cpp in Sources */,
 				07DFE9ED0EB8B3430046B322 /* WordcodeTranslator.cpp in Sources */,
+				5851DC6B0F02FB6600C4E029 /* SocketClass.cpp in Sources */,
+				5851DD2C0F04069500C4E029 /* StdlibClass.cpp in Sources */,
+				5851DDB50F06C89500C4E029 /* RedtamarinClass.cpp in Sources */,
+				5851DDBD0F06FE4500C4E029 /* CapabilitiesClass.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

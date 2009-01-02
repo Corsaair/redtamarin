@@ -35,54 +35,91 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-package avmplus
+package flash.net
 {
+    import flash.utils.Endian;
     
-    public class CompatibilityMode
+    [native(cls="SocketClass", instance="SocketObject", methods="auto")]
+    public class Socket
     {
-        public static const tamarin:uint     = 0;
-        public static const redtamarin:uint  = 1;
-        public static const flashPlayer:uint = 2;
-    }
-    
-    [native(cls="RedtamarinClass", methods="auto")]
-    public class redtamarin
-    {
-        /* note:
-           the assert here is just an example,
-           use it will crash the avmshell.
-           
-           ex:
-           import avmplus.redtamarin;
-           redtamarin.assert( 0 );
-           
-           result:
-           redtamarin-trunk/src/shell/../extensions/RedtamarinClass.cpp:65:
-           failed assertion `expression'
-           ./test.sh: line 11: 58465 Abort trap   $avmshell test.abc
-        */
-        private native static function ___assert( expression:int ):void;
+        private var _connected:Boolean = false;
+        private var _endian:String     = Endian.BIG_ENDIAN;
+        private var _objectEncoding:uint;
+        private var _timeout:uint      = 20000; //ms
         
-        private static var _compatibility:uint = CompatibilityMode.redtamarin;
-        
-        public static function assert( expression:int ):void
+        public function Socket( host:String = null, port:int = 0 )
         {
-            redtamarin.___assert( expression );
+            //init( "hello world" );
         }
         
-        public static function get compatibility():uint
+        private native function init( test:String ):void;
+        
+        public native function get inited():String;
+        
+        public function get bytesAvailable():uint
         {
-            return _compatibility;
+            return 0;
         }
         
-        public static function set compatibility( mode:uint ):void
+        public function get connected():Boolean
         {
-            _compatibility = mode;
+            return _connected;
         }
         
-        public static function get version():String
+        public function get endian():String
         {
-            return "0.1.0." + parseInt( "$Rev$".split( " " )[1] );
+            return _endian;
+        }
+        
+        public function set endian( value:String ):void
+        {
+            _endian = value;
+        }
+        
+        public function get objectEncoding():uint
+        {
+            return _objectEncoding;
+        }
+        
+        public function set objectEncoding( value:uint ):void
+        {
+            _objectEncoding = value;
+        }
+        
+        public function get timeout():uint
+        {
+            return _timeout;
+        }
+        
+        public function set timeout( value:uint ):void
+        {
+            _timeout = value;
+        }
+        
+        
+        public function close():void
+        {
+            
+        }
+        
+        public function connect( host:String, port:int ):void
+        {
+            
+        }
+        
+        public function flush():void
+        {
+            
+        }
+        
+        public function readByte():int
+        {
+            return 0;
+        }
+        
+        public function writeByte( value:int ):void
+        {
+            
         }
         
     }

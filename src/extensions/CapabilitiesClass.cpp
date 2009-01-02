@@ -19,7 +19,7 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
- *   Zwetan Kjukov <zwetan@gmail>.
+ *   Zwetan Kjukov <zwetan@gmail.com>.
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -35,57 +35,44 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-package avmplus
+
+#ifdef AVMPLUS_SHELL
+#include "avmshell.h"
+#else
+// player
+#include "platformbuild.h"
+#include "avmplayer.h"
+#endif
+
+namespace avmshell
 {
+    CapabilitiesClass::CapabilitiesClass(VTable *cvtable)
+	: ClassClosure(cvtable)
+	{		
+		createVanillaPrototype();
+        
+	}
     
-    public class CompatibilityMode
+    CapabilitiesClass::~CapabilitiesClass()
     {
-        public static const tamarin:uint     = 0;
-        public static const redtamarin:uint  = 1;
-        public static const flashPlayer:uint = 2;
-    }
-    
-    [native(cls="RedtamarinClass", methods="auto")]
-    public class redtamarin
-    {
-        /* note:
-           the assert here is just an example,
-           use it will crash the avmshell.
-           
-           ex:
-           import avmplus.redtamarin;
-           redtamarin.assert( 0 );
-           
-           result:
-           redtamarin-trunk/src/shell/../extensions/RedtamarinClass.cpp:65:
-           failed assertion `expression'
-           ./test.sh: line 11: 58465 Abort trap   $avmshell test.abc
-        */
-        private native static function ___assert( expression:int ):void;
-        
-        private static var _compatibility:uint = CompatibilityMode.redtamarin;
-        
-        public static function assert( expression:int ):void
-        {
-            redtamarin.___assert( expression );
-        }
-        
-        public static function get compatibility():uint
-        {
-            return _compatibility;
-        }
-        
-        public static function set compatibility( mode:uint ):void
-        {
-            _compatibility = mode;
-        }
-        
-        public static function get version():String
-        {
-            return "0.1.0." + parseInt( "$Rev$".split( " " )[1] );
-        }
         
     }
+        
+    Stringp CapabilitiesClass::__getOSname()
+    {
+        AvmCore* core = this->core();
+        
+        #ifdef AVMPLUS_WIN32
+        return core->newString("Windows");
+        #elif defined AVMPLUS_MAC
+        return core->newString("Macintosh");
+        #elif defined AVMPLUS_UNIX
+        return core->newString("Linux");
+        #endif
+        
+        return core->newString("Unknown");
+    }
     
-}
+}	
+
 
