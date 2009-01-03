@@ -106,6 +106,348 @@
 			/>
 		</Configuration>
 		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
+			IntermediateDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
+			ConfigurationType="1"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="2"
+				AdditionalIncludeDirectories="..\..\shell;..\..\extensions;..\..\MMgc;..\..\codegen;..\..\..\..\modules\zlib\src;..\..\core;."
+				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;AVMPLUS_SHELL;WIN32;AVMPLUS_IA32;NDEBUG;_CONSOLE;USE_REAL2INT;_CRT_SECURE_NO_DEPRECATE"
+				StringPooling="true"
+				MinimalRebuild="false"
+				ExceptionHandling="0"
+				RuntimeLibrary="0"
+				ForceConformanceInForLoopScope="false"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				WarningLevel="4"
+				WarnAsError="true"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+				DisableSpecificWarnings="4201"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/SAFESEH:NO"
+				AdditionalDependencies="winmm.lib"
+				OutputFile="$(OutDir)/avmplus.exe"
+				LinkIncremental="1"
+				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				OptimizeReferences="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="1"
+				ErrorReporting="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Debugger|Win32"
+			OutputDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
+			IntermediateDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
+			ConfigurationType="1"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="2"
+				AdditionalIncludeDirectories="..\..\shell;..\..\extensions;..\..\MMgc;..\..\codegen;..\..\..\..\modules\zlib\src;..\..\core;."
+				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;AVMPLUS_SHELL;WIN32;AVMPLUS_IA32;NDEBUG;_CONSOLE;USE_REAL2INT;DEBUGGER;_CRT_SECURE_NO_DEPRECATE"
+				StringPooling="true"
+				MinimalRebuild="false"
+				ExceptionHandling="0"
+				RuntimeLibrary="0"
+				ForceConformanceInForLoopScope="false"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				WarningLevel="4"
+				WarnAsError="true"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+				DisableSpecificWarnings="4201"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/SAFESEH:NO"
+				AdditionalDependencies="winmm.lib"
+				OutputFile="$(OutDir)/avmplus_s.exe"
+				LinkIncremental="1"
+				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				OptimizeReferences="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Debugger|Win32"
+			OutputDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
+			IntermediateDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
+			ConfigurationType="1"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\..\shell;..\..\extensions;..\..\MMgc;..\..\codegen;..\..\..\..\modules\zlib\src;..\..\core;."
+				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;AVMPLUS_SHELL;WIN32;AVMPLUS_IA32;_DEBUG;_CONSOLE;USE_REAL2INT;DEBUGGER;_CRT_SECURE_NO_DEPRECATE"
+				MinimalRebuild="false"
+				ExceptionHandling="0"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				ForceConformanceInForLoopScope="false"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				BrowseInformation="1"
+				WarningLevel="4"
+				WarnAsError="true"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+				DisableSpecificWarnings="4201"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/FIXED:NO /SAFESEH:NO"
+				AdditionalDependencies="winmm.lib DbgHelp.lib shlwapi.lib"
+				OutputFile="$(OutDir)/avmplus_sd.exe"
+				AdditionalLibraryDirectories=""
+				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="VTune|Win32"
+			OutputDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
+			IntermediateDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
+			ConfigurationType="1"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="2"
+				AdditionalIncludeDirectories="..\..\shell;..\..\extensions;..\..\MMgc;..\..\codegen;..\..\..\..\modules\zlib\src;..\..\core;.;..\..\..\..\modules\vtune"
+				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;AVMPLUS_SHELL;WIN32;AVMPLUS_IA32;NDEBUG;_CONSOLE;USE_REAL2INT;_CRT_SECURE_NO_DEPRECATE;VTUNE"
+				StringPooling="true"
+				MinimalRebuild="false"
+				ExceptionHandling="0"
+				RuntimeLibrary="0"
+				ForceConformanceInForLoopScope="false"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				WarningLevel="4"
+				WarnAsError="true"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+				DisableSpecificWarnings="4201"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/SAFESEH:NO /fixed:no"
+				AdditionalDependencies="winmm.lib JitProfiling.lib"
+				OutputFile="$(OutDir)/avmplus.exe"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\..\..\modules\vtune\ia32\libcmt"
+				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				OptimizeReferences="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="1"
+				ErrorReporting="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
 			Name="Debug|Windows Mobile 6 Professional SDK (ARMV4I)"
 			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
 			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
@@ -195,92 +537,6 @@
 				AdditionalFiles=""
 			/>
 			<DebuggerTool
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
-			IntermediateDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="2"
-				AdditionalIncludeDirectories="..\..\shell;..\..\extensions;..\..\MMgc;..\..\codegen;..\..\..\..\modules\zlib\src;..\..\core;."
-				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;AVMPLUS_SHELL;WIN32;AVMPLUS_IA32;NDEBUG;_CONSOLE;USE_REAL2INT;_CRT_SECURE_NO_DEPRECATE"
-				StringPooling="true"
-				MinimalRebuild="false"
-				ExceptionHandling="0"
-				RuntimeLibrary="0"
-				ForceConformanceInForLoopScope="false"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough=""
-				WarningLevel="4"
-				WarnAsError="true"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="0"
-				DisableSpecificWarnings="4201"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions="/SAFESEH:NO"
-				AdditionalDependencies="winmm.lib"
-				OutputFile="$(OutDir)/avmplus.exe"
-				LinkIncremental="1"
-				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				OptimizeReferences="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="1"
-				ErrorReporting="0"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
@@ -377,91 +633,6 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release_Debugger|Win32"
-			OutputDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
-			IntermediateDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="2"
-				AdditionalIncludeDirectories="..\..\shell;..\..\extensions;..\..\MMgc;..\..\codegen;..\..\..\..\modules\zlib\src;..\..\core;."
-				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;AVMPLUS_SHELL;WIN32;AVMPLUS_IA32;NDEBUG;_CONSOLE;USE_REAL2INT;DEBUGGER;_CRT_SECURE_NO_DEPRECATE"
-				StringPooling="true"
-				MinimalRebuild="false"
-				ExceptionHandling="0"
-				RuntimeLibrary="0"
-				ForceConformanceInForLoopScope="false"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough=""
-				WarningLevel="4"
-				WarnAsError="true"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="0"
-				DisableSpecificWarnings="4201"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions="/SAFESEH:NO"
-				AdditionalDependencies="winmm.lib"
-				OutputFile="$(OutDir)/avmplus_s.exe"
-				LinkIncremental="1"
-				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				OptimizeReferences="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
 			Name="Release_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
 			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
 			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
@@ -554,90 +725,6 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug_Debugger|Win32"
-			OutputDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
-			IntermediateDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\..\shell;..\..\extensions;..\..\MMgc;..\..\codegen;..\..\..\..\modules\zlib\src;..\..\core;."
-				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;AVMPLUS_SHELL;WIN32;AVMPLUS_IA32;_DEBUG;_CONSOLE;USE_REAL2INT;DEBUGGER;_CRT_SECURE_NO_DEPRECATE"
-				MinimalRebuild="false"
-				ExceptionHandling="0"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				ForceConformanceInForLoopScope="false"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough=""
-				BrowseInformation="1"
-				WarningLevel="4"
-				WarnAsError="true"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="3"
-				DisableSpecificWarnings="4201"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions="/FIXED:NO /SAFESEH:NO"
-				AdditionalDependencies="winmm.lib DbgHelp.lib shlwapi.lib"
-				OutputFile="$(OutDir)/avmplus_sd.exe"
-				AdditionalLibraryDirectories=""
-				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
 			Name="Debug_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
 			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
 			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
@@ -725,93 +812,6 @@
 				AdditionalFiles=""
 			/>
 			<DebuggerTool
-			/>
-		</Configuration>
-		<Configuration
-			Name="VTune|Win32"
-			OutputDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
-			IntermediateDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="2"
-				AdditionalIncludeDirectories="..\..\shell;..\..\extensions;..\..\MMgc;..\..\codegen;..\..\..\..\modules\zlib\src;..\..\core;.;..\..\..\..\modules\vtune"
-				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;AVMPLUS_SHELL;WIN32;AVMPLUS_IA32;NDEBUG;_CONSOLE;USE_REAL2INT;_CRT_SECURE_NO_DEPRECATE;VTUNE"
-				StringPooling="true"
-				MinimalRebuild="false"
-				ExceptionHandling="0"
-				RuntimeLibrary="0"
-				ForceConformanceInForLoopScope="false"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough=""
-				WarningLevel="4"
-				WarnAsError="true"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="3"
-				DisableSpecificWarnings="4201"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions="/SAFESEH:NO /fixed:no"
-				AdditionalDependencies="winmm.lib JitProfiling.lib"
-				OutputFile="$(OutDir)/avmplus.exe"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\..\..\modules\vtune\ia32\libcmt"
-				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				OptimizeReferences="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="1"
-				ErrorReporting="0"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
@@ -1334,6 +1334,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\extensions\CapabilitiesClass.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\shell\ConsoleOutputStream.cpp"
 				>
 			</File>
@@ -1366,6 +1370,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\extensions\RedtamarinClass.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\extensions\SamplerScript.cpp"
 				>
 			</File>
@@ -1378,6 +1386,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\extensions\SocketClass.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\extensions\ST_avmplus_basics.cpp"
 				>
 			</File>
@@ -1386,11 +1398,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\extensions\StdlibClass.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\shell\StringBuilderClass.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\shell\SystemClass.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\extensions\UnistdClass.cpp"
 				>
 			</File>
 			<File
@@ -1436,6 +1456,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\extensions\CapabilitiesClass.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\shell\ConsoleOutputStream.h"
 				>
 			</File>
@@ -1472,6 +1496,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\extensions\RedtamarinClass.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\extensions\SamplerScript.h"
 				>
 			</File>
@@ -1484,7 +1512,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\extensions\SocketClass.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\extensions\StdlibClass.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\shell\SystemClass.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\extensions\UnistdClass.h"
 				>
 			</File>
 		</Filter>
@@ -1492,7 +1532,15 @@
 			Name="AS3 Files"
 			>
 			<File
+				RelativePath="..\..\extensions\ApplicationDomain.as"
+				>
+			</File>
+			<File
 				RelativePath="..\..\shell\ByteArray.as"
+				>
+			</File>
+			<File
+				RelativePath="..\..\extensions\Capabilities.as"
 				>
 			</File>
 			<File
@@ -1520,6 +1568,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\redtamarin.as"
+				>
+			</File>
+			<File
 				RelativePath="..\..\extensions\Sampler.as"
 				>
 			</File>
@@ -1532,11 +1584,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\extensions\Socket.as"
+				>
+			</File>
+			<File
+				RelativePath="..\..\extensions\stdlib.as"
+				>
+			</File>
+			<File
 				RelativePath="..\..\shell\StringBuilder.as"
 				>
 			</File>
 			<File
 				RelativePath="..\..\shell\UIntArray.as"
+				>
+			</File>
+			<File
+				RelativePath="..\..\extensions\unistd.as"
 				>
 			</File>
 			<File

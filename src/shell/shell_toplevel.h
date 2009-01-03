@@ -166,32 +166,31 @@ const uint32_t flash_trace_Trace_getLevel = 136;
 const uint32_t flash_trace_Trace_setListener = 137;
 const uint32_t flash_trace_Trace_getListener = 138;
 const uint32_t flash_utils_Dictionary_private_init = 142;
-const uint32_t avmplus_redtamarin_private____assert = 148;
-const uint32_t C_stdlib___stdlib_EXIT_SUCCESS_get = 162;
-const uint32_t C_stdlib___stdlib_EXIT_FAILURE_get = 163;
-const uint32_t C_stdlib___stdlib___rand = 164;
-const uint32_t C_stdlib___stdlib___abort = 165;
-const uint32_t C_stdlib___stdlib___exit = 166;
-const uint32_t C_stdlib___stdlib___getenv = 167;
-const uint32_t C_stdlib___stdlib___setenv = 168;
-const uint32_t C_stdlib___stdlib___system = 169;
-const uint32_t C_unistd___unistd_F_OK_get = 178;
-const uint32_t C_unistd___unistd_W_OK_get = 179;
-const uint32_t C_unistd___unistd_R_OK_get = 180;
-const uint32_t C_unistd___unistd___access = 181;
-const uint32_t C_unistd___unistd___chdir = 182;
-const uint32_t C_unistd___unistd___getcwd = 183;
-const uint32_t C_unistd___unistd___gethostname = 184;
-const uint32_t C_unistd___unistd___sleep = 185;
-const uint32_t flash_system_Capabilities_private___getOSname = 219;
-const uint32_t flash_net_Socket_private_init = 253;
-const uint32_t flash_net_Socket_inited_get = 254;
-const uint32_t avmplus_JObject_create = 273;
-const uint32_t avmplus_JObject_createArray = 274;
-const uint32_t avmplus_JObject_toArray = 275;
-const uint32_t avmplus_JObject_constructorSignature = 276;
-const uint32_t avmplus_JObject_methodSignature = 277;
-const uint32_t avmplus_JObject_fieldSignature = 278;
+const uint32_t C_stdlib___stdlib_EXIT_SUCCESS_get = 161;
+const uint32_t C_stdlib___stdlib_EXIT_FAILURE_get = 162;
+const uint32_t C_stdlib___stdlib___rand = 163;
+const uint32_t C_stdlib___stdlib___abort = 164;
+const uint32_t C_stdlib___stdlib___exit = 165;
+const uint32_t C_stdlib___stdlib___getenv = 166;
+const uint32_t C_stdlib___stdlib___setenv = 167;
+const uint32_t C_stdlib___stdlib___system = 168;
+const uint32_t C_unistd___unistd_F_OK_get = 177;
+const uint32_t C_unistd___unistd_W_OK_get = 178;
+const uint32_t C_unistd___unistd_R_OK_get = 179;
+const uint32_t C_unistd___unistd___access = 180;
+const uint32_t C_unistd___unistd___chdir = 181;
+const uint32_t C_unistd___unistd___getcwd = 182;
+const uint32_t C_unistd___unistd___gethostname = 183;
+const uint32_t C_unistd___unistd___sleep = 184;
+const uint32_t flash_system_Capabilities_private___getOSname = 218;
+const uint32_t flash_net_Socket_private_init = 252;
+const uint32_t flash_net_Socket_inited_get = 253;
+const uint32_t avmplus_JObject_create = 272;
+const uint32_t avmplus_JObject_createArray = 273;
+const uint32_t avmplus_JObject_toArray = 274;
+const uint32_t avmplus_JObject_constructorSignature = 275;
+const uint32_t avmplus_JObject_methodSignature = 276;
+const uint32_t avmplus_JObject_fieldSignature = 277;
 extern AvmBox shell_toplevel_s2a_oos_rest_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_JObject_methodSignature_thunk  shell_toplevel_s2a_oos_rest_thunk
 
@@ -218,11 +217,11 @@ extern AvmBox shell_toplevel_u2a_ou_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 extern AvmBox shell_toplevel_a2a_ou_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_StringBuilder_length_set_thunk  shell_toplevel_a2a_ou_thunk
 
-extern AvmBox shell_toplevel_a2a_oo_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-#define avmplus_JObject_toArray_thunk  shell_toplevel_a2a_oo_thunk
-#define avmplus_Domain_loadBytes_thunk  shell_toplevel_a2a_oo_thunk
-#define avmplus_Domain_domainMemory_set_thunk  shell_toplevel_a2a_oo_thunk
-#define flash_trace_Trace_setListener_thunk  shell_toplevel_a2a_oo_thunk
+extern AvmBox shell_toplevel_v2a_oi_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define flash_utils_ByteArray_writeByte_thunk  shell_toplevel_v2a_oi_thunk
+#define avmplus_System_exit_thunk  shell_toplevel_v2a_oi_thunk
+#define flash_utils_ByteArray_writeInt_thunk  shell_toplevel_v2a_oi_thunk
+#define flash_utils_ByteArray_writeShort_thunk  shell_toplevel_v2a_oi_thunk
 
 extern AvmBox shell_toplevel_s2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_System_readLine_thunk  shell_toplevel_s2a_o_thunk
@@ -333,8 +332,8 @@ extern AvmBox shell_toplevel_i2a_osu_optu4294967295U_thunk(AvmMethodEnv env, uin
 #define avmplus_StringBuilder_lastIndexOf_thunk  shell_toplevel_i2a_osu_optu4294967295U_thunk
 
 extern AvmBox shell_toplevel_v2a_od_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-#define flash_utils_ByteArray_writeDouble_thunk  shell_toplevel_v2a_od_thunk
 #define flash_utils_ByteArray_writeFloat_thunk  shell_toplevel_v2a_od_thunk
+#define flash_utils_ByteArray_writeDouble_thunk  shell_toplevel_v2a_od_thunk
 
 extern AvmBox shell_toplevel_s2a_ouu_optu4294967295U_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_StringBuilder_substring_thunk  shell_toplevel_s2a_ouu_optu4294967295U_thunk
@@ -363,11 +362,11 @@ extern AvmBox shell_toplevel_v2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox
 #define flash_utils_ByteArray_private_zlib_compress_thunk  shell_toplevel_v2a_o_thunk
 #define flash_sampler_pauseSampling_thunk  shell_toplevel_v2a_o_thunk
 #define flash_sampler_clearSamples_thunk  shell_toplevel_v2a_o_thunk
-#define flash_utils_ByteArray_private_zlib_uncompress_thunk  shell_toplevel_v2a_o_thunk
+#define flash_sampler_stopSampling_thunk  shell_toplevel_v2a_o_thunk
 #define avmplus_System_debugger_thunk  shell_toplevel_v2a_o_thunk
 #define avmplus_StringBuilder_trimToSize_thunk  shell_toplevel_v2a_o_thunk
 #define C_stdlib___stdlib___abort_thunk  shell_toplevel_v2a_o_thunk
-#define flash_sampler_stopSampling_thunk  shell_toplevel_v2a_o_thunk
+#define flash_utils_ByteArray_private_zlib_uncompress_thunk  shell_toplevel_v2a_o_thunk
 #define avmplus_StringBuilder_reverse_thunk  shell_toplevel_v2a_o_thunk
 
 extern AvmBox shell_toplevel_a2a_oii_opti2_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -392,16 +391,15 @@ extern AvmBox shell_toplevel_v2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 extern AvmBox shell_toplevel_v2a_oi_opti0_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define C_stdlib___stdlib___exit_thunk  shell_toplevel_v2a_oi_opti0_thunk
 
-extern AvmBox shell_toplevel_v2a_oi_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-#define avmplus_System_exit_thunk  shell_toplevel_v2a_oi_thunk
-#define flash_utils_ByteArray_writeByte_thunk  shell_toplevel_v2a_oi_thunk
-#define avmplus_redtamarin_private____assert_thunk  shell_toplevel_v2a_oi_thunk
-#define flash_utils_ByteArray_writeInt_thunk  shell_toplevel_v2a_oi_thunk
-#define flash_utils_ByteArray_writeShort_thunk  shell_toplevel_v2a_oi_thunk
-
 extern AvmBox shell_toplevel_i2a_osi_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define C_unistd___unistd___access_thunk  shell_toplevel_i2a_osi_thunk
 
 extern AvmBox shell_toplevel_a2a_oab_optbfalse_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define flash_sampler_getMemberNames_thunk  shell_toplevel_a2a_oab_optbfalse_thunk
+
+extern AvmBox shell_toplevel_a2a_oo_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define avmplus_JObject_toArray_thunk  shell_toplevel_a2a_oo_thunk
+#define avmplus_Domain_loadBytes_thunk  shell_toplevel_a2a_oo_thunk
+#define avmplus_Domain_domainMemory_set_thunk  shell_toplevel_a2a_oo_thunk
+#define flash_trace_Trace_setListener_thunk  shell_toplevel_a2a_oo_thunk
 

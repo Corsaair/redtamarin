@@ -64,13 +64,12 @@ namespace avmshell
         
         #ifdef AVMPLUS_WIN32
         return core->newString("Windows");
-        #elif defined AVMPLUS_MAC
+        #elif AVMPLUS_MAC
         return core->newString("Macintosh");
-        #elif defined AVMPLUS_UNIX
+        #elif AVMPLUS_UNIX
         return core->newString("Linux");
         #endif
         
-        return core->newString("Unknown");
     }
     
 }	

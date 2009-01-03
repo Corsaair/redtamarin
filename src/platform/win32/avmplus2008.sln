@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+# Visual C++ Express 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shell", "shell2008.vcproj", "{437E43D2-ED2D-406B-88DB-B5940F838AE9}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7E408248-3BAA-45AE-B65A-5355113A1FF8} = {7E408248-3BAA-45AE-B65A-5355113A1FF8}
@@ -100,31 +100,24 @@ Global
 		{437E43D2-ED2D-406B-88DB-B5940F838AE8}.VTune|x64.Build.0 = VTune|x64
 		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug_Debugger|Win32.ActiveCfg = Debug_Debugger|Win32
 		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug_Debugger|Win32.Build.0 = Debug_Debugger|Win32
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug_Debugger|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Debug_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug_Debugger|x64.ActiveCfg = Debug_Debugger|x64
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug_Debugger|x64.Build.0 = Debug_Debugger|x64
+		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug_Debugger|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Debug_Debugger|Win32
+		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug_Debugger|x64.ActiveCfg = Debug_Debugger|Win32
 		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug|Win32.ActiveCfg = Debug|Win32
 		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug|Win32.Build.0 = Debug|Win32
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Debug|Windows Mobile 6 Professional SDK (ARMV4I)
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug|Windows Mobile 6 Professional SDK (ARMV4I).Build.0 = Debug|Windows Mobile 6 Professional SDK (ARMV4I)
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug|x64.ActiveCfg = Debug|x64
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug|x64.Build.0 = Debug|x64
+		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Debug|Win32
+		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Debug|x64.ActiveCfg = Debug|Win32
 		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release_Debugger|Win32.ActiveCfg = Release_Debugger|Win32
 		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release_Debugger|Win32.Build.0 = Release_Debugger|Win32
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release_Debugger|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Release_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release_Debugger|x64.ActiveCfg = Release_Debugger|x64
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release_Debugger|x64.Build.0 = Release_Debugger|x64
+		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release_Debugger|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Release_Debugger|Win32
+		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release_Debugger|x64.ActiveCfg = Release_Debugger|Win32
 		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release|Win32.ActiveCfg = Release|Win32
 		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release|Win32.Build.0 = Release|Win32
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Release|Windows Mobile 6 Professional SDK (ARMV4I)
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release|Windows Mobile 6 Professional SDK (ARMV4I).Build.0 = Release|Windows Mobile 6 Professional SDK (ARMV4I)
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release|x64.ActiveCfg = Release|x64
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release|x64.Build.0 = Release|x64
+		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Release|Win32
+		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.Release|x64.ActiveCfg = Release|Win32
 		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.VTune|Win32.ActiveCfg = Release|Win32
 		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.VTune|Win32.Build.0 = Release|Win32
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.VTune|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Release|Windows Mobile 6 Professional SDK (ARMV4I)
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.VTune|x64.ActiveCfg = Release|x64
-		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.VTune|x64.Build.0 = Release|x64
+		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.VTune|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = VTune|Win32
+		{B004A8CC-B3A9-4600-A1A9-EF1BBCF2434B}.VTune|x64.ActiveCfg = VTune|Win32
 		{5A7E8ACA-065A-4456-BBD0-535691718FD0}.Debug_Debugger|Win32.ActiveCfg = Debug|Win32
 		{5A7E8ACA-065A-4456-BBD0-535691718FD0}.Debug_Debugger|Win32.Build.0 = Debug|Win32
 		{5A7E8ACA-065A-4456-BBD0-535691718FD0}.Debug_Debugger|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Debug|Windows Mobile 6 Professional SDK (ARMV4I)

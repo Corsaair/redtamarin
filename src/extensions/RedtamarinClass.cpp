@@ -59,12 +59,14 @@ namespace avmshell
     {
         
     }
-        
-    void RedtamarinClass::___assert(int expression)
+    
+    /*
+    void RedtamarinClass::____assert(int expression)
     {
         assert( expression );
     }
-    
+    */
+
 }	
 
 

@@ -61,13 +61,13 @@ package avmplus
            failed assertion `expression'
            ./test.sh: line 11: 58465 Abort trap   $avmshell test.abc
         */
-        private native static function ___assert( expression:int ):void;
+        //private native static function ____assert( expression:int ):void;
         
         private static var _compatibility:uint = CompatibilityMode.redtamarin;
         
         public static function assert( expression:int ):void
         {
-            redtamarin.___assert( expression );
+            redtamarin.____assert( expression );
         }
         
         public static function get compatibility():uint

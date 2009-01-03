@@ -47,6 +47,9 @@
 #ifdef WIN32
     #include <io.h>
     #define access _access
+    #define F_OK 0
+    #define W_OK 2
+    #define R_OK 4
     #include <direct.h>
 	#define getcwd _getcwd
     #define chdir _chdir
@@ -117,7 +120,24 @@ namespace avmshell
     
     Stringp UnistdClass::__gethostname()
     {
-        char name[255];
+        #ifdef WIN32
+        DWORD nSize = 255;
+        char name[256];
+        Stringp s;
+
+        if( GetComputerNameEx( ComputerNameNetBIOS, name, &nSize ) == FALSE )
+        {
+            s = core()->kEmptyString;
+        }
+        else
+        {
+            s = core()->newString( name );
+        }
+        
+        return s;
+
+        #else
+        char name[256];
         int result = gethostname( name, (size_t)255 );
         Stringp s;
         
@@ -131,6 +151,7 @@ namespace avmshell
         }
         
         return s;
+        #endif
     }
     
     void UnistdClass::__sleep(uint32 second)
