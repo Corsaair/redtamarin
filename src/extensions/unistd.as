@@ -48,6 +48,7 @@ package C.unistd
         public native static function __access( path:String, mode:int ):int;
         public native static function __chdir( path:String ):int;
         ﻿public native static function __getcwd():String;
+        ﻿public native static function __gethostname():String;
         public native static function __sleep( second:uint ):void;﻿
         
     }
@@ -95,6 +96,20 @@ package C.unistd
     public function getcwd():String
     {
         return __unistd.__getcwd();
+    }
+    
+    /* Get name of current host
+       
+       ref:
+       http://www.opengroup.org/onlinepubs/000095399/functions/gethostname.html
+       http://msdn.microsoft.com/en-us/library/ms738527(VS.85).aspx
+       
+       info:
+       int gethostname(char *name, size_t namelen);
+    */
+    public function gethostname():String
+    {
+        return __unistd.__gethostname();
     }
     
 ﻿   /* Suspend execution for an interval of time.

@@ -175,22 +175,23 @@ const uint32_t C_stdlib___stdlib___exit = 166;
 const uint32_t C_stdlib___stdlib___getenv = 167;
 const uint32_t C_stdlib___stdlib___setenv = 168;
 const uint32_t C_stdlib___stdlib___system = 169;
-const uint32_t C_unistd___unistd_F_OK_get = 177;
-const uint32_t C_unistd___unistd_W_OK_get = 178;
-const uint32_t C_unistd___unistd_R_OK_get = 179;
-const uint32_t C_unistd___unistd___access = 180;
-const uint32_t C_unistd___unistd___chdir = 181;
-const uint32_t C_unistd___unistd___getcwd = 182;
-const uint32_t C_unistd___unistd___sleep = 183;
-const uint32_t flash_system_Capabilities_private___getOSname = 217;
-const uint32_t flash_net_Socket_private_init = 251;
-const uint32_t flash_net_Socket_inited_get = 252;
-const uint32_t avmplus_JObject_create = 271;
-const uint32_t avmplus_JObject_createArray = 272;
-const uint32_t avmplus_JObject_toArray = 273;
-const uint32_t avmplus_JObject_constructorSignature = 274;
-const uint32_t avmplus_JObject_methodSignature = 275;
-const uint32_t avmplus_JObject_fieldSignature = 276;
+const uint32_t C_unistd___unistd_F_OK_get = 178;
+const uint32_t C_unistd___unistd_W_OK_get = 179;
+const uint32_t C_unistd___unistd_R_OK_get = 180;
+const uint32_t C_unistd___unistd___access = 181;
+const uint32_t C_unistd___unistd___chdir = 182;
+const uint32_t C_unistd___unistd___getcwd = 183;
+const uint32_t C_unistd___unistd___gethostname = 184;
+const uint32_t C_unistd___unistd___sleep = 185;
+const uint32_t flash_system_Capabilities_private___getOSname = 219;
+const uint32_t flash_net_Socket_private_init = 253;
+const uint32_t flash_net_Socket_inited_get = 254;
+const uint32_t avmplus_JObject_create = 273;
+const uint32_t avmplus_JObject_createArray = 274;
+const uint32_t avmplus_JObject_toArray = 275;
+const uint32_t avmplus_JObject_constructorSignature = 276;
+const uint32_t avmplus_JObject_methodSignature = 277;
+const uint32_t avmplus_JObject_fieldSignature = 278;
 extern AvmBox shell_toplevel_s2a_oos_rest_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_JObject_methodSignature_thunk  shell_toplevel_s2a_oos_rest_thunk
 
@@ -225,8 +226,9 @@ extern AvmBox shell_toplevel_a2a_oo_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 
 extern AvmBox shell_toplevel_s2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_System_readLine_thunk  shell_toplevel_s2a_o_thunk
-#define flash_utils_ByteArray_endian_get_thunk  shell_toplevel_s2a_o_thunk
 #define flash_net_Socket_inited_get_thunk  shell_toplevel_s2a_o_thunk
+#define flash_utils_ByteArray_endian_get_thunk  shell_toplevel_s2a_o_thunk
+#define C_unistd___unistd___gethostname_thunk  shell_toplevel_s2a_o_thunk
 #define flash_utils_ByteArray_readUTF_thunk  shell_toplevel_s2a_o_thunk
 #define flash_utils_ByteArray_private__toString_thunk  shell_toplevel_s2a_o_thunk
 #define avmplus_System_getAvmplusVersion_thunk  shell_toplevel_s2a_o_thunk

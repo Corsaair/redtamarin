@@ -54,6 +54,7 @@ namespace avmshell
         int __access( Stringp path, int mode );
         int __chdir( Stringp path );
         Stringp __getcwd();
+        Stringp __gethostname();
         void __sleep(uint32 second);
         
 	};

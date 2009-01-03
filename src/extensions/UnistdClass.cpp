@@ -115,6 +115,24 @@ namespace avmshell
         return s;
     }
     
+    Stringp UnistdClass::__gethostname()
+    {
+        char name[255];
+        int result = gethostname( name, (size_t)255 );
+        Stringp s;
+        
+        if( result >= 0 )
+        {
+            s = core()->newString( name );
+        }
+        else
+        {
+            s = core()->kEmptyString;
+        }
+        
+        return s;
+    }
+    
     void UnistdClass::__sleep(uint32 second)
     {
         #ifdef WIN32
