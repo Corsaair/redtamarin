@@ -84,6 +84,7 @@ namespace avmplus
 /* redtamarin extensions */
 #include "RedtamarinClass.h"
 #include "StdlibClass.h"
+#include "UnistdClass.h"
 #include "CapabilitiesClass.h"
 #include "SocketClass.h"
 

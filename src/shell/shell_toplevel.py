@@ -63,7 +63,14 @@ print("Building shell_toplevel...")
 # compile builtins
 shell_class = "shell_toplevel.as Domain.as StringBuilder.as ByteArray.as"
 extensions_class = "../extensions/Sampler.as ../extensions/Trace.as ../extensions/Dictionary.as"
-redtamarin_class = "../redtamarin.as ../extensions/stdlib.as ../extensions/errors.as ../extensions/System.as ../extensions/ApplicationDomain.as ../extensions/Capabilities.as ../extensions/Socket.as"
+redtamarin_class  = "../redtamarin.as"
+redtamarin_class += " ../extensions/stdlib.as"
+redtamarin_class += " ../extensions/unistd.as"
+redtamarin_class += " ../extensions/errors.as"
+redtamarin_class += " ../extensions/System.as"
+redtamarin_class += " ../extensions/ApplicationDomain.as"
+redtamarin_class += " ../extensions/Capabilities.as"
+redtamarin_class += " ../extensions/Socket.as"
 end_shell_class = "Endian.as Java.as"
 all_class = shell_class+" "+extensions_class+" "+redtamarin_class+" "+end_shell_class
 os.system(asc+" -abcfuture -import ../core/builtin.abc -builtin -out shell_toplevel "+all_class)

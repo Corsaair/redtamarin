@@ -69,6 +69,7 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../extensions/ST_avmplus_peephole.cpp \
   $(curdir)/../extensions/RedtamarinClass.cpp \
   $(curdir)/../extensions/StdlibClass.cpp \
+  $(curdir)/../extensions/UnistdClass.cpp \
   $(curdir)/../extensions/CapabilitiesClass.cpp \
   $(curdir)/../extensions/SocketClass.cpp \
   $(NULL)
