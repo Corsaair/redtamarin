@@ -48,7 +48,7 @@ namespace avmshell
 		~CapabilitiesClass();
         
         Stringp __getOSname();
-        
+        /*Stringp __getInfos();*/
 	};
 }
 

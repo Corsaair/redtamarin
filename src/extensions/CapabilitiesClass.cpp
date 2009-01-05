@@ -44,6 +44,8 @@
 #include "avmplayer.h"
 #endif
 
+#include <sys/utsname.h>
+
 namespace avmshell
 {
     CapabilitiesClass::CapabilitiesClass(VTable *cvtable)
@@ -71,6 +73,36 @@ namespace avmshell
         #endif
         
     }
+    
+    /*
+    Stringp CapabilitiesClass::__getInfos()
+    {
+        struct utsname uts;
+        AvmCore* core = this->core();
+        Stringp s = core->kEmptyString;
+        //uts.sysname, uts.machine
+        
+        if( uname(&uts) < 0 )
+        {
+            s = core->concatStrings( s, core->newString( "no infos" ) );
+        }
+        else
+        {
+            s = core->concatStrings( s, core->newString( "sysname: " ) );
+            s = core->concatStrings( s, core->newString( uts.sysname ) );
+            s = core->concatStrings( s, core->newString( ", nodename: " ) );
+            s = core->concatStrings( s, core->newString( uts.nodename ) );
+            s = core->concatStrings( s, core->newString( ", release: " ) );
+            s = core->concatStrings( s, core->newString( uts.release ) );
+            s = core->concatStrings( s, core->newString( ", version: " ) );
+            s = core->concatStrings( s, core->newString( uts.version ) );
+            s = core->concatStrings( s, core->newString( ", machine: " ) );
+            s = core->concatStrings( s, core->newString( uts.machine ) );
+        }
+        
+        return s;
+    }
+    */
     
 }	
 

@@ -141,13 +141,13 @@ namespace avmshell
         int result = gethostname( name, (size_t)255 );
         Stringp s;
         
-        if( result >= 0 )
+        if( result != 0 )
         {
-            s = core()->newString( name );
+            s = core()->kEmptyString;
         }
         else
         {
-            s = core()->kEmptyString;
+            s = core()->newString( name );
         }
         
         return s;

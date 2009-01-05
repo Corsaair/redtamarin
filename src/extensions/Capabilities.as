@@ -64,6 +64,8 @@
         private native static function __getOSname():String;
         private static var _OSname:String;
         
+        /*public native static function __getInfos():String;*/
+        
         public static function get avHardwareDisable():Boolean
         {
             return false;

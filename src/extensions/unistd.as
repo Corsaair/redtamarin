@@ -67,6 +67,9 @@ package C.unistd
     
 ﻿   /* Determine accessibility of file.
        
+       ref:
+       http://msdn.microsoft.com/en-us/library/1w06ktdy(VS.80).aspx
+       
        info:
        int access( const char *path, int mode );
        int _access( const char *path, int mode );
