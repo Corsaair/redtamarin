@@ -79,7 +79,7 @@ package avmplus
         {
             _compatibility = mode;
         }
-         
+        
         public static function get version():String
         {
             return "0.1.0." + parseInt( "$Rev$".split( " " )[1] );
