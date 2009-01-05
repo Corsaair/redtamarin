@@ -44,7 +44,9 @@
 #include "avmplayer.h"
 #endif
 
+/*
 #include <sys/utsname.h>
+*/
 
 namespace avmshell
 {
