@@ -893,8 +893,13 @@ namespace avmshell
 				#endif
 			}
             
+			#ifdef WIN32
+			char executablePath[256];
+			GetModuleFileName(NULL, executablePath, sizeof(executablePath));
+			#else
 			char executablePath[256];
 			strncpy(executablePath, argv[0], sizeof(executablePath));
+			#endif
             
 			if(endFilenamePos == -1)
 				endFilenamePos = argc;

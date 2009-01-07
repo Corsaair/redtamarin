@@ -356,7 +356,7 @@ namespace avmshell
             
             case LANG_SPANISH:
             lang = "es";
-            switch (sub)
+            switch( sub_lang )
             {
                 case SUBLANG_SPANISH:
                 country = "ES";
@@ -460,10 +460,17 @@ namespace avmshell
             break;
         }
         
-        s = core->concatStrings( s, core->newString( lang ) );
-        s = core->concatStrings( s, core->newString( "_" ) );
-        s = core->concatStrings( s, core->newString( country ) );
-        
+        if( lang != NULL )
+        {
+            s = core->concatStrings( s, core->newString( lang ) );
+
+            if( country != NULL )
+            {
+                s = core->concatStrings( s, core->newString( "_" ) );
+                s = core->concatStrings( s, core->newString( country ) );
+            }
+        }
+
         return s;
         #else
         char *locale = NULL;
