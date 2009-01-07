@@ -166,7 +166,7 @@
             
             if( _locale == "" )
             {
-                _locale = UnknownLocale;
+                return UnknownLocale;
             }
             
             return _locale.substr( 0, 2 );
@@ -179,24 +179,29 @@
                 _locale = __getLocale();
             }
             
+            var locale:String;
+            
             if( _locale == "" )
             {
                 _locale = UnknownLocale;
+                locale  = _locale;
             }
-            
-            var locale:String = _locale;
-            
-            if( locale.indexOf( "." ) > -1 )
+            else
             {
-                locale = _locale.split( "." )[0];
+                locale  = _locale;
+                
+                if( locale.indexOf( "." ) > -1 )
+                {
+                    locale = _locale.split( "." )[0];
+                }
+                
+                if( locale.indexOf( "@" ) > -1 )
+                {
+                    locale = _locale.split( "@" )[0];
+                }
+                
+                locale = locale.split( "_" ).join( "-" );
             }
-            
-            if( locale.indexOf( "@" ) > -1 )
-            {
-                locale = _locale.split( "@" )[0];
-            }
-            
-            locale = locale.split( "_" ).join( "-" );
             
             return [ locale ];
         }
