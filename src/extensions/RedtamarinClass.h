@@ -47,7 +47,7 @@ namespace avmshell
 		RedtamarinClass(VTable* cvtable);
 		~RedtamarinClass();
         
-        //void ____assert(int expression);
+        /*void __avmassert(int32 expression);*/
         
 	};
 }

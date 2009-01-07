@@ -49,6 +49,7 @@ namespace avmshell
         
         Stringp __getOSname();
         /*Stringp __getInfos();*/
+        Stringp __getLocale();
 	};
 }
 

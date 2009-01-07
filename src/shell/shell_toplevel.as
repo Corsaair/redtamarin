@@ -37,7 +37,7 @@
 
 package avmplus 
 {
-    import flash.utils.ByteArray
+    import flash.utils.ByteArray;
     
     // this namespace exists solely so that nativegen.py will encounter them during shell building,
     // thus giving us a test case for parsing methods with custom namespaces in nativegen.py
@@ -77,6 +77,8 @@ package avmplus
         public native static function getTimer():uint
         private native static function getArgv():Array
         public static const argv:Array = getArgv();
+        private native static function getExecPath():String;
+        public static const executablePath:String = getExecPath();
         public native static function readLine():String;
         public native static function get totalMemory():Number;
         public native static function get freeMemory():Number;

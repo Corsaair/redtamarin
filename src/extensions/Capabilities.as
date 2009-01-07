@@ -64,6 +64,10 @@
         private native static function __getOSname():String;
         private static var _OSname:String;
         
+        private native static function __getLocale():String;
+        private static var _locale:String;
+        private static const UnknownLocale:String = "xu";
+        
         /*public native static function __getInfos():String;*/
         
         public static function get avHardwareDisable():Boolean
@@ -155,12 +159,46 @@
         */
         public static function get language():String
         {
-            return "en";
+            if( !_locale )
+            {
+                _locale = __getLocale();
+            }
+            
+            if( _locale == "" )
+            {
+                _locale = UnknownLocale;
+            }
+            
+            return _locale.substr( 0, 2 );
         }
         
         public static function get languages():Array
         {
-            return ["en-US"];
+            if( !_locale )
+            {
+                _locale = __getLocale();
+            }
+            
+            if( _locale == "" )
+            {
+                _locale = UnknownLocale;
+            }
+            
+            var locale:String = _locale;
+            
+            if( locale.indexOf( "." ) > -1 )
+            {
+                locale = _locale.split( "." )[0];
+            }
+            
+            if( locale.indexOf( "@" ) > -1 )
+            {
+                locale = _locale.split( "@" )[0];
+            }
+            
+            locale = locale.split( "_" ).join( "-" );
+            
+            return [ locale ];
         }
         
         /* note:

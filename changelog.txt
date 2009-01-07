@@ -1,0 +1,3 @@
+* 0.2.1
+- added System.executablePath to get argv[0]
+- added locale/language/languages support

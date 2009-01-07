@@ -61,9 +61,9 @@ namespace avmshell
     }
     
     /*
-    void RedtamarinClass::____assert(int expression)
+    void RedtamarinClass::__avmassert(int32 expression)
     {
-        assert( expression );
+        AvmAssert( expression );
     }
     */
 

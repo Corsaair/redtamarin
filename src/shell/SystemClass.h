@@ -20,6 +20,7 @@
  *
  * Contributor(s):
  *   Adobe AS3 Team
+ *   Zwetan Kjukov <zwetan@gmail.com>.
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -56,6 +57,7 @@ namespace avmshell
 
 		// set by shell
 		static int user_argc;
+        static char *exec_path;
 #ifdef UNDER_CE
 		static TCHAR **user_argv;
 #else
@@ -106,6 +108,8 @@ namespace avmshell
 		/*@}*/
 
 		ArrayObject * getArgv();
+        
+        Stringp getExecPath();
 
 		Stringp readLine();
 

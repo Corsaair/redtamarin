@@ -20,6 +20,7 @@
  *
  * Contributor(s):
  *   Adobe AS3 Team
+ *   Zwetan Kjukov <zwetan@gmail.com>.
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -491,9 +492,10 @@ namespace avmshell
 			// Create the profiler
 			profiler = new (GetGC()) Profiler(this);
 			#endif
-
+            
 			SystemClass::user_argc = argc-1;
 			SystemClass::user_argv = &argv[1];
+			SystemClass::exec_path = executablePath;
 		
 			// init toplevel internally
 			Toplevel* toplevel = initShellBuiltins();
@@ -890,12 +892,16 @@ namespace avmshell
 				#endif
 				#endif
 			}
-
+            
+			char executablePath[256];
+			strncpy(executablePath, argv[0], sizeof(executablePath));
+            
 			if(endFilenamePos == -1)
 				endFilenamePos = argc;
 			SystemClass::user_argc = argc-endFilenamePos-1; 
 			SystemClass::user_argv = &argv[endFilenamePos+1];
-		
+            SystemClass::exec_path = executablePath;
+            
 			// init toplevel internally
 			Toplevel* toplevel = initShellBuiltins();
 
