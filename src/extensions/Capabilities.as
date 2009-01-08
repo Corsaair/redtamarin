@@ -41,6 +41,8 @@
     import avmplus.System;
     import avmplus.redtamarin;
     
+    import C.stdlib.getenv;
+    
     /**
     * The Capabilities class provides properties that describe the system
     * and runtime that are hosting an ABC file.
@@ -153,54 +155,87 @@
             return false;
         }
         
+        private static function _getLocale():String
+        {
+            if( _locale )
+            {
+                return _locale;
+            }
+            
+            /* note:
+               We allow the user to override the system settings with
+               environment variables.
+            */
+            var locale:String;
+            
+            locale = getenv( "LC_ALL" );
+            
+            if( locale == "" )
+            {
+                locale = getenv( "LANG" );
+            }
+            
+            if( locale == "" )
+            {
+                locale = __getLocale();
+            }
+            
+            /* note:
+               if we can not found the locale
+               we return the default "xu" for Other/unknown
+            */
+            if( locale == "" )
+            {
+                locale = UnknownLocale;
+            }
+            
+            _locale = locale;
+            
+            return _locale;
+        }
+        
         /* note:
-           by default we support only "en"/English,
-           we should be able later to return different languages string
+           by default we support only the language
+           supported by the flash player
+           see: http://livedocs.adobe.com/flex/3/langref/flash/system/Capabilities.html#language
         */
         public static function get language():String
         {
-            if( !_locale )
-            {
-                _locale = __getLocale();
-            }
+            var locale:String = _getLocale();
             
-            if( _locale == "" )
-            {
-                return UnknownLocale;
-            }
-            
-            return _locale.substr( 0, 2 );
+            return locale.substr( 0, 2 );
         }
         
+        /* note:
+           - if we can not find the country (or not supported)
+             we will return only the language code
+             ex: English Zimbabwe will return only "en"
+           - the array will contain only the current locale
+             ["en-GB","en-US"] will not happen
+        */
         public static function get languages():Array
         {
-            if( !_locale )
-            {
-                _locale = __getLocale();
-            }
+            var locale:String = _getLocale();
             
-            var locale:String;
-            
-            if( _locale == "" )
+            if( locale != UnknownLocale)
             {
-                _locale = UnknownLocale;
-                locale  = _locale;
-            }
-            else
-            {
-                locale  = _locale;
-                
+                //ex: en-GB.UTF-8
                 if( locale.indexOf( "." ) > -1 )
                 {
                     locale = _locale.split( "." )[0];
                 }
                 
+                //ex: es-ES@modern
                 if( locale.indexOf( "@" ) > -1 )
                 {
                     locale = _locale.split( "@" )[0];
                 }
                 
-                locale = locale.split( "_" ).join( "-" );
+                //ex: en_US
+                if( locale.indexOf( "_" ) > -1 )
+                {
+                    locale = locale.split( "_" ).join( "-" );
+                }
             }
             
             return [ locale ];
