@@ -35,32 +35,33 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-package flash.system
+package flash.security
 {
-    import avmplus.System;
+    import flash.events.EventDispatcher;
+    import flash.utils.IDataInput;
     
-    public final class System
+    public interface IURIDereferencer
+    {
+        function dereference(uri:String):IDataInput;
+    }
+    
+    public final class RevocationCheckSettings
     {
         
-        public static function get totalMemory():uint
-        {
-            return avmplus.System.totalMemory;
-        }
+    }
+    
+    public final class SignatureStatus
+    {
         
-        public static function get vmVersion():String
-        {
-            return avmplus.System.getAvmplusVersion();
-        }
+    }
+    
+    public final class SignerTrustSettings
+    {
         
-        public static function exit( code:uint ):void
-        {
-            avmplus.System.exit( code );
-        }
-        
-        public static function gc():void
-        {
-            //do nothing;
-        }
+    }
+    
+    public class XMLSignatureValidator extends EventDispatcher
+    {
         
     }
     

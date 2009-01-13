@@ -132,36 +132,39 @@ package avmplus
 //    }
 //}
 
-package flash.utils
-{
-    import avmplus.*;
-    
-    public function describeType(value:*):XML
-    {
-        return avmplus.describeType( value, FLASH10_FLAGS );
-    }
-    
-    public function getDefinitionByName(name:String):Object
-    {
-        return Domain.currentDomain.getClass( name ) as Object;
-    }
-    
-    public function getQualifiedClassName(value:*):String
-    {
-        return avmplus.getQualifiedClassName( value );
-    }
-    
-    public function getQualifiedSuperclassName(value:*):String
-    {
-        return avmplus.getQualifiedSuperclassName( value );
-    }
-    
-    public function getTimer():int
-    {
-        return System.getTimer();
-    }
-    
-}
+/* note:
+   removed, look at extensions/flash_utils.as
+*/
+//package flash.utils
+//{
+//    import avmplus.*;
+//    
+//    public function describeType(value:*):XML
+//    {
+//        return avmplus.describeType( value, FLASH10_FLAGS );
+//    }
+//    
+//    public function getDefinitionByName(name:String):Object
+//    {
+//        return Domain.currentDomain.getClass( name ) as Object;
+//    }
+//    
+//    public function getQualifiedClassName(value:*):String
+//    {
+//        return avmplus.getQualifiedClassName( value );
+//    }
+//    
+//    public function getQualifiedSuperclassName(value:*):String
+//    {
+//        return avmplus.getQualifiedSuperclassName( value );
+//    }
+//    
+//    public function getTimer():int
+//    {
+//        return System.getTimer();
+//    }
+//    
+//}
         
 package {
 

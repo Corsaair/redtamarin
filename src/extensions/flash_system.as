@@ -35,13 +35,83 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-﻿package flash.system
+package flash.system
 {
+    import C.stdlib.getenv;
+    
     import avmplus.CompatibilityMode;
+    import avmplus.Domain;
     import avmplus.System;
     import avmplus.redtamarin;
     
-    import C.stdlib.getenv;
+    import flash.display.Loader;
+    import flash.events.EventDispatcher;
+    import flash.utils.ByteArray;
+    
+    public function fscommand(command:String, args:String = ""):void
+    {
+        
+    }
+    
+    /* note:
+       ideally we would want to implement this at the C/C++ level
+       to be able to isolate domains,
+       not sure it gonna happen, reasons:
+       - we are one damn single exe, one app domain make sens here
+       - we will not implement security (eg. we share everyhting in the exe)
+    */
+    public final class ApplicationDomain
+    {
+        private var _domain:Domain;
+        
+        public function ApplicationDomain( parentDomain:* = null )
+        {
+            _domain = new Domain( parentDomain );
+        }
+        
+        public static function get currentDomain():ApplicationDomain
+        {
+            return new ApplicationDomain( Domain.currentDomain );
+        }
+        
+        public static function get MIN_DOMAIN_MEMORY_LENGTH():uint
+        {
+            return Domain.MIN_DOMAIN_MEMORY_LENGTH;
+        }
+        
+        public function get parentDomain():ApplicationDomain
+        {
+            return new ApplicationDomain( _domain );
+        }
+        
+        public function get domainMemory():ByteArray
+        {
+            return _domain.domainMemory;
+        }
+        
+        public function set domainMemory( value:ByteArray ):void
+        {
+            _domain.domainMemory = value;
+        }
+        
+        public function getDefinition( name:String ):Object
+        {
+            return _domain.getClass( name ) as Object;
+        }
+        
+        public function hasDefinition( name:String ):Boolean
+        {
+            var definition:Object = getDefinition( name );
+            
+            if( definition )
+            {
+                return true;
+            }
+            
+            return false;
+        }
+        
+    }
     
     /**
     * The Capabilities class provides properties that describe the system
@@ -427,6 +497,95 @@
         }
         
     }
+    
+    public final class IME extends EventDispatcher
+    {
+        
+    }
+    
+    public final class IMEConversionMode
+    {
+        
+    }
+    
+    public class LoaderContext
+    {
+        
+    }
+    
+    public class JPEGLoaderContext extends LoaderContext
+    {
+        
+    }
+    
+    public final class Security
+    {
+        
+    }
+    
+    public class SecurityDomain
+    {
+        
+    }
+    
+    /* note:
+       if we implement security somehow
+       here the panel could be a CLI
+       with readline/writeline instead of a GUI
+    */
+    public final class SecurityPanel
+    {
+        
+    }
+    
+    public final class System
+    {
+        public static function get ime():IME
+        {
+            return null;
+        }
+        
+        public static function get totalMemory():uint
+        {
+            return avmplus.System.totalMemory;
+        }
+        
+        /* TODO:
+           check the string that AIR / FLash Player return
+        */
+        public static function get vmVersion():String
+        {
+            return avmplus.System.getAvmplusVersion();
+        }
+        
+        public static function exit( code:uint ):void
+        {
+            avmplus.System.exit( code );
+        }
+        
+        public static function gc():void
+        {
+            //do nothing;
+        }
+        
+        public static function pause():void
+        {
+            //do nothing;
+            //hint: use C.unistd.sleep
+        }
+        
+        public static function resume():void
+        {
+            //do nothing;
+        }
+        
+        public static function setClipboard(string:String):void
+        {
+            
+        }
+        
+    }
+    
+    
 }
-
 

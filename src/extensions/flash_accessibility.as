@@ -35,62 +35,38 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-package flash.system
+package flash.accessibility
 {
-    import avmplus.Domain;
-    import flash.utils.ByteArray;
     
-    public final class ApplicationDomain
+    public final class Accessibility
     {
-        private var _domain:Domain;
         
-        public function ApplicationDomain( parentDomain:* = null )
+        public static function get active():Boolean
         {
-            _domain = new Domain( parentDomain );
-        }
-        
-        public static function get currentDomain():ApplicationDomain
-        {
-            return new ApplicationDomain( Domain.currentDomain );
-        }
-        
-        public static function get MIN_DOMAIN_MEMORY_LENGTH():uint
-        {
-            return Domain.MIN_DOMAIN_MEMORY_LENGTH;
-        }
-        
-        public function get parentDomain():ApplicationDomain
-        {
-            return new ApplicationDomain( _domain );
-        }
-        
-        public function get domainMemory():ByteArray
-        {
-            return _domain.domainMemory;
-        }
-        
-        public function set domainMemory( value:ByteArray ):void
-        {
-            _domain.domainMemory = value;
-        }
-        
-        public function getDefinition( name:String ):Object
-        {
-            return _domain.getClass( name ) as Object;
-        }
-        
-        public function hasDefinition( name:String ):Boolean
-        {
-            var definition:Object = getDefinition( name );
-            
-            if( definition )
-            {
-                return true;
-            }
-            
             return false;
         }
         
+        public static function updateProperties():void
+        {
+            
+        }
+        
     }
+    
+    public class AccessibilityProperties
+    {
+        public var description:String = "";
+        public var forceSimple:Boolean = false;
+        public var name:String = "";
+        public var noAutoLabeling:Boolean = false;
+        public var shortcut:String = "";
+        public var silent:Boolean = false;
+        
+        public function AccessibilityProperties()
+        {
+            
+        }
+    }
+    
 }
 

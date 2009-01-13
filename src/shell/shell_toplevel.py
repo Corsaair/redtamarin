@@ -62,16 +62,47 @@ print("Building shell_toplevel...")
 
 # compile builtins
 shell_class = "shell_toplevel.as Domain.as StringBuilder.as ByteArray.as"
-extensions_class = "../extensions/Sampler.as ../extensions/Trace.as ../extensions/Dictionary.as"
+
+extensions_class  = "../extensions/Sampler.as"
+extensions_class += " ../extensions/Trace.as"
+extensions_class += " ../extensions/Dictionary.as"
+
 redtamarin_class  = "../redtamarin.as"
+# C libs
 redtamarin_class += " ../extensions/stdlib.as"
 redtamarin_class += " ../extensions/unistd.as"
-redtamarin_class += " ../extensions/errors.as"
-redtamarin_class += " ../extensions/System.as"
-redtamarin_class += " ../extensions/ApplicationDomain.as"
-redtamarin_class += " ../extensions/Capabilities.as"
-redtamarin_class += " ../extensions/Socket.as"
-end_shell_class = "Endian.as Java.as"
+# flash platform libs
+#redtamarin_class += " ../extensions/errors.as"
+#redtamarin_class += " ../extensions/System.as"
+#redtamarin_class += " ../extensions/ApplicationDomain.as"
+#redtamarin_class += " ../extensions/Capabilities.as"
+#redtamarin_class += " ../extensions/Socket.as"
+#redtamarin_class += " ../extensions/FlashPlatformMock.as"
+redtamarin_class += " ../extensions/flash_accessibility.as"
+redtamarin_class += " ../extensions/flash_data.as"
+redtamarin_class += " ../extensions/flash_desktop.as"
+redtamarin_class += " ../extensions/flash_display.as"
+redtamarin_class += " ../extensions/flash_errors.as"
+redtamarin_class += " ../extensions/flash_events.as"
+redtamarin_class += " ../extensions/flash_external.as"
+redtamarin_class += " ../extensions/flash_filesystem.as"
+redtamarin_class += " ../extensions/flash_filters.as"
+redtamarin_class += " ../extensions/flash_geom.as"
+redtamarin_class += " ../extensions/flash_html.as"
+redtamarin_class += " ../extensions/flash_media.as"
+redtamarin_class += " ../extensions/flash_net.as"
+redtamarin_class += " ../extensions/flash_printing.as"
+redtamarin_class += " ../extensions/flash_profiler.as"
+redtamarin_class += " ../extensions/flash_sampler.as"
+redtamarin_class += " ../extensions/flash_security.as"
+redtamarin_class += " ../extensions/flash_system.as"
+redtamarin_class += " ../extensions/flash_text.as"
+redtamarin_class += " ../extensions/flash_ui.as"
+redtamarin_class += " ../extensions/flash_utils.as"
+redtamarin_class += " ../extensions/flash_xml.as"
+
+end_shell_class = "Java.as"
+
 all_class = shell_class+" "+extensions_class+" "+redtamarin_class+" "+end_shell_class
 os.system(asc+" -abcfuture -import ../core/builtin.abc -builtin -out shell_toplevel "+all_class)
 

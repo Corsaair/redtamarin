@@ -125,5 +125,15 @@ package flash.errors
         }
     }
     
+    public class SQLError extends Error
+    {
+        
+    }
+    
+    public class SQLErrorOperation
+    {
+        
+    }
+    
 }
 
