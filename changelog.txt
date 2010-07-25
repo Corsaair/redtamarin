@@ -1,7 +1,0 @@
-* 0.2.5
-- added System.executablePath to get argv[0]
-- added locale/language/languages support
-  user can override the default locale
-  with env vars LC_ALL and/or LANG
-- added full flash platform API mock
-
