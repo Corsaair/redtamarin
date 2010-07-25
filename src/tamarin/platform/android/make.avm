@@ -1,0 +1,207 @@
+# ***** BEGIN LICENSE BLOCK *****
+# Version: MPL 1.1/GPL 2.0/LGPL 2.1
+#
+# The contents of this file are subject to the Mozilla Public License Version
+# 1.1 (the "License"); you may not use this file except in compliance with
+# the License. You may obtain a copy of the License at
+# http://www.mozilla.org/MPL/
+#
+# Software distributed under the License is distributed on an "AS IS" basis,
+# WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+# for the specific language governing rights and limitations under the
+# License.
+#
+# The Original Code is [Open Source Virtual Machine.].
+#
+# The Initial Developer of the Original Code is
+# Adobe System Incorporated.
+# Portions created by the Initial Developer are Copyright (C) 2010
+# the Initial Developer. All Rights Reserved.
+#
+# Contributor(s):
+#   Adobe AS3 Team
+#
+# Alternatively, the contents of this file may be used under the terms of
+# either the GNU General Public License Version 2 or later (the "GPL"), or
+# the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+# in which case the provisions of the GPL or the LGPL are applicable instead
+# of those above. If you wish to allow use of your version of this file only
+# under the terms of either the GPL or the LGPL, and not to allow others to
+# use your version of this file under the terms of the MPL, indicate your
+# decision by deleting the provisions above and replace them with the notice
+# and other provisions required by the GPL or the LGPL. If you do not delete
+# the provisions above, a recipient may use your version of this file under
+# the terms of any one of the MPL, the GPL or the LGPL.
+#
+# ***** END LICENSE BLOCK *****
+#
+
+AVMPLUS_DIR := ../..
+
+#****************************************************************************
+# Source files
+#****************************************************************************
+
+AVMPLUS_SRCS := \
+	AbcEnv.cpp \
+	AbcData.cpp \
+	AbcParser.cpp \
+	ActionBlockConstants.cpp \
+	ArrayClass.cpp \
+	ArrayObject.cpp \
+	AtomArray.cpp \
+	atom.cpp \
+	AvmCore.cpp \
+	avm.cpp \
+    avmfeatures.cpp \
+	avmplus.cpp \
+	avmplusDebugger.cpp \
+	avmplusHashtable.cpp \
+	avmplusProfiler.cpp \
+	AvmPlusScriptableObject.cpp \
+	BigInteger.cpp \
+	BooleanClass.cpp \
+	BuiltinTraits.cpp \
+	ClassClass.cpp \
+	ClassClosure.cpp \
+	Date.cpp \
+	DateClass.cpp \
+	DateObject.cpp \
+	DescribeTypeClass.cpp \
+	Domain.cpp \
+	DomainEnv.cpp \
+	E4XNode.cpp \
+	ErrorClass.cpp \
+	ErrorConstants.cpp \
+	exec.cpp \
+	exec-jit.cpp \
+	exec-verifyall.cpp \
+	Exception.cpp \
+	FrameState.cpp \
+	FunctionClass.cpp \
+	instr.cpp \
+	IntClass.cpp \
+	Interpreter.cpp \
+	MathClass.cpp \
+	MathUtils.cpp \
+	MethodClosure.cpp \
+	MethodEnv.cpp \
+	MethodInfo.cpp \
+	Multiname.cpp \
+	MultinameHashtable.cpp \
+	Namespace.cpp \
+	NamespaceClass.cpp \
+	NamespaceSet.cpp \
+	NativeFunction.cpp \
+	NumberClass.cpp \
+	ObjectClass.cpp \
+	peephole.cpp \
+	PoolObject.cpp \
+	PrintWriter.cpp \
+	QCache.cpp \
+	RegExpClass.cpp \
+	RegExpObject.cpp \
+	Sampler.cpp \
+	ScopeChain.cpp \
+	ScriptBuffer.cpp \
+	ScriptObject.cpp \
+	StackTrace.cpp \
+	StringBuffer.cpp \
+	StringClass.cpp \
+	StringObject.cpp \
+	Toplevel.cpp \
+	Traits.cpp \
+	TypeDescriber.cpp \
+	UnicodeUtils.cpp \
+    UnixDebugUtils.cpp \
+	VectorClass.cpp \
+	Verifier.cpp \
+	VTable.cpp \
+	WordcodeEmitter.cpp \
+	WordcodeTranslator.cpp \
+	wopcodes.cpp \
+	XMLClass.cpp \
+	XMLListClass.cpp \
+	XMLListObject.cpp \
+	XMLObject.cpp \
+	XMLParser16.cpp \
+	CodegenLIR.cpp \
+	Allocator.cpp \
+	CodeAlloc.cpp \
+	Containers.cpp \
+	Assembler.cpp \
+	Fragmento.cpp \
+	LIR.cpp \
+	njconfig.cpp \
+	RegAlloc.cpp \
+	pcre_chartables.cpp \
+	pcre_compile.cpp \
+	pcre_config.cpp \
+	pcre_exec.cpp \
+	pcre_fullinfo.cpp \
+	pcre_get.cpp \
+	pcre_globals.cpp \
+	pcre_info.cpp \
+	pcre_maketables.cpp \
+	pcre_newline.cpp \
+	pcre_ord2utf8.cpp \
+	pcre_refcount.cpp \
+	pcre_study.cpp \
+	pcre_tables.cpp \
+	pcre_try_flipped.cpp \
+	pcre_valid_utf8.cpp \
+	pcre_version.cpp \
+	pcre_xclass.cpp \
+	MathUtilsUnix.cpp \
+	OSDepUnix.cpp \
+	ThreadsPosix.cpp \
+	SpyUtilsPosix.cpp \
+	PosixPortUtils.cpp \
+	AvmLog.cpp \
+	Coder.cpp \
+    eval-abc.cpp \
+    eval-avmplus.cpp \
+    eval-cogen.cpp \
+    eval-cogen-expr.cpp \
+    eval-cogen-stmt.cpp \
+    eval-compile.cpp \
+    eval-lex.cpp \
+    eval-lex-xml.cpp \
+    eval-parse.cpp \
+    eval-parse-expr.cpp \
+    eval-parse-stmt.cpp \
+    eval-parse-xml.cpp \
+    eval-unicode.cpp \
+    eval-util.cpp \
+
+ifeq ($(ENABLE_NANOJIT),true)
+	AVMPLUS_SRCS := ${AVMPLUS_SRCS} NativeARM.cpp
+endif
+	
+vpath %.cpp ${AVMPLUS_DIR}/core	\
+	${AVMPLUS_DIR}/nanojit	\
+	${AVMPLUS_DIR}/pcre	\
+	${AVMPLUS_DIR}/platform/unix \
+ 	${AVMPLUS_DIR}/VMPI \
+ 	${AVMPLUS_DIR}/eval
+
+AVMPLUS_LIB := ${LIBDIR}/libavmplus.a
+AVMPLUS_OBJS := $(addprefix ${OBJDIR}/avm/, $(AVMPLUS_SRCS:.cpp=.o))
+AVMPLUS_DEPS := $(addprefix ${OBJDIR}/avm/, $(AVMPLUS_SRCS:.cpp=.d))
+
+$(OBJDIR)/avm/%.o: %.cpp
+	${call compile-files-arm,avm}
+
+
+# clz is not supported on thumb before armv6t2
+ifneq (${TARGET_ARCH}, ARMV7-A)
+$(OBJDIR)/avm/NativeARM.o: $(AVMPLUS_DIR)/nanojit/NativeARM.cpp
+	${call compile-files-arm,avm}
+endif
+
+${AVMPLUS_LIB}: ${AVMPLUS_OBJS}
+	${call make-lib,${AVMPLUS_OBJS}}
+	
+-include ${AVMPLUS_DEPS}
+
+
