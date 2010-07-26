@@ -39,6 +39,7 @@
 
 #include "avmplus.h"
 
+#include <limits.h>
 #include <stdlib.h>
 #include <sys/time.h>
 #include <math.h>
@@ -286,6 +287,15 @@ const char *VMPI_getenv(const char *name)
 {
     return getenv(name);
 }
+
+void VMPI_getExecutablePath(const char *name, char* path)
+{
+    //name have to be argv[0]
+    //char* realpath(const char*, char*)
+    realpath(name,path);
+}
+
+
 
 // Helper functions for VMPI_callWithRegistersSaved, kept in this file to prevent them from
 // being inlined in MMgcPortUnix.cpp / MMgcPortMac.cpp.

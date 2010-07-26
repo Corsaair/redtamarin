@@ -596,6 +596,12 @@ extern void VMPI_desetupPCResolution();
 extern const char *VMPI_getenv(const char *name);
 
 /**
+ * Method to retrieve the path of the current executable, NULL if the path can not be found
+ * @return none
+ */
+extern void VMPI_getExecutablePath(const char *name, char* path);
+
+/**
  * Save all registers into the stack and invoke 'fn' in a non-tail fashion, passing it
  * a conservative approximation to the true stack top (the lowest live address) as
  * well as 'arg'.  The hot part of the stack - where the registers are saved - is

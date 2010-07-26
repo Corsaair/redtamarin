@@ -434,6 +434,11 @@ const char *VMPI_getenv(const char *env)
     return val;
 }
 
+void VMPI_getExecutablePath(const char *name, char* path)
+{
+    (void)name; //we don't need the variable for win32
+    GetModuleFileName(NULL, path, sizeof(path));
+}
 
 // Helper functions for VMPI_callWithRegistersSaved, kept in this file to prevent them from
 // being inlined in MMgcPortWin.cpp.
