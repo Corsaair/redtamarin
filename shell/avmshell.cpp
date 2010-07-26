@@ -656,7 +656,10 @@ namespace avmshell
 
         // options filenames -- args
 
+        VMPI_getExecutablePath(argv[0],settings.executablePath);
+        
         settings.programFilename = argv[0];     // How portable / reliable is this?
+
         for (int i=1; i < argc ; i++) {
             const char * const arg = argv[i];
 

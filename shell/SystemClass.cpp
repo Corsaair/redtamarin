@@ -166,6 +166,7 @@ namespace avmshell
 
     int SystemClass::user_argc;
     char **SystemClass::user_argv;
+    char *SystemClass::exec_path;
 
     ArrayObject * SystemClass::getArgv()
     {
@@ -180,6 +181,11 @@ namespace avmshell
         return array;
     }
 
+    Stringp SystemClass::getExecPath()
+    {
+        return core()->newStringUTF8( exec_path );
+    }
+    
     Stringp SystemClass::readLine()
     {
         AvmCore* core = this->core();
@@ -229,8 +235,4 @@ namespace avmshell
         core()->GetGC()->QueueCollection();
     }
 
-    bool SystemClass::isGlobal(Atom o)
-    {
-        return AvmCore::isObject(o) ? AvmCore::atomToScriptObject(o)->isGlobalObject() : false;
-    }
 }

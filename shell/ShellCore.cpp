@@ -413,6 +413,7 @@ namespace avmshell
 
             SystemClass::user_argc = settings.numargs;
             SystemClass::user_argv = settings.arguments;
+            SystemClass::exec_path = settings.executablePath;
 
 #ifdef DEBUGGER
             initBuiltinPool((avmplus::Debugger::TraceLevel)settings.astrace_console);

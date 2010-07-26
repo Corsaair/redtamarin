@@ -37,7 +37,7 @@
 
 PROGRAMS += shell
 
-shell_BASENAME = avmshell
+shell_BASENAME = redshell
 shell_INCLUDES = -I$(srcdir) -I$(topsrcdir)/extensions
 shell_DEFINES = -DAVMPLUS_SHELL
 shell_STATIC_LIBRARIES = zlib MMgc avmplus
