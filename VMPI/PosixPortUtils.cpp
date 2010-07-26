@@ -39,7 +39,6 @@
 
 #include "avmplus.h"
 
-#include <limits.h>
 #include <stdlib.h>
 #include <sys/time.h>
 #include <math.h>
