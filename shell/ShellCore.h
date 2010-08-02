@@ -70,8 +70,7 @@ namespace avmshell
 
         char** arguments;               // non-terminated array of argument values, never NULL
         int numargs;                    // number of entries in 'arguments'
-        char executablePath[256];       // path of the executable
-                                        // char [256] could be an issue, add ifdef to use MAX_PATH WIN32 and PATH_MAX on POSIX ?
+        char executablePath[256];       // full path of the executable, or NULL
         bool nodebugger;
         int  astrace_console;
         uint32_t do_verbose;            // copy to config
