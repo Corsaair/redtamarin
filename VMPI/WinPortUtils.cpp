@@ -437,7 +437,9 @@ const char *VMPI_getenv(const char *env)
 void VMPI_getExecutablePath(const char *argv0, char *name)
 {
     (void)argv0;
-    GetModuleFileName(NULL, name, sizeof(name));
+    char actualpath[256];
+    GetModuleFileName(NULL, actualpath, sizeof(actualpath));
+    VMPI_strcpy( name, actualpath );
 }
 
 // Helper functions for VMPI_callWithRegistersSaved, kept in this file to prevent them from
