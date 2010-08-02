@@ -599,7 +599,7 @@ extern const char *VMPI_getenv(const char *name);
  * Method to retrieve the path of the current executable, NULL if the path can not be found
  * @return none
  */
-extern void VMPI_getExecutablePath(const char *name, char* path);
+extern void VMPI_getExecutablePath(const char *argv0, char *name);
 
 /**
  * Save all registers into the stack and invoke 'fn' in a non-tail fashion, passing it
