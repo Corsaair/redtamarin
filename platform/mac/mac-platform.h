@@ -56,6 +56,7 @@
 #define VMPI_strncpy        ::strncpy
 #define VMPI_strtol         ::strtol
 #define VMPI_strstr         ::strstr
+#define VMPI_strdup         ::strdup
 
 #define VMPI_sprintf        ::sprintf
 #define VMPI_snprintf       ::snprintf
@@ -78,6 +79,8 @@
 #define VMPI_isalpha ::isalpha
 #define VMPI_abort   ::abort
 #define VMPI_exit    ::exit
+
+#define VMPI_getcwd    ::getcwd
 
 // Set up a jmp_buf suitable for VMPI_longjmpNoUnwind.
 // Use the routine version with an underscore to avoid system calls

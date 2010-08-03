@@ -56,6 +56,7 @@
 #define VMPI_strncpy        ::strncpy
 #define VMPI_strtol         ::strtol
 #define VMPI_strstr         ::strstr
+#define VMPI_strdup         ::strdup
 
 #define VMPI_sprintf        ::sprintf
 #define VMPI_snprintf       ::snprintf
@@ -78,6 +79,9 @@
 #define VMPI_isalpha ::isalpha
 #define VMPI_abort   ::abort
 #define VMPI_exit    ::exit
+
+#define VMPI_getcwd    ::getcwd
+
 
 // Note: the linux #define provided by the compiler.
 
