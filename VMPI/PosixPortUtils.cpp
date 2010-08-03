@@ -290,12 +290,7 @@ const char *VMPI_getenv(const char *name)
 void VMPI_getExecutablePath(const char *argv0, char *name)
 {
     //char* realpath(const char*, char*)
-    //char actualpath[256];
     realpath(argv0,name);
-    //VMPI_log( "realpath = " );
-    //VMPI_log( name );
-    //VMPI_log( "\n" );
-    //VMPI_strcpy(name, actualpath);
 }
 
 
