@@ -38,7 +38,7 @@
 PROGRAMS += shell
 
 shell_BASENAME = redshell
-shell_INCLUDES = -I$(srcdir) -I$(topsrcdir)/extensions
+shell_INCLUDES = -I$(srcdir) -I$(topsrcdir)/extensions -I$(topsrcdir)/api/clib
 shell_DEFINES = -DAVMPLUS_SHELL
 shell_STATIC_LIBRARIES = zlib MMgc avmplus
 shell_DIR := $(curdir)/
@@ -75,6 +75,9 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../extensions/ST_mmgc_543560.cpp \
   $(curdir)/../extensions/ST_mmgc_gcheap.cpp \
   $(curdir)/../VMPI/AvmAssert.cpp \
+  $(curdir)/../api/clib/StdlibClass.cpp \
+  $(curdir)/../api/clib/UnistdClass.cpp \
+  $(curdir)/../api/clib/CStringClass.cpp \
   $(NULL)
 
 ifeq (windows,$(TARGET_OS))

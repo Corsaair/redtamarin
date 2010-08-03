@@ -42,10 +42,13 @@
 namespace avmshell {
     class ByteArrayClass; //flash.utils::ByteArray$
     class ByteArrayObject; //flash.utils::ByteArray
+    class CStringClass; //C.string::__string$
     class DomainClass; //avmplus::Domain$
     class DomainObject; //avmplus::Domain
     class FileClass; //avmplus::File$
+    class StdlibClass; //C.stdlib::__stdlib$
     class SystemClass; //avmplus::System$
+    class UnistdClass; //C.unistd::__unistd$
 }
 
 namespace avmplus {
@@ -61,7 +64,7 @@ namespace avmplus {
     class NewObjectSampleObject; //flash.sampler::NewObjectSample
     class SampleClass; //flash.sampler::Sample$
     class SampleObject; //flash.sampler::Sample
-    class ScriptObject; //avmplus::System
+    class ScriptObject; //C.string::__string
     class StackFrameClass; //flash.sampler::StackFrame$
     class StackFrameObject; //flash.sampler::StackFrame
     class String; //String
@@ -89,8 +92,11 @@ const uint32_t abcclass_flash_sampler_NewObjectSample = 7;
 const uint32_t abcclass_flash_sampler_DeleteObjectSample = 8;
 const uint32_t abcclass_flash_trace_Trace = 9;
 const uint32_t abcclass_flash_utils_Dictionary = 10;
-const uint32_t abcclass_flash_utils_Endian = 11;
-const uint32_t abcclass_avmplus_JObject = 12;
+const uint32_t abcclass_C_stdlib___stdlib = 11;
+const uint32_t abcclass_C_unistd___unistd = 12;
+const uint32_t abcclass_C_string___string = 13;
+const uint32_t abcclass_flash_utils_Endian = 14;
+const uint32_t abcclass_avmplus_JObject = 15;
 
 /* methods */
 const uint32_t avmplus_System_exit = 7;
@@ -175,12 +181,20 @@ const uint32_t flash_trace_Trace_getLevel = 121;
 const uint32_t flash_trace_Trace_setListener = 122;
 const uint32_t flash_trace_Trace_getListener = 123;
 const uint32_t flash_utils_Dictionary_private_init = 127;
-const uint32_t avmplus_JObject_create = 134;
-const uint32_t avmplus_JObject_createArray = 135;
-const uint32_t avmplus_JObject_toArray = 136;
-const uint32_t avmplus_JObject_constructorSignature = 137;
-const uint32_t avmplus_JObject_methodSignature = 138;
-const uint32_t avmplus_JObject_fieldSignature = 139;
+const uint32_t C_stdlib___stdlib_EXIT_SUCCESS_get = 135;
+const uint32_t C_stdlib___stdlib_EXIT_FAILURE_get = 136;
+const uint32_t C_stdlib___stdlib_abort = 137;
+const uint32_t C_stdlib___stdlib_exit = 138;
+const uint32_t C_stdlib___stdlib_getenv = 139;
+const uint32_t C_stdlib___stdlib___system = 140;
+const uint32_t C_unistd___unistd_getcwd = 145;
+const uint32_t C_string___string_strlen = 150;
+const uint32_t avmplus_JObject_create = 157;
+const uint32_t avmplus_JObject_createArray = 158;
+const uint32_t avmplus_JObject_toArray = 159;
+const uint32_t avmplus_JObject_constructorSignature = 160;
+const uint32_t avmplus_JObject_methodSignature = 161;
+const uint32_t avmplus_JObject_fieldSignature = 162;
 
 extern AvmBox avmplus_Domain_currentDomain_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Domain_MIN_DOMAIN_MEMORY_LENGTH_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -245,6 +259,14 @@ extern AvmBox flash_trace_Trace_getLevel_thunk(AvmMethodEnv env, uint32_t argc, 
 extern AvmBox flash_trace_Trace_setListener_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox flash_trace_Trace_getListener_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox flash_utils_Dictionary_private_init_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdlib___stdlib_EXIT_SUCCESS_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdlib___stdlib_EXIT_FAILURE_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdlib___stdlib_abort_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdlib___stdlib_exit_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdlib___stdlib_getenv_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdlib___stdlib___system_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_unistd___unistd_getcwd_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_string___string_strlen_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_JObject_create_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_JObject_createArray_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_JObject_toArray_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -301,6 +323,9 @@ extern AvmBox shell_toplevel_a2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 extern AvmBox shell_toplevel_func_b2a_oao_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define native_script_function_flash_sampler_isGetterSetter_thunk  shell_toplevel_func_b2a_oao_thunk
 
+extern AvmBox shell_toplevel_u2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define C_string___string_strlen_thunk  shell_toplevel_u2a_os_thunk
+
 extern AvmBox shell_toplevel_v2a_oi_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define flash_utils_ByteArray_writeByte_thunk  shell_toplevel_v2a_oi_thunk
 #define avmplus_System_exit_thunk  shell_toplevel_v2a_oi_thunk
@@ -314,6 +339,7 @@ extern AvmBox shell_toplevel_s2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox
 #define flash_utils_ByteArray_readUTF_thunk  shell_toplevel_s2a_o_thunk
 #define flash_utils_ByteArray_private__toString_thunk  shell_toplevel_s2a_o_thunk
 #define avmplus_System_getAvmplusVersion_thunk  shell_toplevel_s2a_o_thunk
+#define C_unistd___unistd_getcwd_thunk  shell_toplevel_s2a_o_thunk
 
 extern AvmBox shell_toplevel_func_a2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define native_script_function_flash_sampler_getSamples_thunk  shell_toplevel_func_a2a_o_thunk
@@ -356,17 +382,21 @@ extern AvmBox shell_toplevel_func_v2a_ob_thunk(AvmMethodEnv env, uint32_t argc, 
 #define native_script_function_flash_sampler_sampleInternalAllocs_thunk  shell_toplevel_func_v2a_ob_thunk
 
 extern AvmBox shell_toplevel_i2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define C_stdlib___stdlib_EXIT_SUCCESS_get_thunk  shell_toplevel_i2a_o_thunk
 #define flash_utils_ByteArray_readInt_thunk  shell_toplevel_i2a_o_thunk
 #define flash_utils_ByteArray_readShort_thunk  shell_toplevel_i2a_o_thunk
+#define C_stdlib___stdlib_EXIT_FAILURE_get_thunk  shell_toplevel_i2a_o_thunk
 #define flash_utils_ByteArray_readByte_thunk  shell_toplevel_i2a_o_thunk
 
 extern AvmBox shell_toplevel_s2a_oos_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_JObject_fieldSignature_thunk  shell_toplevel_s2a_oos_thunk
 
 extern AvmBox shell_toplevel_i2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define C_stdlib___stdlib___system_thunk  shell_toplevel_i2a_os_thunk
 #define avmplus_System_exec_thunk  shell_toplevel_i2a_os_thunk
 
 extern AvmBox shell_toplevel_s2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define C_stdlib___stdlib_getenv_thunk  shell_toplevel_s2a_os_thunk
 #define avmplus_File_read_thunk  shell_toplevel_s2a_os_thunk
 
 extern AvmBox shell_toplevel_s2a_ou_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -410,10 +440,11 @@ extern AvmBox shell_toplevel_v2a_oo_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 
 extern AvmBox shell_toplevel_v2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define flash_utils_ByteArray_private_zlib_compress_thunk  shell_toplevel_v2a_o_thunk
-#define avmplus_System_forceFullCollection_thunk  shell_toplevel_v2a_o_thunk
-#define avmplus_System_queueCollection_thunk  shell_toplevel_v2a_o_thunk
-#define avmplus_System_debugger_thunk  shell_toplevel_v2a_o_thunk
 #define flash_utils_ByteArray_private_zlib_uncompress_thunk  shell_toplevel_v2a_o_thunk
+#define avmplus_System_forceFullCollection_thunk  shell_toplevel_v2a_o_thunk
+#define avmplus_System_debugger_thunk  shell_toplevel_v2a_o_thunk
+#define avmplus_System_queueCollection_thunk  shell_toplevel_v2a_o_thunk
+#define C_stdlib___stdlib_abort_thunk  shell_toplevel_v2a_o_thunk
 
 extern AvmBox shell_toplevel_v2a_ou_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define flash_utils_ByteArray_position_set_thunk  shell_toplevel_v2a_ou_thunk
@@ -430,6 +461,9 @@ extern AvmBox shell_toplevel_v2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 #define flash_utils_ByteArray_writeFile_thunk  shell_toplevel_v2a_os_thunk
 #define avmplus_System_write_thunk  shell_toplevel_v2a_os_thunk
 #define flash_utils_ByteArray_writeUTFBytes_thunk  shell_toplevel_v2a_os_thunk
+
+extern AvmBox shell_toplevel_v2a_oi_opti0_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define C_stdlib___stdlib_exit_thunk  shell_toplevel_v2a_oi_opti0_thunk
 
 extern double shell_toplevel_func_d2d_oaou_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define native_script_function_flash_sampler__getInvocationCount_thunk  shell_toplevel_func_d2d_oaou_thunk
@@ -789,6 +823,48 @@ private:
     private: \
         friend class avmplus::NativeID::SlotOffsetsAndAsserts; \
         typedef avmplus::NativeID::DictionaryObjectSlots EmptySlotsStruct_DictionaryObject
+//-----------------------------------------------------------
+
+// C.stdlib::__stdlib$
+//-----------------------------------------------------------
+class _avmshell_StdlibClassSlots
+{
+    friend class SlotOffsetsAndAsserts;
+public:
+private:
+};
+#define DECLARE_SLOTS_StdlibClass \
+    private: \
+        friend class avmplus::NativeID::SlotOffsetsAndAsserts; \
+        typedef avmplus::NativeID::_avmshell_StdlibClassSlots EmptySlotsStruct_StdlibClass
+//-----------------------------------------------------------
+
+// C.unistd::__unistd$
+//-----------------------------------------------------------
+class _avmshell_UnistdClassSlots
+{
+    friend class SlotOffsetsAndAsserts;
+public:
+private:
+};
+#define DECLARE_SLOTS_UnistdClass \
+    private: \
+        friend class avmplus::NativeID::SlotOffsetsAndAsserts; \
+        typedef avmplus::NativeID::_avmshell_UnistdClassSlots EmptySlotsStruct_UnistdClass
+//-----------------------------------------------------------
+
+// C.string::__string$
+//-----------------------------------------------------------
+class _avmshell_CStringClassSlots
+{
+    friend class SlotOffsetsAndAsserts;
+public:
+private:
+};
+#define DECLARE_SLOTS_CStringClass \
+    private: \
+        friend class avmplus::NativeID::SlotOffsetsAndAsserts; \
+        typedef avmplus::NativeID::_avmshell_CStringClassSlots EmptySlotsStruct_CStringClass
 //-----------------------------------------------------------
 
 // avmplus::JObject$

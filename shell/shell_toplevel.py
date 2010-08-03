@@ -62,9 +62,23 @@ asc = javacmd+" macromedia.asc.embedding.ScriptCompiler "
 print("ASC="+classpath)
 print("Building shell_toplevel...")
 
+toplevel_classes  = " shell_toplevel.as";
+toplevel_classes += " Domain.as";
+toplevel_classes += " ByteArray.as";
+toplevel_classes += " ../extensions/Sampler.as";
+toplevel_classes += " ../extensions/Trace.as";
+toplevel_classes += " ../extensions/Dictionary.as";
+toplevel_classes += " ../as3/clib/stdlib.as";
+toplevel_classes += " ../as3/clib/unistd.as";
+toplevel_classes += " ../as3/clib/string.as";
+toplevel_classes += " Endian.as";
+toplevel_classes += " Java.as";
+#toplevel_classes += "";
+#toplevel_classes += "";
+
 # compile builtins
 #os.system(asc+" -abcfuture -import ../core/builtin.abc -builtin -out shell_toplevel shell_toplevel.as Domain.as ByteArray.as ../extensions/Sampler.as ../extensions/Trace.as ../extensions/Dictionary.as Endian.as Java.as")
-os.system(asc+" -abcfuture -import ../core/builtin.abc -builtin -apiversioning -out shell_toplevel shell_toplevel.as Domain.as ByteArray.as ../extensions/Sampler.as ../extensions/Trace.as ../extensions/Dictionary.as Endian.as Java.as")
+os.system(asc+" -abcfuture -import ../core/builtin.abc -builtin -apiversioning -out shell_toplevel"+toplevel_classes)
 
 print("Generating native thunks...")
 os.system("python ../utils/nativegen.py ../core/builtin.abc shell_toplevel.abc")

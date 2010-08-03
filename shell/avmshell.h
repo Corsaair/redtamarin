@@ -105,6 +105,14 @@ namespace avmshell
     class ShellToplevel;
 }
 
+//API
+namespace avmshell
+{
+    class StdlibClass;
+    class UnistdClass;
+    class CStringClass;
+}
+
 #include "Selftest.h"
 #include "Platform.h"
 #include "File.h"
@@ -122,6 +130,11 @@ namespace avmshell
 #include "SamplerScript.h"
 #include "JavaGlue.h"
 #include "ShellCore.h"
+
+//API
+#include "StdlibClass.h"
+#include "UnistdClass.h"
+#include "CStringClass.h"
 
 namespace avmshell
 {
