@@ -676,38 +676,68 @@ const char *VMPI_getenv(const char *env)
     return val;
 }
 
+static int setenv_with_putenv(const char *name, const char *value)
+{
+    if(NULL != strchr(name, '='))
+    {
+        errno = EINVAL;
+        return -1;
+    }
+    else
+    {
+        size_t  nameLen     =   strlen(name);
+        size_t  valueLen    =   strlen(value);
+        size_t  required    =   1 + nameLen + 1 + valueLen;
+        char    buffer_[101];
+        char    *buffer     =   (NUM_ELEMENTS(buffer_) < required)
+                                    ? (char*)malloc(required * sizeof(char))
+                                    : &buffer_[0];
+
+        if(NULL == buffer)
+        {
+            errno = ENOMEM;
+            return -1;
+        }
+        else
+        {
+            int r;
+            (void)strncpy(&buffer[0], name, nameLen);
+            buffer[nameLen] = '=';
+            buffer[nameLen + 1] = '\0';
+            (void)strncpy(&buffer[nameLen + 1], value, valueLen);
+            buffer[nameLen + 1 + valueLen] = '\0';
+
+            r = _putenv(&buffer[0]);
+
+            if(buffer != &buffer_[0])
+            {
+                free(buffer);
+            }
+
+            return r;
+        }
+    }
+}
+
 int VMPI_setenv(const char *name, const char *value, int overwrite)
 {
     if(!overwrite)
     {
+        VMPI_log("getenv = [");
+        VMPI_log(VMPI_getenv(name));
+        VMPI_log("]\n");
         if(NULL != VMPI_getenv(name))
         {
             return 0;
         }
     }
 
-    if( SetEnvironmentVariableA(name, value) == 0 )
-    {
-        errno = errno_from_Win32(GetLastError());
-        return -1;
-    }
-    else
-    {
-        return 0;
-    }
+    return setenv_with_putenv(name, value);
 }
 
 int VMPI_unsetenv(const char *name)
 {
-    if( SetEnvironmentVariableA(name, "") == 0 )
-    {
-        errno = errno_from_Win32(GetLastError());
-        return -1;
-    }
-    else
-    {
-        return 0;
-    }
+    return setenv_with_putenv(name, "");
 }
 
 void VMPI_getExecutablePath(const char *argv0, char *name)
