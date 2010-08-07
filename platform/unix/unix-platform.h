@@ -56,7 +56,7 @@
 #define VMPI_strncpy        ::strncpy
 #define VMPI_strtol         ::strtol
 #define VMPI_strstr         ::strstr
-#define VMPI_strdup         ::strdup
+#define VMPI_strerror       ::strerror
 
 #define VMPI_sprintf        ::sprintf
 #define VMPI_snprintf       ::snprintf
@@ -80,6 +80,7 @@
 #define VMPI_abort   ::abort
 #define VMPI_exit    ::exit
 
+#define VMPI_access    ::access
 #define VMPI_getcwd    ::getcwd
 
 

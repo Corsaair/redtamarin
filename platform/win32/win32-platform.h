@@ -100,7 +100,7 @@
 #define VMPI_strncpy        ::strncpy
 #define VMPI_strtol         ::strtol
 #define VMPI_strstr         ::strstr
-#define VMPI_strdup         _strdup
+#define VMPI_strerror       ::strerror
 
 #define VMPI_sprintf        ::sprintf
 #define VMPI_sscanf         ::sscanf
@@ -138,7 +138,9 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
 
 #define VMPI_exit           ::exit
 
+#define VMPI_access    _access
 #define VMPI_getcwd    _getcwd
+
 
 #include <stddef.h>
 #include <memory.h>
