@@ -146,6 +146,7 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
 #include <memory.h>
 #include <string.h>
 #include <stdio.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <math.h>
@@ -154,8 +155,45 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
 #include <limits.h>
 
 #include <direct.h>
+#include <io.h>
 #include <windows.h>
 #include <malloc.h>
+
+#if !defined(ECURDIR)
+# define ECURDIR        EACCES
+#endif /* !ECURDIR */
+#if !defined(ENOSYS)
+# define ENOSYS         EPERM
+#endif /* !ENOSYS */
+
+#if !defined(F_OK)
+# define F_OK        0
+#endif /* !F_OK */
+#if !defined(X_OK)
+# define X_OK        1
+#endif /* !X_OK */
+#if !defined(W_OK)
+# define W_OK        2
+#endif /* !W_OK */
+#if !defined(R_OK)
+# define R_OK        4
+#endif /* !R_OK */
+
+/** \def NUM_ELEMENTS(ar)
+ *
+ * Evaluates the size of an array.
+ *
+ * \param ar The array.
+ *
+ * \warning This produces unintended behaviour if used with a pointer, and
+ *  undefined behaviour if used, in C++, with a user-defined type that
+ *  defines a subscript operator. See Chapter 14 of <em>Imperfect C++</em>
+ *  (http://www.imperfectcplusplus.com/)
+ */
+
+#ifndef NUM_ELEMENTS
+#  define NUM_ELEMENTS(ar)      (sizeof(ar) / sizeof(0[ar]))
+#endif /* !NUM_ELEMENTS */
 
 #if defined(UNDER_CE)
 // winmo complains if we try to include <new> and it complains if someone else includes new before us so...
