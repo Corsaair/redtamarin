@@ -287,13 +287,21 @@ const char *VMPI_getenv(const char *name)
     return getenv(name);
 }
 
+int VMPI_setenv(const char *name, const char *value, int overwrite)
+{
+    return setenv(name, value, overwrite);
+}
+
+int VMPI_unsetenv(const char *name)
+{
+    return unsetenv(name);
+}
+
 void VMPI_getExecutablePath(const char *argv0, char *name)
 {
     //char* realpath(const char*, char*)
     realpath(argv0,name);
 }
-
-
 
 // Helper functions for VMPI_callWithRegistersSaved, kept in this file to prevent them from
 // being inlined in MMgcPortUnix.cpp / MMgcPortMac.cpp.

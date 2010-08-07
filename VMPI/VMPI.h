@@ -596,6 +596,18 @@ extern void VMPI_desetupPCResolution();
 extern const char *VMPI_getenv(const char *name);
 
 /**
+ * wrapper around setenv function
+ * @return 0 if successful
+ */
+extern int VMPI_setenv(const char *name, const char *value, int overwrite);
+
+/**
+ * wrapper around unsetenv function
+ * @return 0 if successful
+ */
+extern int VMPI_unsetenv(const char *name);
+
+/**
  * Method to retrieve the path of the current executable, NULL if the path can not be found
  * @return none
  */
