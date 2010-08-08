@@ -740,6 +740,52 @@ int VMPI_unsetenv(const char *name)
     return setenv_with_putenv(name, "");
 }
 
+char *realpath(char const *path, char resolvedPath[])
+{
+    /* path is made absolute in three steps:
+     *
+     * 1. Call GetFullPathNameA()
+     * 2. Resolve all /./
+     * 3. Resolve all /../
+     */
+    DWORD   attr    =   GetFileAttributesA(path);
+
+    if(FILE_ATTRIBUTE_ERROR == attr)
+    {
+        errno = ENOENT;
+        return NULL;
+    }
+    else
+    {
+        LPSTR   lpFile;
+        DWORD   dw  =   GetFullPathNameA(path, 1 + _MAX_PATH, resolvedPath, &lpFile);
+
+        if(0 == dw)
+        {
+            errno = errno_from_Win32(GetLastError());
+            return NULL;
+        }
+        else
+        {
+            return resolvedPath;
+        }
+    }
+}
+
+char *VMPI_realpath(char const *path)
+{
+    char resolved[PATH_MAX];
+    return realpath(path, resolved);
+    
+    /* note:
+       alternative way of doing, don't use
+       if the path does not exists the path will still resolve
+       and does not set errno to ENOENT "No such file or directory"
+    */
+    //char full[_MAX_PATH];
+    //return _fullpath( full, path, _MAX_PATH );
+}
+
 void VMPI_getExecutablePath(const char *argv0, char *name)
 {
     (void)argv0;
