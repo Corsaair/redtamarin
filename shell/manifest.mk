@@ -79,6 +79,7 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../api/clib/UnistdClass.cpp \
   $(curdir)/../api/clib/CStringClass.cpp \
   $(curdir)/../api/clib/CErrnoClass.cpp \
+  $(curdir)/../api/clib/StdioClass.cpp \
   $(NULL)
 
 ifeq (windows,$(TARGET_OS))

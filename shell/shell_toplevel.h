@@ -47,6 +47,7 @@ namespace avmshell {
     class DomainClass; //avmplus::Domain$
     class DomainObject; //avmplus::Domain
     class FileClass; //avmplus::File$
+    class StdioClass; //C.stdio::__stdio$
     class StdlibClass; //C.stdlib::__stdlib$
     class SystemClass; //avmplus::System$
     class UnistdClass; //C.unistd::__unistd$
@@ -97,8 +98,9 @@ const uint32_t abcclass_C_stdlib___stdlib = 11;
 const uint32_t abcclass_C_unistd___unistd = 12;
 const uint32_t abcclass_C_string___string = 13;
 const uint32_t abcclass_C_errno___errno = 14;
-const uint32_t abcclass_flash_utils_Endian = 15;
-const uint32_t abcclass_avmplus_JObject = 16;
+const uint32_t abcclass_C_stdio___stdio = 15;
+const uint32_t abcclass_flash_utils_Endian = 16;
+const uint32_t abcclass_avmplus_JObject = 17;
 
 /* methods */
 const uint32_t avmplus_System_exit = 7;
@@ -183,68 +185,75 @@ const uint32_t flash_trace_Trace_getLevel = 121;
 const uint32_t flash_trace_Trace_setListener = 122;
 const uint32_t flash_trace_Trace_getListener = 123;
 const uint32_t flash_utils_Dictionary_private_init = 127;
-const uint32_t C_stdlib___stdlib_EXIT_SUCCESS_get = 137;
-const uint32_t C_stdlib___stdlib_EXIT_FAILURE_get = 138;
-const uint32_t C_stdlib___stdlib_abort = 139;
-const uint32_t C_stdlib___stdlib_exit = 140;
-const uint32_t C_stdlib___stdlib_getenv = 141;
-const uint32_t C_stdlib___stdlib_setenv = 142;
-const uint32_t C_stdlib___stdlib_unsetenv = 143;
-const uint32_t C_stdlib___stdlib___system = 144;
-const uint32_t C_unistd___unistd_F_OK_get = 150;
-const uint32_t C_unistd___unistd_X_OK_get = 151;
-const uint32_t C_unistd___unistd_W_OK_get = 152;
-const uint32_t C_unistd___unistd_R_OK_get = 153;
-const uint32_t C_unistd___unistd_access = 154;
-const uint32_t C_unistd___unistd_getcwd = 155;
-const uint32_t C_string___string_strerror = 161;
-const uint32_t C_string___string_strlen = 162;
-const uint32_t C_errno___errno_EDOM_get = 168;
-const uint32_t C_errno___errno_EILSEQ_get = 169;
-const uint32_t C_errno___errno_ERANGE_get = 170;
-const uint32_t C_errno___errno_EPERM_get = 171;
-const uint32_t C_errno___errno_ENOENT_get = 172;
-const uint32_t C_errno___errno_ESRCH_get = 173;
-const uint32_t C_errno___errno_EINTR_get = 174;
-const uint32_t C_errno___errno_EIO_get = 175;
-const uint32_t C_errno___errno_ENXIO_get = 176;
-const uint32_t C_errno___errno_E2BIG_get = 177;
-const uint32_t C_errno___errno_ENOEXEC_get = 178;
-const uint32_t C_errno___errno_EBADF_get = 179;
-const uint32_t C_errno___errno_ECHILD_get = 180;
-const uint32_t C_errno___errno_EAGAIN_get = 181;
-const uint32_t C_errno___errno_ENOMEM_get = 182;
-const uint32_t C_errno___errno_EACCES_get = 183;
-const uint32_t C_errno___errno_EFAULT_get = 184;
-const uint32_t C_errno___errno_EBUSY_get = 185;
-const uint32_t C_errno___errno_EEXIST_get = 186;
-const uint32_t C_errno___errno_EXDEV_get = 187;
-const uint32_t C_errno___errno_ENODEV_get = 188;
-const uint32_t C_errno___errno_ENOTDIR_get = 189;
-const uint32_t C_errno___errno_EISDIR_get = 190;
-const uint32_t C_errno___errno_EINVAL_get = 191;
-const uint32_t C_errno___errno_ENFILE_get = 192;
-const uint32_t C_errno___errno_EMFILE_get = 193;
-const uint32_t C_errno___errno_ENOTTY_get = 194;
-const uint32_t C_errno___errno_EFBIG_get = 195;
-const uint32_t C_errno___errno_ENOSPC_get = 196;
-const uint32_t C_errno___errno_ESPIPE_get = 197;
-const uint32_t C_errno___errno_EROFS_get = 198;
-const uint32_t C_errno___errno_EMLINK_get = 199;
-const uint32_t C_errno___errno_EPIPE_get = 200;
-const uint32_t C_errno___errno_EDEADLK_get = 201;
-const uint32_t C_errno___errno_ENAMETOOLONG_get = 202;
-const uint32_t C_errno___errno_ENOLCK_get = 203;
-const uint32_t C_errno___errno_ENOSYS_get = 204;
-const uint32_t C_errno___errno_ENOTEMPTY_get = 205;
-const uint32_t C_errno___errno_errno_get = 206;
-const uint32_t C_errno___errno_errno_set = 207;
-const uint32_t avmplus_JObject_create = 214;
-const uint32_t avmplus_JObject_createArray = 215;
-const uint32_t avmplus_JObject_toArray = 216;
-const uint32_t avmplus_JObject_constructorSignature = 217;
-const uint32_t avmplus_JObject_methodSignature = 218;
-const uint32_t avmplus_JObject_fieldSignature = 219;
+const uint32_t C_stdlib___stdlib_EXIT_SUCCESS_get = 138;
+const uint32_t C_stdlib___stdlib_EXIT_FAILURE_get = 139;
+const uint32_t C_stdlib___stdlib_abort = 140;
+const uint32_t C_stdlib___stdlib_exit = 141;
+const uint32_t C_stdlib___stdlib_getenv = 142;
+const uint32_t C_stdlib___stdlib_setenv = 143;
+const uint32_t C_stdlib___stdlib_unsetenv = 144;
+const uint32_t C_stdlib___stdlib_realpath = 145;
+const uint32_t C_stdlib___stdlib___system = 146;
+const uint32_t C_unistd___unistd_F_OK_get = 154;
+const uint32_t C_unistd___unistd_X_OK_get = 155;
+const uint32_t C_unistd___unistd_W_OK_get = 156;
+const uint32_t C_unistd___unistd_R_OK_get = 157;
+const uint32_t C_unistd___unistd_access = 158;
+const uint32_t C_unistd___unistd_getcwd = 159;
+const uint32_t C_unistd___unistd_mkdir = 160;
+const uint32_t C_unistd___unistd_rmdir = 161;
+const uint32_t C_string___string_strerror = 167;
+const uint32_t C_string___string_strlen = 168;
+const uint32_t C_errno___errno_EDOM_get = 174;
+const uint32_t C_errno___errno_EILSEQ_get = 175;
+const uint32_t C_errno___errno_ERANGE_get = 176;
+const uint32_t C_errno___errno_EPERM_get = 177;
+const uint32_t C_errno___errno_ENOENT_get = 178;
+const uint32_t C_errno___errno_ESRCH_get = 179;
+const uint32_t C_errno___errno_EINTR_get = 180;
+const uint32_t C_errno___errno_EIO_get = 181;
+const uint32_t C_errno___errno_ENXIO_get = 182;
+const uint32_t C_errno___errno_E2BIG_get = 183;
+const uint32_t C_errno___errno_ENOEXEC_get = 184;
+const uint32_t C_errno___errno_EBADF_get = 185;
+const uint32_t C_errno___errno_ECHILD_get = 186;
+const uint32_t C_errno___errno_EAGAIN_get = 187;
+const uint32_t C_errno___errno_ENOMEM_get = 188;
+const uint32_t C_errno___errno_EACCES_get = 189;
+const uint32_t C_errno___errno_EFAULT_get = 190;
+const uint32_t C_errno___errno_EBUSY_get = 191;
+const uint32_t C_errno___errno_EEXIST_get = 192;
+const uint32_t C_errno___errno_EXDEV_get = 193;
+const uint32_t C_errno___errno_ENODEV_get = 194;
+const uint32_t C_errno___errno_ENOTDIR_get = 195;
+const uint32_t C_errno___errno_EISDIR_get = 196;
+const uint32_t C_errno___errno_EINVAL_get = 197;
+const uint32_t C_errno___errno_ENFILE_get = 198;
+const uint32_t C_errno___errno_EMFILE_get = 199;
+const uint32_t C_errno___errno_ENOTTY_get = 200;
+const uint32_t C_errno___errno_EFBIG_get = 201;
+const uint32_t C_errno___errno_ENOSPC_get = 202;
+const uint32_t C_errno___errno_ESPIPE_get = 203;
+const uint32_t C_errno___errno_EROFS_get = 204;
+const uint32_t C_errno___errno_EMLINK_get = 205;
+const uint32_t C_errno___errno_EPIPE_get = 206;
+const uint32_t C_errno___errno_EDEADLK_get = 207;
+const uint32_t C_errno___errno_ENAMETOOLONG_get = 208;
+const uint32_t C_errno___errno_ENOLCK_get = 209;
+const uint32_t C_errno___errno_ENOSYS_get = 210;
+const uint32_t C_errno___errno_ENOTEMPTY_get = 211;
+const uint32_t C_errno___errno_errno_get = 212;
+const uint32_t C_errno___errno_errno_set = 213;
+const uint32_t C_stdio___stdio_FILENAME_MAX_get = 219;
+const uint32_t C_stdio___stdio_PATH_MAX_get = 220;
+const uint32_t C_stdio___stdio_remove = 221;
+const uint32_t C_stdio___stdio_rename = 222;
+const uint32_t avmplus_JObject_create = 229;
+const uint32_t avmplus_JObject_createArray = 230;
+const uint32_t avmplus_JObject_toArray = 231;
+const uint32_t avmplus_JObject_constructorSignature = 232;
+const uint32_t avmplus_JObject_methodSignature = 233;
+const uint32_t avmplus_JObject_fieldSignature = 234;
 
 extern AvmBox avmplus_Domain_currentDomain_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Domain_MIN_DOMAIN_MEMORY_LENGTH_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -316,6 +325,7 @@ extern AvmBox C_stdlib___stdlib_exit_thunk(AvmMethodEnv env, uint32_t argc, AvmB
 extern AvmBox C_stdlib___stdlib_getenv_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_stdlib___stdlib_setenv_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_stdlib___stdlib_unsetenv_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdlib___stdlib_realpath_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_stdlib___stdlib___system_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_unistd___unistd_F_OK_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_unistd___unistd_X_OK_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -323,6 +333,8 @@ extern AvmBox C_unistd___unistd_W_OK_get_thunk(AvmMethodEnv env, uint32_t argc, 
 extern AvmBox C_unistd___unistd_R_OK_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_unistd___unistd_access_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_unistd___unistd_getcwd_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_unistd___unistd_mkdir_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_unistd___unistd_rmdir_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_string___string_strerror_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_string___string_strlen_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_errno___errno_EDOM_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -365,6 +377,10 @@ extern AvmBox C_errno___errno_ENOSYS_get_thunk(AvmMethodEnv env, uint32_t argc, 
 extern AvmBox C_errno___errno_ENOTEMPTY_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_errno___errno_errno_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_errno___errno_errno_set_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdio___stdio_FILENAME_MAX_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdio___stdio_PATH_MAX_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdio___stdio_remove_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdio___stdio_rename_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_JObject_create_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_JObject_createArray_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_JObject_toArray_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -511,12 +527,14 @@ extern AvmBox shell_toplevel_i2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox
 #define C_errno___errno_EBUSY_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_ENOSYS_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_ENOEXEC_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_stdio___stdio_PATH_MAX_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_EEXIST_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_ESPIPE_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_EINVAL_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_ENOTDIR_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_EXDEV_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_ENOLCK_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_stdio___stdio_FILENAME_MAX_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_EBADF_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_stdlib___stdlib_EXIT_FAILURE_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_EAGAIN_get_thunk  shell_toplevel_i2a_o_thunk
@@ -534,11 +552,15 @@ extern AvmBox shell_toplevel_s2a_oos_thunk(AvmMethodEnv env, uint32_t argc, AvmB
 #define avmplus_JObject_fieldSignature_thunk  shell_toplevel_s2a_oos_thunk
 
 extern AvmBox shell_toplevel_i2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-#define C_stdlib___stdlib___system_thunk  shell_toplevel_i2a_os_thunk
+#define C_stdio___stdio_remove_thunk  shell_toplevel_i2a_os_thunk
 #define C_stdlib___stdlib_unsetenv_thunk  shell_toplevel_i2a_os_thunk
+#define C_unistd___unistd_rmdir_thunk  shell_toplevel_i2a_os_thunk
 #define avmplus_System_exec_thunk  shell_toplevel_i2a_os_thunk
+#define C_unistd___unistd_mkdir_thunk  shell_toplevel_i2a_os_thunk
+#define C_stdlib___stdlib___system_thunk  shell_toplevel_i2a_os_thunk
 
 extern AvmBox shell_toplevel_s2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define C_stdlib___stdlib_realpath_thunk  shell_toplevel_s2a_os_thunk
 #define C_stdlib___stdlib_getenv_thunk  shell_toplevel_s2a_os_thunk
 #define avmplus_File_read_thunk  shell_toplevel_s2a_os_thunk
 
@@ -570,6 +592,9 @@ extern AvmBox shell_toplevel_i2a_ossi_thunk(AvmMethodEnv env, uint32_t argc, Avm
 
 extern AvmBox shell_toplevel_s2a_oi_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define C_string___string_strerror_thunk  shell_toplevel_s2a_oi_thunk
+
+extern AvmBox shell_toplevel_i2a_oss_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define C_stdio___stdio_rename_thunk  shell_toplevel_i2a_oss_thunk
 
 extern AvmBox shell_toplevel_v2a_od_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define flash_utils_ByteArray_writeDouble_thunk  shell_toplevel_v2a_od_thunk
@@ -1031,6 +1056,20 @@ private:
     private: \
         friend class avmplus::NativeID::SlotOffsetsAndAsserts; \
         typedef avmplus::NativeID::_avmshell_CErrnoClassSlots EmptySlotsStruct_CErrnoClass
+//-----------------------------------------------------------
+
+// C.stdio::__stdio$
+//-----------------------------------------------------------
+class _avmshell_StdioClassSlots
+{
+    friend class SlotOffsetsAndAsserts;
+public:
+private:
+};
+#define DECLARE_SLOTS_StdioClass \
+    private: \
+        friend class avmplus::NativeID::SlotOffsetsAndAsserts; \
+        typedef avmplus::NativeID::_avmshell_StdioClassSlots EmptySlotsStruct_StdioClass
 //-----------------------------------------------------------
 
 // avmplus::JObject$

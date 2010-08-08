@@ -112,6 +112,7 @@ namespace avmshell
     class UnistdClass;
     class CStringClass;
     class CErrnoClass;
+    class StdioClass;
 }
 
 #include "Selftest.h"
@@ -137,6 +138,7 @@ namespace avmshell
 #include "UnistdClass.h"
 #include "CStringClass.h"
 #include "CErrnoClass.h"
+#include "StdioClass.h"
 
 namespace avmshell
 {

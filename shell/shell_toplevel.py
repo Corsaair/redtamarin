@@ -72,6 +72,7 @@ toplevel_classes += " ../as3/clib/stdlib.as";
 toplevel_classes += " ../as3/clib/unistd.as";
 toplevel_classes += " ../as3/clib/string.as";
 toplevel_classes += " ../as3/clib/errno.as";
+toplevel_classes += " ../as3/clib/stdio.as";
 toplevel_classes += " Endian.as";
 toplevel_classes += " Java.as";
 #toplevel_classes += "";
