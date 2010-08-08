@@ -82,6 +82,10 @@
 
 #define VMPI_access    ::access
 #define VMPI_getcwd    ::getcwd
+#define VMPI_rmdir     ::rmdir
+
+#define VMPI_remove    ::remove
+#define VMPI_rename    ::rename
 
 
 // Note: the linux #define provided by the compiler.
@@ -125,6 +129,7 @@
 
 #include <sys/mman.h>
 #include <sys/time.h>
+#include <sys/stat.h>
 #include <errno.h>
 #include <stdlib.h>
 
