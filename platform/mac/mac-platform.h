@@ -82,6 +82,10 @@
 
 #define VMPI_access    ::access
 #define VMPI_getcwd    ::getcwd
+#define VMPI_rmdir     ::rmdir
+
+#define VMPI_remove    ::remove
+#define VMPI_rename    ::rename
 
 
 // Set up a jmp_buf suitable for VMPI_longjmpNoUnwind.
@@ -116,6 +120,7 @@
 #include <AvailabilityMacros.h>
 
 #include <sys/mman.h>
+#include <sys/stat.h>
 #include <errno.h>
 #include <stdlib.h>
 
