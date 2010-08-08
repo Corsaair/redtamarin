@@ -140,6 +140,10 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
 
 #define VMPI_access    _access
 #define VMPI_getcwd    _getcwd
+#define VMPI_rmdir     _rmdir
+
+#define VMPI_remove    ::remove
+#define VMPI_rename    ::rename
 
 
 #include <stddef.h>
@@ -160,11 +164,18 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
 #include <malloc.h>
 
 #if !defined(ECURDIR)
-# define ECURDIR        EACCES
+# define ECURDIR          EACCES
 #endif /* !ECURDIR */
 #if !defined(ENOSYS)
-# define ENOSYS         EPERM
+# define ENOSYS           EPERM
 #endif /* !ENOSYS */
+
+#if !defined(FILENAME_MAX)
+# define FILENAME_MAX    _MAX_FNAME
+#endif /* !FILENAME_MAX */
+#if !defined(PATH_MAX)
+# define PATH_MAX        _MAX_PATH
+#endif /* !PATH_MAX */
 
 #if !defined(F_OK)
 # define F_OK        0
