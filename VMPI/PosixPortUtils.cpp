@@ -297,10 +297,24 @@ int VMPI_unsetenv(const char *name)
     return unsetenv(name);
 }
 
+char *VMPI_realpath(char const *path)
+{
+    char resolved[PATH_MAX];
+    return realpath(path, resolved);
+}
+
 void VMPI_getExecutablePath(const char *argv0, char *name)
 {
     //char* realpath(const char*, char*)
     realpath(argv0,name);
+}
+
+int VMPI_mkdir(const char *path)
+{
+    //S_IRWXU = Read, write, execute/search by owner.
+    //S_IRWXG = Read, write, execute/search by group.
+    //S_IRWXO = Read, write, execute/search by others.
+    return mkdir(path, S_IRWXU | S_IRWXG | S_IRWXO);
 }
 
 // Helper functions for VMPI_callWithRegistersSaved, kept in this file to prevent them from

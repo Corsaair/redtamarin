@@ -748,6 +748,12 @@ void VMPI_getExecutablePath(const char *argv0, char *name)
     VMPI_strcpy( name, actualpath );
 }
 
+int VMPI_mkdir(const char *path)
+{
+    return _mkdir(path);
+}
+
+
 // Helper functions for VMPI_callWithRegistersSaved, kept in this file to prevent them from
 // being inlined in MMgcPortWin.cpp.
 

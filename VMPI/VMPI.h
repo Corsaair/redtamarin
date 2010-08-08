@@ -608,10 +608,22 @@ extern int VMPI_setenv(const char *name, const char *value, int overwrite);
 extern int VMPI_unsetenv(const char *name);
 
 /**
+ * wrapper around realpath function
+ * @return resolved path
+ */
+extern char *VMPI_realpath(char const *path);
+
+/**
  * Method to retrieve the path of the current executable, NULL if the path can not be found
  * @return none
  */
 extern void VMPI_getExecutablePath(const char *argv0, char *name);
+
+/**
+ * wrapper around mkdir function to create a directory
+ * @return 0 if successful
+ */
+extern int VMPI_mkdir(const char *path);
 
 /**
  * Save all registers into the stack and invoke 'fn' in a non-tail fashion, passing it
