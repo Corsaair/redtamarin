@@ -206,6 +206,10 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
 #  define NUM_ELEMENTS(ar)      (sizeof(ar) / sizeof(0[ar]))
 #endif /* !NUM_ELEMENTS */
 
+#ifndef FILE_ATTRIBUTE_ERROR
+# define FILE_ATTRIBUTE_ERROR           (0xFFFFFFFF)
+#endif /* FILE_ATTRIBUTE_ERROR */
+
 #if defined(UNDER_CE)
 // winmo complains if we try to include <new> and it complains if someone else includes new before us so...
 #ifndef __PLACEMENT_NEW_INLINE
