@@ -66,7 +66,7 @@ namespace avmplus {
     class NewObjectSampleObject; //flash.sampler::NewObjectSample
     class SampleClass; //flash.sampler::Sample$
     class SampleObject; //flash.sampler::Sample
-    class ScriptObject; //avmplus::File
+    class ScriptObject; //C.errno::__errno
     class StackFrameClass; //flash.sampler::StackFrame$
     class StackFrameObject; //flash.sampler::StackFrame
     class String; //String
