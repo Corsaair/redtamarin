@@ -309,6 +309,11 @@ void VMPI_getExecutablePath(const char *argv0, char *name)
     realpath(argv0,name);
 }
 
+int VMPI_chmod(const char *path, int mode)
+{
+    return chmod(path, (mode_t)mode);
+}
+
 int VMPI_mkdir(const char *path)
 {
     //S_IRWXU = Read, write, execute/search by owner.
@@ -316,6 +321,45 @@ int VMPI_mkdir(const char *path)
     //S_IRWXO = Read, write, execute/search by others.
     return mkdir(path, S_IRWXU | S_IRWXG | S_IRWXO);
 }
+
+int VMPI_getFileMode(const char *path)
+{
+    struct stat stats;
+    stat(path, &stats);
+    return stats.st_mode;
+}
+
+bool VMPI_isRegularFile(const char *path)
+{
+    return S_ISREG( VMPI_getFileMode(path) );
+    /*
+    bool test = false;
+    struct stat stats;
+    if (!stat(path, &stats)) {
+        if (S_ISREG(stats.st_mode)) {
+            test = true;
+        }
+    }
+    return test;
+    */
+}
+
+bool VMPI_isDirectory(const char *path)
+{
+    return S_ISDIR( VMPI_getFileMode(path) );
+    /*
+    bool test = false;
+    struct stat stats;
+    if (!stat(path, &stats)) {
+        if (S_ISDIR(stats.st_mode)) {
+            test = true;
+        }
+    }
+    return test;
+    */
+}
+
+
 
 // Helper functions for VMPI_callWithRegistersSaved, kept in this file to prevent them from
 // being inlined in MMgcPortUnix.cpp / MMgcPortMac.cpp.
