@@ -77,20 +77,21 @@ package avmplus
     [native(cls="::avmshell::FileClass", methods="auto")]
     public class File
     {
-        public native static function exists(filename:String):Boolean;
-        public native static function read(filename:String):String;
-        public native static function write(filename:String, data:String):void;
+        public native static function exists( filename:String ):Boolean;
+        public native static function read( filename:String ):String;
+        public native static function write( filename:String, data:String ):void;
 
-        public static function fileToByteArray(filename:String, readOnly:Boolean):ByteArray
+        public static function fileToByteArray( filename:String, readOnly:Boolean ):ByteArray
         {
-            return ByteArray.readFile(filename)
+            return ByteArray.readFile(filename);
         }
 
-        public static function writeByteArray(filename:String, bytes:ByteArray):Boolean
+        public static function writeByteArray( filename:String, bytes:ByteArray ):Boolean
         {
-            bytes.writeFile(filename)
-            return true
+            bytes.writeFile(filename);
+            return true;
         }
+
     }
 
     public function debugger()
@@ -98,6 +99,7 @@ package avmplus
         System.debugger()
     }
 }
+
 
 // The flash.system package is present so identical ATS test media can be used
 // in the command-line VM and the Player
