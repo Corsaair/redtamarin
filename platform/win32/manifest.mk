@@ -36,6 +36,7 @@
 
 avmplus_CXXSRCS := $(avmplus_CXXSRCS) \
   $(curdir)/coff.cpp \
+  $(curdir)/dirent.cpp \
   $(curdir)/MathUtilsWin.cpp \
   $(curdir)/NativeFunctionWin.cpp \
   $(curdir)/OSDepWin.cpp \

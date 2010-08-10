@@ -158,6 +158,8 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
 #include <ctype.h>
 #include <limits.h>
 
+#include <dirent.h>
+
 #include <direct.h>
 #include <io.h>
 #include <windows.h>
@@ -176,6 +178,13 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
 #if !defined(PATH_MAX)
 # define PATH_MAX        _MAX_PATH
 #endif /* !PATH_MAX */
+
+#if !defined(S_IREAD)
+# define S_IREAD         _S_IREAD
+#endif /* !S_IREAD */
+#if !defined(S_IWRITE)
+# define S_IWRITE        _S_IWRITE
+#endif /* !S_IWRITE */
 
 #if !defined(F_OK)
 # define F_OK        0
@@ -209,6 +218,29 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
 #ifndef FILE_ATTRIBUTE_ERROR
 # define FILE_ATTRIBUTE_ERROR           (0xFFFFFFFF)
 #endif /* FILE_ATTRIBUTE_ERROR */
+
+typedef int mode_t;
+
+static const mode_t S_ISUID      = 0x08000000;           // does nothing
+static const mode_t S_ISGID      = 0x04000000;           // does nothing
+static const mode_t S_ISVTX      = 0x02000000;           // does nothing
+static const mode_t S_IRUSR      = mode_t(_S_IREAD);     // read by user
+static const mode_t S_IWUSR      = mode_t(_S_IWRITE);    // write by user
+static const mode_t S_IXUSR      = 0x00400000;           // does nothing
+static const mode_t S_IRGRP      = mode_t(_S_IREAD);     // read by *USER*
+static const mode_t S_IWGRP      = mode_t(_S_IWRITE);    // write by *USER*
+static const mode_t S_IXGRP      = 0x00080000;           // does nothing
+static const mode_t S_IROTH      = mode_t(_S_IREAD);     // read by *USER*
+static const mode_t S_IWOTH      = mode_t(_S_IWRITE);    // write by *USER*
+static const mode_t S_IXOTH      = 0x00010000;           // does nothing
+static const mode_t S_WIN32      = 0x0000ffff;           // low word
+
+
+
+
+
+
+
 
 #if defined(UNDER_CE)
 // winmo complains if we try to include <new> and it complains if someone else includes new before us so...
