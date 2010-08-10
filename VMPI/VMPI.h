@@ -619,11 +619,21 @@ extern char *VMPI_realpath(char const *path);
  */
 extern void VMPI_getExecutablePath(const char *argv0, char *name);
 
+extern int VMPI_chmod(const char *path, int mode);
+
 /**
  * wrapper around mkdir function to create a directory
  * @return 0 if successful
  */
 extern int VMPI_mkdir(const char *path);
+
+extern int VMPI_getFileMode(const char *path);
+
+extern bool VMPI_isRegularFile(const char *path);
+
+extern bool VMPI_isDirectory(const char *path);
+
+
 
 /**
  * Save all registers into the stack and invoke 'fn' in a non-tail fashion, passing it
