@@ -789,15 +789,55 @@ char *VMPI_realpath(char const *path)
 void VMPI_getExecutablePath(const char *argv0, char *name)
 {
     (void)argv0;
-    char actualpath[256];
+    char actualpath[PATH_MAX];
     GetModuleFileName(NULL, actualpath, sizeof(actualpath));
     VMPI_strcpy( name, actualpath );
+}
+
+int VMPI_chmod(const char *path, int mode)
+{
+    return _chmod(path, (mode_t)(mode & S_WIN32));
 }
 
 int VMPI_mkdir(const char *path)
 {
     return _mkdir(path);
 }
+
+int VMPI_getFileMode(const char *path)
+{
+    //struct stat stats;
+    //stat(path, &stats);
+    //return stats.st_mode;
+    return 0;
+}
+
+bool VMPI_isRegularFile(const char *path)
+{
+    //bool test = false;
+    //struct stat stats;
+    //if (!stat(path, &stats)) {
+    //    if (S_ISREG(stats.st_mode)) {
+    //        test = true;
+    //    }
+    //}
+    //return test;
+    return false;
+}
+
+bool VMPI_isDirectory(const char *path)
+{
+    //bool test = false;
+    //struct stat stats;
+    //if (!stat(path, &stats)) {
+    //    if (S_ISDIR(stats.st_mode)) {
+    //        test = true;
+    //    }
+    //}
+    //return test;
+    return false;
+}
+
 
 
 // Helper functions for VMPI_callWithRegistersSaved, kept in this file to prevent them from
