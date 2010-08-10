@@ -113,6 +113,8 @@ namespace avmshell
     class CStringClass;
     class CErrnoClass;
     class StdioClass;
+    
+    class FileSystemClass;
 }
 
 #include "Selftest.h"
@@ -139,6 +141,7 @@ namespace avmshell
 #include "CStringClass.h"
 #include "CErrnoClass.h"
 #include "StdioClass.h"
+#include "FileSystemClass.h"
 
 namespace avmshell
 {
