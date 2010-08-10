@@ -38,7 +38,7 @@
 PROGRAMS += shell
 
 shell_BASENAME = redshell
-shell_INCLUDES = -I$(srcdir) -I$(topsrcdir)/extensions -I$(topsrcdir)/api/clib
+shell_INCLUDES = -I$(srcdir) -I$(topsrcdir)/extensions -I$(topsrcdir)/api/clib -I$(topsrcdir)/api/shell
 shell_DEFINES = -DAVMPLUS_SHELL
 shell_STATIC_LIBRARIES = zlib MMgc avmplus
 shell_DIR := $(curdir)/
@@ -80,6 +80,7 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../api/clib/CStringClass.cpp \
   $(curdir)/../api/clib/CErrnoClass.cpp \
   $(curdir)/../api/clib/StdioClass.cpp \
+  $(curdir)/../api/shell/FileSystemClass.cpp \
   $(NULL)
 
 ifeq (windows,$(TARGET_OS))
