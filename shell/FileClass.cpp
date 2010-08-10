@@ -162,4 +162,5 @@ namespace avmshell
         fp->close();
         Platform::GetInstance()->destroyFile(fp);
     }
+    
 }
