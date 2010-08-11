@@ -158,46 +158,104 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
 #include <ctype.h>
 #include <limits.h>
 
-#include <dirent.h>
+#include <sys/stat.h>
 
 #include <direct.h>
 #include <io.h>
 #include <windows.h>
 #include <malloc.h>
 
+//a lot of definitions to align with POSIX
 #if !defined(ECURDIR)
-# define ECURDIR          EACCES
+  #define ECURDIR          EACCES
 #endif /* !ECURDIR */
 #if !defined(ENOSYS)
-# define ENOSYS           EPERM
+  #define ENOSYS           EPERM
 #endif /* !ENOSYS */
 
 #if !defined(FILENAME_MAX)
-# define FILENAME_MAX    _MAX_FNAME
+  #define FILENAME_MAX    _MAX_FNAME
 #endif /* !FILENAME_MAX */
 #if !defined(PATH_MAX)
-# define PATH_MAX        _MAX_PATH
+  #define PATH_MAX        _MAX_PATH
 #endif /* !PATH_MAX */
 
+#if !defined(S_IFMT)
+  #define S_IFMT    _S_IFMT    /* 0xF000 file type mask */
+#endif
+#if !defined(S_IFDIR)
+  #define S_IFDIR   _S_IFDIR   /* 0x4000 directory */
+#endif
+#if !defined(S_IFCHR)
+  #define S_IFCHR   _S_IFCHR   /* 0x2000 character special */
+#endif
+#if !defined(S_IFIFO)
+  #define S_IFIFO   _S_IFIFO   /* 0x1000 pipe */
+#endif
+#if !defined(S_IFREG)
+  #define S_IFREG   _S_IFREG   /* 0x8000 regular */
+#endif
 #if !defined(S_IREAD)
-# define S_IREAD         _S_IREAD
-#endif /* !S_IREAD */
+  #define S_IREAD   _S_IREAD   /* 0x0100 read permission, owner */
+#endif
 #if !defined(S_IWRITE)
-# define S_IWRITE        _S_IWRITE
-#endif /* !S_IWRITE */
+  #define S_IWRITE  _S_IWRITE   /* 0x0080 write permission, owner */
+#endif
+#if !defined(S_IEXEC)
+  #define S_IEXEC   _S_IEXEC   /* 0x0040 execute/search permission, owner */
+#endif
+
+//not used under WIN32, added for AS3 API
+#if !defined(S_IFBLK)
+  #define S_IFBLK   0060000   /* [XSI] block special */
+#endif
+#if !defined(S_IFLNK)
+  #define S_IFLNK   0120000   /* [XSI] symbolic link */
+#endif
+#if !defined(S_IFSOCK)
+  #define S_IFSOCK  0140000   /* [XSI] socket */
+#endif
 
 #if !defined(F_OK)
-# define F_OK        0
+  #define F_OK        0
 #endif /* !F_OK */
 #if !defined(X_OK)
-# define X_OK        1
+  #define X_OK        1
 #endif /* !X_OK */
 #if !defined(W_OK)
-# define W_OK        2
+  #define W_OK        2
 #endif /* !W_OK */
 #if !defined(R_OK)
-# define R_OK        4
+  #define R_OK        4
 #endif /* !R_OK */
+
+#ifndef DT_UNKNOWN
+  #define DT_UNKNOWN      0
+#endif /* !DT_UNKNOWN */
+#ifndef DT_FIFO
+  #define DT_FIFO         1
+#endif /* !DT_FIFO */
+#ifndef DT_CHR
+  #define DT_CHR          2
+#endif /* !DT_CHR */
+#ifndef DT_DIR
+  #define DT_DIR          4
+#endif /* !DT_DIR */
+#ifndef DT_BLK
+  #define DT_BLK          6
+#endif /* !DT_BLK */
+#ifndef DT_REG
+  #define DT_REG          8
+#endif /* !DT_REG */
+#ifndef DT_LNK
+  #define DT_LNK          10
+#endif /* !DT_LNK */
+#ifndef DT_SOCK
+  #define DT_SOCK         12
+#endif /* !DT_SOCK */
+#ifndef DT_WHT
+  #define DT_WHT          14
+#endif /* !DT_WHT */
 
 /** \def NUM_ELEMENTS(ar)
  *
@@ -212,35 +270,58 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
  */
 
 #ifndef NUM_ELEMENTS
-#  define NUM_ELEMENTS(ar)      (sizeof(ar) / sizeof(0[ar]))
+  #define NUM_ELEMENTS(ar)      (sizeof(ar) / sizeof(0[ar]))
 #endif /* !NUM_ELEMENTS */
 
 #ifndef FILE_ATTRIBUTE_ERROR
-# define FILE_ATTRIBUTE_ERROR           (0xFFFFFFFF)
+  #define FILE_ATTRIBUTE_ERROR           (0xFFFFFFFF)
 #endif /* FILE_ATTRIBUTE_ERROR */
+
+#ifndef S_ISDIR
+  #define S_ISDIR(mode)  (((mode) & S_IFMT) == S_IFDIR)
+#endif
+
+#ifndef S_ISREG
+  #define S_ISREG(mode)  (((mode) & S_IFMT) == S_IFREG)
+#endif
 
 typedef int mode_t;
 
-static const mode_t S_ISUID      = 0x08000000;           // does nothing
-static const mode_t S_ISGID      = 0x04000000;           // does nothing
-static const mode_t S_ISVTX      = 0x02000000;           // does nothing
-static const mode_t S_IRUSR      = mode_t(_S_IREAD);     // read by user
-static const mode_t S_IWUSR      = mode_t(_S_IWRITE);    // write by user
-static const mode_t S_IXUSR      = 0x00400000;           // does nothing
-static const mode_t S_IRGRP      = mode_t(_S_IREAD);     // read by *USER*
-static const mode_t S_IWGRP      = mode_t(_S_IWRITE);    // write by *USER*
-static const mode_t S_IXGRP      = 0x00080000;           // does nothing
-static const mode_t S_IROTH      = mode_t(_S_IREAD);     // read by *USER*
-static const mode_t S_IWOTH      = mode_t(_S_IWRITE);    // write by *USER*
-static const mode_t S_IXOTH      = 0x00010000;           // does nothing
-static const mode_t S_WIN32      = 0x0000ffff;           // low word
+//as WIN32 does not have GRP and OTH rights, we map them to the USR rights
+static const mode_t S_IRUSR      = mode_t(S_IREAD);      // read by user
+static const mode_t S_IWUSR      = mode_t(S_IWRITE);     // write by user
+static const mode_t S_IXUSR      = 0;                    // does nothing
+static const mode_t S_IRGRP      = mode_t(S_IREAD);      // read by *USER*
+static const mode_t S_IWGRP      = mode_t(S_IWRITE);     // write by *USER*
+static const mode_t S_IXGRP      = 0;                    // does nothing
+static const mode_t S_IROTH      = mode_t(S_IREAD);      // read by *USER*
+static const mode_t S_IWOTH      = mode_t(S_IWRITE);     // write by *USER*
+static const mode_t S_IXOTH      = 0;                    // does nothing
+
+static const mode_t S_IRWXU      = S_IRUSR | S_IWUSR | S_IXUSR;
+static const mode_t S_IRWXG      = S_IRGRP | S_IWGRP | S_IXGRP;
+static const mode_t S_IRWXO      = S_IROTH | S_IWOTH | S_IXOTH;
+
+// this is a big sortcut to be able to use dirent directly in a native class
+typedef struct dirent
+{
+    char *d_name;
+    int d_type;
+} dirent;
+
+typedef struct DIR
+{
+    long                handle; /* -1 for failed rewind */
+    struct _finddata_t  info;
+    struct dirent       result; /* d_name null if first time */
+    char                *name;  /* null-terminated char string */
+} DIR;
 
 
-
-
-
-
-
+extern DIR           *opendir(const char *name);
+extern int           closedir(DIR *dir);
+extern struct dirent *readdir(DIR *dir);
+extern void          rewinddir(DIR *dir);
 
 #if defined(UNDER_CE)
 // winmo complains if we try to include <new> and it complains if someone else includes new before us so...
