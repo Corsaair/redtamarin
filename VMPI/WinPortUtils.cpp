@@ -41,6 +41,11 @@
 
 #include <Mmsystem.h>
 
+#include <errno.h>
+#include <io.h> /* _findfirst and _findnext set errno if they return -1 */
+#include <stdlib.h>
+#include <string.h>
+
 namespace avmplus
 {
     int WeekDay(double t);
@@ -289,6 +294,96 @@ int errno_from_Win32(unsigned long w32Err)
     //assert(!"Unrecognised value");
 
     return EINVAL;
+}
+
+
+
+DIR *opendir(const char *name)
+{
+    DIR *dir = 0;
+
+    if(name && name[0]) {
+        size_t base_length = strlen(name);
+        const char *all = /* search pattern must end with suitable wildcard */
+            strchr("/\\", name[base_length - 1]) ? "*" : "/*";
+
+        if((dir = (DIR *) malloc(sizeof *dir)) != 0 &&
+           (dir->name = (char *) malloc(base_length + strlen(all) + 1)) != 0) {
+            strcat(strcpy(dir->name, name), all);
+
+            if((dir->handle = (long) _findfirst(dir->name, &dir->info)) != -1) {
+                dir->result.d_name = 0;
+                dir->result.d_type = 0;
+            }
+            else  {
+                free(dir->name);
+                free(dir);
+                dir = 0;
+            }
+        }
+        else  {
+            free(dir);
+            dir   = 0;
+            errno = ENOMEM;
+        }
+    }
+    else {
+        errno = EINVAL;
+    }
+
+    return dir;
+}
+
+int closedir(DIR *dir)
+{
+    int result = -1;
+
+    if(dir) {
+        if(dir->handle != -1) {
+            result = _findclose(dir->handle);
+        }
+
+        free(dir->name);
+        free(dir);
+    }
+
+    /* map all errors to EBADF */
+    if(result == -1) {
+        errno = EBADF;
+    }
+
+    return result;
+}
+
+struct dirent *readdir(DIR *dir)
+{
+    struct dirent *result = 0;
+    
+    if(dir && dir->handle != -1) {
+        if(!dir->result.d_name || _findnext(dir->handle, &dir->info) != -1) {
+            result         = &dir->result;
+            result->d_name = dir->info.name;
+            result->d_type = (dir->info.attrib & _A_SUBDIR) ? DT_DIR : DT_UNKNOWN;
+        }
+    }
+    else {
+        errno = EBADF;
+    }
+
+    return result;
+}
+
+void rewinddir(DIR *dir)
+{
+    if(dir && dir->handle != -1) {
+        _findclose(dir->handle);
+        dir->handle = (long) _findfirst(dir->name, &dir->info);
+        dir->result.d_name = 0;
+        dir->result.d_type = 0;
+    }
+    else {
+        errno = EBADF;
+    }
 }
 
 
@@ -796,7 +891,7 @@ void VMPI_getExecutablePath(const char *argv0, char *name)
 
 int VMPI_chmod(const char *path, int mode)
 {
-    return _chmod(path, (mode_t)(mode & S_WIN32));
+    return _chmod(path, (mode_t)mode);
 }
 
 int VMPI_mkdir(const char *path)
@@ -806,36 +901,28 @@ int VMPI_mkdir(const char *path)
 
 int VMPI_getFileMode(const char *path)
 {
-    //struct stat stats;
-    //stat(path, &stats);
-    //return stats.st_mode;
-    return 0;
+    struct _stat stats;
+    _stat(path, &stats);
+
+    //a directory is always X
+    if( S_ISDIR(stats.st_mode) )
+    {
+        return (stats.st_mode | S_IXUSR | S_IXGRP | S_IXOTH);
+    }
+    else
+    {
+        return stats.st_mode;
+    }
 }
 
 bool VMPI_isRegularFile(const char *path)
 {
-    //bool test = false;
-    //struct stat stats;
-    //if (!stat(path, &stats)) {
-    //    if (S_ISREG(stats.st_mode)) {
-    //        test = true;
-    //    }
-    //}
-    //return test;
-    return false;
+    return S_ISREG( VMPI_getFileMode(path) );
 }
 
 bool VMPI_isDirectory(const char *path)
 {
-    //bool test = false;
-    //struct stat stats;
-    //if (!stat(path, &stats)) {
-    //    if (S_ISDIR(stats.st_mode)) {
-    //        test = true;
-    //    }
-    //}
-    //return test;
-    return false;
+    return S_ISDIR( VMPI_getFileMode(path) );
 }
 
 
