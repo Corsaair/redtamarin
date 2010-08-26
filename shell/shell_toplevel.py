@@ -74,6 +74,7 @@ toplevel_classes += " ../as3/clib/C/string.as";
 toplevel_classes += " ../as3/clib/C/errno.as";
 toplevel_classes += " ../as3/clib/C/stdio.as";
 toplevel_classes += " ../as3/shell/avmplus/FileSystem.as";
+toplevel_classes += " ../as3/shell/avmplus/OperatingSystem.as";
 toplevel_classes += " Endian.as";
 toplevel_classes += " Java.as";
 #toplevel_classes += "";
