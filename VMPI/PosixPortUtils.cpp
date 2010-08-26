@@ -41,6 +41,7 @@
 
 #include <stdlib.h>
 #include <sys/time.h>
+#include <sys/utsname.h>
 #include <math.h>
 
 #ifdef AVMPLUS_UNIX
@@ -49,6 +50,7 @@
 
 #ifdef AVMPLUS_MAC
     #include <malloc/malloc.h>
+    #include <CoreServices/CoreServices.h>
 #endif //AVMPLUS_MAC
 
 #include <sys/mman.h>
@@ -358,6 +360,140 @@ bool VMPI_isDirectory(const char *path)
     return test;
     */
 }
+
+void VMPI_getOperatingSystemName(char *name)
+{
+    utsname info;
+    const char *osname;
+    
+    if( uname(&info) < 0 ) {
+        osname = "";
+    }
+    else {
+        osname = info.sysname;
+    }
+    
+    VMPI_strcpy( name, osname );
+}
+
+void VMPI_getOperatingSystemNodeName(char *nodename)
+{
+    utsname info;
+    const char *osnodename;
+    
+    if( uname(&info) < 0 ) {
+        osnodename = "";
+    }
+    else {
+        osnodename = info.nodename;
+    }
+    
+    VMPI_strcpy( nodename, osnodename );
+}
+
+void VMPI_getOperatingSystemRelease(char *release)
+{
+    utsname info;
+    const char *osrelease;
+    
+    if( uname(&info) < 0 ) {
+        osrelease = "";
+    }
+    else {
+        osrelease = info.release;
+    }
+    
+    VMPI_strcpy( release, osrelease );
+}
+
+void VMPI_getOperatingSystemVersion(char *version)
+{
+    utsname info;
+    const char *osversion;
+    
+    if( uname(&info) < 0 ) {
+        osversion = "";
+    }
+    else {
+        osversion = info.version;
+    }
+
+    VMPI_strcpy( version, osversion );
+}
+
+void VMPI_getOperatingSystemMachine(char *machine)
+{
+    utsname info;
+    const char *osmachine;
+    
+    if( uname(&info) < 0 ) {
+        osmachine = "";
+    }
+    else {
+        osmachine = info.machine;
+    }
+    
+    VMPI_strcpy( machine, osmachine );
+}
+
+void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix)
+{
+#ifdef AVMPLUS_MAC
+    SInt32 version, version_major, version_minor, version_bugfix;
+    if( Gestalt(gestaltSystemVersion, &version) == noErr )
+    {
+        if( version >= 0x00001040 )
+        {
+            Gestalt(gestaltSystemVersionMajor, &version_major);
+            Gestalt(gestaltSystemVersionMinor, &version_minor);
+            Gestalt(gestaltSystemVersionBugFix, &version_bugfix);
+        }
+        else
+        {
+            version_bugfix = version & 0xf;
+            version >>= 4;
+            version_minor = version & 0xf;
+            version >>= 4;
+            version_major = version - (version >> 4) * 6;
+        }
+        
+        *major  = (int)version_major;
+        *minor  = (int)version_minor;
+        *bugfix = (int)version_bugfix;
+    }
+#else
+    (void)major;
+    (void)minor;
+    (void)bugfix;
+#endif
+}
+
+
+bool VMPI_isNullTerminated(const char *str)
+{
+    int len = VMPI_strlen(str);
+
+    if( str[len]-1 == '\0') {
+        return true;
+    }
+
+    return  false;
+}
+
+char *VMPI_int2char(int n)
+{
+    char buffer[100];
+    char *value;
+    size_t size;
+
+    size  = VMPI_sprintf( buffer, "%d", n ) * sizeof(char);
+    value = (char*) VMPI_alloc( size+1 );
+    VMPI_strcpy( value, buffer );
+    
+    return value;
+}
+
+
 
 
 
