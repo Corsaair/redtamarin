@@ -80,9 +80,10 @@
 #define VMPI_abort   ::abort
 #define VMPI_exit    ::exit
 
-#define VMPI_access    ::access
-#define VMPI_getcwd    ::getcwd
-#define VMPI_rmdir     ::rmdir
+#define VMPI_access         ::access
+#define VMPI_getcwd         ::getcwd
+#define VMPI_gethostname    ::gethostname
+#define VMPI_rmdir          ::rmdir
 
 #define VMPI_remove    ::remove
 #define VMPI_rename    ::rename
