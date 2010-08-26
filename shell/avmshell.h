@@ -115,6 +115,7 @@ namespace avmshell
     class StdioClass;
     
     class FileSystemClass;
+    class OperatingSystemClass;
 }
 
 #include "Selftest.h"
@@ -142,6 +143,7 @@ namespace avmshell
 #include "CErrnoClass.h"
 #include "StdioClass.h"
 #include "FileSystemClass.h"
+#include "OperatingSystemClass.h"
 
 namespace avmshell
 {
