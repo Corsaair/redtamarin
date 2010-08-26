@@ -633,6 +633,16 @@ extern bool VMPI_isRegularFile(const char *path);
 
 extern bool VMPI_isDirectory(const char *path);
 
+extern void VMPI_getOperatingSystemName(char *name);
+extern void VMPI_getOperatingSystemNodeName(char *nodename);
+extern void VMPI_getOperatingSystemRelease(char *release);
+extern void VMPI_getOperatingSystemVersion(char *version);
+extern void VMPI_getOperatingSystemMachine(char *machine);
+extern void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix);
+
+extern bool VMPI_isNullTerminated(const char *str);
+extern char *VMPI_int2char(int n);
+
 
 
 /**
