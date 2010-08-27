@@ -43,6 +43,7 @@
 #include <sys/time.h>
 #include <sys/utsname.h>
 #include <math.h>
+#include <pwd.h>
 
 #ifdef AVMPLUS_UNIX
     #include <time.h>
@@ -493,7 +494,17 @@ char *VMPI_int2char(int n)
     return value;
 }
 
-
+/* note:
+   1. getpwuid( geteuid() ) shall return the name associated with the effective user ID of the process
+   2. getlogin() shall return the name associated with the current login activity
+   3. getpwuid( getuid() ) shall return the name associated with the real user ID of the process
+*/
+void VMPI_getUserName(char *username)
+{
+    struct passwd *pws;
+    pws = getpwuid( geteuid() );
+    VMPI_strcpy( username, pws->pw_name );
+}
 
 
 
