@@ -68,7 +68,7 @@ namespace avmplus {
     class NewObjectSampleObject; //flash.sampler::NewObjectSample
     class SampleClass; //flash.sampler::Sample$
     class SampleObject; //flash.sampler::Sample
-    class ScriptObject; //C.stdio::__stdio
+    class ScriptObject; //avmplus::FileSystem
     class StackFrameClass; //flash.sampler::StackFrame$
     class StackFrameObject; //flash.sampler::StackFrame
     class String; //String
@@ -290,12 +290,13 @@ const uint32_t avmplus_OperatingSystem_private_getRelease = 272;
 const uint32_t avmplus_OperatingSystem_private_getVersion = 273;
 const uint32_t avmplus_OperatingSystem_private_getMachine = 274;
 const uint32_t avmplus_OperatingSystem_private_getVendorVersion = 275;
-const uint32_t avmplus_JObject_create = 304;
-const uint32_t avmplus_JObject_createArray = 305;
-const uint32_t avmplus_JObject_toArray = 306;
-const uint32_t avmplus_JObject_constructorSignature = 307;
-const uint32_t avmplus_JObject_methodSignature = 308;
-const uint32_t avmplus_JObject_fieldSignature = 309;
+const uint32_t avmplus_OperatingSystem_private_getUserName = 276;
+const uint32_t avmplus_JObject_create = 306;
+const uint32_t avmplus_JObject_createArray = 307;
+const uint32_t avmplus_JObject_toArray = 308;
+const uint32_t avmplus_JObject_constructorSignature = 309;
+const uint32_t avmplus_JObject_methodSignature = 310;
+const uint32_t avmplus_JObject_fieldSignature = 311;
 
 extern AvmBox avmplus_Domain_currentDomain_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Domain_MIN_DOMAIN_MEMORY_LENGTH_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -461,6 +462,7 @@ extern AvmBox avmplus_OperatingSystem_private_getRelease_thunk(AvmMethodEnv env,
 extern AvmBox avmplus_OperatingSystem_private_getVersion_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_OperatingSystem_private_getMachine_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_OperatingSystem_private_getVendorVersion_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_OperatingSystem_private_getUserName_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_JObject_create_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_JObject_createArray_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_JObject_toArray_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -541,6 +543,7 @@ extern AvmBox shell_toplevel_s2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox
 #define avmplus_OperatingSystem_private_getVersion_thunk  shell_toplevel_s2a_o_thunk
 #define avmplus_System_getAvmplusVersion_thunk  shell_toplevel_s2a_o_thunk
 #define C_unistd___unistd_getcwd_thunk  shell_toplevel_s2a_o_thunk
+#define avmplus_OperatingSystem_private_getUserName_thunk  shell_toplevel_s2a_o_thunk
 #define avmplus_OperatingSystem_private_getNodeName_thunk  shell_toplevel_s2a_o_thunk
 
 extern AvmBox shell_toplevel_func_a2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -1236,6 +1239,8 @@ public:
     void set_private__vendordescription(::avmshell::OperatingSystemClass* obj, AvmString newVal);
     REALLY_INLINE AvmString get_private__codename() const { return m_private__codename; }
     void set_private__codename(::avmshell::OperatingSystemClass* obj, AvmString newVal);
+    REALLY_INLINE AvmString get_private__username() const { return m_private__username; }
+    void set_private__username(::avmshell::OperatingSystemClass* obj, AvmString newVal);
     REALLY_INLINE AvmString get_private__linuxDistribID() const { return m_private__linuxDistribID; }
     void set_private__linuxDistribID(::avmshell::OperatingSystemClass* obj, AvmString newVal);
     REALLY_INLINE AvmString get_private__linuxDistribRelease() const { return m_private__linuxDistribRelease; }
@@ -1260,6 +1265,7 @@ private:
     AvmString m_private__vendorversion;
     AvmString m_private__vendordescription;
     AvmString m_private__codename;
+    AvmString m_private__username;
     AvmString m_private__linuxDistribID;
     AvmString m_private__linuxDistribRelease;
     AvmString m_private__linuxDistribCodename;
@@ -1310,6 +1316,10 @@ REALLY_INLINE void _avmshell_OperatingSystemClassSlots::set_private__codename(::
 {
     WBRC(((ScriptObject*)obj)->gc(), obj, &m_private__codename, newVal);
 }
+REALLY_INLINE void _avmshell_OperatingSystemClassSlots::set_private__username(::avmshell::OperatingSystemClass* obj, AvmString newVal)
+{
+    WBRC(((ScriptObject*)obj)->gc(), obj, &m_private__username, newVal);
+}
 REALLY_INLINE void _avmshell_OperatingSystemClassSlots::set_private__linuxDistribID(::avmshell::OperatingSystemClass* obj, AvmString newVal)
 {
     WBRC(((ScriptObject*)obj)->gc(), obj, &m_private__linuxDistribID, newVal);
@@ -1358,6 +1368,8 @@ REALLY_INLINE void _avmshell_OperatingSystemClassSlots::set_private__linuxReleas
         REALLY_INLINE void set_private__vendordescription(AvmString newVal) { m_slots_OperatingSystemClass.set_private__vendordescription(this, newVal); } \
         REALLY_INLINE AvmString get_private__codename() const { return m_slots_OperatingSystemClass.get_private__codename(); } \
         REALLY_INLINE void set_private__codename(AvmString newVal) { m_slots_OperatingSystemClass.set_private__codename(this, newVal); } \
+        REALLY_INLINE AvmString get_private__username() const { return m_slots_OperatingSystemClass.get_private__username(); } \
+        REALLY_INLINE void set_private__username(AvmString newVal) { m_slots_OperatingSystemClass.set_private__username(this, newVal); } \
         REALLY_INLINE AvmString get_private__linuxDistribID() const { return m_slots_OperatingSystemClass.get_private__linuxDistribID(); } \
         REALLY_INLINE void set_private__linuxDistribID(AvmString newVal) { m_slots_OperatingSystemClass.set_private__linuxDistribID(this, newVal); } \
         REALLY_INLINE AvmString get_private__linuxDistribRelease() const { return m_slots_OperatingSystemClass.get_private__linuxDistribRelease(); } \
