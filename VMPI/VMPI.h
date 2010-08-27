@@ -640,6 +640,8 @@ extern void VMPI_getOperatingSystemVersion(char *version);
 extern void VMPI_getOperatingSystemMachine(char *machine);
 extern void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix);
 
+extern void VMPI_getUserName(char *username);
+
 extern bool VMPI_isNullTerminated(const char *str);
 extern char *VMPI_int2char(int n);
 
