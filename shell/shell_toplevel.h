@@ -68,7 +68,7 @@ namespace avmplus {
     class NewObjectSampleObject; //flash.sampler::NewObjectSample
     class SampleClass; //flash.sampler::Sample$
     class SampleObject; //flash.sampler::Sample
-    class ScriptObject; //C.string::__string
+    class ScriptObject; //avmplus::OperatingSystem
     class StackFrameClass; //flash.sampler::StackFrame$
     class StackFrameObject; //flash.sampler::StackFrame
     class String; //String
@@ -292,12 +292,12 @@ const uint32_t avmplus_OperatingSystem_private_getVersion = 275;
 const uint32_t avmplus_OperatingSystem_private_getMachine = 276;
 const uint32_t avmplus_OperatingSystem_private_getVendorVersion = 277;
 const uint32_t avmplus_OperatingSystem_private_getUserName = 278;
-const uint32_t avmplus_JObject_create = 309;
-const uint32_t avmplus_JObject_createArray = 310;
-const uint32_t avmplus_JObject_toArray = 311;
-const uint32_t avmplus_JObject_constructorSignature = 312;
-const uint32_t avmplus_JObject_methodSignature = 313;
-const uint32_t avmplus_JObject_fieldSignature = 314;
+const uint32_t avmplus_JObject_create = 310;
+const uint32_t avmplus_JObject_createArray = 311;
+const uint32_t avmplus_JObject_toArray = 312;
+const uint32_t avmplus_JObject_constructorSignature = 313;
+const uint32_t avmplus_JObject_methodSignature = 314;
+const uint32_t avmplus_JObject_fieldSignature = 315;
 
 extern AvmBox avmplus_Domain_currentDomain_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Domain_MIN_DOMAIN_MEMORY_LENGTH_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
