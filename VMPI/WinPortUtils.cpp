@@ -44,7 +44,12 @@
 #include <errno.h>
 #include <io.h> /* _findfirst and _findnext set errno if they return -1 */
 #include <stdlib.h>
+#include <windows.h>
+#include <winsock2.h>
+#include <stdio.h>
 #include <string.h>
+#pragma comment(lib, "user32.lib")
+#pragma comment(lib, "ws2_32.lib")
 
 namespace avmplus
 {
@@ -923,6 +928,508 @@ bool VMPI_isRegularFile(const char *path)
 bool VMPI_isDirectory(const char *path)
 {
     return S_ISDIR( VMPI_getFileMode(path) );
+}
+
+int uname(struct utsname *uts)
+{
+    enum
+    {
+        Win95,
+        Win98,
+        WinNT,
+        WinUnknown
+    };
+    
+    typedef BOOL (WINAPI *PGPI)(DWORD, DWORD, DWORD, DWORD, PDWORD);
+    
+    OSVERSIONINFOEX osver;
+    SYSTEM_INFO sysinfo;
+    PGPI pGPI;
+    DWORD nodelen;
+    DWORD os = WinUnknown;
+    DWORD dwType;
+    
+    VMPI_memset(uts, 0, sizeof(*uts));
+    
+    osver.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+    GetVersionEx((OSVERSIONINFO *) &osver);
+    GetSystemInfo(&sysinfo);
+    
+    VMPI_strcpy(uts->sysname, "Win32"); //we always want to be WIN32
+    
+    // Test for the specific product, and we create the version, eg: {windows_type} {suite_mask} {product_info} {service_pack}
+    switch( osver.dwPlatformId )
+    {
+        case VER_PLATFORM_WIN32_NT:
+        if(osver.dwMajorVersion == 3) {
+            if(osver.dwMinorVersion == 51) {
+                VMPI_strcpy(uts->version, "Windows NT 3.51");
+            }
+            else {
+                VMPI_strcpy(uts->version, "Windows NT 3x");
+            }
+        }
+        else if(osver.dwMajorVersion == 4) {
+            if(osver.dwMinorVersion == 0) {
+                VMPI_strcpy(uts->version, "Windows NT 4");
+            }
+            else {
+                VMPI_strcpy(uts->version, "Windows NT 4x");
+            }
+        }
+        else if((osver.dwMajorVersion == 5) && (osver.dwMinorVersion == 0)) {
+            VMPI_strcpy(uts->version, "Windows 2000 ");
+            if(osver.wProductType == VER_NT_WORKSTATION) {
+                VMPI_strcat(uts->version, "Professional");
+            }
+            else if(osver.wSuiteMask & VER_SUITE_DATACENTER) {
+                VMPI_strcat(uts->version, "Datacenter Server");
+            }
+            else if(osver.wSuiteMask & VER_SUITE_ENTERPRISE) {
+                VMPI_strcat(uts->version, "Advanced Server");
+            }
+            else {
+                VMPI_strcat(uts->version, "Server");
+            }
+        }
+        else if((osver.dwMajorVersion == 5) && (osver.dwMinorVersion == 1)) {
+            VMPI_strcpy(uts->version, "Windows XP ");
+            if(GetSystemMetrics(SM_MEDIACENTER)) {
+                VMPI_strcat(uts->version, "Media Center Edition");
+            }
+            else if(GetSystemMetrics(SM_STARTER)) {
+                VMPI_strcat(uts->version, "Starter Edition");
+            }
+            else if(GetSystemMetrics(SM_TABLETPC)) {
+                VMPI_strcat(uts->version, "Tablet PC Edition");
+            }
+            else if(osver.wSuiteMask & VER_SUITE_PERSONAL) {
+                VMPI_strcat(uts->version, "Home Edition");
+            }
+            else {
+                VMPI_strcat(uts->version, "Professional");
+            }
+        }
+        else if((osver.dwMajorVersion == 5) && (osver.dwMinorVersion == 2)) {
+            if(GetSystemMetrics(SM_SERVERR2)) {
+                VMPI_strcpy(uts->version, "Windows Server 2003 R2, ");
+            }
+            else if(osver.wSuiteMask & VER_SUITE_STORAGE_SERVER) {
+                VMPI_strcpy(uts->version, "Windows Storage Server 2003");
+            }
+            else if(osver.wSuiteMask & VER_SUITE_WH_SERVER) {
+                VMPI_strcpy(uts->version, "Windows Home Server");
+            }
+            else if((osver.wProductType == VER_NT_WORKSTATION) && (sysinfo.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_AMD64)) {
+                VMPI_strcpy(uts->version, "Windows XP Professional x64 Edition");
+            }
+            else {
+                VMPI_strcpy(uts->version, "Windows Server 2003, ");
+            }
+            
+            if(osver.wProductType != VER_NT_WORKSTATION) {
+                if(sysinfo.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_IA64) {
+                    if(osver.wSuiteMask & VER_SUITE_DATACENTER) {
+                        VMPI_strcat(uts->version, "Datacenter Edition for Itanium-based Systems");
+                    }
+                    else if(osver.wSuiteMask & VER_SUITE_ENTERPRISE) {
+                        VMPI_strcat(uts->version, "Enterprise Edition for Itanium-based Systems");
+                    }
+                }
+                else if(sysinfo.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_AMD64) {
+                    if(osver.wSuiteMask & VER_SUITE_DATACENTER) {
+                        VMPI_strcat(uts->version, "Datacenter x64 Edition");
+                    }
+                    else if(osver.wSuiteMask & VER_SUITE_ENTERPRISE) {
+                        VMPI_strcat(uts->version, "Enterprise x64 Edition");
+                    }
+                    else {
+                        VMPI_strcat(uts->version, "Standard x64 Edition");
+                    }
+                }
+                else {
+                    if(osver.wSuiteMask & VER_SUITE_COMPUTE_SERVER) {
+                        VMPI_strcat(uts->version, "Compute Cluster Edition");
+                    }
+                    else if(osver.wSuiteMask & VER_SUITE_DATACENTER) {
+                        VMPI_strcat(uts->version, "Datacenter Edition");
+                    }
+                    else if(osver.wSuiteMask & VER_SUITE_ENTERPRISE) {
+                        VMPI_strcat(uts->version, "Enterprise Edition");
+                    }
+                    else if(osver.wSuiteMask & VER_SUITE_BLADE) {
+                        VMPI_strcat(uts->version, "Web Edition");
+                    }
+                    else {
+                        VMPI_strcat(uts->version, "Standard Edition");
+                    }
+                }
+            }
+        }
+        else if(osver.dwMajorVersion == 6) {
+            if(osver.dwMinorVersion == 0) {
+                if(osver.wProductType == VER_NT_WORKSTATION) {
+                    VMPI_strcpy(uts->version, "Windows Vista ");
+                }
+                else {
+                    VMPI_strcpy(uts->version, "Windows Server 2008 ");
+                }
+            }
+            
+            if(osver.dwMinorVersion == 1) {
+                if(osver.wProductType == VER_NT_WORKSTATION) {
+                    VMPI_strcpy(uts->version, "Windows 7 ");
+                }
+                else {
+                    VMPI_strcpy(uts->version, "Windows Server 2008 R2 ");
+                }
+            }
+            
+            pGPI = (PGPI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetProductInfo");
+            pGPI(osver.dwMajorVersion, osver.dwMinorVersion, 0, 0, &dwType);
+            
+            switch( dwType )
+            {
+                case PRODUCT_ULTIMATE:
+                VMPI_strcat(uts->version, "Ultimate Edition");
+                break;
+                
+                case PRODUCT_PROFESSIONAL:
+                VMPI_strcat(uts->version, "Professional");
+                break;
+                
+                case PRODUCT_HOME_PREMIUM:
+                VMPI_strcat(uts->version, "Home Premium Edition");
+                break;
+                
+                case PRODUCT_HOME_BASIC:
+                VMPI_strcat(uts->version, "Home Basic Edition");
+                break;
+                
+                case PRODUCT_ENTERPRISE:
+                VMPI_strcat(uts->version, "Enterprise Edition");
+                break;
+                
+                case PRODUCT_BUSINESS:
+                VMPI_strcat(uts->version, "Business Edition");
+                break;
+                
+                case PRODUCT_STARTER:
+                VMPI_strcat(uts->version, "Starter Edition");
+                break;
+                
+                case PRODUCT_CLUSTER_SERVER:
+                VMPI_strcat(uts->version, "Cluster Server Edition");
+                break;
+                
+                case PRODUCT_DATACENTER_SERVER:
+                VMPI_strcat(uts->version, "Datacenter Edition");
+                break;
+                
+                case PRODUCT_DATACENTER_SERVER_CORE:
+                VMPI_strcat(uts->version, "Datacenter Edition (core installation)");
+                break;
+                
+                case PRODUCT_ENTERPRISE_SERVER:
+                VMPI_strcat(uts->version, "Enterprise Edition");
+                break;
+                
+                case PRODUCT_ENTERPRISE_SERVER_CORE:
+                VMPI_strcat(uts->version, "Enterprise Edition (core installation)");
+                break;
+                
+                case PRODUCT_ENTERPRISE_SERVER_IA64:
+                VMPI_strcat(uts->version, "Enterprise Edition for Itanium-based Systems");
+                break;
+                
+                case PRODUCT_SMALLBUSINESS_SERVER:
+                VMPI_strcat(uts->version, "Small Business Server");
+                break;
+                
+                case PRODUCT_SMALLBUSINESS_SERVER_PREMIUM:
+                VMPI_strcat(uts->version, "Small Business Server Premium Edition");
+                break;
+                
+                case PRODUCT_STANDARD_SERVER:
+                VMPI_strcat(uts->version, "Standard Edition");
+                break;
+                
+                case PRODUCT_STANDARD_SERVER_CORE:
+                VMPI_strcat(uts->version, "Standard Edition (core installation)");
+                break;
+                
+                case PRODUCT_WEB_SERVER:
+                VMPI_strcat(uts->version, "Web Server Edition");
+                break;
+            }
+        }
+        os = WinNT;
+        break;
+        
+        case VER_PLATFORM_WIN32_WINDOWS:
+        if((osver.dwMajorVersion == 4) && (osver.dwMinorVersion >= 10)) {
+            if(osver.dwMinorVersion >= 90) {
+                VMPI_strcpy(uts->version, "Windows ME");
+            }
+            else if((osver.dwMinorVersion == 10) && (osver.dwBuildNumber >= 2183)) {
+                VMPI_strcpy(uts->version, "Windows 98 Second Edition");
+            }
+            else if(osver.dwMinorVersion == 10) {
+                VMPI_strcpy(uts->version, "Windows 98");
+            }
+            os = Win98;
+        }
+        else {
+            if((osver.dwMinorVersion < 10) && (osver.dwBuildNumber > 1080)) {
+                VMPI_strcpy(uts->version, "Windows 95 OEM Service Release 2");
+            }
+            else if(osver.dwMinorVersion == 0) {
+                VMPI_strcpy(uts->version, "Windows 95");
+            }
+            os = Win95;
+        }
+        break;
+        
+        /*
+        case VER_PLATFORM_WIN32_CE:
+        VMPI_sprintf(uts->version, "Windows CE %ld.%02ld", osver.dwMajorVersion, osver.dwMinorVersion);
+        break;
+        */
+        
+        case VER_PLATFORM_WIN32s:
+        VMPI_strcpy(uts->version, "Windows");
+        break;
+    }
+    
+    // Include service pack (if any).
+    if(osver.wServicePackMajor > 0) {
+        VMPI_strcat(uts->version, " ");
+        VMPI_strcat(uts->version, osver.szCSDVersion); //ex: "Service Pack 3"
+    }
+    
+    // We create the release, eg: {major}.{minor} build {build}
+    VMPI_sprintf(uts->release, "%ld.%ld build %ld", osver.dwMajorVersion, osver.dwMinorVersion, osver.dwBuildNumber & 0xFFFF);
+    
+    // We create the machine, from the processor infos
+    switch( sysinfo.wProcessorArchitecture )
+    {
+        case PROCESSOR_ARCHITECTURE_PPC:
+        VMPI_strcpy(uts->machine, "ppc");
+        break;
+        
+        case PROCESSOR_ARCHITECTURE_ALPHA:
+        VMPI_strcpy(uts->machine, "alpha");
+        break;
+        
+        case PROCESSOR_ARCHITECTURE_MIPS:
+        VMPI_strcpy(uts->machine, "mips");
+        break;
+        
+        case PROCESSOR_ARCHITECTURE_INTEL:
+        switch( os )
+        {
+            case Win95:
+            case Win98:
+            switch( sysinfo.dwProcessorType )
+            {
+                case PROCESSOR_INTEL_386:
+                case PROCESSOR_INTEL_486:
+                case PROCESSOR_INTEL_PENTIUM:
+                VMPI_sprintf(uts->machine, "i%ld", sysinfo.dwProcessorType);
+                break;
+                
+                default:
+                VMPI_strcpy(uts->machine, "i386");
+                break;
+            }
+            break;
+            
+            case WinNT:
+            VMPI_sprintf(uts->machine, "i%d86", sysinfo.wProcessorLevel);
+            break;
+        }
+        break;
+        
+        default:
+        VMPI_strcpy(uts->machine, "unknown");
+        break;
+    }
+    
+    // We create the nodename.
+    nodelen = sizeof(uts->nodename) - 1;
+    GetComputerName(uts->nodename, &nodelen);
+    
+    return 0;
+}
+
+void VMPI_getOperatingSystemName(char *name)
+{
+    utsname info;
+    const char *osname;
+    
+    if( uname(&info) < 0 ) {
+        osname = "";
+    }
+    else {
+        osname = info.sysname;
+    }
+    
+    VMPI_strcpy( name, osname );
+}
+
+void VMPI_getOperatingSystemNodeName(char *nodename)
+{
+    utsname info;
+    const char *osnodename;
+    
+    if( uname(&info) < 0 ) {
+        osnodename = "";
+    }
+    else {
+        osnodename = info.nodename;
+    }
+    
+    VMPI_strcpy( nodename, osnodename );
+}
+
+void VMPI_getOperatingSystemRelease(char *release)
+{
+    utsname info;
+    const char *osrelease;
+    
+    if( uname(&info) < 0 ) {
+        osrelease = "";
+    }
+    else {
+        osrelease = info.release;
+    }
+    
+    VMPI_strcpy( release, osrelease );
+}
+
+void VMPI_getOperatingSystemVersion(char *version)
+{
+    utsname info;
+    const char *osversion;
+    
+    if( uname(&info) < 0 ) {
+        osversion = "";
+    }
+    else {
+        osversion = info.version;
+    }
+
+    VMPI_strcpy( version, osversion );
+}
+
+void VMPI_getOperatingSystemMachine(char *machine)
+{
+    utsname info;
+    const char *osmachine;
+    
+    if( uname(&info) < 0 ) {
+        osmachine = "";
+    }
+    else {
+        osmachine = info.machine;
+    }
+    
+    VMPI_strcpy( machine, osmachine );
+}
+
+void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix)
+{
+    //OSVERSIONINFO osver;
+    //osver.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+    //GetVersionEx(&osver);
+    
+    OSVERSIONINFOEX osver;
+    osver.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+    GetVersionEx((OSVERSIONINFO *) &osver);
+    
+    *major  = (int)osver.dwMajorVersion;
+    *minor  = (int)osver.dwMinorVersion;
+    //*bugfix = (int)osver.dwBuildNumber;
+    *bugfix = (int)osver.wServicePackMajor; //yeah we can consider a service pack as a bugfix!!
+}
+
+bool VMPI_isNullTerminated(const char *str)
+{
+    int len = VMPI_strlen(str);
+
+    if( str[len]-1 == '\0') {
+        return true;
+    }
+
+    return  false;
+}
+
+char *VMPI_int2char(int n)
+{
+    char buffer[100];
+    char *value;
+    size_t size;
+
+    size  = VMPI_sprintf( buffer, "%d", n ) * sizeof(char);
+    value = (char*) VMPI_alloc( size+1 );
+    VMPI_strcpy( value, buffer );
+    
+    return value;
+}
+
+int WIN32_SocketStart(int version)
+{
+    WSADATA wsaData;
+    WORD wVersionRequested;
+    int err;
+    
+    wVersionRequested = MAKEWORD(version, version);
+    err = WSAStartup(wVersionRequested, &wsaData);
+    
+    if (err != 0) {
+        printf("WSAStartup failed with error: %d\n", err);
+        return 1;
+    }
+
+    return 0;
+}
+
+void WIN32_SocketStop()
+{
+    WSACleanup();
+}
+
+int VMPI_gethostname(char *name, int namelen)
+{
+    int result = -1;
+    
+    if( WIN32_SocketStart(1) == 0 ) {
+        result = ::gethostname(name, namelen);
+        WIN32_SocketStop();
+    }
+    
+    return result;
+}
+
+void VMPI_getUserName(char *username)
+{
+    /*
+    const char *osmachine;
+    
+    if( uname(&info) < 0 ) {
+        osmachine = "";
+    }
+    else {
+        osmachine = info.machine;
+    }
+    
+    VMPI_strcpy( machine, osmachine );
+    */
+    
+    //const char *localusername;
+    DWORD bufsize = 256;
+    GetUserName(username, &bufsize);
+    //VMPI_strcpy( username, localusername );
 }
 
 
