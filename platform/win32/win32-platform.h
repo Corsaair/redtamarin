@@ -140,7 +140,8 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
 
 #define VMPI_access         _access
 #define VMPI_getcwd         _getcwd
-#define VMPI_gethostname    ::gethostname
+//#define VMPI_gethostname    ::gethostname
+int VMPI_gethostname(char *name, int namelen);
 #define VMPI_rmdir          _rmdir
 
 #define VMPI_remove    ::remove
@@ -164,7 +165,6 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
 #include <direct.h>
 #include <io.h>
 #include <windows.h>
-#include <winsock.h>
 #include <malloc.h>
 
 //a lot of definitions to align with POSIX
@@ -341,15 +341,11 @@ extern void          rewinddir(DIR *dir);
  */
 
 #ifndef _UTSNAME_LENGTH
-  #define _UTSNAME_LENGTH 65
+  #define _UTSNAME_LENGTH 255
 #endif
 
-#ifndef
+#ifndef _UTSNAME_NODENAME_LENGTH
   #define _UTSNAME_NODENAME_LENGTH _UTSNAME_LENGTH
-#endif
-
-#ifndef
-  #define _UTSNAME_DOMAIN_LENGTH _UTSNAME_LENGTH
 #endif
 
 struct utsname
@@ -359,8 +355,15 @@ struct utsname
   char release[_UTSNAME_LENGTH];            // Current release level
   char version[_UTSNAME_LENGTH];            // Current version level of this release
   char machine[_UTSNAME_LENGTH];            // Name of the hardware type the system is running on
-  char domainname[_UTSNAME_DOMAIN_LENGTH];  // Name of the domain of this node on the network
 };
+
+#ifndef VER_SUITE_WH_SERVER
+  #define VER_SUITE_WH_SERVER     0x00008000
+#endif
+
+#ifndef PRODUCT_PROFESSIONAL
+  #define PRODUCT_PROFESSIONAL    0x00000030
+#endif
 
 extern int uname (struct utsname *uts);
 
