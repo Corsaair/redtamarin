@@ -58,6 +58,7 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/DomainClass.cpp \
   $(curdir)/FileClass.cpp \
   $(curdir)/FileInputStream.cpp \
+  $(curdir)/../api/shell/SocketClass.cpp \
   $(curdir)/ShellCore.cpp \
   $(curdir)/SystemClass.cpp \
   $(curdir)/swf.cpp \
@@ -80,6 +81,7 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../api/clib/CStringClass.cpp \
   $(curdir)/../api/clib/CErrnoClass.cpp \
   $(curdir)/../api/clib/StdioClass.cpp \
+  $(curdir)/../api/clib/CSocketClass.cpp \
   $(curdir)/../api/shell/FileSystemClass.cpp \
   $(curdir)/../api/shell/OperatingSystemClass.cpp \
   $(NULL)
@@ -95,6 +97,7 @@ ifeq (darwin,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/avmshellMac.cpp \
   $(curdir)/PosixFile.cpp \
+  $(curdir)/PosixSocket.cpp \
   $(curdir)/PosixPartialPlatform.cpp \
   $(NULL)
 endif
