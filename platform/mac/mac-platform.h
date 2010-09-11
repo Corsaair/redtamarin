@@ -133,6 +133,11 @@
 #include <libkern/OSAtomic.h>
 #include <signal.h>
 
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <netdb.h>
+
 #ifdef DEBUG
 #include <assert.h>
 #endif
