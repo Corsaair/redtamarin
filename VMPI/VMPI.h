@@ -641,6 +641,10 @@ extern void VMPI_getOperatingSystemMachine(char *machine);
 extern void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix);
 
 extern void VMPI_getUserName(char *username);
+extern double VMPI_getFreeDiskSpace(const char *path);
+extern double VMPI_getTotalDiskSpace(const char *path);
+
+extern void VMPI_sleep(int milliseconds);
 
 extern bool VMPI_isNullTerminated(const char *str);
 extern char *VMPI_int2char(int n);
