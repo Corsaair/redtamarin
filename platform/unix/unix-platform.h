@@ -140,6 +140,11 @@
 #include <pthread.h>
 #include <signal.h>
 
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <netdb.h>
+
 #ifdef SOLARIS
  #include <alloca.h>
 typedef caddr_t maddr_ptr;
