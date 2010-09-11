@@ -54,6 +54,12 @@ namespace avmshell
         virtual File* createFile();
         virtual void destroyFile(File* file);
 
+        virtual Socket* createSocket();
+        virtual Socket* createCustomSocket(int family, int socktype, int protocol);
+        virtual Socket* createSocketFrom(int sd);
+        virtual void destroySocket(Socket* socket);
+        virtual int lastSocketError();
+
         virtual void initializeLogging(const char* filename);
 
         virtual int logMessage(const char* message);

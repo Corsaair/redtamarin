@@ -39,6 +39,7 @@
 
 #include "PosixPartialPlatform.h"
 #include "PosixFile.h"
+#include "PosixSocket.h"
 
 namespace avmshell
 {
@@ -55,6 +56,61 @@ namespace avmshell
     void PosixPartialPlatform::destroyFile(File* file)
     {
         mmfx_delete( file );
+    }
+
+    Socket* PosixPartialPlatform::createSocket()
+    {
+        if( PosixSocket::Setup() )
+        {
+            //return mmfx_new( PosixSocket() );
+            return new PosixSocket();
+        }
+        else
+        {
+            AvmLog("Failed to create default socket.\n");
+            return NULL;
+        }
+    }
+
+    Socket* PosixPartialPlatform::createCustomSocket(int family, int socktype, int protocol)
+    {
+        if( PosixSocket::Setup() )
+        {
+            //return mmfx_new( PosixSocket(family, socktype, protocol) );
+            return new PosixSocket(family, socktype, protocol);
+        }
+        else
+        {
+            AvmLog("Failed to create custom socket.\n");
+            return NULL;
+        }
+    }
+    
+    Socket* PosixPartialPlatform::createSocketFrom(int sd)
+    {
+        if( PosixSocket::Setup() )
+        {
+            //return mmfx_new( PosixSocket(sd) );
+            return new PosixSocket(sd);
+        }
+        else
+        {
+            AvmLog("Failed to create socket from descriptor.\n");
+            return NULL;
+        }
+    }
+    
+    
+    
+    void PosixPartialPlatform::destroySocket(Socket* socket)
+    {
+        //mmfx_delete( socket );
+        delete socket;
+    }
+
+    int PosixPartialPlatform::lastSocketError()
+    {
+        return PosixSocket::LastError();
     }
 
     void PosixPartialPlatform::initializeLogging(const char* filename)
