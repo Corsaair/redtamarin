@@ -113,14 +113,17 @@ namespace avmshell
     class CStringClass;
     class CErrnoClass;
     class StdioClass;
+    class CSocketClass;
     
     class FileSystemClass;
     class OperatingSystemClass;
+    class SocketClass;
 }
 
 #include "Selftest.h"
 #include "Platform.h"
 #include "File.h"
+#include "Socket.h"
 
 #include "FileInputStream.h"
 #include "ConsoleOutputStream.h"
@@ -142,8 +145,10 @@ namespace avmshell
 #include "CStringClass.h"
 #include "CErrnoClass.h"
 #include "StdioClass.h"
+#include "CSocketClass.h"
 #include "FileSystemClass.h"
 #include "OperatingSystemClass.h"
+#include "SocketClass.h"
 
 namespace avmshell
 {
