@@ -43,12 +43,15 @@ namespace avmshell {
     class ByteArrayClass; //flash.utils::ByteArray$
     class ByteArrayObject; //flash.utils::ByteArray
     class CErrnoClass; //C.errno::__errno$
+    class CSocketClass; //C.socket::__socket$
     class CStringClass; //C.string::__string$
     class DomainClass; //avmplus::Domain$
     class DomainObject; //avmplus::Domain
     class FileClass; //avmplus::File$
     class FileSystemClass; //avmplus::FileSystem$
     class OperatingSystemClass; //avmplus::OperatingSystem$
+    class SocketClass; //avmplus::Socket$
+    class SocketObject; //avmplus::Socket
     class StdioClass; //C.stdio::__stdio$
     class StdlibClass; //C.stdlib::__stdlib$
     class SystemClass; //avmplus::System$
@@ -68,7 +71,7 @@ namespace avmplus {
     class NewObjectSampleObject; //flash.sampler::NewObjectSample
     class SampleClass; //flash.sampler::Sample$
     class SampleObject; //flash.sampler::Sample
-    class ScriptObject; //avmplus::OperatingSystem
+    class ScriptObject; //C.socket::__socket
     class StackFrameClass; //flash.sampler::StackFrame$
     class StackFrameObject; //flash.sampler::StackFrame
     class String; //String
@@ -101,10 +104,12 @@ const uint32_t abcclass_C_unistd___unistd = 12;
 const uint32_t abcclass_C_string___string = 13;
 const uint32_t abcclass_C_errno___errno = 14;
 const uint32_t abcclass_C_stdio___stdio = 15;
-const uint32_t abcclass_avmplus_FileSystem = 16;
-const uint32_t abcclass_avmplus_OperatingSystem = 17;
-const uint32_t abcclass_flash_utils_Endian = 18;
-const uint32_t abcclass_avmplus_JObject = 19;
+const uint32_t abcclass_C_socket___socket = 16;
+const uint32_t abcclass_avmplus_FileSystem = 17;
+const uint32_t abcclass_avmplus_OperatingSystem = 18;
+const uint32_t abcclass_avmplus_Socket = 19;
+const uint32_t abcclass_flash_utils_Endian = 20;
+const uint32_t abcclass_avmplus_JObject = 21;
 
 /* methods */
 const uint32_t avmplus_System_exit = 7;
@@ -198,106 +203,177 @@ const uint32_t C_stdlib___stdlib_setenv = 143;
 const uint32_t C_stdlib___stdlib_unsetenv = 144;
 const uint32_t C_stdlib___stdlib_realpath = 145;
 const uint32_t C_stdlib___stdlib___system = 146;
-const uint32_t C_unistd___unistd_F_OK_get = 157;
-const uint32_t C_unistd___unistd_X_OK_get = 158;
-const uint32_t C_unistd___unistd_W_OK_get = 159;
-const uint32_t C_unistd___unistd_R_OK_get = 160;
-const uint32_t C_unistd___unistd_S_IFMT_get = 161;
-const uint32_t C_unistd___unistd_S_IFIFO_get = 162;
-const uint32_t C_unistd___unistd_S_IFCHR_get = 163;
-const uint32_t C_unistd___unistd_S_IFDIR_get = 164;
-const uint32_t C_unistd___unistd_S_IFBLK_get = 165;
-const uint32_t C_unistd___unistd_S_IFREG_get = 166;
-const uint32_t C_unistd___unistd_S_IFLNK_get = 167;
-const uint32_t C_unistd___unistd_S_IFSOCK_get = 168;
-const uint32_t C_unistd___unistd_S_IRWXU_get = 169;
-const uint32_t C_unistd___unistd_S_IRUSR_get = 170;
-const uint32_t C_unistd___unistd_S_IWUSR_get = 171;
-const uint32_t C_unistd___unistd_S_IXUSR_get = 172;
-const uint32_t C_unistd___unistd_S_IRWXG_get = 173;
-const uint32_t C_unistd___unistd_S_IRGRP_get = 174;
-const uint32_t C_unistd___unistd_S_IWGRP_get = 175;
-const uint32_t C_unistd___unistd_S_IXGRP_get = 176;
-const uint32_t C_unistd___unistd_S_IRWXO_get = 177;
-const uint32_t C_unistd___unistd_S_IROTH_get = 178;
-const uint32_t C_unistd___unistd_S_IWOTH_get = 179;
-const uint32_t C_unistd___unistd_S_IXOTH_get = 180;
-const uint32_t C_unistd___unistd_S_IREAD_get = 181;
-const uint32_t C_unistd___unistd_S_IWRITE_get = 182;
-const uint32_t C_unistd___unistd_S_IEXEC_get = 183;
-const uint32_t C_unistd___unistd_access = 184;
-const uint32_t C_unistd___unistd_chmod = 185;
-const uint32_t C_unistd___unistd_getcwd = 186;
-const uint32_t C_unistd___unistd_gethostname = 187;
-const uint32_t C_unistd___unistd_getlogin = 188;
-const uint32_t C_unistd___unistd_mkdir = 189;
-const uint32_t C_unistd___unistd_rmdir = 190;
-const uint32_t C_string___string_strerror = 198;
-const uint32_t C_string___string_strlen = 199;
-const uint32_t C_errno___errno_EDOM_get = 205;
-const uint32_t C_errno___errno_EILSEQ_get = 206;
-const uint32_t C_errno___errno_ERANGE_get = 207;
-const uint32_t C_errno___errno_EPERM_get = 208;
-const uint32_t C_errno___errno_ENOENT_get = 209;
-const uint32_t C_errno___errno_ESRCH_get = 210;
-const uint32_t C_errno___errno_EINTR_get = 211;
-const uint32_t C_errno___errno_EIO_get = 212;
-const uint32_t C_errno___errno_ENXIO_get = 213;
-const uint32_t C_errno___errno_E2BIG_get = 214;
-const uint32_t C_errno___errno_ENOEXEC_get = 215;
-const uint32_t C_errno___errno_EBADF_get = 216;
-const uint32_t C_errno___errno_ECHILD_get = 217;
-const uint32_t C_errno___errno_EAGAIN_get = 218;
-const uint32_t C_errno___errno_ENOMEM_get = 219;
-const uint32_t C_errno___errno_EACCES_get = 220;
-const uint32_t C_errno___errno_EFAULT_get = 221;
-const uint32_t C_errno___errno_EBUSY_get = 222;
-const uint32_t C_errno___errno_EEXIST_get = 223;
-const uint32_t C_errno___errno_EXDEV_get = 224;
-const uint32_t C_errno___errno_ENODEV_get = 225;
-const uint32_t C_errno___errno_ENOTDIR_get = 226;
-const uint32_t C_errno___errno_EISDIR_get = 227;
-const uint32_t C_errno___errno_EINVAL_get = 228;
-const uint32_t C_errno___errno_ENFILE_get = 229;
-const uint32_t C_errno___errno_EMFILE_get = 230;
-const uint32_t C_errno___errno_ENOTTY_get = 231;
-const uint32_t C_errno___errno_EFBIG_get = 232;
-const uint32_t C_errno___errno_ENOSPC_get = 233;
-const uint32_t C_errno___errno_ESPIPE_get = 234;
-const uint32_t C_errno___errno_EROFS_get = 235;
-const uint32_t C_errno___errno_EMLINK_get = 236;
-const uint32_t C_errno___errno_EPIPE_get = 237;
-const uint32_t C_errno___errno_EDEADLK_get = 238;
-const uint32_t C_errno___errno_ENAMETOOLONG_get = 239;
-const uint32_t C_errno___errno_ENOLCK_get = 240;
-const uint32_t C_errno___errno_ENOSYS_get = 241;
-const uint32_t C_errno___errno_ENOTEMPTY_get = 242;
-const uint32_t C_errno___errno_errno_get = 243;
-const uint32_t C_errno___errno_errno_set = 244;
-const uint32_t C_stdio___stdio_FILENAME_MAX_get = 250;
-const uint32_t C_stdio___stdio_PATH_MAX_get = 251;
-const uint32_t C_stdio___stdio_remove = 252;
-const uint32_t C_stdio___stdio_rename = 253;
-const uint32_t avmplus_FileSystem_exists = 257;
-const uint32_t avmplus_FileSystem_read = 258;
-const uint32_t avmplus_FileSystem_write = 259;
-const uint32_t avmplus_FileSystem_getFileMode = 260;
-const uint32_t avmplus_FileSystem_isRegularFile = 264;
-const uint32_t avmplus_FileSystem_isDirectory = 265;
-const uint32_t avmplus_FileSystem_listFiles = 266;
-const uint32_t avmplus_OperatingSystem_private_getName = 272;
-const uint32_t avmplus_OperatingSystem_private_getNodeName = 273;
-const uint32_t avmplus_OperatingSystem_private_getRelease = 274;
-const uint32_t avmplus_OperatingSystem_private_getVersion = 275;
-const uint32_t avmplus_OperatingSystem_private_getMachine = 276;
-const uint32_t avmplus_OperatingSystem_private_getVendorVersion = 277;
-const uint32_t avmplus_OperatingSystem_private_getUserName = 278;
-const uint32_t avmplus_JObject_create = 310;
-const uint32_t avmplus_JObject_createArray = 311;
-const uint32_t avmplus_JObject_toArray = 312;
-const uint32_t avmplus_JObject_constructorSignature = 313;
-const uint32_t avmplus_JObject_methodSignature = 314;
-const uint32_t avmplus_JObject_fieldSignature = 315;
+const uint32_t C_unistd___unistd_F_OK_get = 158;
+const uint32_t C_unistd___unistd_X_OK_get = 159;
+const uint32_t C_unistd___unistd_W_OK_get = 160;
+const uint32_t C_unistd___unistd_R_OK_get = 161;
+const uint32_t C_unistd___unistd_S_IFMT_get = 162;
+const uint32_t C_unistd___unistd_S_IFIFO_get = 163;
+const uint32_t C_unistd___unistd_S_IFCHR_get = 164;
+const uint32_t C_unistd___unistd_S_IFDIR_get = 165;
+const uint32_t C_unistd___unistd_S_IFBLK_get = 166;
+const uint32_t C_unistd___unistd_S_IFREG_get = 167;
+const uint32_t C_unistd___unistd_S_IFLNK_get = 168;
+const uint32_t C_unistd___unistd_S_IFSOCK_get = 169;
+const uint32_t C_unistd___unistd_S_IRWXU_get = 170;
+const uint32_t C_unistd___unistd_S_IRUSR_get = 171;
+const uint32_t C_unistd___unistd_S_IWUSR_get = 172;
+const uint32_t C_unistd___unistd_S_IXUSR_get = 173;
+const uint32_t C_unistd___unistd_S_IRWXG_get = 174;
+const uint32_t C_unistd___unistd_S_IRGRP_get = 175;
+const uint32_t C_unistd___unistd_S_IWGRP_get = 176;
+const uint32_t C_unistd___unistd_S_IXGRP_get = 177;
+const uint32_t C_unistd___unistd_S_IRWXO_get = 178;
+const uint32_t C_unistd___unistd_S_IROTH_get = 179;
+const uint32_t C_unistd___unistd_S_IWOTH_get = 180;
+const uint32_t C_unistd___unistd_S_IXOTH_get = 181;
+const uint32_t C_unistd___unistd_S_IREAD_get = 182;
+const uint32_t C_unistd___unistd_S_IWRITE_get = 183;
+const uint32_t C_unistd___unistd_S_IEXEC_get = 184;
+const uint32_t C_unistd___unistd_access = 185;
+const uint32_t C_unistd___unistd_chmod = 186;
+const uint32_t C_unistd___unistd_getcwd = 187;
+const uint32_t C_unistd___unistd_gethostname = 188;
+const uint32_t C_unistd___unistd_getlogin = 189;
+const uint32_t C_unistd___unistd_mkdir = 190;
+const uint32_t C_unistd___unistd_rmdir = 191;
+const uint32_t C_unistd___unistd_sleep = 192;
+const uint32_t C_string___string_strerror = 200;
+const uint32_t C_string___string_strlen = 201;
+const uint32_t C_errno___errno_EDOM_get = 207;
+const uint32_t C_errno___errno_EILSEQ_get = 208;
+const uint32_t C_errno___errno_ERANGE_get = 209;
+const uint32_t C_errno___errno_EPERM_get = 210;
+const uint32_t C_errno___errno_ENOENT_get = 211;
+const uint32_t C_errno___errno_ESRCH_get = 212;
+const uint32_t C_errno___errno_EINTR_get = 213;
+const uint32_t C_errno___errno_EIO_get = 214;
+const uint32_t C_errno___errno_ENXIO_get = 215;
+const uint32_t C_errno___errno_E2BIG_get = 216;
+const uint32_t C_errno___errno_ENOEXEC_get = 217;
+const uint32_t C_errno___errno_EBADF_get = 218;
+const uint32_t C_errno___errno_ECHILD_get = 219;
+const uint32_t C_errno___errno_EAGAIN_get = 220;
+const uint32_t C_errno___errno_ENOMEM_get = 221;
+const uint32_t C_errno___errno_EACCES_get = 222;
+const uint32_t C_errno___errno_EFAULT_get = 223;
+const uint32_t C_errno___errno_EBUSY_get = 224;
+const uint32_t C_errno___errno_EEXIST_get = 225;
+const uint32_t C_errno___errno_EXDEV_get = 226;
+const uint32_t C_errno___errno_ENODEV_get = 227;
+const uint32_t C_errno___errno_ENOTDIR_get = 228;
+const uint32_t C_errno___errno_EISDIR_get = 229;
+const uint32_t C_errno___errno_EINVAL_get = 230;
+const uint32_t C_errno___errno_ENFILE_get = 231;
+const uint32_t C_errno___errno_EMFILE_get = 232;
+const uint32_t C_errno___errno_ENOTTY_get = 233;
+const uint32_t C_errno___errno_EFBIG_get = 234;
+const uint32_t C_errno___errno_ENOSPC_get = 235;
+const uint32_t C_errno___errno_ESPIPE_get = 236;
+const uint32_t C_errno___errno_EROFS_get = 237;
+const uint32_t C_errno___errno_EMLINK_get = 238;
+const uint32_t C_errno___errno_EPIPE_get = 239;
+const uint32_t C_errno___errno_EDEADLK_get = 240;
+const uint32_t C_errno___errno_ENAMETOOLONG_get = 241;
+const uint32_t C_errno___errno_ENOLCK_get = 242;
+const uint32_t C_errno___errno_ENOSYS_get = 243;
+const uint32_t C_errno___errno_ENOTEMPTY_get = 244;
+const uint32_t C_errno___errno_ENETDOWN_get = 245;
+const uint32_t C_errno___errno_ENETUNREACH_get = 246;
+const uint32_t C_errno___errno_ENETRESET_get = 247;
+const uint32_t C_errno___errno_ECONNABORTED_get = 248;
+const uint32_t C_errno___errno_ECONNRESET_get = 249;
+const uint32_t C_errno___errno_ENOBUFS_get = 250;
+const uint32_t C_errno___errno_EISCONN_get = 251;
+const uint32_t C_errno___errno_ENOTCONN_get = 252;
+const uint32_t C_errno___errno_ESHUTDOWN_get = 253;
+const uint32_t C_errno___errno_ETOOMANYREFS_get = 254;
+const uint32_t C_errno___errno_ETIMEDOUT_get = 255;
+const uint32_t C_errno___errno_ECONNREFUSED_get = 256;
+const uint32_t C_errno___errno_errno_get = 257;
+const uint32_t C_errno___errno_errno_set = 258;
+const uint32_t C_stdio___stdio_FILENAME_MAX_get = 264;
+const uint32_t C_stdio___stdio_PATH_MAX_get = 265;
+const uint32_t C_stdio___stdio_remove = 266;
+const uint32_t C_stdio___stdio_rename = 267;
+const uint32_t C_socket___socket_SOCK_RAW_get = 271;
+const uint32_t C_socket___socket_SOCK_STREAM_get = 272;
+const uint32_t C_socket___socket_SOCK_DGRAM_get = 273;
+const uint32_t C_socket___socket_SO_ACCEPTCONN_get = 274;
+const uint32_t C_socket___socket_SO_BROADCAST_get = 275;
+const uint32_t C_socket___socket_SO_DONTROUTE_get = 276;
+const uint32_t C_socket___socket_SO_KEEPALIVE_get = 277;
+const uint32_t C_socket___socket_SO_OOBINLINE_get = 278;
+const uint32_t C_socket___socket_SO_RCVBUF_get = 279;
+const uint32_t C_socket___socket_SO_RCVTIMEO_get = 280;
+const uint32_t C_socket___socket_SO_REUSEADDR_get = 281;
+const uint32_t C_socket___socket_SO_SNDBUF_get = 282;
+const uint32_t C_socket___socket_SO_SNDTIMEO_get = 283;
+const uint32_t C_socket___socket_SO_TYPE_get = 284;
+const uint32_t C_socket___socket_SOMAXCONN_get = 285;
+const uint32_t C_socket___socket_MSG_CTRUNC_get = 286;
+const uint32_t C_socket___socket_MSG_DONTROUTE_get = 287;
+const uint32_t C_socket___socket_MSG_EOR_get = 288;
+const uint32_t C_socket___socket_MSG_OOB_get = 289;
+const uint32_t C_socket___socket_MSG_PEEK_get = 290;
+const uint32_t C_socket___socket_MSG_TRUNC_get = 291;
+const uint32_t C_socket___socket_MSG_WAITALL_get = 292;
+const uint32_t C_socket___socket_AF_INET_get = 293;
+const uint32_t C_socket___socket_AF_INET6_get = 294;
+const uint32_t C_socket___socket_AF_UNSPEC_get = 295;
+const uint32_t C_socket___socket_SHUT_RD_get = 296;
+const uint32_t C_socket___socket_SHUT_RDWR_get = 297;
+const uint32_t C_socket___socket_SHUT_WR_get = 298;
+const uint32_t C_socket___socket_IPPROTO_IP_get = 299;
+const uint32_t C_socket___socket_IPPROTO_IPV6_get = 300;
+const uint32_t C_socket___socket_IPPROTO_ICMP_get = 301;
+const uint32_t C_socket___socket_IPPROTO_RAW_get = 302;
+const uint32_t C_socket___socket_IPPROTO_TCP_get = 303;
+const uint32_t C_socket___socket_IPPROTO_UDP_get = 304;
+const uint32_t C_socket___socket_INADDR_ANY_get = 305;
+const uint32_t C_socket___socket_INADDR_BROADCAST_get = 306;
+const uint32_t avmplus_FileSystem_exists = 310;
+const uint32_t avmplus_FileSystem_read = 311;
+const uint32_t avmplus_FileSystem_write = 312;
+const uint32_t avmplus_FileSystem_getFileMode = 313;
+const uint32_t avmplus_FileSystem_isRegularFile = 317;
+const uint32_t avmplus_FileSystem_isDirectory = 318;
+const uint32_t avmplus_FileSystem_listFiles = 319;
+const uint32_t avmplus_FileSystem_getFreeDiskSpace = 320;
+const uint32_t avmplus_FileSystem_getTotalDiskSpace = 321;
+const uint32_t avmplus_OperatingSystem_private_getName = 328;
+const uint32_t avmplus_OperatingSystem_private_getNodeName = 329;
+const uint32_t avmplus_OperatingSystem_private_getRelease = 330;
+const uint32_t avmplus_OperatingSystem_private_getVersion = 331;
+const uint32_t avmplus_OperatingSystem_private_getMachine = 332;
+const uint32_t avmplus_OperatingSystem_private_getVendorVersion = 333;
+const uint32_t avmplus_OperatingSystem_private_getUserName = 334;
+const uint32_t avmplus_Socket_lastError_get = 363;
+const uint32_t avmplus_Socket_private_lastDataSent_get = 365;
+const uint32_t avmplus_Socket_private_receivedBuffer_get = 366;
+const uint32_t avmplus_Socket_private_receivedBinary_get = 367;
+const uint32_t avmplus_Socket_private_isValid = 368;
+const uint32_t avmplus_Socket_private__customSocket = 369;
+const uint32_t avmplus_Socket_private__connect = 370;
+const uint32_t avmplus_Socket_private__close = 371;
+const uint32_t avmplus_Socket_private__send = 372;
+const uint32_t avmplus_Socket_private__sendBinary = 373;
+const uint32_t avmplus_Socket_private__receive = 374;
+const uint32_t avmplus_Socket_private__receiveBinary = 375;
+const uint32_t avmplus_Socket_private__bind = 376;
+const uint32_t avmplus_Socket_private__listen = 377;
+const uint32_t avmplus_Socket_private__accept = 378;
+const uint32_t avmplus_Socket_private__type_get = 384;
+const uint32_t avmplus_Socket_reuseAddress_get = 386;
+const uint32_t avmplus_Socket_reuseAddress_set = 387;
+const uint32_t avmplus_Socket_broadcast_get = 388;
+const uint32_t avmplus_Socket_broadcast_set = 389;
+const uint32_t avmplus_JObject_create = 410;
+const uint32_t avmplus_JObject_createArray = 411;
+const uint32_t avmplus_JObject_toArray = 412;
+const uint32_t avmplus_JObject_constructorSignature = 413;
+const uint32_t avmplus_JObject_methodSignature = 414;
+const uint32_t avmplus_JObject_fieldSignature = 415;
 
 extern AvmBox avmplus_Domain_currentDomain_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Domain_MIN_DOMAIN_MEMORY_LENGTH_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -405,6 +481,7 @@ extern AvmBox C_unistd___unistd_gethostname_thunk(AvmMethodEnv env, uint32_t arg
 extern AvmBox C_unistd___unistd_getlogin_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_unistd___unistd_mkdir_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_unistd___unistd_rmdir_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_unistd___unistd_sleep_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_string___string_strerror_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_string___string_strlen_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_errno___errno_EDOM_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -445,12 +522,60 @@ extern AvmBox C_errno___errno_ENAMETOOLONG_get_thunk(AvmMethodEnv env, uint32_t 
 extern AvmBox C_errno___errno_ENOLCK_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_errno___errno_ENOSYS_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_errno___errno_ENOTEMPTY_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_errno___errno_ENETDOWN_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_errno___errno_ENETUNREACH_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_errno___errno_ENETRESET_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_errno___errno_ECONNABORTED_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_errno___errno_ECONNRESET_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_errno___errno_ENOBUFS_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_errno___errno_EISCONN_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_errno___errno_ENOTCONN_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_errno___errno_ESHUTDOWN_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_errno___errno_ETOOMANYREFS_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_errno___errno_ETIMEDOUT_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_errno___errno_ECONNREFUSED_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_errno___errno_errno_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_errno___errno_errno_set_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_stdio___stdio_FILENAME_MAX_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_stdio___stdio_PATH_MAX_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_stdio___stdio_remove_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_stdio___stdio_rename_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SOCK_RAW_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SOCK_STREAM_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SOCK_DGRAM_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SO_ACCEPTCONN_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SO_BROADCAST_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SO_DONTROUTE_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SO_KEEPALIVE_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SO_OOBINLINE_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SO_RCVBUF_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SO_RCVTIMEO_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SO_REUSEADDR_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SO_SNDBUF_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SO_SNDTIMEO_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SO_TYPE_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SOMAXCONN_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_MSG_CTRUNC_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_MSG_DONTROUTE_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_MSG_EOR_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_MSG_OOB_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_MSG_PEEK_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_MSG_TRUNC_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_MSG_WAITALL_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_AF_INET_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_AF_INET6_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_AF_UNSPEC_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SHUT_RD_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SHUT_RDWR_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_SHUT_WR_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_IPPROTO_IP_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_IPPROTO_IPV6_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_IPPROTO_ICMP_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_IPPROTO_RAW_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_IPPROTO_TCP_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_IPPROTO_UDP_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_INADDR_ANY_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket_INADDR_BROADCAST_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_exists_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_read_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_write_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -458,6 +583,8 @@ extern AvmBox avmplus_FileSystem_getFileMode_thunk(AvmMethodEnv env, uint32_t ar
 extern AvmBox avmplus_FileSystem_isRegularFile_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_isDirectory_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_listFiles_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern double avmplus_FileSystem_getFreeDiskSpace_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern double avmplus_FileSystem_getTotalDiskSpace_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_OperatingSystem_private_getName_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_OperatingSystem_private_getNodeName_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_OperatingSystem_private_getRelease_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -465,6 +592,26 @@ extern AvmBox avmplus_OperatingSystem_private_getVersion_thunk(AvmMethodEnv env,
 extern AvmBox avmplus_OperatingSystem_private_getMachine_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_OperatingSystem_private_getVendorVersion_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_OperatingSystem_private_getUserName_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_lastError_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private_lastDataSent_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private_receivedBuffer_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private_receivedBinary_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private_isValid_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private__customSocket_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private__connect_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private__close_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private__send_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private__sendBinary_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private__receive_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private__receiveBinary_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private__bind_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private__listen_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private__accept_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private__type_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_reuseAddress_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_reuseAddress_set_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_broadcast_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_broadcast_set_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_JObject_create_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_JObject_createArray_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_JObject_toArray_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -533,7 +680,7 @@ extern AvmBox shell_toplevel_v2a_oi_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 
 extern AvmBox shell_toplevel_s2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_System_readLine_thunk  shell_toplevel_s2a_o_thunk
-#define avmplus_System_private_getExecPath_thunk  shell_toplevel_s2a_o_thunk
+#define avmplus_Socket_private_receivedBuffer_get_thunk  shell_toplevel_s2a_o_thunk
 #define avmplus_OperatingSystem_private_getMachine_thunk  shell_toplevel_s2a_o_thunk
 #define avmplus_OperatingSystem_private_getVendorVersion_thunk  shell_toplevel_s2a_o_thunk
 #define flash_utils_ByteArray_endian_get_thunk  shell_toplevel_s2a_o_thunk
@@ -542,6 +689,7 @@ extern AvmBox shell_toplevel_s2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox
 #define flash_utils_ByteArray_private__toString_thunk  shell_toplevel_s2a_o_thunk
 #define avmplus_OperatingSystem_private_getName_thunk  shell_toplevel_s2a_o_thunk
 #define avmplus_OperatingSystem_private_getRelease_thunk  shell_toplevel_s2a_o_thunk
+#define avmplus_System_private_getExecPath_thunk  shell_toplevel_s2a_o_thunk
 #define avmplus_OperatingSystem_private_getVersion_thunk  shell_toplevel_s2a_o_thunk
 #define avmplus_System_getAvmplusVersion_thunk  shell_toplevel_s2a_o_thunk
 #define C_unistd___unistd_getlogin_thunk  shell_toplevel_s2a_o_thunk
@@ -558,6 +706,9 @@ extern AvmBox shell_toplevel_v2a_oss_thunk(AvmMethodEnv env, uint32_t argc, AvmB
 
 extern double shell_toplevel_func_d2d_oa_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define native_script_function_flash_sampler_getSize_thunk  shell_toplevel_func_d2d_oa_thunk
+
+extern AvmBox shell_toplevel_s2a_os_rest_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define avmplus_JObject_constructorSignature_thunk  shell_toplevel_s2a_os_rest_thunk
 
 extern AvmBox shell_toplevel_func_a2a_oab_optbfalse_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define native_script_function_flash_sampler_getMemberNames_thunk  shell_toplevel_func_a2a_oab_optbfalse_thunk
@@ -584,92 +735,148 @@ extern AvmBox shell_toplevel_u2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox
 extern AvmBox shell_toplevel_a2a_ooio_optakAvmThunkNull_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_JObject_createArray_thunk  shell_toplevel_a2a_ooio_optakAvmThunkNull_thunk
 
-extern AvmBox shell_toplevel_s2a_os_rest_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-#define avmplus_JObject_constructorSignature_thunk  shell_toplevel_s2a_os_rest_thunk
+extern AvmBox shell_toplevel_i2a_osi_opti0_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define avmplus_Socket_private__send_thunk  shell_toplevel_i2a_osi_opti0_thunk
 
 extern AvmBox shell_toplevel_a2a_osb_optbfalse_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_FileSystem_listFiles_thunk  shell_toplevel_a2a_osb_optbfalse_thunk
+
+extern AvmBox shell_toplevel_i2a_oii_opti0_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define avmplus_Socket_private__receive_thunk  shell_toplevel_i2a_oii_opti0_thunk
+#define avmplus_Socket_private__receiveBinary_thunk  shell_toplevel_i2a_oii_opti0_thunk
 
 extern AvmBox shell_toplevel_func_v2a_ob_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define native_script_function_flash_sampler_sampleInternalAllocs_thunk  shell_toplevel_func_v2a_ob_thunk
 
 extern AvmBox shell_toplevel_i2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-#define C_errno___errno_ENFILE_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EIO_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_ENOTTY_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_ENXIO_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IFMT_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_ESRCH_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_F_OK_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IROTH_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EILSEQ_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IXUSR_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EROFS_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_ENOMEM_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IEXEC_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EDOM_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SHUT_RDWR_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SOMAXCONN_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EPIPE_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ETIMEDOUT_get_thunk  shell_toplevel_i2a_o_thunk
 #define flash_utils_ByteArray_readShort_thunk  shell_toplevel_i2a_o_thunk
 #define C_unistd___unistd_S_IRWXG_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IWGRP_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_R_OK_get_thunk  shell_toplevel_i2a_o_thunk
-#define flash_utils_ByteArray_readByte_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IXOTH_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IXGRP_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EFAULT_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IREAD_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EFBIG_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IRWXO_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENETUNREACH_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SO_RCVBUF_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SO_TYPE_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_ENODEV_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EMLINK_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_ENOTEMPTY_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EMFILE_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_errno_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EDEADLK_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_ERANGE_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EAGAIN_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EACCES_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_ENOSPC_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EBUSY_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_stdio___stdio_FILENAME_MAX_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IRGRP_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_ENOEXEC_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IFREG_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_ENOSYS_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IFIFO_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_stdio___stdio_PATH_MAX_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IFBLK_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EEXIST_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IFSOCK_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EXDEV_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_E2BIG_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_ESPIPE_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_EINVAL_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IRWXU_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EPIPE_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_ENOTDIR_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IFCHR_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IWOTH_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_ENAMETOOLONG_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_ENOENT_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IRUSR_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EBADF_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_stdlib___stdlib_EXIT_FAILURE_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IWUSR_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ESHUTDOWN_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_stdio___stdio_PATH_MAX_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_MSG_EOR_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SO_KEEPALIVE_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IEXEC_get_thunk  shell_toplevel_i2a_o_thunk
+#define avmplus_Socket_private__type_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_AF_INET6_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_ECHILD_get_thunk  shell_toplevel_i2a_o_thunk
-#define flash_utils_ByteArray_readInt_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IFDIR_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_X_OK_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_EPERM_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_errno___errno_ENOLCK_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_stdlib___stdlib_EXIT_SUCCESS_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_EINTR_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IWRITE_get_thunk  shell_toplevel_i2a_o_thunk
-#define C_unistd___unistd_S_IFLNK_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ECONNRESET_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENOENT_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_errno___errno_EISDIR_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_unistd___unistd_W_OK_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENOTTY_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EILSEQ_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SOCK_RAW_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENOLCK_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_INADDR_BROADCAST_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IWUSR_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EFAULT_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_MSG_WAITALL_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SO_DONTROUTE_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IRWXO_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EMLINK_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENOTEMPTY_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SO_OOBINLINE_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_IPPROTO_IPV6_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EACCES_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SO_SNDTIMEO_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IRGRP_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SO_SNDBUF_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IFIFO_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EEXIST_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENETRESET_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IFSOCK_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_MSG_DONTROUTE_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_MSG_TRUNC_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SO_RCVTIMEO_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_stdio___stdio_FILENAME_MAX_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EBADF_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENOBUFS_get_thunk  shell_toplevel_i2a_o_thunk
+#define flash_utils_ByteArray_readInt_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IWRITE_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENFILE_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_E2BIG_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_F_OK_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IROTH_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IXUSR_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ECONNREFUSED_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EDOM_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EFBIG_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IWGRP_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ECONNABORTED_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_IPPROTO_TCP_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SO_REUSEADDR_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IXGRP_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENETDOWN_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EIO_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_errno_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_AF_UNSPEC_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SOCK_DGRAM_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_IPPROTO_IP_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IFREG_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENOSYS_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IFBLK_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EDEADLK_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IRWXU_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SOCK_STREAM_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IFCHR_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IWOTH_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_IPPROTO_UDP_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IXOTH_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SO_ACCEPTCONN_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IFLNK_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENOSPC_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_INADDR_ANY_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SHUT_RD_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IFMT_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ESRCH_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENOMEM_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENAMETOOLONG_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_MSG_CTRUNC_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_R_OK_get_thunk  shell_toplevel_i2a_o_thunk
+#define flash_utils_ByteArray_readByte_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IREAD_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EISCONN_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_AF_INET_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EROFS_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SO_BROADCAST_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EMFILE_get_thunk  shell_toplevel_i2a_o_thunk
+#define avmplus_Socket_lastError_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_MSG_OOB_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ERANGE_get_thunk  shell_toplevel_i2a_o_thunk
+#define avmplus_Socket_private_lastDataSent_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_SHUT_WR_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_IPPROTO_ICMP_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_MSG_PEEK_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_X_OK_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENOEXEC_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENOTDIR_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EXDEV_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IRUSR_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_stdlib___stdlib_EXIT_FAILURE_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ENOTCONN_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EAGAIN_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_unistd___unistd_S_IFDIR_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EBUSY_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_ETOOMANYREFS_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_socket___socket_IPPROTO_RAW_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_errno___errno_EPERM_get_thunk  shell_toplevel_i2a_o_thunk
 
-extern AvmBox shell_toplevel_s2a_oos_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-#define avmplus_JObject_fieldSignature_thunk  shell_toplevel_s2a_oos_thunk
+extern double shell_toplevel_d2d_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define avmplus_FileSystem_getTotalDiskSpace_thunk  shell_toplevel_d2d_os_thunk
+#define avmplus_FileSystem_getFreeDiskSpace_thunk  shell_toplevel_d2d_os_thunk
 
 extern AvmBox shell_toplevel_i2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define C_stdio___stdio_remove_thunk  shell_toplevel_i2a_os_thunk
@@ -686,6 +893,9 @@ extern AvmBox shell_toplevel_s2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 #define C_stdlib___stdlib_getenv_thunk  shell_toplevel_s2a_os_thunk
 #define avmplus_File_read_thunk  shell_toplevel_s2a_os_thunk
 
+extern AvmBox shell_toplevel_i2a_ooi_opti0_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define avmplus_Socket_private__sendBinary_thunk  shell_toplevel_i2a_ooi_opti0_thunk
+
 extern AvmBox shell_toplevel_s2a_ou_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define flash_utils_ByteArray_readUTFBytes_thunk  shell_toplevel_s2a_ou_thunk
 
@@ -695,6 +905,10 @@ extern AvmBox shell_toplevel_a2a_os_rest_thunk(AvmMethodEnv env, uint32_t argc, 
 extern AvmBox shell_toplevel_func_a2a_oo_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define native_script_function_flash_sampler_getSavedThis_thunk  shell_toplevel_func_a2a_oo_thunk
 #define native_script_function_flash_sampler_getLexicalScopes_thunk  shell_toplevel_func_a2a_oo_thunk
+
+extern AvmBox shell_toplevel_b2a_oi_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define avmplus_Socket_private__listen_thunk  shell_toplevel_b2a_oi_thunk
+#define avmplus_Socket_private__bind_thunk  shell_toplevel_b2a_oi_thunk
 
 extern double shell_toplevel_func_d2d_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define native_script_function_flash_sampler_getSampleCount_thunk  shell_toplevel_func_d2d_o_thunk
@@ -706,11 +920,16 @@ extern AvmBox shell_toplevel_b2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 #define avmplus_File_exists_thunk  shell_toplevel_b2a_os_thunk
 
 extern AvmBox shell_toplevel_a2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-#define flash_trace_Trace_getListener_thunk  shell_toplevel_a2a_o_thunk
-#define avmplus_System_private_getArgv_thunk  shell_toplevel_a2a_o_thunk
-#define flash_sampler_NewObjectSample_object_get_thunk  shell_toplevel_a2a_o_thunk
 #define avmplus_Domain_currentDomain_get_thunk  shell_toplevel_a2a_o_thunk
+#define avmplus_System_private_getArgv_thunk  shell_toplevel_a2a_o_thunk
+#define avmplus_Socket_private_receivedBinary_get_thunk  shell_toplevel_a2a_o_thunk
+#define flash_trace_Trace_getListener_thunk  shell_toplevel_a2a_o_thunk
+#define avmplus_Socket_private__accept_thunk  shell_toplevel_a2a_o_thunk
+#define flash_sampler_NewObjectSample_object_get_thunk  shell_toplevel_a2a_o_thunk
 #define avmplus_Domain_domainMemory_get_thunk  shell_toplevel_a2a_o_thunk
+
+extern AvmBox shell_toplevel_v2a_oiii_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define avmplus_Socket_private__customSocket_thunk  shell_toplevel_v2a_oiii_thunk
 
 extern AvmBox shell_toplevel_i2a_ossi_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define C_stdlib___stdlib_setenv_thunk  shell_toplevel_i2a_ossi_thunk
@@ -726,6 +945,8 @@ extern AvmBox shell_toplevel_v2a_od_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 #define flash_utils_ByteArray_writeFloat_thunk  shell_toplevel_v2a_od_thunk
 
 extern AvmBox shell_toplevel_v2a_ob_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define avmplus_Socket_reuseAddress_set_thunk  shell_toplevel_v2a_ob_thunk
+#define avmplus_Socket_broadcast_set_thunk  shell_toplevel_v2a_ob_thunk
 #define flash_utils_ByteArray_writeBoolean_thunk  shell_toplevel_v2a_ob_thunk
 #define flash_utils_Dictionary_private_init_thunk  shell_toplevel_v2a_ob_thunk
 
@@ -737,6 +958,9 @@ extern AvmBox shell_toplevel_v2a_oo_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 #define avmplus_System_trace_thunk  shell_toplevel_v2a_oo_thunk
 #define avmplus_Domain_private_init_thunk  shell_toplevel_v2a_oo_thunk
 
+extern AvmBox shell_toplevel_s2a_oos_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define avmplus_JObject_fieldSignature_thunk  shell_toplevel_s2a_oos_thunk
+
 extern AvmBox shell_toplevel_v2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define flash_utils_ByteArray_private_zlib_compress_thunk  shell_toplevel_v2a_o_thunk
 #define flash_utils_ByteArray_private_zlib_uncompress_thunk  shell_toplevel_v2a_o_thunk
@@ -747,12 +971,17 @@ extern AvmBox shell_toplevel_v2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox
 
 extern AvmBox shell_toplevel_v2a_ou_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define flash_utils_ByteArray_position_set_thunk  shell_toplevel_v2a_ou_thunk
+#define C_unistd___unistd_sleep_thunk  shell_toplevel_v2a_ou_thunk
 #define flash_utils_ByteArray_length_set_thunk  shell_toplevel_v2a_ou_thunk
 #define flash_utils_ByteArray_writeUnsignedInt_thunk  shell_toplevel_v2a_ou_thunk
 
 extern AvmBox shell_toplevel_b2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define avmplus_Socket_private_isValid_thunk  shell_toplevel_b2a_o_thunk
+#define avmplus_Socket_broadcast_get_thunk  shell_toplevel_b2a_o_thunk
 #define flash_utils_ByteArray_readBoolean_thunk  shell_toplevel_b2a_o_thunk
+#define avmplus_Socket_reuseAddress_get_thunk  shell_toplevel_b2a_o_thunk
 #define avmplus_System_isDebugger_thunk  shell_toplevel_b2a_o_thunk
+#define avmplus_Socket_private__close_thunk  shell_toplevel_b2a_o_thunk
 
 extern AvmBox shell_toplevel_v2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define flash_utils_ByteArray_writeUTF_thunk  shell_toplevel_v2a_os_thunk
@@ -763,6 +992,9 @@ extern AvmBox shell_toplevel_v2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 
 extern AvmBox shell_toplevel_v2a_oi_opti0_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define C_stdlib___stdlib_exit_thunk  shell_toplevel_v2a_oi_opti0_thunk
+
+extern AvmBox shell_toplevel_b2a_oss_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define avmplus_Socket_private__connect_thunk  shell_toplevel_b2a_oss_thunk
 
 extern AvmBox shell_toplevel_i2a_osi_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define C_unistd___unistd_chmod_thunk  shell_toplevel_i2a_osi_thunk
@@ -1198,6 +1430,20 @@ private:
         typedef avmplus::NativeID::_avmshell_StdioClassSlots EmptySlotsStruct_StdioClass
 //-----------------------------------------------------------
 
+// C.socket::__socket$
+//-----------------------------------------------------------
+class _avmshell_CSocketClassSlots
+{
+    friend class SlotOffsetsAndAsserts;
+public:
+private:
+};
+#define DECLARE_SLOTS_CSocketClass \
+    private: \
+        friend class avmplus::NativeID::SlotOffsetsAndAsserts; \
+        typedef avmplus::NativeID::_avmshell_CSocketClassSlots EmptySlotsStruct_CSocketClass
+//-----------------------------------------------------------
+
 // avmplus::FileSystem$
 //-----------------------------------------------------------
 class _avmshell_FileSystemClassSlots
@@ -1403,6 +1649,84 @@ REALLY_INLINE void _avmshell_OperatingSystemClassSlots::set_private__macSystemVe
         REALLY_INLINE void set_private__macSystemVersionFile(AvmString newVal) { m_slots_OperatingSystemClass.set_private__macSystemVersionFile(this, newVal); } \
     private: \
         avmplus::NativeID::_avmshell_OperatingSystemClassSlots m_slots_OperatingSystemClass
+//-----------------------------------------------------------
+
+// avmplus::Socket$
+//-----------------------------------------------------------
+class _avmshell_SocketClassSlots
+{
+    friend class SlotOffsetsAndAsserts;
+public:
+private:
+};
+#define DECLARE_SLOTS_SocketClass \
+    private: \
+        friend class avmplus::NativeID::SlotOffsetsAndAsserts; \
+        typedef avmplus::NativeID::_avmshell_SocketClassSlots EmptySlotsStruct_SocketClass
+//-----------------------------------------------------------
+
+// avmplus::Socket
+//-----------------------------------------------------------
+class _avmshell_SocketObjectSlots
+{
+    friend class SlotOffsetsAndAsserts;
+public:
+    REALLY_INLINE int32_t get_private__localPort() const { return m_private__localPort; }
+    void set_private__localPort(int32_t newVal);
+    REALLY_INLINE int32_t get_private__remotePort() const { return m_private__remotePort; }
+    void set_private__remotePort(int32_t newVal);
+    REALLY_INLINE AvmBool32 get_private__connected() const { return m_private__connected; }
+    void set_private__connected(AvmBool32 newVal);
+    REALLY_INLINE AvmBool32 get_private__bound() const { return m_private__bound; }
+    void set_private__bound(AvmBool32 newVal);
+    REALLY_INLINE AvmBool32 get_private__listening() const { return m_private__listening; }
+    void set_private__listening(AvmBool32 newVal);
+    REALLY_INLINE AvmString get_private__localAddress() const { return m_private__localAddress; }
+    void set_private__localAddress(::avmshell::SocketObject* obj, AvmString newVal);
+    REALLY_INLINE AvmString get_private__remoteAddress() const { return m_private__remoteAddress; }
+    void set_private__remoteAddress(::avmshell::SocketObject* obj, AvmString newVal);
+private:
+    int32_t m_private__localPort;
+    int32_t m_private__remotePort;
+    AvmBool32 m_private__connected;
+    AvmBool32 m_private__bound;
+    AvmBool32 m_private__listening;
+    AvmString m_private__localAddress;
+    AvmString m_private__remoteAddress;
+};
+REALLY_INLINE void _avmshell_SocketObjectSlots::set_private__localPort(int32_t newVal) { m_private__localPort = newVal; }
+REALLY_INLINE void _avmshell_SocketObjectSlots::set_private__remotePort(int32_t newVal) { m_private__remotePort = newVal; }
+REALLY_INLINE void _avmshell_SocketObjectSlots::set_private__connected(AvmBool32 newVal) { m_private__connected = newVal; }
+REALLY_INLINE void _avmshell_SocketObjectSlots::set_private__bound(AvmBool32 newVal) { m_private__bound = newVal; }
+REALLY_INLINE void _avmshell_SocketObjectSlots::set_private__listening(AvmBool32 newVal) { m_private__listening = newVal; }
+REALLY_INLINE void _avmshell_SocketObjectSlots::set_private__localAddress(::avmshell::SocketObject* obj, AvmString newVal)
+{
+    WBRC(((ScriptObject*)obj)->gc(), obj, &m_private__localAddress, newVal);
+}
+REALLY_INLINE void _avmshell_SocketObjectSlots::set_private__remoteAddress(::avmshell::SocketObject* obj, AvmString newVal)
+{
+    WBRC(((ScriptObject*)obj)->gc(), obj, &m_private__remoteAddress, newVal);
+}
+#define DECLARE_SLOTS_SocketObject \
+    private: \
+        friend class avmplus::NativeID::SlotOffsetsAndAsserts; \
+    protected: \
+        REALLY_INLINE int32_t get_private__localPort() const { return m_slots_SocketObject.get_private__localPort(); } \
+        REALLY_INLINE void set_private__localPort(int32_t newVal) { m_slots_SocketObject.set_private__localPort(newVal); } \
+        REALLY_INLINE int32_t get_private__remotePort() const { return m_slots_SocketObject.get_private__remotePort(); } \
+        REALLY_INLINE void set_private__remotePort(int32_t newVal) { m_slots_SocketObject.set_private__remotePort(newVal); } \
+        REALLY_INLINE AvmBool32 get_private__connected() const { return m_slots_SocketObject.get_private__connected(); } \
+        REALLY_INLINE void set_private__connected(AvmBool32 newVal) { m_slots_SocketObject.set_private__connected(newVal); } \
+        REALLY_INLINE AvmBool32 get_private__bound() const { return m_slots_SocketObject.get_private__bound(); } \
+        REALLY_INLINE void set_private__bound(AvmBool32 newVal) { m_slots_SocketObject.set_private__bound(newVal); } \
+        REALLY_INLINE AvmBool32 get_private__listening() const { return m_slots_SocketObject.get_private__listening(); } \
+        REALLY_INLINE void set_private__listening(AvmBool32 newVal) { m_slots_SocketObject.set_private__listening(newVal); } \
+        REALLY_INLINE AvmString get_private__localAddress() const { return m_slots_SocketObject.get_private__localAddress(); } \
+        REALLY_INLINE void set_private__localAddress(AvmString newVal) { m_slots_SocketObject.set_private__localAddress(this, newVal); } \
+        REALLY_INLINE AvmString get_private__remoteAddress() const { return m_slots_SocketObject.get_private__remoteAddress(); } \
+        REALLY_INLINE void set_private__remoteAddress(AvmString newVal) { m_slots_SocketObject.set_private__remoteAddress(this, newVal); } \
+    private: \
+        avmplus::NativeID::_avmshell_SocketObjectSlots m_slots_SocketObject
 //-----------------------------------------------------------
 
 // avmplus::JObject$
