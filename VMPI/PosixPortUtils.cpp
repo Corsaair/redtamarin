@@ -42,6 +42,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include <sys/utsname.h>
+#include <sys/statvfs.h>
 #include <math.h>
 #include <pwd.h>
 
@@ -469,6 +470,40 @@ void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix)
 #endif
 }
 
+/* note:
+   1. getpwuid( geteuid() ) shall return the name associated with the effective user ID of the process
+   2. getlogin() shall return the name associated with the current login activity
+   3. getpwuid( getuid() ) shall return the name associated with the real user ID of the process
+*/
+void VMPI_getUserName(char *username)
+{
+    struct passwd *pws;
+    pws = getpwuid( geteuid() );
+    VMPI_strcpy( username, pws->pw_name );
+}
+
+double VMPI_getFreeDiskSpace(const char *path)
+{
+    struct statvfs stats;
+    if( statvfs(path, &stats) != 0) {
+        return -1;
+    }
+    return static_cast<double>(stats.f_bavail) * stats.f_frsize;
+}
+
+double VMPI_getTotalDiskSpace(const char *path)
+{
+    struct statvfs stats;
+    if( statvfs(path, &stats) != 0) {
+        return -1;
+    }
+    return static_cast<double>(stats.f_blocks) * stats.f_frsize;
+}
+
+void VMPI_sleep(int milliseconds)
+{
+    usleep(1000 * milliseconds);
+}
 
 bool VMPI_isNullTerminated(const char *str)
 {
@@ -494,17 +529,6 @@ char *VMPI_int2char(int n)
     return value;
 }
 
-/* note:
-   1. getpwuid( geteuid() ) shall return the name associated with the effective user ID of the process
-   2. getlogin() shall return the name associated with the current login activity
-   3. getpwuid( getuid() ) shall return the name associated with the real user ID of the process
-*/
-void VMPI_getUserName(char *username)
-{
-    struct passwd *pws;
-    pws = getpwuid( geteuid() );
-    VMPI_strcpy( username, pws->pw_name );
-}
 
 
 
