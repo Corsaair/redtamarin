@@ -90,6 +90,7 @@ ifeq (windows,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/avmshellWin.cpp \
   $(curdir)/WinFile.cpp \
+  $(curdir)/WinSocket.cpp \
   $(NULL)
 endif
 
