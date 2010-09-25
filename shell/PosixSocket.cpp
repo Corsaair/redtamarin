@@ -79,32 +79,6 @@ namespace avmshell
         return socket;
     }
     
-    /*
-    bool PosixSocket::Connect(const char* host, const char* port)
-    {
-        if(!IsValid()) {
-            return false;
-        }
-
-        // Lookup host and port.
-        struct addrinfo *result = NULL;
-        struct addrinfo hints;
-        memset(&hints, 0, sizeof(addrinfo));
-        hints.ai_family = AF_INET;
-        hints.ai_socktype = SOCK_STREAM;
-        hints.ai_protocol = IPPROTO_TCP;
-        int status = getaddrinfo(host, port, &hints, &result);
-        if(status != 0) {
-            return false;
-        }
-
-        // Connect.
-        status = connect(_socket, result->ai_addr, result->ai_addrlen);
-        freeaddrinfo(result);
-        return status == 0;
-    }
-    */
-
     bool PosixSocket::Connect(const char* host, const char* port)
     {
         if(!IsValid()) {
