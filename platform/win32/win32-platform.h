@@ -164,8 +164,11 @@ int VMPI_gethostname(char *name, int namelen);
 
 #include <direct.h>
 #include <io.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #include <windows.h>
 #include <malloc.h>
+#pragma comment(lib, "ws2_32.lib")
 
 //a lot of definitions to align with POSIX
 #if !defined(ECURDIR)
@@ -174,6 +177,68 @@ int VMPI_gethostname(char *name, int namelen);
 #if !defined(ENOSYS)
   #define ENOSYS           EPERM
 #endif /* !ENOSYS */
+
+#if !defined(ENETDOWN)
+  #define ENETDOWN         WSAENETDOWN
+#endif /* !ENETDOWN */
+
+#if !defined(ENETUNREACH)
+  #define ENETUNREACH      WSAENETUNREACH
+#endif /* !ENETUNREACH */
+
+#if !defined(ENETRESET)
+  #define ENETRESET        WSAENETRESET
+#endif /* !ENETRESET */
+
+#if !defined(ECONNABORTED)
+  #define ECONNABORTED     WSAECONNABORTED
+#endif /* !ECONNABORTED */
+
+#if !defined(ECONNRESET)
+  #define ECONNRESET       WSAECONNRESET
+#endif /* !ECONNRESET */
+
+#if !defined(ENOBUFS)
+  #define ENOBUFS          WSAENOBUFS
+#endif /* !ENOBUFS */
+
+#if !defined(EISCONN)
+  #define EISCONN          WSAEISCONN
+#endif /* !EISCONN */
+
+#if !defined(ENOTCONN)
+  #define ENOTCONN         WSAENOTCONN
+#endif /* !ENOTCONN */
+
+#if !defined(ESHUTDOWN)
+  #define ESHUTDOWN        WSAESHUTDOWN
+#endif /* !ESHUTDOWN */
+
+#if !defined(ETOOMANYREFS)
+  #define ETOOMANYREFS     WSAETOOMANYREFS
+#endif /* !ETOOMANYREFS */
+
+#if !defined(ETIMEDOUT)
+  #define ETIMEDOUT        WSAETIMEDOUT
+#endif /* !ETIMEDOUT */
+
+#if !defined(ECONNREFUSED)
+  #define ECONNREFUSED     WSAECONNREFUSED
+#endif /* !ECONNREFUSED */
+
+#if !defined(SHUT_RD)
+  #define SHUT_RD          SD_RECEIVE
+#endif /* !SHUT_RD */
+
+#if !defined(SHUT_RDWR)
+  #define SHUT_RDWR        SD_BOTH
+#endif /* !SHUT_RDWR */
+
+#if !defined(SHUT_WR)
+  #define SHUT_WR          SD_SEND
+#endif /* !SHUT_WR */
+
+
 
 #if !defined(FILENAME_MAX)
   #define FILENAME_MAX    _MAX_FNAME
