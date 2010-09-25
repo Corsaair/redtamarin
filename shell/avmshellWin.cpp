@@ -43,6 +43,7 @@
 
 #include "avmshell.h"
 #include "WinFile.h"
+#include "WinSocket.h"
 #include <Mmsystem.h>
 
 
@@ -62,6 +63,12 @@ namespace avmshell
 
         virtual File* createFile();
         virtual void destroyFile(File* file);
+
+        virtual Socket* createSocket();
+        virtual Socket* createCustomSocket(int family, int socktype, int protocol);
+        virtual Socket* createSocketFrom(int sd);
+        virtual void destroySocket(Socket* socket);
+        virtual int lastSocketError();
 
         virtual void initializeLogging(const char* filename);
 
@@ -91,6 +98,8 @@ namespace avmshell
 
     void WinPlatform::exit(int code)
     {
+        //WIN32
+        WSACleanup();
         ::exit(code);
     }
 
@@ -102,6 +111,55 @@ namespace avmshell
     void WinPlatform::destroyFile(File* file)
     {
         delete file;
+    }
+
+    Socket* WinPlatform::createSocket()
+    {
+        if( WinSocket::Setup() )
+        {
+            return new WinSocket();
+        }
+        else
+        {
+            AvmLog("Failed to create default socket.\n");
+            return NULL;
+        }
+    }
+
+    Socket* WinPlatform::createCustomSocket(int family, int socktype, int protocol)
+    {
+        if( WinSocket::Setup() )
+        {
+            return new WinSocket(family, socktype, protocol);
+        }
+        else
+        {
+            AvmLog("Failed to create custom socket.\n");
+            return NULL;
+        }
+    }
+    
+    Socket* WinPlatform::createSocketFrom(int sd)
+    {
+        if( WinSocket::Setup() )
+        {
+            return new WinSocket(sd);
+        }
+        else
+        {
+            AvmLog("Failed to create socket from descriptor.\n");
+            return NULL;
+        }
+    }
+    
+    void WinPlatform::destroySocket(Socket* socket)
+    {
+        delete socket;
+    }
+
+    int WinPlatform::lastSocketError()
+    {
+        return WinSocket::LastError();
     }
 
     int WinPlatform::logMessage(const char* message)
