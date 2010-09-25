@@ -44,8 +44,8 @@
 #include <errno.h>
 #include <io.h> /* _findfirst and _findnext set errno if they return -1 */
 #include <stdlib.h>
-#include <windows.h>
 #include <winsock2.h>
+#include <windows.h>
 #include <stdio.h>
 #include <string.h>
 #pragma comment(lib, "user32.lib")
@@ -1353,30 +1353,6 @@ void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix)
     *bugfix = (int)osver.wServicePackMajor; //yeah we can consider a service pack as a bugfix!!
 }
 
-bool VMPI_isNullTerminated(const char *str)
-{
-    int len = VMPI_strlen(str);
-
-    if( str[len]-1 == '\0') {
-        return true;
-    }
-
-    return  false;
-}
-
-char *VMPI_int2char(int n)
-{
-    char buffer[100];
-    char *value;
-    size_t size;
-
-    size  = VMPI_sprintf( buffer, "%d", n ) * sizeof(char);
-    value = (char*) VMPI_alloc( size+1 );
-    VMPI_strcpy( value, buffer );
-    
-    return value;
-}
-
 int WIN32_SocketStart(int version)
 {
     WSADATA wsaData;
@@ -1431,6 +1407,55 @@ void VMPI_getUserName(char *username)
     GetUserName(username, &bufsize);
     //VMPI_strcpy( username, localusername );
 }
+
+double VMPI_getFreeDiskSpace(const char *path)
+{
+    ULARGE_INTEGER available;
+    if(!GetDiskFreeSpaceEx(path, &available, NULL, NULL)) {
+        return -1;
+    }
+    return static_cast<double>(available.QuadPart);
+}
+
+double VMPI_getTotalDiskSpace(const char *path)
+{
+    ULARGE_INTEGER total;
+    if(!GetDiskFreeSpaceEx(path, NULL, &total, NULL)) {
+        return -1;
+    }
+    return static_cast<double>(total.QuadPart);
+}
+
+void VMPI_sleep(int milliseconds)
+{
+    Sleep(milliseconds);
+}
+
+bool VMPI_isNullTerminated(const char *str)
+{
+    int len = VMPI_strlen(str);
+
+    if( str[len]-1 == '\0') {
+        return true;
+    }
+
+    return  false;
+}
+
+char *VMPI_int2char(int n)
+{
+    char buffer[100];
+    char *value;
+    size_t size;
+
+    size  = VMPI_sprintf( buffer, "%d", n ) * sizeof(char);
+    value = (char*) VMPI_alloc( size+1 );
+    VMPI_strcpy( value, buffer );
+    
+    return value;
+}
+
+
 
 
 
