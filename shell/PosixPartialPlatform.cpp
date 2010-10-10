@@ -100,8 +100,6 @@ namespace avmshell
         }
     }
     
-    
-    
     void PosixPartialPlatform::destroySocket(Socket* socket)
     {
         //mmfx_delete( socket );
@@ -112,6 +110,7 @@ namespace avmshell
     {
         return PosixSocket::LastError();
     }
+
 
     void PosixPartialPlatform::initializeLogging(const char* filename)
     {

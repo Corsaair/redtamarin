@@ -71,7 +71,7 @@ namespace avmplus {
     class NewObjectSampleObject; //flash.sampler::NewObjectSample
     class SampleClass; //flash.sampler::Sample$
     class SampleObject; //flash.sampler::Sample
-    class ScriptObject; //avmplus::OperatingSystem
+    class ScriptObject; //avmplus::System
     class StackFrameClass; //flash.sampler::StackFrame$
     class StackFrameObject; //flash.sampler::StackFrame
     class String; //String
@@ -296,83 +296,87 @@ const uint32_t C_stdio___stdio_FILENAME_MAX_get = 264;
 const uint32_t C_stdio___stdio_PATH_MAX_get = 265;
 const uint32_t C_stdio___stdio_remove = 266;
 const uint32_t C_stdio___stdio_rename = 267;
-const uint32_t C_socket___socket_SOCK_RAW_get = 271;
-const uint32_t C_socket___socket_SOCK_STREAM_get = 272;
-const uint32_t C_socket___socket_SOCK_DGRAM_get = 273;
-const uint32_t C_socket___socket_SO_ACCEPTCONN_get = 274;
-const uint32_t C_socket___socket_SO_BROADCAST_get = 275;
-const uint32_t C_socket___socket_SO_DONTROUTE_get = 276;
-const uint32_t C_socket___socket_SO_KEEPALIVE_get = 277;
-const uint32_t C_socket___socket_SO_OOBINLINE_get = 278;
-const uint32_t C_socket___socket_SO_RCVBUF_get = 279;
-const uint32_t C_socket___socket_SO_RCVTIMEO_get = 280;
-const uint32_t C_socket___socket_SO_REUSEADDR_get = 281;
-const uint32_t C_socket___socket_SO_SNDBUF_get = 282;
-const uint32_t C_socket___socket_SO_SNDTIMEO_get = 283;
-const uint32_t C_socket___socket_SO_TYPE_get = 284;
-const uint32_t C_socket___socket_SOMAXCONN_get = 285;
-const uint32_t C_socket___socket_MSG_CTRUNC_get = 286;
-const uint32_t C_socket___socket_MSG_DONTROUTE_get = 287;
-const uint32_t C_socket___socket_MSG_OOB_get = 288;
-const uint32_t C_socket___socket_MSG_PEEK_get = 289;
-const uint32_t C_socket___socket_MSG_TRUNC_get = 290;
-const uint32_t C_socket___socket_MSG_WAITALL_get = 291;
-const uint32_t C_socket___socket_AF_INET_get = 292;
-const uint32_t C_socket___socket_AF_INET6_get = 293;
-const uint32_t C_socket___socket_AF_UNSPEC_get = 294;
-const uint32_t C_socket___socket_SHUT_RD_get = 295;
-const uint32_t C_socket___socket_SHUT_RDWR_get = 296;
-const uint32_t C_socket___socket_SHUT_WR_get = 297;
-const uint32_t C_socket___socket_IPPROTO_IP_get = 298;
-const uint32_t C_socket___socket_IPPROTO_IPV6_get = 299;
-const uint32_t C_socket___socket_IPPROTO_ICMP_get = 300;
-const uint32_t C_socket___socket_IPPROTO_RAW_get = 301;
-const uint32_t C_socket___socket_IPPROTO_TCP_get = 302;
-const uint32_t C_socket___socket_IPPROTO_UDP_get = 303;
-const uint32_t C_socket___socket_INADDR_ANY_get = 304;
-const uint32_t C_socket___socket_INADDR_BROADCAST_get = 305;
-const uint32_t avmplus_FileSystem_exists = 309;
-const uint32_t avmplus_FileSystem_read = 310;
-const uint32_t avmplus_FileSystem_write = 311;
-const uint32_t avmplus_FileSystem_getFileMode = 312;
-const uint32_t avmplus_FileSystem_isRegularFile = 316;
-const uint32_t avmplus_FileSystem_isDirectory = 317;
-const uint32_t avmplus_FileSystem_listFiles = 318;
-const uint32_t avmplus_FileSystem_getFreeDiskSpace = 319;
-const uint32_t avmplus_FileSystem_getTotalDiskSpace = 320;
-const uint32_t avmplus_OperatingSystem_private_getName = 327;
-const uint32_t avmplus_OperatingSystem_private_getNodeName = 328;
-const uint32_t avmplus_OperatingSystem_private_getRelease = 329;
-const uint32_t avmplus_OperatingSystem_private_getVersion = 330;
-const uint32_t avmplus_OperatingSystem_private_getMachine = 331;
-const uint32_t avmplus_OperatingSystem_private_getVendorVersion = 332;
-const uint32_t avmplus_OperatingSystem_private_getUserName = 333;
-const uint32_t avmplus_Socket_lastError_get = 362;
-const uint32_t avmplus_Socket_private_lastDataSent_get = 364;
-const uint32_t avmplus_Socket_private_receivedBuffer_get = 365;
-const uint32_t avmplus_Socket_private_receivedBinary_get = 366;
-const uint32_t avmplus_Socket_private_isValid = 367;
-const uint32_t avmplus_Socket_private__customSocket = 368;
-const uint32_t avmplus_Socket_private__connect = 369;
-const uint32_t avmplus_Socket_private__close = 370;
-const uint32_t avmplus_Socket_private__send = 371;
-const uint32_t avmplus_Socket_private__sendBinary = 372;
-const uint32_t avmplus_Socket_private__receive = 373;
-const uint32_t avmplus_Socket_private__receiveBinary = 374;
-const uint32_t avmplus_Socket_private__bind = 375;
-const uint32_t avmplus_Socket_private__listen = 376;
-const uint32_t avmplus_Socket_private__accept = 377;
-const uint32_t avmplus_Socket_private__type_get = 383;
-const uint32_t avmplus_Socket_reuseAddress_get = 385;
-const uint32_t avmplus_Socket_reuseAddress_set = 386;
-const uint32_t avmplus_Socket_broadcast_get = 387;
-const uint32_t avmplus_Socket_broadcast_set = 388;
-const uint32_t avmplus_JObject_create = 409;
-const uint32_t avmplus_JObject_createArray = 410;
-const uint32_t avmplus_JObject_toArray = 411;
-const uint32_t avmplus_JObject_constructorSignature = 412;
-const uint32_t avmplus_JObject_methodSignature = 413;
-const uint32_t avmplus_JObject_fieldSignature = 414;
+const uint32_t C_socket___socket_SOCK_RAW_get = 273;
+const uint32_t C_socket___socket_SOCK_STREAM_get = 274;
+const uint32_t C_socket___socket_SOCK_DGRAM_get = 275;
+const uint32_t C_socket___socket_SO_ACCEPTCONN_get = 276;
+const uint32_t C_socket___socket_SO_BROADCAST_get = 277;
+const uint32_t C_socket___socket_SO_DONTROUTE_get = 278;
+const uint32_t C_socket___socket_SO_KEEPALIVE_get = 279;
+const uint32_t C_socket___socket_SO_OOBINLINE_get = 280;
+const uint32_t C_socket___socket_SO_RCVBUF_get = 281;
+const uint32_t C_socket___socket_SO_RCVTIMEO_get = 282;
+const uint32_t C_socket___socket_SO_REUSEADDR_get = 283;
+const uint32_t C_socket___socket_SO_SNDBUF_get = 284;
+const uint32_t C_socket___socket_SO_SNDTIMEO_get = 285;
+const uint32_t C_socket___socket_SO_TYPE_get = 286;
+const uint32_t C_socket___socket_SOMAXCONN_get = 287;
+const uint32_t C_socket___socket_MSG_CTRUNC_get = 288;
+const uint32_t C_socket___socket_MSG_DONTROUTE_get = 289;
+const uint32_t C_socket___socket_MSG_OOB_get = 290;
+const uint32_t C_socket___socket_MSG_PEEK_get = 291;
+const uint32_t C_socket___socket_MSG_TRUNC_get = 292;
+const uint32_t C_socket___socket_MSG_WAITALL_get = 293;
+const uint32_t C_socket___socket_AF_INET_get = 294;
+const uint32_t C_socket___socket_AF_INET6_get = 295;
+const uint32_t C_socket___socket_AF_UNSPEC_get = 296;
+const uint32_t C_socket___socket_SHUT_RD_get = 297;
+const uint32_t C_socket___socket_SHUT_RDWR_get = 298;
+const uint32_t C_socket___socket_SHUT_WR_get = 299;
+const uint32_t C_socket___socket_IPPROTO_IP_get = 300;
+const uint32_t C_socket___socket_IPPROTO_IPV6_get = 301;
+const uint32_t C_socket___socket_IPPROTO_ICMP_get = 302;
+const uint32_t C_socket___socket_IPPROTO_RAW_get = 303;
+const uint32_t C_socket___socket_IPPROTO_TCP_get = 304;
+const uint32_t C_socket___socket_IPPROTO_UDP_get = 305;
+const uint32_t C_socket___socket_INADDR_ANY_get = 306;
+const uint32_t C_socket___socket_INADDR_BROADCAST_get = 307;
+const uint32_t C_socket___socket___gethostbyaddr = 308;
+const uint32_t C_socket___socket___gethostbyname = 309;
+const uint32_t avmplus_FileSystem_exists = 313;
+const uint32_t avmplus_FileSystem_read = 314;
+const uint32_t avmplus_FileSystem_write = 315;
+const uint32_t avmplus_FileSystem_getFileMode = 316;
+const uint32_t avmplus_FileSystem_isRegularFile = 320;
+const uint32_t avmplus_FileSystem_isDirectory = 321;
+const uint32_t avmplus_FileSystem_listFiles = 322;
+const uint32_t avmplus_FileSystem_getFreeDiskSpace = 323;
+const uint32_t avmplus_FileSystem_getTotalDiskSpace = 324;
+const uint32_t avmplus_OperatingSystem_private_getName = 331;
+const uint32_t avmplus_OperatingSystem_private_getNodeName = 332;
+const uint32_t avmplus_OperatingSystem_private_getRelease = 333;
+const uint32_t avmplus_OperatingSystem_private_getVersion = 334;
+const uint32_t avmplus_OperatingSystem_private_getMachine = 335;
+const uint32_t avmplus_OperatingSystem_private_getVendorVersion = 336;
+const uint32_t avmplus_OperatingSystem_private_getUserName = 337;
+const uint32_t avmplus_Socket_lastError_get = 366;
+const uint32_t avmplus_Socket_private_name2ip = 367;
+const uint32_t avmplus_Socket_ip2name = 369;
+const uint32_t avmplus_Socket_private_lastDataSent_get = 372;
+const uint32_t avmplus_Socket_private_receivedBuffer_get = 373;
+const uint32_t avmplus_Socket_private_receivedBinary_get = 374;
+const uint32_t avmplus_Socket_private_isValid = 375;
+const uint32_t avmplus_Socket_private__customSocket = 376;
+const uint32_t avmplus_Socket_private__connect = 377;
+const uint32_t avmplus_Socket_private__close = 378;
+const uint32_t avmplus_Socket_private__send = 379;
+const uint32_t avmplus_Socket_private__sendBinary = 380;
+const uint32_t avmplus_Socket_private__receive = 381;
+const uint32_t avmplus_Socket_private__receiveBinary = 382;
+const uint32_t avmplus_Socket_private__bind = 383;
+const uint32_t avmplus_Socket_private__listen = 384;
+const uint32_t avmplus_Socket_private__accept = 385;
+const uint32_t avmplus_Socket_private__type_get = 391;
+const uint32_t avmplus_Socket_reuseAddress_get = 393;
+const uint32_t avmplus_Socket_reuseAddress_set = 394;
+const uint32_t avmplus_Socket_broadcast_get = 395;
+const uint32_t avmplus_Socket_broadcast_set = 396;
+const uint32_t avmplus_JObject_create = 417;
+const uint32_t avmplus_JObject_createArray = 418;
+const uint32_t avmplus_JObject_toArray = 419;
+const uint32_t avmplus_JObject_constructorSignature = 420;
+const uint32_t avmplus_JObject_methodSignature = 421;
+const uint32_t avmplus_JObject_fieldSignature = 422;
 
 extern AvmBox avmplus_Domain_currentDomain_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Domain_MIN_DOMAIN_MEMORY_LENGTH_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -574,6 +578,8 @@ extern AvmBox C_socket___socket_IPPROTO_TCP_get_thunk(AvmMethodEnv env, uint32_t
 extern AvmBox C_socket___socket_IPPROTO_UDP_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_socket___socket_INADDR_ANY_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_socket___socket_INADDR_BROADCAST_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket___gethostbyaddr_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_socket___socket___gethostbyname_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_exists_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_read_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_write_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -591,6 +597,8 @@ extern AvmBox avmplus_OperatingSystem_private_getMachine_thunk(AvmMethodEnv env,
 extern AvmBox avmplus_OperatingSystem_private_getVendorVersion_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_OperatingSystem_private_getUserName_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Socket_lastError_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_private_name2ip_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_Socket_ip2name_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Socket_private_lastDataSent_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Socket_private_receivedBuffer_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Socket_private_receivedBinary_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -640,6 +648,9 @@ extern AvmBox avmplus_File_write_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* 
 
 extern AvmBox shell_toplevel_s2a_oos_rest_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_JObject_methodSignature_thunk  shell_toplevel_s2a_oos_rest_thunk
+
+extern AvmBox shell_toplevel_i2a_osi_opti0_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define avmplus_Socket_private__send_thunk  shell_toplevel_i2a_osi_opti0_thunk
 
 extern AvmBox shell_toplevel_func_s2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define native_script_function_flash_sampler_getMasterString_thunk  shell_toplevel_func_s2a_os_thunk
@@ -733,8 +744,9 @@ extern AvmBox shell_toplevel_u2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox
 extern AvmBox shell_toplevel_a2a_ooio_optakAvmThunkNull_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_JObject_createArray_thunk  shell_toplevel_a2a_ooio_optakAvmThunkNull_thunk
 
-extern AvmBox shell_toplevel_i2a_osi_opti0_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-#define avmplus_Socket_private__send_thunk  shell_toplevel_i2a_osi_opti0_thunk
+extern AvmBox shell_toplevel_a2a_osb_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+#define C_socket___socket___gethostbyname_thunk  shell_toplevel_a2a_osb_thunk
+#define C_socket___socket___gethostbyaddr_thunk  shell_toplevel_a2a_osb_thunk
 
 extern AvmBox shell_toplevel_a2a_osb_optbfalse_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_FileSystem_listFiles_thunk  shell_toplevel_a2a_osb_optbfalse_thunk
@@ -881,10 +893,12 @@ extern AvmBox shell_toplevel_i2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 #define C_stdlib___stdlib___system_thunk  shell_toplevel_i2a_os_thunk
 
 extern AvmBox shell_toplevel_s2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-#define avmplus_FileSystem_read_thunk  shell_toplevel_s2a_os_thunk
-#define C_stdlib___stdlib_realpath_thunk  shell_toplevel_s2a_os_thunk
 #define C_stdlib___stdlib_getenv_thunk  shell_toplevel_s2a_os_thunk
+#define avmplus_Socket_ip2name_thunk  shell_toplevel_s2a_os_thunk
+#define C_stdlib___stdlib_realpath_thunk  shell_toplevel_s2a_os_thunk
+#define avmplus_Socket_private_name2ip_thunk  shell_toplevel_s2a_os_thunk
 #define avmplus_File_read_thunk  shell_toplevel_s2a_os_thunk
+#define avmplus_FileSystem_read_thunk  shell_toplevel_s2a_os_thunk
 
 extern AvmBox shell_toplevel_i2a_ooi_opti0_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_Socket_private__sendBinary_thunk  shell_toplevel_i2a_ooi_opti0_thunk

@@ -203,7 +203,6 @@ namespace avmshell
         return errno;
     }
 
-
 }
 
 
