@@ -1353,13 +1353,13 @@ void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix)
     *bugfix = (int)osver.wServicePackMajor; //yeah we can consider a service pack as a bugfix!!
 }
 
-int WIN32_SocketStart(int version)
+int WMPI_SocketStart(int major, int minor)
 {
     WSADATA wsaData;
     WORD wVersionRequested;
     int err;
     
-    wVersionRequested = MAKEWORD(version, version);
+    wVersionRequested = MAKEWORD(major, minor);
     err = WSAStartup(wVersionRequested, &wsaData);
     
     if (err != 0) {
@@ -1370,8 +1370,13 @@ int WIN32_SocketStart(int version)
     return 0;
 }
 
-void WIN32_SocketStop()
+void WMPI_SocketStop()
 {
+    /* note:
+       it would be a bad idea to call the WSA cleanup in the middle of code execution
+       the function is here but not used, in Platform.h for WIN32
+       when exit() is called we also call WSACleanup(), much cleaner approach imho
+    */
     WSACleanup();
 }
 
@@ -1379,9 +1384,8 @@ int VMPI_gethostname(char *name, int namelen)
 {
     int result = -1;
     
-    if( WIN32_SocketStart(1) == 0 ) {
+    if( WMPI_SocketStart(2,2) == 0 ) {
         result = ::gethostname(name, namelen);
-        WIN32_SocketStop();
     }
     
     return result;
@@ -1389,24 +1393,22 @@ int VMPI_gethostname(char *name, int namelen)
 
 void VMPI_getUserName(char *username)
 {
-    /*
-    const char *osmachine;
-    
-    if( uname(&info) < 0 ) {
-        osmachine = "";
-    }
-    else {
-        osmachine = info.machine;
-    }
-    
-    VMPI_strcpy( machine, osmachine );
-    */
-    
-    //const char *localusername;
     DWORD bufsize = 256;
     GetUserName(username, &bufsize);
-    //VMPI_strcpy( username, localusername );
 }
+
+struct hostent *VMPI_gethostbyaddr(const char *addr)
+{
+    struct in_addr data_addr = { 0 };
+    
+    if( WMPI_SocketStart(2,2) == 0 ) {
+        data_addr.s_addr = inet_addr(addr);
+        return gethostbyaddr((char *) &data_addr, 4, AF_INET);
+    }
+    
+    return NULL;
+}
+
 
 double VMPI_getFreeDiskSpace(const char *path)
 {
