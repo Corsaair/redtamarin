@@ -71,7 +71,7 @@ namespace avmplus {
     class NewObjectSampleObject; //flash.sampler::NewObjectSample
     class SampleClass; //flash.sampler::Sample$
     class SampleObject; //flash.sampler::Sample
-    class ScriptObject; //avmplus::System
+    class ScriptObject; //C.errno::__errno
     class StackFrameClass; //flash.sampler::StackFrame$
     class StackFrameObject; //flash.sampler::StackFrame
     class String; //String
@@ -350,33 +350,31 @@ const uint32_t avmplus_OperatingSystem_private_getMachine = 335;
 const uint32_t avmplus_OperatingSystem_private_getVendorVersion = 336;
 const uint32_t avmplus_OperatingSystem_private_getUserName = 337;
 const uint32_t avmplus_Socket_lastError_get = 366;
-const uint32_t avmplus_Socket_private_name2ip = 367;
-const uint32_t avmplus_Socket_ip2name = 369;
-const uint32_t avmplus_Socket_private_lastDataSent_get = 372;
-const uint32_t avmplus_Socket_private_receivedBuffer_get = 373;
-const uint32_t avmplus_Socket_private_receivedBinary_get = 374;
-const uint32_t avmplus_Socket_private_isValid = 375;
-const uint32_t avmplus_Socket_private__customSocket = 376;
-const uint32_t avmplus_Socket_private__connect = 377;
-const uint32_t avmplus_Socket_private__close = 378;
-const uint32_t avmplus_Socket_private__send = 379;
-const uint32_t avmplus_Socket_private__sendBinary = 380;
-const uint32_t avmplus_Socket_private__receive = 381;
-const uint32_t avmplus_Socket_private__receiveBinary = 382;
-const uint32_t avmplus_Socket_private__bind = 383;
-const uint32_t avmplus_Socket_private__listen = 384;
-const uint32_t avmplus_Socket_private__accept = 385;
-const uint32_t avmplus_Socket_private__type_get = 391;
-const uint32_t avmplus_Socket_reuseAddress_get = 393;
-const uint32_t avmplus_Socket_reuseAddress_set = 394;
-const uint32_t avmplus_Socket_broadcast_get = 395;
-const uint32_t avmplus_Socket_broadcast_set = 396;
-const uint32_t avmplus_JObject_create = 417;
-const uint32_t avmplus_JObject_createArray = 418;
-const uint32_t avmplus_JObject_toArray = 419;
-const uint32_t avmplus_JObject_constructorSignature = 420;
-const uint32_t avmplus_JObject_methodSignature = 421;
-const uint32_t avmplus_JObject_fieldSignature = 422;
+const uint32_t avmplus_Socket_private_lastDataSent_get = 368;
+const uint32_t avmplus_Socket_private_receivedBuffer_get = 369;
+const uint32_t avmplus_Socket_private_receivedBinary_get = 370;
+const uint32_t avmplus_Socket_private_isValid = 371;
+const uint32_t avmplus_Socket_private__customSocket = 372;
+const uint32_t avmplus_Socket_private__connect = 373;
+const uint32_t avmplus_Socket_private__close = 374;
+const uint32_t avmplus_Socket_private__send = 375;
+const uint32_t avmplus_Socket_private__sendBinary = 376;
+const uint32_t avmplus_Socket_private__receive = 377;
+const uint32_t avmplus_Socket_private__receiveBinary = 378;
+const uint32_t avmplus_Socket_private__bind = 379;
+const uint32_t avmplus_Socket_private__listen = 380;
+const uint32_t avmplus_Socket_private__accept = 381;
+const uint32_t avmplus_Socket_private__type_get = 387;
+const uint32_t avmplus_Socket_reuseAddress_get = 389;
+const uint32_t avmplus_Socket_reuseAddress_set = 390;
+const uint32_t avmplus_Socket_broadcast_get = 391;
+const uint32_t avmplus_Socket_broadcast_set = 392;
+const uint32_t avmplus_JObject_create = 413;
+const uint32_t avmplus_JObject_createArray = 414;
+const uint32_t avmplus_JObject_toArray = 415;
+const uint32_t avmplus_JObject_constructorSignature = 416;
+const uint32_t avmplus_JObject_methodSignature = 417;
+const uint32_t avmplus_JObject_fieldSignature = 418;
 
 extern AvmBox avmplus_Domain_currentDomain_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Domain_MIN_DOMAIN_MEMORY_LENGTH_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -597,8 +595,6 @@ extern AvmBox avmplus_OperatingSystem_private_getMachine_thunk(AvmMethodEnv env,
 extern AvmBox avmplus_OperatingSystem_private_getVendorVersion_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_OperatingSystem_private_getUserName_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Socket_lastError_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-extern AvmBox avmplus_Socket_private_name2ip_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-extern AvmBox avmplus_Socket_ip2name_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Socket_private_lastDataSent_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Socket_private_receivedBuffer_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Socket_private_receivedBinary_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -893,12 +889,10 @@ extern AvmBox shell_toplevel_i2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 #define C_stdlib___stdlib___system_thunk  shell_toplevel_i2a_os_thunk
 
 extern AvmBox shell_toplevel_s2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-#define C_stdlib___stdlib_getenv_thunk  shell_toplevel_s2a_os_thunk
-#define avmplus_Socket_ip2name_thunk  shell_toplevel_s2a_os_thunk
-#define C_stdlib___stdlib_realpath_thunk  shell_toplevel_s2a_os_thunk
-#define avmplus_Socket_private_name2ip_thunk  shell_toplevel_s2a_os_thunk
-#define avmplus_File_read_thunk  shell_toplevel_s2a_os_thunk
 #define avmplus_FileSystem_read_thunk  shell_toplevel_s2a_os_thunk
+#define C_stdlib___stdlib_realpath_thunk  shell_toplevel_s2a_os_thunk
+#define C_stdlib___stdlib_getenv_thunk  shell_toplevel_s2a_os_thunk
+#define avmplus_File_read_thunk  shell_toplevel_s2a_os_thunk
 
 extern AvmBox shell_toplevel_i2a_ooi_opti0_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_Socket_private__sendBinary_thunk  shell_toplevel_i2a_ooi_opti0_thunk
