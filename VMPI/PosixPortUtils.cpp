@@ -470,6 +470,19 @@ void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix)
 #endif
 }
 
+int WMPI_SocketStart(int major, int minor)
+{
+    (void)major;
+    (void)minor;
+    //no need to initialize socket for POSIX
+    return 0;
+}
+
+void WMPI_SocketStop()
+{
+    //do nothing
+}
+
 /* note:
    1. getpwuid( geteuid() ) shall return the name associated with the effective user ID of the process
    2. getlogin() shall return the name associated with the current login activity
@@ -480,6 +493,14 @@ void VMPI_getUserName(char *username)
     struct passwd *pws;
     pws = getpwuid( geteuid() );
     VMPI_strcpy( username, pws->pw_name );
+}
+
+struct hostent *VMPI_gethostbyaddr(const char *addr)
+{
+    struct in_addr ipv4addr;
+    
+    inet_pton(AF_INET, addr, &ipv4addr);
+    return gethostbyaddr(&ipv4addr, sizeof ipv4addr, AF_INET);
 }
 
 double VMPI_getFreeDiskSpace(const char *path)
