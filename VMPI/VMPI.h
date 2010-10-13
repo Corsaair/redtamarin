@@ -640,7 +640,10 @@ extern void VMPI_getOperatingSystemVersion(char *version);
 extern void VMPI_getOperatingSystemMachine(char *machine);
 extern void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix);
 
+extern int WMPI_SocketStart(int major, int minor);
+extern void WMPI_SocketStop();
 extern void VMPI_getUserName(char *username);
+extern struct hostent *VMPI_gethostbyaddr(const char *addr);
 extern double VMPI_getFreeDiskSpace(const char *path);
 extern double VMPI_getTotalDiskSpace(const char *path);
 
