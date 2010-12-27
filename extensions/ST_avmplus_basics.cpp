@@ -57,12 +57,13 @@ void test4();
 void test5();
 void test6();
 void test7();
+void test8();
 };
 ST_avmplus_basics::ST_avmplus_basics(AvmCore* core)
     : Selftest(core, "avmplus", "basics", ST_avmplus_basics::ST_names,ST_avmplus_basics::ST_explicits)
 {}
-const char* ST_avmplus_basics::ST_names[] = {"unsigned_int","signed_int","equalsLatin1","containsLatin1","indexOfLatin1","matchesLatin1","matchesLatin1_caseless","bug562101", NULL };
-const bool ST_avmplus_basics::ST_explicits[] = {false,false,false,false,false,false,false,false, false };
+const char* ST_avmplus_basics::ST_names[] = {"unsigned_int","signed_int","equalsLatin1","containsLatin1","indexOfLatin1","matchesLatin1","matchesLatin1_caseless","bug562101","bug610022", NULL };
+const bool ST_avmplus_basics::ST_explicits[] = {false,false,false,false,false,false,false,false,false, false };
 void ST_avmplus_basics::run(int n) {
 switch(n) {
 case 0: test0(); return;
@@ -73,6 +74,7 @@ case 4: test4(); return;
 case 5: test5(); return;
 case 6: test6(); return;
 case 7: test7(); return;
+case 8: test8(); return;
 }
 }
 void ST_avmplus_basics::test0() {
@@ -146,9 +148,25 @@ while ((m_status = parser.getNext(tag)) == XMLParser::kNoError)
     break;
     }
 }
-
-#line 102 "ST_avmplus_basics.st"
+#line 101 "ST_avmplus_basics.st"
 verifyPass(pass == true, "pass == true", __FILE__, __LINE__);
+
+}
+void ST_avmplus_basics::test8() {
+    Stringp str = core->newConstantStringLatin1("some string that is likely to be unique");
+    WeakRefList<String> list(core->GetGC(), 0);
+    // We are going to skip scanning the stack (so that "str" won't hold the string in place)
+    // but that means we need a root to ensure that "list" doesn't also get collected.
+    MMgc::GCRoot root(core->GetGC(), &list, sizeof(list));
+    list.add(str);
+    str = NULL;
+    core->GetGC()->Collect(/*scanStack*/false);
+    int removed = list.removeCollectedItems();
+    int count = list.length();
+#line 111 "ST_avmplus_basics.st"
+verifyPass(removed == 1 && count == 0, "removed == 1 && count == 0", __FILE__, __LINE__);
+
+
 
 }
 void create_avmplus_basics(AvmCore* core) { new ST_avmplus_basics(core); }

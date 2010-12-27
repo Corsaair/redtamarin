@@ -71,7 +71,7 @@ package flash.utils
  *
  *  @playerversion Lite 4
  */
-[native(cls="DictionaryClass", instance="DictionaryObject", methods="auto")]
+[native(cls="DictionaryClass", gc="exact", instance="DictionaryObject", methods="auto")]
 dynamic public class Dictionary
 {
     private native function init(weakKeys:Boolean):void;

@@ -66,7 +66,6 @@ void test11();
 void test12();
 void test13();
 void test14();
-void test15();
 private:
     MMgc::GC *gc;
     MMgc::FixedAlloc *fa;
@@ -76,8 +75,8 @@ private:
 ST_mmgc_basics::ST_mmgc_basics(AvmCore* core)
     : Selftest(core, "mmgc", "basics", ST_mmgc_basics::ST_names,ST_mmgc_basics::ST_explicits)
 {}
-const char* ST_mmgc_basics::ST_names[] = {"create_gc_instance","create_gc_object","get_bytesinuse","collect","getgcheap","fixedAlloc","fixedMalloc","gcheap","gcheapAlign","gcmethods","gcLargeAlloc","finalizerAlloc","finalizerDelete","nestedGCs","collectDormantGC","regression_551169", NULL };
-const bool ST_mmgc_basics::ST_explicits[] = {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false, false };
+const char* ST_mmgc_basics::ST_names[] = {"create_gc_instance","create_gc_object","get_bytesinuse","collect","getgcheap","fixedAlloc","fixedMalloc","gcheap","gcheapAlign","gcmethods","finalizerAlloc","finalizerDelete","nestedGCs","collectDormantGC","regression_551169", NULL };
+const bool ST_mmgc_basics::ST_explicits[] = {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false, false };
 void ST_mmgc_basics::run(int n) {
 switch(n) {
 case 0: test0(); return;
@@ -95,7 +94,6 @@ case 11: test11(); return;
 case 12: test12(); return;
 case 13: test13(); return;
 case 14: test14(); return;
-case 15: test15(); return;
 }
 }
 void ST_mmgc_basics::prologue() {
@@ -301,56 +299,22 @@ verifyPass((MyGCObject *)gc->FindBeginningGuarded(mygcobject)==mygcobject, "(MyG
 #line 209 "ST_mmgc_basics.st"
 verifyPass((MyGCObject *)gc->FindBeginningFast(mygcobject)==mygcobject, "(MyGCObject *)gc->FindBeginningFast(mygcobject)==mygcobject", __FILE__, __LINE__);
 
+// Bugzilla 542529 - in debug mode we would assert here due to logic flaws in the allocatr
 }
 void ST_mmgc_basics::test10() {
     MMGC_GCENTER(gc);
-    MyGCObject *mygcobject;
-    mygcobject = (MyGCObject *)new (gc) MyGCObject();
-    void *obj=gc->Alloc(10024,0);
-#line 216 "ST_mmgc_basics.st"
-verifyPass(MMgc::GCLargeAlloc::IsLargeBlock(GetRealPointer(obj))==true, "MMgc::GCLargeAlloc::IsLargeBlock(GetRealPointer(obj))==true", __FILE__, __LINE__);
-#line 217 "ST_mmgc_basics.st"
-verifyPass(MMgc::GCLargeAlloc::FindBeginning(obj)==GetRealPointer(obj), "MMgc::GCLargeAlloc::FindBeginning(obj)==GetRealPointer(obj)", __FILE__, __LINE__);
-#line 218 "ST_mmgc_basics.st"
-verifyPass(MMgc::GCLargeAlloc::IsFinalized(obj)==false, "MMgc::GCLargeAlloc::IsFinalized(obj)==false", __FILE__, __LINE__);
-    MMgc::GCLargeAlloc::SetFinalize(obj);
-#line 220 "ST_mmgc_basics.st"
-verifyPass(MMgc::GCLargeAlloc::IsFinalized(obj)==true, "MMgc::GCLargeAlloc::IsFinalized(obj)==true", __FILE__, __LINE__);
-    MMgc::GCLargeAlloc::ClearFinalized(obj);
-#line 222 "ST_mmgc_basics.st"
-verifyPass(MMgc::GCLargeAlloc::IsFinalized(obj)==false, "MMgc::GCLargeAlloc::IsFinalized(obj)==false", __FILE__, __LINE__);
-#line 223 "ST_mmgc_basics.st"
-verifyPass(MMgc::GCLargeAlloc::ContainsPointers(obj)==false, "MMgc::GCLargeAlloc::ContainsPointers(obj)==false", __FILE__, __LINE__);
-#line 224 "ST_mmgc_basics.st"
-verifyPass(MMgc::GCLargeAlloc::HasWeakRef(obj)==false, "MMgc::GCLargeAlloc::HasWeakRef(obj)==false", __FILE__, __LINE__);
-    MMgc::GCLargeAlloc::SetHasWeakRef(obj,true);
-#line 226 "ST_mmgc_basics.st"
-verifyPass(MMgc::GCLargeAlloc::HasWeakRef(obj)==true, "MMgc::GCLargeAlloc::HasWeakRef(obj)==true", __FILE__, __LINE__);
-    MMgc::GCLargeAlloc::SetHasWeakRef(obj,false);
-#line 228 "ST_mmgc_basics.st"
-verifyPass(MMgc::GCLargeAlloc::HasWeakRef(obj)==false, "MMgc::GCLargeAlloc::HasWeakRef(obj)==false", __FILE__, __LINE__);
-#line 229 "ST_mmgc_basics.st"
-verifyPass(MMgc::GCLargeAlloc::GetMark(obj)==false, "MMgc::GCLargeAlloc::GetMark(obj)==false", __FILE__, __LINE__);
-    MMgc::GCLargeAlloc::SetMark(obj);
-#line 231 "ST_mmgc_basics.st"
-verifyPass(MMgc::GCLargeAlloc::GetMark(obj)==true, "MMgc::GCLargeAlloc::GetMark(obj)==true", __FILE__, __LINE__);
-
-// Bugzilla 542529 - in debug mode we would assert here due to logic flaws in the allocatr
-}
-void ST_mmgc_basics::test11() {
-    MMGC_GCENTER(gc);
     new (gc) AllocInFinalizer();
     gc->Collect(false);
-#line 238 "ST_mmgc_basics.st"
+#line 216 "ST_mmgc_basics.st"
 verifyPass(true, "true", __FILE__, __LINE__);
 
 }
-void ST_mmgc_basics::test12() {
+void ST_mmgc_basics::test11() {
     MMGC_GCENTER(gc);
     new (gc) DeleteInFinalizer(new (gc, 100) GCFinalizedObject(), new (gc) GCFinalizedObject());
     //delete m; delete m; // this verifies we crash, it does
     gc->Collect(false);
-#line 245 "ST_mmgc_basics.st"
+#line 223 "ST_mmgc_basics.st"
 verifyPass(true, "true", __FILE__, __LINE__);
     GCFinalizedObject *gcfo = new (gc) GCFinalizedObject();
     gcfo->~GCFinalizedObject();
@@ -359,7 +323,7 @@ verifyPass(true, "true", __FILE__, __LINE__);
 
 
 }
-void ST_mmgc_basics::test13() {
+void ST_mmgc_basics::test12() {
     GC *gcb = new GC(GCHeap::GetGCHeap(), GC::kIncrementalGC);
     MMGC_GCENTER(gc);
     void *a = gc->Alloc(8);
@@ -374,12 +338,12 @@ void ST_mmgc_basics::test13() {
     }
     a = gc->Alloc(8);
     // just fishing for asserts/hangs/crashes
-#line 267 "ST_mmgc_basics.st"
+#line 245 "ST_mmgc_basics.st"
 verifyPass(true, "true", __FILE__, __LINE__);
     delete gcb;
 
 }
-void ST_mmgc_basics::test14() {
+void ST_mmgc_basics::test13() {
     {
         GC *gcb = new GC(GCHeap::GetGCHeap(), GC::kIncrementalGC);
         {
@@ -392,12 +356,12 @@ void ST_mmgc_basics::test14() {
         delete gcb;
 
         // just fishing for asserts/hangs/crashes
-#line 283 "ST_mmgc_basics.st"
+#line 261 "ST_mmgc_basics.st"
 verifyPass(true, "true", __FILE__, __LINE__);
     }
 
 }
-void ST_mmgc_basics::test15() {
+void ST_mmgc_basics::test14() {
     {
         GC *testGC = new GC(GCHeap::GetGCHeap(), GC::kIncrementalGC);
         {
@@ -411,21 +375,21 @@ void ST_mmgc_basics::test15() {
                 // tail of fauxRoot is on stack
                 GCWorkItem *sentinel = fauxRoot->GetMarkStackSentinelPointer();
                 if(sentinel) {
-#line 300 "ST_mmgc_basics.st"
+#line 278 "ST_mmgc_basics.st"
 verifyPass(sentinel->GetSentinelPointer() == fauxRoot, "sentinel->GetSentinelPointer() == fauxRoot", __FILE__, __LINE__);
                     GCWorkItem *tail = testGC->m_incrementalWork.GetItemAbove(sentinel);
-#line 302 "ST_mmgc_basics.st"
+#line 280 "ST_mmgc_basics.st"
 verifyPass(tail->iptr + tail->GetSize() == (uintptr_t) fauxRoot->End(), "tail->iptr + tail->GetSize() == (uintptr_t) fauxRoot->End()", __FILE__, __LINE__);
-#line 303 "ST_mmgc_basics.st"
+#line 281 "ST_mmgc_basics.st"
 verifyPass(sentinel != NULL, "sentinel != NULL", __FILE__, __LINE__);
                 }
                 delete [] (char*)fauxRoot->Get();
                 delete fauxRoot;
                 if(sentinel) {
-#line 308 "ST_mmgc_basics.st"
-verifyPass(sentinel->GetSentinelType() == GCWorkItem::kDeadItem, "sentinel->GetSentinelType() == GCWorkItem::kDeadItem", __FILE__, __LINE__);
-#line 309 "ST_mmgc_basics.st"
-verifyPass(testGC->m_incrementalWork.GetItemAbove(sentinel)->GetSentinelType() == GCWorkItem::kDeadItem, "testGC->m_incrementalWork.GetItemAbove(sentinel)->GetSentinelType() == GCWorkItem::kDeadItem", __FILE__, __LINE__);
+#line 286 "ST_mmgc_basics.st"
+verifyPass(sentinel->GetSentinel1Type() == GCWorkItem::kDeadItem, "sentinel->GetSentinel1Type() == GCWorkItem::kDeadItem", __FILE__, __LINE__);
+#line 287 "ST_mmgc_basics.st"
+verifyPass(testGC->m_incrementalWork.GetItemAbove(sentinel)->GetSentinel1Type() == GCWorkItem::kDeadItem, "testGC->m_incrementalWork.GetItemAbove(sentinel)->GetSentinel1Type() == GCWorkItem::kDeadItem", __FILE__, __LINE__);
                 }
             }
             testGC->Mark();

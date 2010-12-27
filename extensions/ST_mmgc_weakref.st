@@ -66,7 +66,7 @@ public:
 
     virtual void presweep() {
 	for ( int i=1 ; i < 1000 ; i+=2 )
-	    objs[i]->next = (C*)(refs[i-1]->get());
+        objs[i]->next = (C*)(void *)(refs[i-1]->get());
     }
 
 private:

@@ -61,7 +61,7 @@ namespace avmplus
     ScriptObject *DictionaryClass::createInstance(VTable *ivtable, ScriptObject* /*delegate*/)
     {
         GCAssert(ivtable->traits->isDictionary());
-        return new (core()->GetGC(), ivtable->getExtraSize()) DictionaryObject(ivtable, prototypePtr());
+        return DictionaryObject::create(core()->GetGC(), ivtable, prototypePtr());
     }
 
     DictionaryObject::DictionaryObject(VTable *vtable, ScriptObject *delegate)
@@ -75,8 +75,7 @@ namespace avmplus
         GCAssert(vtable->traits->isDictionary());
         MMgc::GC* gc = this->gc();
 
-        HeapHashtable* ht = weakKeys ? new (gc) WeakKeyHashtable(gc)
-                                    : new (gc) HeapHashtable(gc);
+        HeapHashtable* ht = weakKeys ? new (gc) WeakKeyHashtable(gc) : HeapHashtable::create(gc);
 
         //store pointer of newly created hashtable, encapsulated with writebarrier,
         //at the hashtable offset address of the corresponding traits

@@ -47,13 +47,20 @@ extern void create_avmplus_peephole(AvmCore* core);
 extern void create_mmgc_bugzilla_543560(AvmCore* core);
 #endif
 #endif
+extern void create_mmgc_bugzilla_575631(AvmCore* core);
+#if defined AVMPLUS_64BIT && defined DEBUG
+extern void create_mmgc_bugzilla_580603(AvmCore* core);
+#endif
 extern void create_mmgc_basics(AvmCore* core);
 extern void create_mmgc_dependent(AvmCore* core);
+extern void create_mmgc_finalize_uninit(AvmCore* core);
 extern void create_mmgc_gcheap(AvmCore* core);
 #if defined VMCFG_WORKERTHREADS
 extern void create_mmgc_threads(AvmCore* core);
 #endif
 extern void create_mmgc_weakref(AvmCore* core);
+extern void create_vmbase_concurrency(AvmCore* core);
+extern void create_vmpi_threads(AvmCore* core);
 void SelftestRunner::createGeneratedSelftestClasses() {
 create_avmplus_basics(core);
 #if defined AVMPLUS_PEEPHOLE_OPTIMIZER
@@ -64,13 +71,20 @@ create_avmplus_peephole(core);
 create_mmgc_bugzilla_543560(core);
 #endif
 #endif
+create_mmgc_bugzilla_575631(core);
+#if defined AVMPLUS_64BIT && defined DEBUG
+create_mmgc_bugzilla_580603(core);
+#endif
 create_mmgc_basics(core);
 create_mmgc_dependent(core);
+create_mmgc_finalize_uninit(core);
 create_mmgc_gcheap(core);
 #if defined VMCFG_WORKERTHREADS
 create_mmgc_threads(core);
 #endif
 create_mmgc_weakref(core);
+create_vmbase_concurrency(core);
+create_vmpi_threads(core);
 }
 #endif // VMCFG_SELFTEST
 }

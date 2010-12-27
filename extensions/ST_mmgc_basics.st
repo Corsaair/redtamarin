@@ -208,28 +208,6 @@ delete gc;
     %%verify (MyGCObject *)gc->FindBeginningGuarded(mygcobject)==mygcobject
     %%verify (MyGCObject *)gc->FindBeginningFast(mygcobject)==mygcobject
 
-%%test gcLargeAlloc
-    MMGC_GCENTER(gc);
-    MyGCObject *mygcobject;
-    mygcobject = (MyGCObject *)new (gc) MyGCObject();
-    void *obj=gc->Alloc(10024,0);
-    %%verify MMgc::GCLargeAlloc::IsLargeBlock(GetRealPointer(obj))==true
-    %%verify MMgc::GCLargeAlloc::FindBeginning(obj)==GetRealPointer(obj)
-    %%verify MMgc::GCLargeAlloc::IsFinalized(obj)==false
-    MMgc::GCLargeAlloc::SetFinalize(obj);
-    %%verify MMgc::GCLargeAlloc::IsFinalized(obj)==true
-    MMgc::GCLargeAlloc::ClearFinalized(obj);
-    %%verify MMgc::GCLargeAlloc::IsFinalized(obj)==false
-    %%verify MMgc::GCLargeAlloc::ContainsPointers(obj)==false
-    %%verify MMgc::GCLargeAlloc::HasWeakRef(obj)==false
-    MMgc::GCLargeAlloc::SetHasWeakRef(obj,true);
-    %%verify MMgc::GCLargeAlloc::HasWeakRef(obj)==true
-    MMgc::GCLargeAlloc::SetHasWeakRef(obj,false);
-    %%verify MMgc::GCLargeAlloc::HasWeakRef(obj)==false
-    %%verify MMgc::GCLargeAlloc::GetMark(obj)==false
-    MMgc::GCLargeAlloc::SetMark(obj);
-    %%verify MMgc::GCLargeAlloc::GetMark(obj)==true
-
 // Bugzilla 542529 - in debug mode we would assert here due to logic flaws in the allocatr
 %%test finalizerAlloc
     MMGC_GCENTER(gc);
@@ -305,8 +283,8 @@ delete gc;
                 delete [] (char*)fauxRoot->Get();
                 delete fauxRoot;
                 if(sentinel) {
-                    %%verify sentinel->GetSentinelType() == GCWorkItem::kDeadItem
-                    %%verify testGC->m_incrementalWork.GetItemAbove(sentinel)->GetSentinelType() == GCWorkItem::kDeadItem
+                    %%verify sentinel->GetSentinel1Type() == GCWorkItem::kDeadItem
+                    %%verify testGC->m_incrementalWork.GetItemAbove(sentinel)->GetSentinel1Type() == GCWorkItem::kDeadItem
                 }
             }
             testGC->Mark();

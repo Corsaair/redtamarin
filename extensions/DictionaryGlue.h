@@ -43,10 +43,16 @@
 
 namespace avmplus
 {
-    class DictionaryObject : public ScriptObject
+    class GC_AS3_EXACT(DictionaryObject, ScriptObject)
     {
-    public:
+    protected:
         DictionaryObject(VTable *vtable, ScriptObject *delegate);
+        
+    public:
+        REALLY_INLINE static DictionaryObject* create(MMgc::GC* gc, VTable* ivtable, ScriptObject* delegate)
+        {
+            return new (gc, ivtable->getExtraSize()) DictionaryObject(ivtable, delegate);
+        }
 
         void init(bool weakKeys);
 
@@ -71,16 +77,32 @@ namespace avmplus
 
         Atom FASTCALL getKeyFromObject(Atom object) const;
 
+    // ------------------------ DATA SECTION BEGIN
+        GC_NO_DATA(DictionaryObject)
+
+    private:
         DECLARE_SLOTS_DictionaryObject;
+    // ------------------------ DATA SECTION END
     };
 
-    class DictionaryClass : public ClassClosure
+    class GC_AS3_EXACT(DictionaryClass, ClassClosure)
     {
-    public:
+    private:
         DictionaryClass(VTable *vtable);
+    public:
+        REALLY_INLINE static DictionaryClass* create(MMgc::GC* gc, VTable* cvtable)
+        {
+            return new (gc, cvtable->getExtraSize()) DictionaryClass(cvtable);
+        }
+
         ScriptObject *createInstance(VTable *ivtable, ScriptObject *delegate);
 
+    // ------------------------ DATA SECTION BEGIN
+        GC_NO_DATA(DictionaryClass)
+
+    private:
         DECLARE_SLOTS_DictionaryClass;
+    // ------------------------ DATA SECTION END
     };
 }
 
