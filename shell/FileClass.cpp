@@ -97,41 +97,50 @@ namespace avmshell
 
         int len = (int)fileSize;
 
-        MMgc::GC::AllocaAutoPtr _c;
-        uint8_t* c = (uint8_t*)VMPI_alloca(core, _c, len+1);
-
+        // Avoid VMPI_alloca - the buffer can be large and the memory is non-pointer-containing,
+        // but the GC will scan it conservatively.
+        uint8_t* c = (uint8_t*)core->gc->Alloc(len+1);
+        
         len = (int)fp->read(c, len); //need to force since the string creation functions expect an int
         c[len] = 0;
 
         fp->close();
         Platform::GetInstance()->destroyFile(fp);
 
+        Stringp ret = NULL;
+
         if (len >= 3)
         {
             // UTF8 BOM
             if ((c[0] == 0xef) && (c[1] == 0xbb) && (c[2] == 0xbf))
             {
-                return core->newStringUTF8((const char*)c + 3, len - 3);
+                ret = core->newStringUTF8((const char*)c + 3, len - 3);
             }
             else if ((c[0] == 0xfe) && (c[1] == 0xff))
             {
                 //UTF-16 big endian
                 c += 2;
                 len = (len - 2) >> 1;
-                return core->newStringEndianUTF16(/*littleEndian*/false, (wchar*)(void*)c, len);
+                ret = core->newStringEndianUTF16(/*littleEndian*/false, (wchar*)(void*)c, len);
             }
             else if ((c[0] == 0xff) && (c[1] == 0xfe))
             {
                 //UTF-16 little endian
                 c += 2;
                 len = (len - 2) >> 1;
-                return core->newStringEndianUTF16(/*littleEndian*/true, (wchar*)(void*)c, len);
+                ret = core->newStringEndianUTF16(/*littleEndian*/true, (wchar*)(void*)c, len);
             }
         }
 
-        // Use newStringUTF8() with "strict" explicitly set to false to mimick old,
-        // buggy behavior, where malformed UTF-8 sequences are stored as single characters.
-        return core->newStringUTF8((const char*)c, len, false);
+        if (ret == NULL)
+        {
+            // Use newStringUTF8() with "strict" explicitly set to false to mimick old,
+            // buggy behavior, where malformed UTF-8 sequences are stored as single characters.
+            ret = core->newStringUTF8((const char*)c, len, false);
+        }
+
+        core->gc->Free(c);
+        return ret;
     }
 
     void FileClass::write(Stringp filename,
@@ -162,5 +171,91 @@ namespace avmshell
         fp->close();
         Platform::GetInstance()->destroyFile(fp);
     }
-    
+
+    ByteArrayObject* FileClass::readByteArray(Stringp filename)
+    {
+        Toplevel* toplevel = this->toplevel();
+        if (!filename) {
+            toplevel->throwArgumentError(kNullArgumentError, "filename");
+        }
+        StUTF8String filenameUTF8(filename);
+
+        File* fp = Platform::GetInstance()->createFile();
+        if (fp == NULL || !fp->open(filenameUTF8.c_str(), File::OPEN_READ_BINARY))
+        {
+            if(fp)
+            {
+                Platform::GetInstance()->destroyFile(fp);
+            }
+            toplevel->throwError(kFileOpenError, filename);
+        }
+
+        int64_t len = fp->size();
+        if((uint64_t)len >= UINT32_T_MAX) //ByteArray APIs cannot handle files > 4GB
+        {
+            toplevel->throwRangeError(kOutOfRangeError, filename);
+        }
+
+        uint32_t readCount = (uint32_t)len;
+
+        unsigned char *c = mmfx_new_array( unsigned char, readCount+1);
+
+        ByteArrayObject* b = toplevel->byteArrayClass()->constructByteArray();
+        b->set_length(0);
+
+        while (readCount > 0)
+        {
+            uint32_t actual = (uint32_t) fp->read(c, readCount);
+            if (actual > 0)
+            {
+                b->GetByteArray().Write(c, actual);
+                readCount -= readCount;
+            }
+            else
+            {
+                break;
+            }
+        }
+        b->set_position(0);
+
+        mmfx_delete_array( c );
+
+        fp->close();
+        Platform::GetInstance()->destroyFile(fp);
+
+        return b;
+    }
+
+    bool FileClass::writeByteArray(Stringp filename, ByteArrayObject* bytes)
+    {
+        Toplevel* toplevel = this->toplevel();
+        if (!filename) {
+            toplevel->throwArgumentError(kNullArgumentError, "filename");
+        }
+
+        StUTF8String filenameUTF8(filename);
+
+        File* fp = Platform::GetInstance()->createFile();
+        if (fp == NULL || !fp->open(filenameUTF8.c_str(), File::OPEN_WRITE_BINARY))
+        {
+            if(fp)
+            {
+                Platform::GetInstance()->destroyFile(fp);
+            }
+            toplevel->throwError(kFileWriteError, filename);
+        }
+
+        int32_t len = bytes->get_length();
+        bool success = (int32_t)fp->write(&(bytes->GetByteArray())[0], len) == len;
+
+        fp->close();
+        Platform::GetInstance()->destroyFile(fp);
+
+        if (!success) {
+            toplevel->throwError(kFileWriteError, filename);
+        }
+        
+        return true;
+    }
+
 }

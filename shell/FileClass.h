@@ -48,7 +48,7 @@ namespace avmshell
      * Included as an example for writers of native methods,
      * and also to provide some useful QA instrumentation.
      */
-    class FileClass : public ClassClosure
+    class FileClass : public avmplus::ClassClosure
     {
     public:
         FileClass(VTable* cvtable);
@@ -74,7 +74,11 @@ namespace avmshell
          * Writes the text "data" to the file "filename"
          */
         void write(Stringp filename, Stringp data);
-        
+
+        ByteArrayObject* readByteArray(Stringp filename);
+        bool writeByteArray(Stringp filename, ByteArrayObject* bytes);
+
+
         DECLARE_SLOTS_FileClass;
     };
 }

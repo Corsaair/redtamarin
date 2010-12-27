@@ -40,8 +40,14 @@
 
 #include "avmshell.h"
 
-namespace avmshell
+#ifndef AVMSHELL_BUILD
+#error "This file is only for use with avmshell"
+#endif
+
+namespace avmplus
 {
+    using namespace avmshell;
+    
     DomainObject::DomainObject(VTable *vtable, ScriptObject *delegate)
         : ScriptObject(vtable, delegate)
     {
@@ -51,49 +57,68 @@ namespace avmshell
     {
     }
 
-    void DomainObject::init(DomainObject *parentDomain)
+    void DomainObject::init(DomainObject* parentDomain)
     {
-        ShellCore *core = (ShellCore*) this->core();
+        ShellCore* core = (ShellCore*) this->core();
 
-        Domain* baseDomain;
-        if (parentDomain) {
-            baseDomain = parentDomain->domainEnv->domain();
-        } else {
-            baseDomain = core->builtinDomain;
-        }
+        DomainEnv* baseDomainEnv = parentDomain ?
+                                parentDomain->domainEnv :
+                                (DomainEnv*)NULL;
+        Domain* baseDomain = baseDomainEnv ?
+                                baseDomainEnv->domain() :
+                                NULL;
 
-        Domain* domain = new (core->GetGC()) Domain(core, baseDomain);
+        domainToplevel = parentDomain ?
+                            (Toplevel*)parentDomain->domainToplevel :
+                            core->createShellToplevel();
 
-        if (parentDomain) {
-            domainToplevel = parentDomain->domainToplevel;
-        } else {
-            domainToplevel = core->initShellBuiltins();
-        }
-
-        domainEnv = new (core->GetGC()) DomainEnv(core, domain, parentDomain ? parentDomain->domainEnv : (DomainEnv*)NULL);
+        Domain* domain = Domain::newDomain(core, baseDomain);
+        domainEnv = DomainEnv::newDomainEnv(core, domain, parentDomain ? parentDomain->domainEnv : (DomainEnv*)NULL);
     }
 
-    Atom DomainObject::loadBytes(ByteArrayObject *b)
+    Atom DomainObject::loadBytes(ByteArrayObject* b, uint32_t swfVersion)
     {
         AvmCore* core = this->core();
         if (!b)
             toplevel()->throwTypeError(kNullArgumentError, core->toErrorString("bytes"));
 
-        ShellCodeContext* codeContext = new (core->GetGC()) ShellCodeContext();
-        codeContext->m_domainEnv = domainEnv;
-
         // parse new bytecode
         size_t len = b->get_length();
         ScriptBuffer code = core->newScriptBuffer(len);
         VMPI_memcpy(code.getBuffer(), &b->GetByteArray()[0], len);
-        Toplevel *toplevel = domainToplevel;
 
+        Toplevel* toplevel = domainToplevel;
         uint32_t api = core->getAPI(NULL);
-        return core->handleActionBlock(code, 0,
-                                  domainEnv,
-                                  toplevel,
-                                  NULL, codeContext,
-                                  api);
+
+        // parse constants and attributes.
+        PoolObject* pool = core->parseActionBlock(code,
+                                /*start*/0,
+                                toplevel,
+                                domainEnv->domain(),
+                                /*ninit*/NULL,
+                                api);
+
+
+        // by default, use the same bugCompatibility as the builtins use
+        const BugCompatibility* bugCompatibility = toplevel->abcEnv()->codeContext()->bugCompatibility();
+        if (swfVersion != 0)
+        {
+            // ...unless specified otherwise.
+            for (int j = 0; j < BugCompatibility::VersionCount; ++j)
+            {
+                if (BugCompatibility::kNames[j] == swfVersion)
+                {
+                    bugCompatibility = core->createBugCompatibility((BugCompatibility::Version)j);
+                    goto done;
+                }
+            }
+            // if we get here, didn't find a valid name
+            toplevel->throwTypeError(kInvalidArgumentError, core->toErrorString("swfVersion"));
+        }
+done:
+
+        ShellCodeContext* codeContext = new (core->GetGC()) ShellCodeContext(domainEnv, bugCompatibility);
+        return core->handleActionPool(pool, toplevel, codeContext);
     }
 
     ScriptObject* DomainObject::finddef(const Multiname& multiname,
@@ -101,7 +126,7 @@ namespace avmshell
     {
         Toplevel* toplevel = this->toplevel();
 
-        ScriptEnv* script = (ScriptEnv*) domainEnv->getScriptInit(multiname);
+        ScriptEnv* script = core()->domainMgr()->findScriptEnvInDomainEnvByMultiname(domainEnv, multiname);
         if (script == (ScriptEnv*)BIND_AMBIGUOUS)
             toplevel->throwReferenceError(kAmbiguousBindingError, multiname);
 
@@ -168,12 +193,12 @@ namespace avmshell
     ScriptObject* DomainClass::createInstance(VTable *ivtable,
                                               ScriptObject *prototype)
     {
-        return new (core()->GetGC(), ivtable->getExtraSize()) DomainObject(ivtable, prototype);
+        return DomainObject::create(core()->GetGC(), ivtable, prototype);
     }
 
     DomainObject* DomainClass::get_currentDomain()
     {
-        ShellCodeContext* codeContext = (ShellCodeContext*)core()->codeContext();
+        CodeContext* codeContext = core()->codeContext();
 
         DomainObject* domainObject = (DomainObject*) createInstance(ivtable(), prototypePtr());
         domainObject->domainEnv = codeContext->domainEnv();
@@ -197,5 +222,4 @@ namespace avmshell
         if(!domainEnv->set_globalMemory(mem))
             toplevel()->throwError(kEndOfFileError);
     }
-
 }

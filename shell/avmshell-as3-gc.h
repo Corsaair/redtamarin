@@ -1,5 +1,3 @@
-/* -*- Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil; tab-width: 4 -*- */
-/* vi: set ts=4 sw=4 expandtab: (add to ~/.vimrc: set modeline modelines=5) */
 /* ***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1/GPL 2.0/LGPL 2.1
  *
@@ -17,7 +15,7 @@
  *
  * The Initial Developer of the Original Code is
  * Adobe System Incorporated.
- * Portions created by the Initial Developer are Copyright (C) 2004-2006
+ * Portions created by the Initial Developer are Copyright (C) 2010
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -37,39 +35,23 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#ifndef __avmshell_Profiler__
-#define __avmshell_Profiler__
+/* machine generated file via utils/exactgc.as -- do not edit */
 
-
-#ifdef DEBUGGER
 namespace avmshell
 {
-    /**
-     * Dummy implementation of the Profiler interface.
-     */
-    class Profiler : public avmplus::Profiler
-    {
-    public:
-        Profiler(AvmCore*) {}
-
-        void sendDebugFileURL(String * /*url*/) {}
-        void sendLineTimestamp(int /*linenumber*/) {}
-        void setEnabled(bool /*on*/) {}
-        void sendFunctionEnter(MethodInfo* /*method*/) {}
-        void sendFunctionExit() {}
-        void sendCatch(MethodInfo* /*method*/) {}
-        void addScriptObject(ScriptObject * /*scriptObject*/) {}
-        void deleteScriptObject(ScriptObject * /*scriptObject*/) {}
-        void sendHeapDump(String * /*heapDumpName*/) {}
-        int computeStringSize(String * /*myString*/) { return 0; }
-
-        void sample(uint64_t /*time*/, Stringp /*stackTrace*/) {}
-        void allocationSample(uint64_t /*time*/, Stringp /*stackTrace*/, uint64_t /*allocId*/, Stringp /*type*/) {}
-        void deallocationSample(uint64_t /*time*/, uint64_t /*id*/) {}
-        void getMembers() {}
-
-    };
-}
+void SystemClass::gcTrace(MMgc::GC* gc)
+{
+    (void)gc;
+#ifndef GC_TRIVIAL_TRACER_SystemClass
+    m_slots_SystemClass.gcTracePrivateProperties(gc);
 #endif
+    avmplus::ClassClosure::gcTrace(gc);
+    (void)(avmplus_ClassClosure_isExactInterlock != 0);
+}
 
-#endif /* __avmshell_Profiler__ */
+bool SystemClass::gcTraceLarge(MMgc::GC* gc, size_t _xact_cursor)
+{
+    return gcTraceLargeAsSmall(gc, _xact_cursor);
+}
+
+}

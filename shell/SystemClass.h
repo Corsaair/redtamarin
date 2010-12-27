@@ -43,24 +43,66 @@
 
 namespace avmshell
 {
+    // this class exists solely to test native classes that use MI.
+    class MIClass : public avmplus::ClassClosure
+    {
+    public:
+        MIClass(VTable* cvtable) : ClassClosure(cvtable) {}
+        ~MIClass() {}
+
+        DECLARE_SLOTS_MIClass;
+    };
+
+    // this class exists solely to test native classes that use MI.
+    class MixinClassThatDoesNotDescendFromScriptObject
+    {
+    public:
+        const double factor;
+        MixinClassThatDoesNotDescendFromScriptObject(double f) : factor(f) {}
+        // evil, wrong version that we DO NOT WANT
+        double plus(double v) { return v * factor; }
+    };
+
+    // this class exists solely to test native classes that use MI.
+    class MIObjectImpl : public avmplus::ScriptObject
+    {
+    public:
+        const double amount;
+        MIObjectImpl(VTable* vtable, ScriptObject* prototype, double a) : ScriptObject(vtable, prototype), amount(a) {}
+        double plus(double v) { return v + amount; }
+    };
+
+    // this class exists solely to test native classes that use MI.
+    class MIObject : public MIObjectImpl, public MixinClassThatDoesNotDescendFromScriptObject
+    {
+    public:
+        MIObject(VTable* vtable, ScriptObject* prototype) : MIObjectImpl(vtable, prototype, 1), MixinClassThatDoesNotDescendFromScriptObject(2) {}
+        ~MIObject() {}
+
+        DECLARE_SLOTS_MIObject;
+    };
 
     /**
      * A simple class that has some native methods.
      * Included as an example for writers of native methods,
      * and also to provide some useful QA instrumentation.
      */
-    class SystemClass : public ClassClosure
+    class GC_AS3_EXACT(SystemClass, avmplus::ClassClosure)
     {
         uint64_t initialTime;
 
-    public:
         SystemClass(VTable* cvtable);
+    public:
+        REALLY_INLINE static SystemClass* create(MMgc::GC* gc, VTable* cvtable)
+        {
+            return MMgc::setExact(new (gc, cvtable->getExtraSize()) SystemClass(cvtable));
+        }
+
         ~SystemClass();
 
         // set by shell
         static int user_argc;
         static char **user_argv;
-        static char *exec_path;
 
         /**
          * Implementation of System.exit
@@ -76,6 +118,20 @@ namespace avmshell
          * "1.0 d100"
          */
         Stringp getAvmplusVersion();
+        
+        /**
+         * Implementation of System.getFeatures
+         * AS usage: System.getFeatures();
+         * Returns the compiled in features of AVM+
+         */
+        Stringp getFeatures();
+        
+        /**
+         * Implementation of System.getRunmode
+         * AS usage: System.getRunmode();
+         * Returns the current runmode
+         */
+        Stringp getRunmode();
 
         /**
          * Implementation of System.exec
@@ -97,7 +153,7 @@ namespace avmshell
         bool isDebugger();
         /*@}*/
 
-        /**
+                /**
          * @name ActionScript Extensions
          * ActionScript extensions to ECMAScript
          */
@@ -107,19 +163,30 @@ namespace avmshell
 
         ArrayObject * getArgv();
 
-        Stringp getExecPath();
-
         Stringp readLine();
 
         double get_totalMemory();
         double get_freeMemory();
         double get_privateMemory();
 
+        int32_t get_swfVersion();
+        int32_t get_apiVersion();
+
         // Initiate a garbage collection; future versions will not return before completed.
         void forceFullCollection();
 
         // Queue a garbage collection request.
         void queueCollection();
+
+        // function exists solely to test native-methods with custom namespaces
+        void ns_example_nstest() { }
+
+        // function exists solely to test ScriptObject::isGlobalObject
+        bool isGlobal(Atom o);
+
+        void disposeXML(XMLObject *xmlObject);
+
+        GC_NO_DATA(SystemClass)
 
         DECLARE_SLOTS_SystemClass;
     };

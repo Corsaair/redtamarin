@@ -43,7 +43,6 @@
 
 #include "avmshell.h"
 #include "WinFile.h"
-#include "WinSocket.h"
 #include <Mmsystem.h>
 
 
@@ -56,19 +55,21 @@ namespace avmshell
     class WinPlatform : public Platform
     {
     public:
+        WinPlatform()
+        {
+            // Increase the accuracy of getTimer and Date to 1 ms from the 16 ms default
+            timeBeginPeriod(1);
+        }
 
-        virtual ~WinPlatform(){}
-
+        virtual ~WinPlatform()
+        {
+            // Restore default timer accuracy
+            timeEndPeriod(1);
+        }
         virtual void exit(int code);
 
         virtual File* createFile();
         virtual void destroyFile(File* file);
-
-        virtual Socket* createSocket();
-        virtual Socket* createCustomSocket(int family, int socktype, int protocol);
-        virtual Socket* createSocketFrom(int sd);
-        virtual void destroySocket(Socket* socket);
-        virtual int lastSocketError();
 
         virtual void initializeLogging(const char* filename);
 
@@ -98,8 +99,6 @@ namespace avmshell
 
     void WinPlatform::exit(int code)
     {
-        //WIN32
-        WSACleanup();
         ::exit(code);
     }
 
@@ -111,55 +110,6 @@ namespace avmshell
     void WinPlatform::destroyFile(File* file)
     {
         delete file;
-    }
-
-    Socket* WinPlatform::createSocket()
-    {
-        if( WinSocket::Setup() )
-        {
-            return new WinSocket();
-        }
-        else
-        {
-            AvmLog("Failed to create default socket.\n");
-            return NULL;
-        }
-    }
-
-    Socket* WinPlatform::createCustomSocket(int family, int socktype, int protocol)
-    {
-        if( WinSocket::Setup() )
-        {
-            return new WinSocket(family, socktype, protocol);
-        }
-        else
-        {
-            AvmLog("Failed to create custom socket.\n");
-            return NULL;
-        }
-    }
-    
-    Socket* WinPlatform::createSocketFrom(int sd)
-    {
-        if( WinSocket::Setup() )
-        {
-            return new WinSocket(sd);
-        }
-        else
-        {
-            AvmLog("Failed to create socket from descriptor.\n");
-            return NULL;
-        }
-    }
-    
-    void WinPlatform::destroySocket(Socket* socket)
-    {
-        delete socket;
-    }
-
-    int WinPlatform::lastSocketError()
-    {
-        return WinSocket::LastError();
     }
 
     int WinPlatform::logMessage(const char* message)
@@ -238,8 +188,12 @@ namespace avmshell
                 );
 
             HMODULE hDbgHelp = LoadLibraryW(L"dbghelp.dll");
-            MINIDUMP_WRITE_DUMP MiniDumpWriteDump_ = (MINIDUMP_WRITE_DUMP)GetProcAddress(hDbgHelp,
-                "MiniDumpWriteDump");
+            MINIDUMP_WRITE_DUMP MiniDumpWriteDump_ = NULL;
+            if (hDbgHelp)
+            {
+                MiniDumpWriteDump_ =
+                    (MINIDUMP_WRITE_DUMP)GetProcAddress(hDbgHelp, "MiniDumpWriteDump");
+            }
 
             if (MiniDumpWriteDump_)
             {
@@ -250,7 +204,7 @@ namespace avmshell
                 M.ExceptionPointers = pException;
                 M.ClientPointers = 0;
 
-                AvmLog("Writing minidump crash log to %s\n", DumpPath);
+                AvmLog("Writing minidump crash log to %ls\n", DumpPath);
 
                 HANDLE hDumpFile = CreateFileW(DumpPath, GENERIC_WRITE, 0,
                     NULL, CREATE_ALWAYS,

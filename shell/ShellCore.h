@@ -44,14 +44,6 @@ using namespace avmplus;
 
 namespace avmshell
 {
-    class ShellCodeContext : public CodeContext
-    {
-    public:
-        DWB(DomainEnv*) m_domainEnv;
-        virtual ~ShellCodeContext() {}
-        virtual DomainEnv *domainEnv() const { return m_domainEnv; }
-    };
-
     /**
      * Settings for ShellCore.  The command line parser uses this, but the initial state
      * is set in ShellCore.cpp, and it's propagated throughout various parts of the
@@ -70,7 +62,6 @@ namespace avmshell
 
         char** arguments;               // non-terminated array of argument values, never NULL
         int numargs;                    // number of entries in 'arguments'
-        char executablePath[256];       // full path of the executable, or NULL
         bool nodebugger;
         int  astrace_console;
         uint32_t do_verbose;            // copy to config
@@ -81,18 +72,21 @@ namespace avmshell
         bool greedy;                    // copy to each GC
         bool nogc;                      // copy to each GC
         bool incremental;               // copy to each GC
+        bool exactgc;                   // copy to each GC
         bool fixedcheck;                // copy to each GC
+        int gcthreshold;                // copy to each GC
         int langID;                     // copy to ShellCore?
         bool jitordie;                  // copy to config
         Runmode runmode;                // copy to config
-#ifdef FEATURE_NANOJIT
+#ifdef VMCFG_NANOJIT
         nanojit::Config njconfig;       // copy to config
 #endif
         AvmCore::CacheSizes cacheSizes; // Default to unlimited
         const char* st_component;
         const char* st_category;
         const char* st_name;
-        uint32_t api;
+        ApiVersion api;
+        BugCompatibility::Version swfVersion;
 
         MMgc::GC::GCMode gcMode()
         {
@@ -101,6 +95,13 @@ namespace avmshell
             else if (incremental)   return MMgc::GC::kIncrementalGC;
             else                    return MMgc::GC::kNonincrementalGC;
         }
+    };
+
+    class ShellCodeContext : public CodeContext
+    {
+    public:
+        inline ShellCodeContext(DomainEnv* env, const BugCompatibility* bugCompatibility)
+            : CodeContext(env, bugCompatibility) { }
     };
 
     /**
@@ -112,7 +113,7 @@ namespace avmshell
     class ShellCore : public AvmCore
     {
     friend class SystemClass;
-    friend class DomainObject;
+        friend class avmplus::DomainObject;
     public:
         /**
          * Create a new core with the given GC (one gc per core).
@@ -127,7 +128,7 @@ namespace avmshell
          *
          * Requires: MMGC_ENTER and MMGC_GCENTER(gc) on the stack.
          */
-        bool setup(ShellCoreSettings& settings);
+        bool setup(const ShellCoreSettings& settings);
 
         /**
          * Load the contents from the file and run them in the context of this core's
@@ -167,6 +168,8 @@ namespace avmshell
 
         inline int32_t getDefaultAPI() { return ApiUtils::toAPI(this, defaultAPIVersion); }
 
+        inline BugCompatibility::Version getDefaultBugCompatibilityVersion() const { return defaultBugCompatibilityVersion; }
+
     protected:
         virtual void setStackLimit() = 0;
 
@@ -175,9 +178,9 @@ namespace avmshell
         virtual avmplus::Debugger* createDebugger(int tracelevel)
         {
             AvmAssert(allowDebugger >= 0);
-            return allowDebugger ? new (GetGC()) DebugCLI(this, (avmplus::Debugger::TraceLevel)tracelevel) : NULL;
+            return allowDebugger ? DebugCLI::create(GetGC(), this, (avmplus::Debugger::TraceLevel)tracelevel) : NULL;
         }
-        virtual avmplus::Profiler* createProfiler() { AvmAssert(allowDebugger >= 0); return allowDebugger ? new (GetGC()) Profiler(this) : NULL; }
+
 #endif
 #ifdef VMCFG_EVAL
         virtual String* readFileForEval(String* referencing_filename, String* filename);
@@ -186,7 +189,8 @@ namespace avmshell
     private:
         static void interruptTimerCallback(void* data);
 
-        Toplevel* initShellBuiltins();
+        ShellToplevel* createShellToplevel();
+
         void interrupt(Toplevel*, InterruptReason);
         void stackOverflow(Toplevel *toplevel);
         void setEnv(Toplevel *toplevel, int argc, char *argv[]);
@@ -208,16 +212,29 @@ namespace avmshell
         bool gracePeriod;
         bool inStackOverflow;
         int allowDebugger;
-        Toplevel* shell_toplevel;
-        Domain* shell_domain;
+        ShellToplevel* shell_toplevel;
         DomainEnv* shell_domainEnv;
-        uint32_t defaultAPIVersion;
+        Domain* shell_domain;
+        // Note that this has been renamed to emphasize the fact that it is
+        // the CodeContext/DomainEnv that user code will run in (as opposed
+        // to the Shell's builtin classes, eg System, File, Domain).
+        ShellCodeContext* user_codeContext;
+        ApiVersion defaultAPIVersion;
+        BugCompatibility::Version defaultBugCompatibilityVersion;
     };
 
-    class ShellToplevel : public Toplevel
+    class GC_CPP_EXACT(ShellToplevel, avmplus::Toplevel)
     {
-    public:
+        friend class ShellCore;
+
+    private:
         ShellToplevel(AbcEnv* abcEnv);
+    
+    public:
+        REALLY_INLINE static ShellToplevel* create(MMgc::GC* gc, AbcEnv* abcEnv)
+        {
+            return MMgc::setExact(new (gc) ShellToplevel(abcEnv));
+        }
 
         ShellCore* core() const {
             return (ShellCore*)Toplevel::core();
@@ -225,18 +242,23 @@ namespace avmshell
 
         virtual ClassClosure *getBuiltinExtensionClass(int class_id)
         {
-            return shellClasses[class_id] ? shellClasses[class_id] : resolveShellClass(class_id);
+            return shellClasses->list[class_id] ? shellClasses->list[class_id] : resolveShellClass(class_id);
         }
 
     private:
         ClassClosure* resolveShellClass(int class_id)
         {
-            ClassClosure* cc = findClassInPool(class_id, core()->getShellPool());
-            WBRC(core()->GetGC(), shellClasses, &shellClasses[class_id], cc);
+            ClassClosure* cc = findClassInScriptEnv(class_id, shellEntryPoint);
+            shellClasses->list.set(class_id, cc);
             return cc;
         }
 
-        DWB(ClassClosure**) shellClasses;
+        GC_DATA_BEGIN(ShellToplevel)
+        
+        DWB(ScriptEnv*)                             GC_POINTER(shellEntryPoint);
+        DWB(ExactHeapList< RCList<ClassClosure> >*) GC_POINTER(shellClasses);
+
+        GC_DATA_END(ShellToplevel)
     };
 }
 

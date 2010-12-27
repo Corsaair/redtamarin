@@ -92,6 +92,27 @@ namespace avmshell
         return core()->newConstantStringLatin1(AVMPLUS_VERSION_USER " " AVMPLUS_BUILD_CODE);
     }
 
+    Stringp SystemClass::getFeatures()
+    {
+        return core()->newConstantStringLatin1(avmfeatures);
+    }
+
+    Stringp SystemClass::getRunmode()
+    {
+        ShellCore* core = (ShellCore*)this->core();
+        if (core->config.runmode == RM_mixed)
+            return core->newConstantStringLatin1("mixed");
+        if (core->config.runmode == RM_jit_all)
+        {
+            if (core->config.jitordie)
+                return core->newConstantStringLatin1("jitordie");
+            return core->newConstantStringLatin1("jit");
+        }
+        if (core->config.runmode == RM_interp_all)
+            return core->newConstantStringLatin1("interp");
+        return core->newConstantStringLatin1("unknown");
+    }
+
     void SystemClass::write(Stringp s)
     {
         if (!s)
@@ -166,7 +187,6 @@ namespace avmshell
 
     int SystemClass::user_argc;
     char **SystemClass::user_argv;
-    char *SystemClass::exec_path;
 
     ArrayObject * SystemClass::getArgv()
     {
@@ -181,11 +201,6 @@ namespace avmshell
         return array;
     }
 
-    Stringp SystemClass::getExecPath()
-    {
-        return core()->newStringUTF8( exec_path );
-    }
-    
     Stringp SystemClass::readLine()
     {
         AvmCore* core = this->core();
@@ -225,6 +240,20 @@ namespace avmshell
         return double(VMPI_getPrivateResidentPageCount() * VMPI_getVMPageSize());
     }
 
+    int32_t SystemClass::get_swfVersion()
+    {
+        ShellCore* core = (ShellCore*)this->core();
+        BugCompatibility::Version v = core->getDefaultBugCompatibilityVersion();
+        AvmAssert(v >= 0 && v < BugCompatibility::VersionCount);
+        return BugCompatibility::kNames[v];
+    }
+
+    int32_t SystemClass::get_apiVersion()
+    {
+        ShellCore* core = (ShellCore*)this->core();
+        return core->defaultAPIVersion;
+    }
+
     void SystemClass::forceFullCollection()
     {
         core()->GetGC()->Collect();
@@ -235,4 +264,14 @@ namespace avmshell
         core()->GetGC()->QueueCollection();
     }
 
+    bool SystemClass::isGlobal(Atom o)
+    {
+        return AvmCore::isObject(o) ? AvmCore::atomToScriptObject(o)->isGlobalObject() : false;
+    }
+
+    void SystemClass::disposeXML(XMLObject *xmlObject)
+    {
+        if(xmlObject)
+            xmlObject->dispose();
+    }
 }

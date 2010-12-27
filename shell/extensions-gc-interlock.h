@@ -11,11 +11,11 @@
  * for the specific language governing rights and limitations under the
  * License.
  *
- * The Original Code is [Open Source Virtual Machine].
+ * The Original Code is [Open Source Virtual Machine.].
  *
  * The Initial Developer of the Original Code is
  * Adobe System Incorporated.
- * Portions created by the Initial Developer are Copyright (C) 2008
+ * Portions created by the Initial Developer are Copyright (C) 2010
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -35,5 +35,10 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-/* machine generated file -- do not edit */
+/* machine generated file via utils/exactgc.as -- do not edit */
+
+#define avmplus_DictionaryClass_isExactInterlock 1
+#define avmplus_DictionaryObject_isExactInterlock 1
+#define avmplus_DomainClass_isExactInterlock 1
+#define avmplus_DomainObject_isExactInterlock 1
 

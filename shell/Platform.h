@@ -51,7 +51,6 @@ namespace avmshell
     typedef void (*AvmTimerCallback)(void*);
 
     class File;
-    class Socket;
 
     /**
     * Abstract base class representing the platform on which avm is ported to.
@@ -95,26 +94,6 @@ namespace avmshell
         * @see createFile()
         */
         virtual void destroyFile(File* file) = 0;
-
-        /**
-        * Method to create a socket
-        * The implementation should create a platform specific socket
-        * @return a handle to platform-specific socket instance, NULL if an error occurred
-        */
-        virtual Socket* createSocket() = 0;
-        virtual Socket* createCustomSocket(int family, int socktype, int protocol) = 0;
-        virtual Socket* createSocketFrom(int sd) = 0;
-
-        /**
-        * Method to destroy the socket created via createSocket
-        * After this function is called the corresponding socket becomes invalid
-        * @param socket to be destroyed
-        * @return none
-        * @see createSocket()
-        */
-        virtual void destroySocket(Socket* socket) = 0;
-
-        virtual int lastSocketError() = 0;
 
         /**
         * Method for setting up logging functionality

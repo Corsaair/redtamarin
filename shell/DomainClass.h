@@ -40,42 +40,70 @@
 #ifndef __avmshell_DomainClass__
 #define __avmshell_DomainClass__
 
+#ifndef AVMSHELL_BUILD
+#error "This file is only for use with avmshell"
+#endif
 
-namespace avmshell
+namespace avmplus
 {
-    class DomainObject : public ScriptObject
+    class GC_AS3_EXACT(DomainObject, ScriptObject)
     {
-    public:
+    protected:
         DomainObject(VTable *vtable, ScriptObject *delegate);
+    public:
+        REALLY_INLINE static DomainObject* create(MMgc::GC* gc, VTable* ivtable, ScriptObject* delegate)
+        {
+            return new (gc, ivtable->getExtraSize()) DomainObject(ivtable, delegate);
+        }
+
         ~DomainObject();
 
         void init(DomainObject *base);
-        Atom loadBytes(ByteArrayObject *bytes);
+        Atom loadBytes(ByteArrayObject* bytes, uint32_t swfVersion);
         ClassClosure* getClass(Stringp name);
         // AS3 declaration requires these are ByteArrayObject
         ByteArrayObject* get_domainMemory() const;
         void set_domainMemory(ByteArrayObject* mem);
 
-        DWB(DomainEnv*) domainEnv;
-        DWB(Toplevel*) domainToplevel;
-
-      private:
+    private:
         ScriptObject* finddef(const Multiname& multiname, DomainEnv* domainEnv);
 
+    // ------------------------ DATA SECTION BEGIN
+        GC_DATA_BEGIN(DomainObject)
+
+    public:
+        DWB(DomainEnv*) GC_POINTER(domainEnv);
+        DWB(Toplevel*)  GC_POINTER(domainToplevel);
+        
+        GC_DATA_END(DomainObject)
+
+    private:
         DECLARE_SLOTS_DomainObject;
+    // ------------------------ DATA SECTION END
     };
 
-    class DomainClass : public ClassClosure
+    class GC_AS3_EXACT(DomainClass, ClassClosure)
     {
-    public:
+    protected:
         DomainClass(VTable* cvtable);
+        
+    public:
+        REALLY_INLINE static DomainClass* create(MMgc::GC* gc, VTable* cvtable)
+        {
+            return new (gc, cvtable->getExtraSize()) DomainClass(cvtable);
+        }
 
         ScriptObject *createInstance(VTable *ivtable, ScriptObject *delegate);
 
         DomainObject* get_currentDomain();
         int get_MIN_DOMAIN_MEMORY_LENGTH();
 
+    // ------------------------ DATA SECTION BEGIN
+        GC_NO_DATA(DomainClass)
+
+    private:
         DECLARE_SLOTS_DomainClass;
+    // ------------------------ DATA SECTION END
     };
 }
 

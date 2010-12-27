@@ -90,13 +90,8 @@ namespace avmplus
     class Dictionary;
 }
 
-#ifdef VMCFG_AOT
-#include "../aot/AOTCompiler.h"
-#endif
-
 namespace avmshell
 {
-    class ByteArray;
     class Shell;
     class ShellCodeContext;
     class ShellCore;
@@ -105,25 +100,9 @@ namespace avmshell
     class ShellToplevel;
 }
 
-//API
-namespace avmshell
-{
-    class StdlibClass;
-    class UnistdClass;
-    class CStringClass;
-    class CErrnoClass;
-    class StdioClass;
-    class CSocketClass;
-    
-    class FileSystemClass;
-    class OperatingSystemClass;
-    class SocketClass;
-}
-
 #include "Selftest.h"
 #include "Platform.h"
 #include "File.h"
-#include "Socket.h"
 
 #include "FileInputStream.h"
 #include "ConsoleOutputStream.h"
@@ -131,24 +110,11 @@ namespace avmshell
 #include "FileClass.h"
 #include "DomainClass.h"
 #include "DebugCLI.h"
-#include "Profiler.h"
 #include "DataIO.h"
-#include "ByteArrayGlue.h"
 #include "DictionaryGlue.h"
 #include "SamplerScript.h"
 #include "JavaGlue.h"
 #include "ShellCore.h"
-
-//API
-#include "StdlibClass.h"
-#include "UnistdClass.h"
-#include "CStringClass.h"
-#include "CErrnoClass.h"
-#include "StdioClass.h"
-#include "CSocketClass.h"
-#include "FileSystemClass.h"
-#include "OperatingSystemClass.h"
-#include "SocketClass.h"
 
 namespace avmshell
 {
@@ -158,7 +124,7 @@ namespace avmshell
 
 #ifdef AVMPLUS_64BIT
     const size_t kStackMargin = 262144;
-#elif (defined AVMPLUS_WIN32 && defined UNDER_CE) || defined AVMPLUS_SYMBIAN
+#elif (defined AVMPLUS_WIN32 && defined UNDER_CE) || defined VMCFG_SYMBIAN
     // FIXME: all embedded platforms, but we have no way of expressing that now
     const size_t kStackMargin = 32768;
 #else
@@ -178,11 +144,11 @@ namespace avmshell
 
     // swf support, impl code in swf.cpp
     bool isSwf(ScriptBuffer);
-    void handleSwf(const char *, ScriptBuffer, DomainEnv*, Toplevel*&, CodeContext*);
+    void handleSwf(const char *, ScriptBuffer, Toplevel*, CodeContext*);
 
 #ifdef VMCFG_AOT
     // AOT support, impl code in aot.cpp
-    void handleAOT(AvmCore*, Domain*, DomainEnv*, Toplevel*&, CodeContext*);
+    void handleAOT(AvmCore*, Domain*, DomainEnv*, Toplevel*, CodeContext*);
 #endif
 
     class ShellSettings : public ShellCoreSettings

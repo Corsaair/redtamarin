@@ -37,10 +37,10 @@
 
 PROGRAMS += shell
 
-shell_BASENAME = redshell
-shell_INCLUDES = -I$(srcdir) -I$(topsrcdir)/extensions -I$(topsrcdir)/api/clib -I$(topsrcdir)/api/shell
+shell_BASENAME = avmshell
+shell_INCLUDES = -I$(srcdir) -I$(topsrcdir)/extensions
 shell_DEFINES = -DAVMPLUS_SHELL
-shell_STATIC_LIBRARIES = zlib MMgc avmplus
+shell_STATIC_LIBRARIES = zlib MMgc avmplus vmbase
 shell_DIR := $(curdir)/
 shell_EXTRA_CPPFLAGS := $(AVMSHELL_CPPFLAGS)
 shell_EXTRA_LDFLAGS := $(AVMSHELL_LDFLAGS)
@@ -51,14 +51,11 @@ endif
 
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/avmshell.cpp \
-  $(curdir)/ByteArrayGlue.cpp \
   $(curdir)/ConsoleOutputStream.cpp \
-  $(curdir)/DataIO.cpp \
   $(curdir)/DebugCLI.cpp \
   $(curdir)/DomainClass.cpp \
   $(curdir)/FileClass.cpp \
   $(curdir)/FileInputStream.cpp \
-  $(curdir)/../api/shell/SocketClass.cpp \
   $(curdir)/ShellCore.cpp \
   $(curdir)/SystemClass.cpp \
   $(curdir)/swf.cpp \
@@ -71,26 +68,21 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../extensions/ST_avmplus_peephole.cpp \
   $(curdir)/../extensions/ST_mmgc_basics.cpp \
   $(curdir)/../extensions/ST_mmgc_dependent.cpp \
+  $(curdir)/../extensions/ST_mmgc_finalize_uninit.cpp \
   $(curdir)/../extensions/ST_mmgc_threads.cpp \
   $(curdir)/../extensions/ST_mmgc_weakref.cpp \
   $(curdir)/../extensions/ST_mmgc_543560.cpp \
+  $(curdir)/../extensions/ST_mmgc_575631.cpp \
+  $(curdir)/../extensions/ST_mmgc_580603.cpp \
   $(curdir)/../extensions/ST_mmgc_gcheap.cpp \
-  $(curdir)/../VMPI/AvmAssert.cpp \
-  $(curdir)/../api/clib/StdlibClass.cpp \
-  $(curdir)/../api/clib/UnistdClass.cpp \
-  $(curdir)/../api/clib/CStringClass.cpp \
-  $(curdir)/../api/clib/CErrnoClass.cpp \
-  $(curdir)/../api/clib/StdioClass.cpp \
-  $(curdir)/../api/clib/CSocketClass.cpp \
-  $(curdir)/../api/shell/FileSystemClass.cpp \
-  $(curdir)/../api/shell/OperatingSystemClass.cpp \
+  $(curdir)/../extensions/ST_vmbase_concurrency.cpp \
+  $(curdir)/../extensions/ST_vmpi_threads.cpp \
   $(NULL)
 
 ifeq (windows,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/avmshellWin.cpp \
   $(curdir)/WinFile.cpp \
-  $(curdir)/WinSocket.cpp \
   $(NULL)
 endif
 
@@ -98,12 +90,19 @@ ifeq (darwin,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/avmshellMac.cpp \
   $(curdir)/PosixFile.cpp \
-  $(curdir)/PosixSocket.cpp \
   $(curdir)/PosixPartialPlatform.cpp \
   $(NULL)
 endif
 
 ifeq (linux,$(TARGET_OS))
+shell_CXXSRCS := $(shell_CXXSRCS) \
+  $(curdir)/avmshellUnix.cpp \
+  $(curdir)/PosixFile.cpp \
+  $(curdir)/PosixPartialPlatform.cpp \
+  $(NULL)
+endif
+
+ifeq (android,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/avmshellUnix.cpp \
   $(curdir)/PosixFile.cpp \

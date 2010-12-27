@@ -54,7 +54,12 @@ namespace avmshell
     class ConsoleOutputStream : public OutputStream
     {
     public:
-        void write(const char* utf8);    
+        ConsoleOutputStream(MMgc::GC* gc) : gc(gc), buffer(0) {}
+        void write(const char* utf8);
+        void writeN(const char* utf8, size_t count);
+    private:
+        MMgc::GC* gc;
+        DWB(StringBuffer*) buffer;
     };
 }
 

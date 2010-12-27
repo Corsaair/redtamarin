@@ -110,7 +110,7 @@
 #endif
 
 #ifndef AVMFEATURE_SELFTEST
-  #define AVMFEATURE_SELFTEST          0
+  #define AVMFEATURE_SELFTEST          1
 #endif
 
 // https://bugzilla.mozilla.org/show_bug.cgi?id=491866
@@ -195,6 +195,34 @@
 
 #ifndef AVMFEATURE_CACHE_GQCN
   #define AVMFEATURE_CACHE_GQCN 1
+#endif
+
+#if AVMSYSTEM_SYMBIAN
+	#undef AVMFEATURE_SELFTEST
+	#define AVMFEATURE_SELFTEST 0
+	//#define		NJ_NO_VARIADIC_MACROS
+	#undef		AVMFEATURE_JIT
+	#if AVMSYSTEM_ARM
+		#define	AVMFEATURE_JIT 1
+	#else
+		#define AVMFEATURE_JIT 0
+	#endif // AVMSYSTEM_ARM
+	#undef		AVMFEATURE_HEAP_ALLOCA
+	#define		AVMFEATURE_HEAP_ALLOCA 1
+	#undef		AVMFEATURE_STATIC_FUNCTION_PTRS
+	#define		AVMFEATURE_STATIC_FUNCTION_PTRS 0 // Very important on Symbian
+	#undef		AVMFEATURE_OVERRIDE_GLOBAL_NEW
+	#define		AVMFEATURE_OVERRIDE_GLOBAL_NEW 0
+	#undef		AVMFEATURE_EVAL // Don't compile in this feature yet.
+	#define		AVMFEATURE_EVAL 0
+	#if AVMSYSTEM_SYMBIAN && AVMSYSTEM_IA32
+		#undef		AVMFEATURE_CPP_EXCEPTIONS
+		#define		AVMFEATURE_CPP_EXCEPTIONS 1 // winscw compiler wants
+	#endif // AVMSYSTEM_SYMBIAN && AVMSYSTEM_IA32
+#endif // AVMSYSTEM_SYMBIAN
+
+#ifndef AVMFEATURE_VALGRIND
+  #define AVMFEATURE_VALGRIND 0
 #endif
 
 #endif // __avmshell_features__

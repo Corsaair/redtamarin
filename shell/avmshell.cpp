@@ -38,10 +38,18 @@
  * ***** END LICENSE BLOCK ***** */
 
 #include "avmshell.h"
-#if defined FEATURE_NANOJIT
+#ifdef VMCFG_NANOJIT
 #include "../nanojit/nanojit.h"
 #endif
 #include <float.h>
+
+#include "avmplus-gc-interlock.h"
+#include "extensions-gc-interlock.h"
+#include "avmshell-gc-interlock.h"
+#include "extensions-as3-gc.h"
+#include "extensions-cpp-gc.h"
+#include "avmshell-as3-gc.h"
+#include "avmshell-cpp-gc.h"
 
 namespace avmshell
 {
@@ -159,7 +167,10 @@ namespace avmshell
     /* static */
     void Shell::singleWorker(ShellSettings& settings)
     {
-        MMgc::GC *gc = mmfx_new( MMgc::GC(MMgc::GCHeap::GetGCHeap(), settings.gcMode()) );
+        MMgc::GCConfig gcconfig;
+        gcconfig.collectionThreshold = settings.gcthreshold;
+        gcconfig.exactTracing = settings.exactgc;
+        MMgc::GC *gc = mmfx_new( MMgc::GC(MMgc::GCHeap::GetGCHeap(), settings.gcMode(), &gcconfig) );
         {
             MMGC_GCENTER(gc);
             ShellCore* shell = new ShellCoreImpl(gc, settings, true);
@@ -247,7 +258,7 @@ namespace avmshell
                 MMGC_GCENTER(gc);
 #ifdef _DEBUG
                 core->codeContextThread = VMPI_currentThread();
-#endif 
+#endif
                 delete core;
             }
 
@@ -401,6 +412,10 @@ namespace avmshell
         ThreadNode** const  threads(new ThreadNode*[numthreads]);
         CoreNode** const    cores(new CoreNode*[numcores]);
 
+        MMgc::GCConfig gcconfig;
+        gcconfig.collectionThreshold = settings.gcthreshold;
+        gcconfig.exactTracing = settings.exactgc;
+
         // Going multi-threaded.
 
         // Create and start threads.  They add themselves to the free list.
@@ -412,7 +427,7 @@ namespace avmshell
         // Create collectors and cores.
         // Extra credit: perform setup in parallel on the threads.
         for ( int i=0 ; i < numcores ; i++ ) {
-            MMgc::GC* gc = new MMgc::GC(MMgc::GCHeap::GetGCHeap(), settings.gcMode());
+            MMgc::GC* gc = new MMgc::GC(MMgc::GCHeap::GetGCHeap(), settings.gcMode(), &gcconfig);
             MMGC_GCENTER(gc);
             cores[i] = new CoreNode(new ShellCoreImpl(gc, settings, false), i);
             if (!cores[i]->core->setup(settings))
@@ -510,7 +525,7 @@ namespace avmshell
             pthread_mutex_lock(&self->m);
             // Don't wait when pendingWork == true,
             // slave might have been already signalled but it didn't notice because it wasn't waiting yet.
-            while (self->pendingWork == false) 
+            while (self->pendingWork == false)
                 pthread_cond_wait(&self->c, &self->m);
             pthread_mutex_unlock(&self->m);
 
@@ -525,7 +540,7 @@ namespace avmshell
                 MMGC_GCENTER(self->corenode->core->GetGC());
 #ifdef _DEBUG
                 self->corenode->core->codeContextThread = VMPI_currentThread();
-#endif 
+#endif
                 self->corenode->core->evaluateFile(state.settings, self->filename); // Ignore the exit code for now
             }
             LOGGING( AvmLog("T%d: Work completed\n", self->id); )
@@ -655,11 +670,8 @@ namespace avmshell
         bool print_version = false;
 
         // options filenames -- args
-        
+
         settings.programFilename = argv[0];     // How portable / reliable is this?
-
-        VMPI_getExecutablePath(argv[0], settings.executablePath);
-
         for (int i=1; i < argc ; i++) {
             const char * const arg = argv[i];
 
@@ -686,7 +698,7 @@ namespace avmshell
                         // allow this option even in non-DEBUGGER builds to make test scripts simpler
                         settings.nodebugger = true;
                     }
-#if defined(AVMPLUS_IA32) && defined(FEATURE_NANOJIT)
+#if defined(AVMPLUS_IA32) && defined(VMCFG_NANOJIT)
                     else if (!VMPI_strcmp(arg+2, "nosse")) {
                         settings.njconfig.i386_sse2 = false;
                     }
@@ -694,7 +706,7 @@ namespace avmshell
                         settings.njconfig.i386_fixed_esp = true;
                     }
 #endif /* AVMPLUS_IA32 */
-#if defined(AVMPLUS_ARM) && defined(FEATURE_NANOJIT)
+#if defined(AVMPLUS_ARM) && defined(VMCFG_NANOJIT)
                     else if (!VMPI_strcmp(arg+2, "arm_arch")) {
                         settings.njconfig.arm_arch = (uint8_t)VMPI_strtol(argv[++i], 0, 10);
                     }
@@ -720,8 +732,16 @@ namespace avmshell
                     else if (!VMPI_strcmp(arg+2, "noincgc")) {
                         settings.incremental = false;
                     }
+#ifdef VMCFG_SELECTABLE_EXACT_TRACING
+                    else if (!VMPI_strcmp(arg+2, "noexactgc")) {
+                        settings.exactgc = false;
+                    }
+#endif
                     else if (!VMPI_strcmp(arg+2, "nofixedcheck")) {
                         settings.fixedcheck = false;
+                    }
+                    else if (!VMPI_strcmp(arg+2, "gcthreshold") && i+1 < argc) {
+                        settings.gcthreshold = VMPI_strtol(argv[++i], 0, 10);
                     }
 #if defined(DEBUGGER) && !defined(VMCFG_DEBUGGER_STUB)
                     else if (!VMPI_strcmp(arg+2, "astrace") && i+1 < argc ) {
@@ -781,7 +801,7 @@ namespace avmshell
                         }
                     }
 #endif /* AVMPLUS_VERBOSE */
-#ifdef FEATURE_NANOJIT
+#ifdef VMCFG_NANOJIT
                     else if (!VMPI_strcmp(arg+2, "nocse")) {
                         settings.njconfig.cseopt = false;
                     }
@@ -789,7 +809,7 @@ namespace avmshell
                         settings.runmode = RM_jit_all;
                         settings.jitordie = true;
                     }
-#endif /* FEATURE_NANOJIT */
+#endif /* VMCFG_NANOJIT */
                     else if (!VMPI_strcmp(arg+2, "interp")) {
                         settings.runmode = RM_interp_all;
                     }
@@ -807,11 +827,15 @@ namespace avmshell
                 else if (!VMPI_strcmp(arg, "-cache_methods") && i+1 < argc ) {
                     settings.cacheSizes.methods = (uint16_t)VMPI_strtol(argv[++i], 0, 10);
                 }
-#ifdef FEATURE_NANOJIT
+#ifdef VMCFG_NANOJIT
+                else if (!VMPI_strcmp(arg, "-jitharden")) {
+                    settings.njconfig.harden_nop_insertion = true;
+                    settings.njconfig.harden_function_alignment = true;
+                }
                 else if (!VMPI_strcmp(arg, "-Ojit")) {
                     settings.runmode = RM_jit_all;
                 }
-#endif /* FEATURE_NANOJIT */
+#endif /* VMCFG_NANOJIT */
 #ifdef AVMPLUS_JITMAX
                 else if (!VMPI_strcmp(arg, "-jitmax") && i+1 < argc ) {
                     extern int jitmin;
@@ -848,7 +872,10 @@ namespace avmshell
                 }
 #ifdef MMGC_POLICY_PROFILING
                 else if (!VMPI_strcmp(arg, "-gcbehavior")) {
-                    MMgc::GCHeap::GetGCHeap()->Config().gcbehavior = true;
+                    MMgc::GCHeap::GetGCHeap()->Config().gcbehavior = 2;
+                }
+                else if (!VMPI_strcmp(arg, "-gcsummary")) {
+                    MMgc::GCHeap::GetGCHeap()->Config().gcbehavior = 1;
                 }
 #endif
                 else if (!VMPI_strcmp(arg, "-eagersweep")) {
@@ -986,8 +1013,35 @@ namespace avmshell
                 }
 #endif /* DEBUGGER */
                 else if (!VMPI_strcmp(arg, "-api") && i+1 < argc) {
-                    settings.api = VMPI_atoi(argv[i+1]);
+                    bool badFlag;
+                    settings.api = ApiUtils::parseApiVersion(argv[i+1], badFlag);
+                    if (badFlag)
+                    {
+                        AvmLog("Unknown api version'%s'\n", argv[i+1]);
+                        usage();
+                    }
                     i++;
+                }
+                else if (VMPI_strcmp(arg, "-swfversion") == 0 && i+1 < argc) {
+                    int j = BugCompatibility::VersionCount;
+                    unsigned swfVersion;
+                    int nchar;
+                    const char* val = argv[++i];
+                    if (VMPI_sscanf(val, "%u%n", &swfVersion, &nchar) == 1 && size_t(nchar) == VMPI_strlen(val))
+                    {
+                        for (j = 0; j < BugCompatibility::VersionCount; ++j)
+                        {
+                            if (BugCompatibility::kNames[j] == swfVersion)
+                            {
+                                settings.swfVersion = (BugCompatibility::Version)j;
+                                break;
+                            }
+                        }
+                    }
+                    if (j == BugCompatibility::VersionCount) {
+                        AvmLog("Unrecognized -swfversion version %s\n", val);
+                        usage();
+                    }
                 }
                 else {
                     // Unrecognized command line option
@@ -1017,7 +1071,10 @@ namespace avmshell
 
         if (print_version)
         {
-            AvmLog("shell " AVMPLUS_VERSION_USER " " AVMPLUS_BIN_TYPE " build " AVMPLUS_BUILD_CODE "\n");
+            AvmLog("shell " AVMPLUS_VERSION_USER " " AVMPLUS_BIN_TYPE );
+            if (RUNNING_ON_VALGRIND)
+                AvmLog("-valgrind");
+            AvmLog(" build " AVMPLUS_BUILD_CODE "\n");
             AvmLog("features %s\n", avmfeatures);
             Platform::GetInstance()->exit(1);
         }
@@ -1088,7 +1145,8 @@ namespace avmshell
         AvmLog("          [-eagersweep] sweep the heap synchronously at the end of GC;\n"
                "                        improves usage statistics.\n");
 #ifdef MMGC_POLICY_PROFILING
-        AvmLog("          [-gcbehavior] summarize GC behavior and policy computation\n");
+        AvmLog("          [-gcbehavior] summarize GC behavior and policy, after every gc\n");
+        AvmLog("          [-gcsummary]  summarize GC behavior and policy, at end only\n");
 #endif
         AvmLog("          [-load L,B, ...\n"
                "                        GC load factor L up to a post-GC heap size of B megabytes.\n"
@@ -1103,7 +1161,12 @@ namespace avmshell
         AvmLog("          [-cache_methods  N]   size of method cache (0 = unlimited)\n");
         AvmLog("          [-Dgreedy]    collect before every allocation\n");
         AvmLog("          [-Dnogc]      don't collect\n");
+#ifdef VMCFG_SELECTABLE_EXACT_TRACING
+        AvmLog("          [-Dnoexactgc] disable exact tracing\n");
+#endif
         AvmLog("          [-Dnoincgc]   don't use incremental collection\n");
+        AvmLog("          [-Dnodebugger] do not initialize the debugger (in DEBUGGER builds)\n");
+        AvmLog("          [-Dgcthreshold N] lower bound on allocation budget, in blocks, between collection completions\n");
         AvmLog("          [-Dnofixedcheck]  don't check FixedMalloc deallocations for correctness (sometimes expensive)\n");
 #ifdef DEBUGGER
         AvmLog("          [-Dastrace N] display AS execution information, where N is [1..4]\n");
@@ -1111,23 +1174,34 @@ namespace avmshell
         AvmLog("                        en,de,es,fr,it,ja,ko,zh-CN,zh-TW\n");
 #endif
 #ifdef AVMPLUS_VERBOSE
-        AvmLog("          [-Dverbose[=[parse,verify,interp,traits,builtins,jit,minaddr,memstats,sweep,occupancy,execpolicy]] \n");
+        AvmLog("          [-Dverbose[=[parse,verify,interp,traits,builtins,minaddr,memstats,sweep,occupancy,execpolicy"
+#  ifdef VMCFG_NANOJIT
+               ",jit,opt,regs,raw"
+#  endif
+               "]]\n");
         AvmLog("                        With no options, enables extreme! output mode.  Otherwise the\n");
         AvmLog("                        options are mostly self-descriptive except for the following: \n");
         AvmLog("                           builtins - includes output from builtin methods\n");
-        AvmLog("                           minaddr - [jit] minimize intstruction address output\n");
         AvmLog("                           memstats - generate statistics on memory usage \n");
         AvmLog("                           sweep - [memstats] include detailed sweep information \n");
         AvmLog("                           occupancy - [memstats] include occupancy bit graph \n");
         AvmLog("                           execpolicy - shows which execution method (interpretation, compilation) was chosen and why \n");
+#  ifdef VMCFG_NANOJIT
+        AvmLog("                           jit - output LIR as it is generated, and final assembly code\n");
+        AvmLog("                           opt - [jit] show details about each optimization pass\n");
+        AvmLog("                           regs - [jit] show register allocation state after each assembly instruction\n");
+        AvmLog("                           raw - [jit] assembly code is displayed in raw (i.e unbuffered bottom-up) fashion. \n");
+#  endif
+
         AvmLog("                        Note that ordering matters for options with dependencies.  Dependencies \n");
-        AvmLog("                        are contained in [ ] For example, 'minaddr' requires 'jit' \n");
+        AvmLog("                        are contained in [ ] For example, 'sweep' requires 'memstats' \n");
 #endif
-#ifdef FEATURE_NANOJIT
+#ifdef VMCFG_NANOJIT
         AvmLog("          [-Dinterp]    do not generate machine code, interpret instead\n");
         AvmLog("          [-Ojit]       use jit always, never interp (except when the jit fails)\n");
         AvmLog("          [-Djitordie]  use jit always, and abort when the jit fails\n");
         AvmLog("          [-Dnocse]     disable CSE optimization \n");
+        AvmLog("          [-jitharden]  enable jit hardening techniques\n");
     #ifdef AVMPLUS_IA32
         AvmLog("          [-Dnosse]     use FPU stack instead of SSE2 instructions\n");
         AvmLog("          [-Dfixedesp]  pre-decrement stack for all needed call usage upon method entry\n");
@@ -1166,6 +1240,14 @@ namespace avmshell
         AvmLog("                        workers than threads, and at least two threads.\n");
         AvmLog("                        If R > 0 is provided then it is the number of times the list of files is repeated.\n");
 #endif
+        AvmLog("          [-swfversion version]\n");
+        AvmLog("                        Run with a given bug-compatibility version in use by default.\n");
+        AvmLog("                        (This can be overridden on a per-ABC basis by embedded metadata.)\n");
+        AvmLog("                        Legal versions are:\n");
+        for (int j = 0; j < BugCompatibility::VersionCount; ++j)
+        {
+        AvmLog("                            %d\n",BugCompatibility::kNames[j]);
+        }
         AvmLog("          [-log]\n");
         AvmLog("          [-api N] execute ABCs as version N (see api-versions.h)\n");
         AvmLog("          [-jargs ... ;] args passed to Java runtime\n");

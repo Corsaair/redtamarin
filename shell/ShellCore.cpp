@@ -40,7 +40,6 @@
 #include "avmshell.h"
 
 #include "shell_toplevel.cpp"
-#include "api-versions.h"       // Really a cpp file
 
 namespace avmshell
 {
@@ -60,25 +59,28 @@ namespace avmshell
         , greedy(false)
         , nogc(false)
         , incremental(true)
+        , exactgc(true)
         , fixedcheck(true)
+        , gcthreshold(0)
         , langID(-1)
         , jitordie(AvmCore::jitordie_default)
         , runmode(AvmCore::runmode_default)
-#ifdef FEATURE_NANOJIT
+#ifdef VMCFG_NANOJIT
         , njconfig()
 #endif
         , st_component(NULL)
         , st_category(NULL)
         , st_name(NULL)
-        , api(0xffffffff)
+        , api(kApiVersion_default)
+        , swfVersion(BugCompatibility::kLatest)
     {
     }
 
     ShellToplevel::ShellToplevel(AbcEnv* abcEnv) : Toplevel(abcEnv)
     {
-        shellClasses = (ClassClosure**) core()->GetGC()->Calloc(avmplus::NativeID::shell_toplevel_abc_class_count,
-                                                                sizeof(ClassClosure*),
-                                                                MMgc::GC::kZero | MMgc::GC::kContainsPointers);
+        shellClasses = ExactHeapList< RCList<ClassClosure> >::create(core()->gc, avmplus::NativeID::shell_toplevel_abc_class_count);
+        if (avmplus::NativeID::shell_toplevel_abc_class_count > 0)
+            shellClasses->list.set(avmplus::NativeID::shell_toplevel_abc_class_count-1, 0);
     }
 
     ShellCore::ShellCore(MMgc::GC* gc)
@@ -91,15 +93,9 @@ namespace avmshell
 
         allowDebugger = -1; // aka "not yet set"
 
-        consoleOutputStream = new (gc) ConsoleOutputStream();
+        consoleOutputStream = new (gc) ConsoleOutputStream(gc);
 
         setConsoleStream(consoleOutputStream);
-
-        setAPIInfo(_min_version_num,
-                   _max_version_num-_min_version_num+1,
-                   _uris_count,
-                   (const char**) _uris,
-                   (int32_t*) _api_compat);
     }
 
     void ShellCore::stackOverflow(Toplevel* toplevel)
@@ -160,6 +156,7 @@ namespace avmshell
 
     void ShellCore::initShellPool()
     {
+        shell_domain = Domain::newDomain(this, builtinDomain);
 #ifdef VMCFG_AOT
         NativeInitializer shellNInit(this,
             &shell_toplevel_aotInfo,
@@ -167,30 +164,38 @@ namespace avmshell
             avmplus::NativeID::shell_toplevel_abc_class_count);
         shellNInit.fillInClasses(avmplus::NativeID::shell_toplevel_classEntries);
         shellNInit.fillInMethods(avmplus::NativeID::shell_toplevel_methodEntries);
-        shellPool = shellNInit.parseBuiltinABC(builtinDomain);
+        shellPool = shellNInit.parseBuiltinABC(shell_domain);
 #else
-        shellPool = AVM_INIT_BUILTIN_ABC(shell_toplevel, this);
+        shellPool = AVM_INIT_BUILTIN_ABC_IN_DOMAIN(shell_toplevel, this, shell_domain);
 #endif
     }
 
-    Toplevel* ShellCore::initShellBuiltins()
+    ShellToplevel* ShellCore::createShellToplevel()
     {
         // Initialize a new Toplevel.  This will also create a new
         // DomainEnv based on the builtinDomain.
-        Toplevel* toplevel = initTopLevel();
+        ShellToplevel* shell_toplevel = (ShellToplevel*)initToplevel();
+
+        DomainEnv* builtinDomainEnv = shell_toplevel->domainEnv();
+        AvmAssert(builtinDomainEnv->domain() == builtinDomain);
+        AvmAssert(builtinDomainEnv->base() == NULL);
+
+        shell_domainEnv = DomainEnv::newDomainEnv(this, shell_domain, builtinDomainEnv);
 
         // Initialize the shell builtins in the new Toplevel
-        handleActionPool(shellPool,
-                         toplevel->domainEnv(),
-                         toplevel,
-                         NULL);
+        // use the same bugCompatibility that the base builtins use
+        const BugCompatibility* shell_bugCompatibility = shell_toplevel->abcEnv()->codeContext()->bugCompatibility();
+        ShellCodeContext* shell_codeContext = new(GetGC()) ShellCodeContext(shell_domainEnv, shell_bugCompatibility);
 
-        return toplevel;
+        //handleActionPool(shellPool, shell_toplevel, shell_codeContext);
+        shell_toplevel->shellEntryPoint = prepareActionPool(shellPool, shell_toplevel, shell_codeContext);
+
+        return shell_toplevel;
     }
 
-    Toplevel* ShellCore::createToplevel(AbcEnv* abcEnv)
+    /*virtual*/ Toplevel* ShellCore::createToplevel(AbcEnv* abcEnv)
     {
-        return new (GetGC()) ShellToplevel(abcEnv);
+        return ShellToplevel::create(GetGC(), abcEnv);
     }
 
 #ifdef VMCFG_EVAL
@@ -250,9 +255,6 @@ namespace avmshell
     {
         setStackLimit();
 
-        ShellCodeContext* codeContext = new (GetGC()) ShellCodeContext();
-        codeContext->m_domainEnv = shell_domainEnv;
-
         TRY(this, kCatchAction_ReportAsError)
         {
             // Always Latin-1 here
@@ -261,7 +263,7 @@ namespace avmshell
             if (record_time)
                 then = VMPI_getDate();
             uint32_t api = this->getAPI(NULL);
-            Atom result = handleActionSource(input, NULL, shell_domainEnv, shell_toplevel, NULL, codeContext, api);
+            Atom result = handleActionSource(input, /*filename*/NULL, shell_toplevel, /*ninit*/NULL, user_codeContext, api);
             if (record_time)
                 now = VMPI_getDate();
             if (result != undefinedAtom)
@@ -344,41 +346,34 @@ namespace avmshell
     }
 #endif
 
-    bool ShellCore::setup(ShellCoreSettings& settings)
+    bool ShellCore::setup(const ShellCoreSettings& settings)
     {
+#ifdef VMCFG_AOT
+        if(nAOTInfos == 0) {
+            console << "To run an AOT enabled avmshell you must link in some AOT compiled ABC blocks.\n";
+            return false;
+        }
+#endif
+
         // set the default api version
-        if (settings.api <= _max_version_num) {
-            this->defaultAPIVersion = settings.api;
-        }
-        else {
-            // if there is at least on versioned uri, then there must be a version matrix
-            if (_uris_count > 0) {
-                // Last api of any row is largestApiUtils::getLargestVersion(this);
-                // Using the largest API is really not ideal, because it means AIR_SYS / FP_SYS
-                // are open to random ABC code in the shell.  We don't want that normally.
-                // Instead use the largest nonsys value as computed by the preprocessor.
-                //this->defaultAPIVersion = ((uint32_t*)_versions)[_versions_count[0]-1];
-                this->defaultAPIVersion = _max_nonsys_version_num;
-            }
-            else {
-                this->defaultAPIVersion = 0;
-            }
-        }
-        //console << "defaultAPIVersion=" << defaultAPIVersion;
+        this->defaultAPIVersion = settings.api;
         this->setActiveAPI(ApiUtils::toAPI(this, this->defaultAPIVersion));
+
+        this->defaultBugCompatibilityVersion = settings.swfVersion;
+        this->bugzilla444630 = (this->defaultBugCompatibilityVersion >= BugCompatibility::kSWF10);
 
         // This is obscure but well-defined: the clearing of this flag is allowed
         // at any time, see comment for checkFixedMemory in GCHeap.h.
         if (!settings.fixedcheck)
-            GCHeap::GetGCHeap()->Config().clearCheckFixedMemory();
-        
+            MMgc::GCHeap::GetGCHeap()->Config().clearCheckFixedMemory();
+
         config.interrupts = settings.interrupts;
 #ifdef VMCFG_VERIFYALL
         config.verifyall = settings.verifyall;
         config.verifyonly = settings.verifyonly;
 #endif
         config.jitordie = settings.jitordie;
-#if defined FEATURE_NANOJIT
+#ifdef VMCFG_NANOJIT
         config.njconfig = settings.njconfig;
 #endif
 
@@ -413,7 +408,6 @@ namespace avmshell
 
             SystemClass::user_argc = settings.numargs;
             SystemClass::user_argv = settings.arguments;
-            SystemClass::exec_path = settings.executablePath;
 
 #ifdef DEBUGGER
             initBuiltinPool((avmplus::Debugger::TraceLevel)settings.astrace_console);
@@ -423,13 +417,13 @@ namespace avmshell
             initShellPool();
 
             // init toplevel internally
-            shell_toplevel = initShellBuiltins();
+            shell_toplevel = createShellToplevel();
 
-            // Create a new Domain for the user code
-            shell_domain = new (GetGC()) Domain(this, builtinDomain);
-
-            // Return a new DomainEnv for the user code
-            shell_domainEnv = new (GetGC()) DomainEnv(this, shell_domain, shell_toplevel->domainEnv());
+            // Create a new Domain/DomainEnv for the user code
+            Domain* user_domain = Domain::newDomain(this, shell_domain);
+            DomainEnv* user_domainEnv = DomainEnv::newDomainEnv(this, user_domain, shell_domainEnv);
+            const BugCompatibility* user_bugCompatibility = createBugCompatibility(defaultBugCompatibilityVersion);
+            this->user_codeContext = new (GetGC()) ShellCodeContext(user_domainEnv, user_bugCompatibility);
 
 #ifdef AVMPLUS_VERBOSE
             config.verbose_vb = settings.do_verbose;  // builtins is done, so propagate verbose
@@ -509,12 +503,9 @@ namespace avmshell
 
         TRY(this, kCatchAction_ReportAsError)
         {
-            ShellCodeContext* codeContext = new (GetGC()) ShellCodeContext();
-            codeContext->m_domainEnv = shell_domainEnv;
-
 #ifdef VMCFG_AOT
             if (filename == NULL) {
-                handleAOT(this, shell_domain, shell_domainEnv, shell_toplevel, codeContext);
+                handleAOT(shell_toplevel, user_codeContext);
             } else
 #endif
             if (AbcParser::canParse(code) == 0) {
@@ -522,15 +513,16 @@ namespace avmshell
                 if (config.verbose_vb & VB_verify)
                     console << "ABC " << filename << "\n";
                 #endif
+
                 uint32_t api = this->getAPI(NULL);
-                handleActionBlock(code, 0, shell_domainEnv, shell_toplevel, NULL, codeContext, api);
+                handleActionBlock(code, 0, shell_toplevel, NULL, user_codeContext, api);
             }
             else if (isSwf(code)) {
                 #ifdef VMCFG_VERIFYALL
                 if (config.verbose_vb & VB_verify)
                     console << "SWF " << filename << "\n";
                 #endif
-                handleSwf(filename, code, shell_domainEnv, shell_toplevel, codeContext);
+                handleSwf(filename, code, shell_toplevel, user_codeContext);
             }
             else {
 #ifdef VMCFG_EVAL
@@ -542,7 +534,7 @@ namespace avmshell
                     ScriptBuffer empty;     // With luck: allow the
                     code = empty;           //    buffer to be garbage collected
                     uint32_t api = this->getAPI(NULL);
-                    handleActionSource(code_string, filename_string, shell_domainEnv, shell_toplevel, NULL, codeContext, api);
+                    handleActionSource(code_string, filename_string, shell_toplevel, NULL, user_codeContext, api);
                 }
 #else
                 console << "unknown input format in file: " << filename << "\n";

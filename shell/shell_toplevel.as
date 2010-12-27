@@ -39,14 +39,17 @@
 
 package avmplus
 {
-    import flash.utils.ByteArray;
+    import flash.utils.ByteArray
     
-    [native(cls="::avmshell::SystemClass", methods="auto")]
+    [native(cls="::avmshell::SystemClass", classgc="exact", methods="auto")]
     public class System
     {
         public native static function exit(status:int):void
         public native static function exec(command:String):int
+
         public native static function getAvmplusVersion():String
+        public native static function getFeatures():String
+        public native static function getRunmode():String
         public native static function trace(a:Array):void
         public native static function write(s:String):void
         public native static function debugger():void
@@ -54,8 +57,6 @@ package avmplus
         public native static function getTimer():uint
         private native static function getArgv():Array
         public static const argv:Array = getArgv();
-        private native static function getExecPath():String;
-        public static const executablePath:String = getExecPath();
         public native static function readLine():String;
 
         // Amount of real memory we've aqcuired from the OS
@@ -72,26 +73,25 @@ package avmplus
 
         // Queue a garbage collection request.
         public native static function queueCollection():void;
+
+        // return the value passed to -swfversion at launch (or the default value, if -swfversion was not specified)
+        public native static function get swfVersion():int;
+
+        // return the value passed to -api at launch (or the default value, if -api was not specified)
+        public native static function get apiVersion():int;
+
+        public native static function disposeXML(xml:XML):void;
     }
 
     [native(cls="::avmshell::FileClass", methods="auto")]
     public class File
     {
-        public native static function exists( filename:String ):Boolean;
-        public native static function read( filename:String ):String;
-        public native static function write( filename:String, data:String ):void;
+        public native static function exists(filename:String):Boolean;
+        public native static function read(filename:String):String;
+        public native static function write(filename:String, data:String):void;
 
-        public static function fileToByteArray( filename:String, readOnly:Boolean ):ByteArray
-        {
-            return ByteArray.readFile(filename);
-        }
-
-        public static function writeByteArray( filename:String, bytes:ByteArray ):Boolean
-        {
-            bytes.writeFile(filename);
-            return true;
-        }
-
+        public native static function readByteArray(filename:String):ByteArray;
+        public native static function writeByteArray(filename:String, bytes:ByteArray):Boolean;
     }
 
     public function debugger()
@@ -99,7 +99,6 @@ package avmplus
         System.debugger()
     }
 }
-
 
 // The flash.system package is present so identical ATS test media can be used
 // in the command-line VM and the Player
@@ -121,19 +120,19 @@ package
 
     public function getClassByName( name:String ):Class
     {
-        return Domain.currentDomain.getClass( name );
+        return Domain.currentDomain.getClass( name) ;
     }
 
     // nonstandard extensions to ECMAScript
-    public function print( ...s ):void
+    public function print( ...s )
     {
-        System.trace( s );
+        System.trace( s )
     }
 
     // nonstandard Flash Player extensions
-    public function trace( ...s ):void
+    public function trace( ...s )
     {
-        System.trace( s );
+        System.trace( s )
     }
 
     public function getTimer():uint
@@ -146,4 +145,15 @@ package
         return System.readLine();
     }
 }
+
+// test library code
+
+/*
+ tests
+ - unversioned names: are in all versions, as though version 0
+ - versioned names: are not visible to smaller versions (bindings, not number)
+ - multiple versioned names: are visible to all compatible versions
+ - class, interface, method, accessor, slot, static names
+ - running multiple active versions
+*/
 
