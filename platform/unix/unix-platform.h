@@ -56,7 +56,6 @@
 #define VMPI_strncpy        ::strncpy
 #define VMPI_strtol         ::strtol
 #define VMPI_strstr         ::strstr
-#define VMPI_strerror       ::strerror
 
 #define VMPI_sprintf        ::sprintf
 #define VMPI_snprintf       ::snprintf
@@ -79,15 +78,6 @@
 #define VMPI_isalpha ::isalpha
 #define VMPI_abort   ::abort
 #define VMPI_exit    ::exit
-
-#define VMPI_access         ::access
-#define VMPI_getcwd         ::getcwd
-#define VMPI_gethostname    ::gethostname
-#define VMPI_rmdir          ::rmdir
-
-#define VMPI_remove    ::remove
-#define VMPI_rename    ::rename
-
 
 // Note: the linux #define provided by the compiler.
 
@@ -130,23 +120,27 @@
 
 #include <sys/mman.h>
 #include <sys/time.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <errno.h>
 #include <stdlib.h>
 
 #include <unistd.h>
-#include <dirent.h>
 #include <pthread.h>
 #include <signal.h>
 
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <netdb.h>
+typedef pthread_t vmpi_thread_t;
+
+#ifdef ANDROID
+#define USE_CUTILS_ATOMICS FALSE
+#if USE_CUTILS_ATOMICS
+#include <cutils/atomic.h>
+#else
+#include <sys/atomics.h>
+#endif
+#endif
 
 #ifdef SOLARIS
  #include <alloca.h>
+ #include <atomic.h>
 typedef caddr_t maddr_ptr;
 #else
 typedef void *maddr_ptr;
@@ -315,5 +309,250 @@ REALLY_INLINE bool VMPI_lockTestAndAcquire(vmpi_spin_lock_t *lock)
 }
 
 #endif
+
+#ifdef ANDROID
+// Nov' 2010.
+// There is some confusion as to which atomics API
+// to use for Android. (See bug 609809).
+// The sys/atomics.h implementation, as of Nov' 2010,
+// apparently does not include memory barriers, so it is
+// not suitable for multi-core. The cutils/atomic.h
+// implementation is dynamically linked and will feature
+// barriers when necessary, but its current implementation is
+// anecdotally the same as sys/atomics.h.
+//
+// For now, the sys/atomics.h implementation is used as it is
+// already being used in the player.
+//
+// Note that on single-core devices, memory barriers are
+// no-ops on all architectures that we support, so the
+// VMPI_memoryBarrier() and VMPI_*WithBarrier functions
+// fulfill their documented API.
+//
+// Linking with sys/atomics.h causes linker warnings such as:
+// "warning: type and size of dynamic symbol `__atomic_inc'
+// are not defined". These also occur in player builds and are
+// currently ignored.
+#if USE_CUTILS_ATOMICS
+
+REALLY_INLINE int32_t VMPI_atomicIncAndGet32WithBarrier(volatile int32_t* value)
+{
+    return android_atomic_inc(value) - 1;
+}
+
+REALLY_INLINE int32_t VMPI_atomicIncAndGet32(volatile int32_t* value)
+{
+    return VMPI_atomicIncAndGet32WithBarrier(value);
+}
+
+REALLY_INLINE int32_t VMPI_atomicDecAndGet32WithBarrier(volatile int32_t* value)
+{
+    return android_atomic_dec(value) + 1;
+}
+
+REALLY_INLINE int32_t VMPI_atomicDecAndGet32(volatile int32_t* value)
+{
+    return VMPI_atomicDecAndGet32WithBarrier(value);
+}
+
+REALLY_INLINE bool VMPI_compareAndSwap32WithBarrier(int32_t oldValue, int32_t newValue, volatile int32_t* address)
+{
+    return android_atomic_cmpxchg(oldValue, newValue, address) == 0;
+}
+
+REALLY_INLINE bool VMPI_compareAndSwap32(int32_t oldValue, int32_t newValue, volatile int32_t* address)
+{
+    return VMPI_compareAndSwap32WithBarrier(oldValue, newValue, address);
+}
+
+REALLY_INLINE void VMPI_memoryBarrier()
+{
+    // No memory barrier native API
+    volatile int32_t dummy;
+    VMPI_compareAndSwap32WithBarrier(0, 1, &dummy);
+}
+
+#else // USE_CUTILS_ATOMICS
+
+REALLY_INLINE int32_t VMPI_atomicIncAndGet32WithBarrier(volatile int32_t* value)
+{
+    return __atomic_inc((volatile int*)value) - 1;
+}
+
+REALLY_INLINE int32_t VMPI_atomicIncAndGet32(volatile int32_t* value)
+{
+    return VMPI_atomicIncAndGet32WithBarrier(value);
+}
+
+REALLY_INLINE int32_t VMPI_atomicDecAndGet32WithBarrier(volatile int32_t* value)
+{
+    return __atomic_dec((volatile int*)value) - 1;
+}
+
+REALLY_INLINE int32_t VMPI_atomicDecAndGet32(volatile int32_t* value)
+{
+    return VMPI_atomicDecAndGet32WithBarrier(value);
+}
+
+REALLY_INLINE bool VMPI_compareAndSwap32WithBarrier(int32_t oldValue, int32_t newValue, volatile int32_t* address)
+{
+    return __atomic_cmpxchg((int)oldValue, (int)newValue, (volatile int*)address) == 0;
+}
+
+REALLY_INLINE bool VMPI_compareAndSwap32(int32_t oldValue, int32_t newValue, volatile int32_t* address)
+{
+    return VMPI_compareAndSwap32WithBarrier(oldValue, newValue, address);
+}
+
+REALLY_INLINE void VMPI_memoryBarrier()
+{
+    // No memory barrier native API
+    volatile int32_t dummy;
+    VMPI_compareAndSwap32WithBarrier(0, 1, &dummy);
+}
+
+#endif // USE_CUTILS_ATOMICS
+
+#elif defined(AVMSYSTEM_ARM)
+//FIXME: bug 609810 VMPI atomic primitives for ARM require inline-asm implementations
+#define EMULATE_ATOMICS_WITH_PTHREAD_MUTEX
+
+#else
+
+#if !defined(SOLARIS)
+    #if defined(__GNUC__) && defined(__GNUC_MINOR__) && (__GNUC__ >= 4)
+        #if (__GNUC_MINOR__ >= 1) // _GLIBCXX_ATOMIC_BUILTINS_4 was added after the intrinsic was available
+            #define HAS_RELIABLE_GCC_ATOMICS
+        #endif
+        #if (__GNUC_MINOR__ >= 4) || ((__GNUC_MINOR__ >= 1) && !defined(AVMPLUS_AMD64))
+            #define HAS_RELIABLE_GCC_MEMBAR
+        #endif
+    #endif
+#endif
+
+REALLY_INLINE int32_t VMPI_atomicIncAndGet32WithBarrier(volatile int32_t* value)
+{
+#if defined(SOLARIS)
+    int32_t result = atomic_inc_32_nv((volatile uint32_t*)value);
+    membar_producer();
+    membar_consumer();
+    return result;
+#elif defined(__GNUC__)
+    #if defined(AVMPLUS_IA32) || defined(AVMPLUS_AMD64)
+        #if defined(HAS_RELIABLE_GCC_ATOMICS)
+            return __sync_add_and_fetch(value, 1); // This requires -march=i486 or better
+        #else
+            register int32_t result;
+            __asm__ __volatile__("lock; xaddl %0, %1" : "=r" (result), "=m" (*value) : "0" (1), "m" (*value) : "memory");
+            return result + 1;
+        #endif
+    #else
+        #error "Unsupported arch for GCC/Unix"
+    #endif
+#else
+    #error "Unsupported compiler/Unix variant"
+#endif
+    return 0; // pedantic GCC
+}
+
+REALLY_INLINE int32_t VMPI_atomicIncAndGet32(volatile int32_t* value)
+{
+#if defined(SOLARIS)
+    return atomic_inc_32_nv((volatile uint32_t*)value);
+#else
+    // No barrier-less version implemented
+    return VMPI_atomicIncAndGet32WithBarrier(value);
+#endif
+}
+
+REALLY_INLINE int32_t VMPI_atomicDecAndGet32WithBarrier(volatile int32_t* value)
+{
+#if defined(SOLARIS)
+    int32_t result = atomic_dec_32_nv((volatile uint32_t*)value);
+    membar_producer();
+    membar_consumer();
+    return result;
+#elif defined(__GNUC__)
+    #if defined(AVMPLUS_IA32) || defined(AVMPLUS_AMD64)
+        #if defined(HAS_RELIABLE_GCC_ATOMICS)
+            return __sync_sub_and_fetch(value, 1); // This requires -march=i486 or better
+        #else
+            register int32_t result;
+            __asm__ __volatile__("lock; xaddl %0, %1" : "=r" (result), "=m" (*value) : "0" (-1), "m" (*value) : "memory");
+            return result - 1;
+        #endif
+    #else
+        #error "Unsupported arch for GCC/Unix"
+    #endif
+#else
+    #error "Unsupported compiler/Unix variant"
+#endif
+    return 0; // pedantic GCC
+}
+
+REALLY_INLINE int32_t VMPI_atomicDecAndGet32(volatile int32_t* value)
+{
+#if defined(SOLARIS)
+    return atomic_dec_32_nv((volatile uint32_t*)value);
+#else
+    // No barrier-less version implemented
+    return VMPI_atomicDecAndGet32WithBarrier(value);
+#endif
+}
+
+REALLY_INLINE bool VMPI_compareAndSwap32WithBarrier(int32_t oldValue, int32_t newValue, volatile int32_t* address)
+{
+#if defined(SOLARIS)
+    bool result = atomic_cas_32((volatile uint32_t*)address, (uint32_t)oldValue, (uint32_t)newValue) == (uint32_t)oldValue;
+    membar_producer();
+    membar_consumer();
+    return result;
+#elif defined(__GNUC__)
+    #if defined(AVMPLUS_IA32) || defined(AVMPLUS_AMD64)
+        #if defined(HAS_RELIABLE_GCC_ATOMICS)
+            return __sync_bool_compare_and_swap(address, oldValue, newValue); // This requires -march=i486 or better
+        #else
+            int32_t currentValue;
+            __asm__ __volatile__("lock cmpxchgl %4, %0" : "=m" (*address), "=a" (currentValue) : "m" (*address), "1" (oldValue), "r" (newValue) : "memory");
+            return oldValue == currentValue;
+        #endif
+    #else
+        #error "Unsupported arch for GCC/Unix"
+    #endif
+#else
+    #error "Unsupported compiler/Unix variant"
+#endif
+    return 0; // pedantic GCC
+}
+
+REALLY_INLINE bool VMPI_compareAndSwap32(int32_t oldValue, int32_t newValue, volatile int32_t* address)
+{
+#if defined(SOLARIS)
+    return atomic_cas_32((volatile uint32_t*)address, (uint32_t)oldValue, (uint32_t)newValue) == (uint32_t)oldValue;
+#else
+    // No barrier-less version implemented
+    return VMPI_compareAndSwap32WithBarrier(oldValue, newValue, address);
+#endif
+}
+
+REALLY_INLINE void VMPI_memoryBarrier()
+{
+#if defined(SOLARIS)
+    membar_producer();
+    membar_consumer();
+#elif defined(__GNUC__)
+    #if defined(HAS_RELIABLE_GCC_MEMBAR)
+        __sync_synchronize();  // This requires -march=i486 or better
+    #else
+        volatile int32_t dummy;
+        VMPI_atomicIncAndGet32WithBarrier(&dummy);
+    #endif
+#else
+    #error "Unsupported compiler/Unix variant"
+#endif
+}
+#endif
+
+#include "../VMPI/ThreadsPosix-inlines.h"
 
 #endif // __avmplus_unix_platform__

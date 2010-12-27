@@ -39,7 +39,7 @@
 
 #include "avmplus.h"
 
-#ifdef FEATURE_NANOJIT
+#ifdef VMCFG_NANOJIT
 
 #if defined(AVMPLUS_IA32)
 
@@ -105,4 +105,4 @@ bool P4Available()
 
 #endif
 
-#endif // FEATURE_NANOJIT
+#endif // VMCFG_NANOJIT
