@@ -94,7 +94,11 @@ bool VMPI_canCommitAlreadyCommittedMemory()
 
 bool VMPI_areNewPagesDirty()
 {
+#ifdef MMGC_POISON_MEMORY_FROM_OS
+    return true;
+#else
     return false;
+#endif
 }
 
 static int get_major_version()
@@ -158,6 +162,10 @@ bool VMPI_commitMemory(void* address, size_t size)
                             PROT_READ | PROT_WRITE,
                             MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED,
                             get_mmap_fdes(0), 0);
+#ifdef MMGC_POISON_MEMORY_FROM_OS
+    if(got == address)
+        memset(got, MMgc::GCHeap::FXFreshPoison, size);
+#endif
     return (got == address);
 }
 
@@ -174,7 +182,12 @@ bool VMPI_decommitMemory(char *address, size_t size)
 
 void* VMPI_allocateAlignedMemory(size_t size)
 {
-    return valloc(size);
+    void *addr = valloc(size);
+#ifdef MMGC_POISON_MEMORY_FROM_OS
+    GCAssert(size % VMPI_getVMPageSize() == 0);
+    memset(addr, MMgc::GCHeap::FXFreshPoison, size);
+#endif
+    return addr;
 }
 
 void VMPI_releaseAlignedMemory(void* address)
@@ -353,214 +366,53 @@ bool VMPI_captureStackTrace(uintptr_t* buffer, size_t bufferSize, uint32_t skip)
 }
 #endif
 
-pid_t gdb_pid = -1; //process id for child process executing gdb
-#define IS_GDB_RUNNING  (gdb_pid > 0) //macro to check whether gdb was launched successfully during setup
+static FILE* atos_file = NULL;
 
-//FILE handles to read/write to/from gdb process
-FILE* read_handle = NULL;
-FILE* write_handle = NULL;
-
-bool startGDBProcess()
+bool startATOSProcess()
 {
-    int pipe1[2];   //pipe to send data from parent to child
-    int pipe2[2];   //pipe to send data from child to parent
-
-    bool pipe2_open = false;
-    char buf[128];
-    char pathBuffer[PATH_MAX];
-    uint32_t pathSize = PATH_MAX;
-
-    bool pipe1_open = pipe(pipe1) >= 0;
-    if(!pipe1_open)
-    {
-        goto exit_cleanly;
-    }
-
-    pipe2_open = pipe(pipe2) >= 0;
-    if(!pipe2_open)
-    {
-        goto exit_cleanly;
-    }
-
-    _NSGetExecutablePath(pathBuffer, &pathSize);
-
-    //fork a child process to launch gdb
-    if((gdb_pid = fork()) == -1)
-    {
-        goto exit_cleanly;
-    }
-
-    if(gdb_pid == 0) //child process - for gdb
-    {
-        //close unused pipe ends for child process
-        close(pipe1[1]);
-        close(pipe2[0]);
-
-        dup2(pipe1[0], 0); //tie pipe1's read end to stdin
-        dup2(pipe2[1], 1); //tie pipe2's write end to stdout
-
-        //close duped pipe ends
-        close(pipe1[0]);
-        close(pipe2[1]);
-
-        //Launch gdb
-        execlp("gdb", pathBuffer, (char*)0);
-
-        exit(0); //exit child process
-    }
-
-    //parent process
-
-    //close unused pipe ends for parent process
-    close(pipe1[0]);
-    close(pipe2[1]);
-
-    //get FILE* handles
-    read_handle = fdopen(pipe2[0], "r");
-    write_handle = fdopen(pipe1[1], "w");
-
-
-    if(!read_handle || !write_handle)
-        goto exit_cleanly;
-
-    {
-        //make read non-blocking temporarily
-        //to read gdb output during startup
-        fcntl(pipe2[0], F_SETFL, O_NONBLOCK);
-
-        do
-        {
-            if(!fgets(buf, sizeof(buf), read_handle))
-            {
-                //check if gdb is still starting
-                if(errno != EAGAIN)
-                    goto exit_cleanly;
-            }
-            else if(strstr(buf, "(gdb)")) //check if we got the prompt
-            {
-                break;
-            }
-        }while(1);
-
-        //this is basically a hack
-        //for some reason launching gdb with app name "gdb <pathBuffer>" (see execlp call above)
-        //is not proving sufficient for address resolution.  gdb always returns "No symbols matches ..."
-        //Issuing the "file <pathBuffer>" forces gdb to read the symbol table which seems to work
-        fprintf(write_handle, "file '%s'\n", pathBuffer);
-        fflush(write_handle);
-
-        //revert read to be blocking
-        int flags = fcntl(pipe2[0], F_GETFL);
-        fcntl(pipe2[0], F_SETFL, flags & ~O_NONBLOCK);
-    }
-
-    return true;
-
-exit_cleanly:
-    //error occurred, cleanup
-
-    //kill gdb process if started
-    if(IS_GDB_RUNNING)
-    {
-        kill(gdb_pid, SIGABRT); //send a termination signal to
-        gdb_pid = -1;
-    }
-
-    if(pipe1_open)
-    {
-        close(pipe1[0]);
-        close(pipe1[1]);
-    }
-
-    if(pipe2_open)
-    {
-        close(pipe2[0]);
-        close(pipe2[1]);
-    }
-
-    if(read_handle)
-    {
-        fclose(read_handle);
-        read_handle = NULL;
-    }
-
-    if(write_handle)
-    {
-        fclose(write_handle);
-        write_handle = NULL;
-    }
-
-    return false;
+    char cmd[PATH_MAX];
+    VMPI_snprintf(cmd, sizeof(cmd), "atos -p %d 2> /dev/null", getpid());
+    // thank you very much http://boinc.berkeley.edu/svn/trunk/boinc/lib/mac/mac_backtrace.cpp
+    // thank you very little Apple!
+    // this is required for bi-directional I/O to work
+    setenv("NSUnbufferedIO", "YES", 1);
+    atos_file = popen(cmd, "r+");
+    setlinebuf(atos_file);
+    return atos_file != NULL;
 }
 
-void VMPI_setupPCResolution() { }
+void VMPI_setupPCResolution()
+{
+    //attempt launch of atos for the first time
+    //if it fails for some reason we never reattempt it
+    // silence occasional errors from atos
+    //    startATOSProcess();
+}
 
 void VMPI_desetupPCResolution()
 {
-    if(IS_GDB_RUNNING)
+    if(atos_file != NULL)
     {
-        kill(gdb_pid, SIGABRT); //send a termination signal to
-        gdb_pid = -1;
-
-        //close file streams
-        fclose(read_handle);
-        fclose(write_handle);
-
-        read_handle = write_handle = NULL;
+        pclose(atos_file);
+        atos_file = NULL;
     }
 }
 
 bool VMPI_getFunctionNameFromPC(uintptr_t pc, char *buffer, size_t bufferSize)
 {
-#if 0
-    static bool isFirstCall = false;
+    if(atos_file == NULL)
+        return false;
 
-    //attempt launch of gdb for the first time
-    //if it fails for some reason we never reattempt it
-    if(!isFirstCall)
-    {
-        startGDBProcess();
-        isFirstCall = true;
+    fprintf( atos_file, "%p\n",  (void*)pc);
+    if(!fgets( buffer, bufferSize, atos_file))
+        return false;
+
+    char *eol = strchr(buffer, '\n');
+    if(eol) {
+        *eol = '\0';
     }
 
-    if(IS_GDB_RUNNING)
-    {
-        char buf[512];
-        VMPI_snprintf(buf, sizeof(buf), "info symbol %p\n", (void*)pc);
-
-        fprintf(write_handle, buf);
-        fflush(write_handle); //flush to ensure gdb receives the data
-
-        //blocking read
-        if(!fgets(buf, sizeof(buf), read_handle))
-        {
-            return false;
-        }
-        else if(strstr(buf, "(gdb)")) //look for gdb prompt to correctly parse the info we are looking for
-        {
-            //extract the function name from gdb output
-
-            //skip over gdb prompt
-            char* b = strstr(buf, "(gdb)");
-            b  = b ? (b + sizeof("(gdb)")) : buf;
-
-            //look for '+' following the method name
-            char* pos = strchr(b, '+');
-            if(pos)
-            {
-                *pos = '\0';
-                snprintf(buffer, bufferSize, "%s", b);
-                return true;
-            }
-        }
-    }
-#else
-    (void)pc;
-    (void)buffer;
-    (void)bufferSize;
-#endif //if 0
-
-    return false;
+    return true;
 }
 
 bool VMPI_getFileAndLineInfoFromPC(uintptr_t pc, char *buffer, size_t bufferSize, uint32_t* lineNumber)

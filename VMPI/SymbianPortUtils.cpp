@@ -41,12 +41,8 @@
 
 #include <sys/time.h>
 #include <math.h>
-
-#ifdef AVMPLUS_UNIX
-    #include <time.h>
-#endif // AVMPLUS_UNIX
-
 #include <sys/mman.h>
+#include "SymbianJITHeap.h"
 
 #define kMsecPerDay     86400000
 #define kMsecPerHour    3600000
@@ -73,10 +69,10 @@ void DebugTrace(const TDesC8& aBuffer)
         return;
     }
 
-    TInt err = file.Open(fs, _L("c:\\debug.txt"), EFileWrite);
+    TInt err = file.Open(fs, _L("c:\\data\\vmpi_debug.txt"), EFileWrite);
     if (err == KErrNotFound)
     {
-        err = file.Create(fs, _L("c:\\debug.txt"), EFileWrite);
+        err = file.Create(fs, _L("c:\\data\\vmpi_debug.txt"), EFileWrite);
     }
     if (err == KErrNone)
     {
@@ -108,7 +104,6 @@ void DebugTraceString(const char* aString)
 /**
 * Logging code ends
 */
-
 
 double VMPI_getLocalTimeOffset()
 {
@@ -169,7 +164,6 @@ double VMPI_getDaylightSavingsTA(double newtime)
     return 0;
 }
 
-
 uint64_t VMPI_getTime()
 {
     struct timeval tv;
@@ -178,11 +172,11 @@ uint64_t VMPI_getTime()
     return result;
 }
 
-
 void* VMPI_alloc(size_t size)
 {
-    return malloc(size);
-
+    void* ptr = malloc(size);
+    if(ptr) memset(ptr, 0, size);
+    return ptr;
 }
 
 void VMPI_free(void* ptr)
@@ -216,27 +210,55 @@ bool VMPI_isMemoryProfilingEnabled()
     return (env && (VMPI_strncmp(env, "1", 1) == 0));
 }
 
+static SymbianJITHeap* symbianJITHeap = 0;
+
 void *VMPI_allocateCodeMemory(size_t nbytes)
 {
-    // See VMPI.h for documentation about the semantics of this method
+    // Our custom SymbianJITHeap class can allocate only one page a time (=4k) per design.
+    // If NJ starts allocating more than 4k a time on ARM platforms, we have to change this,
+    // probably just to use RHeap directly (and manually page align the memory it returns).
 
-    // See PosixPortUtils.cpp for many useful comments about constraints
-    // that you may wish to implement in this function
+    // FIXME https://bugzilla.mozilla.org/show_bug.cgi?id=571407
+    // This really should be a runtime check, not an assertion
+    AvmAssert( nbytes == VMPI_getVMPageSize() );
+    if(!symbianJITHeap)
+    {
+        symbianJITHeap = new SymbianJITHeap();
+        if(symbianJITHeap && !symbianJITHeap->IsInitialized())
+        {
+            delete symbianJITHeap;
+            symbianJITHeap = 0;
+        }
+    }
 
-    (void)nbytes;
-    AvmAssert(!"Unimplemented: VMPI_allocateCodeMemory");
+    if(symbianJITHeap)
+    {
+        return symbianJITHeap->Alloc();
+    }
+    else
+    {
+        // FIXME https://bugzilla.mozilla.org/show_bug.cgi?id=571407
+        // The documentation for VMPI_allocateCodeMemory states specifically that the
+        // function never returns NULL, so this is wrong and must be fixed.
+        // Being landed temporarily to sync various code lines.
+        return 0;
+    }
 }
 
 void VMPI_freeCodeMemory(void* address, size_t nbytes)
 {
-    // See VMPI.h for documentation about the semantics of this method
-
-    // See PosixPortUtils.cpp for many useful comments about constraints
-    // that you may wish to implement in this function
-
-    (void)address;
-    (void)nbytes;
-    AvmAssert(!"Unimplemented: VMPI_freeCodeMemory");
+    // FIXME https://bugzilla.mozilla.org/show_bug.cgi?id=571407
+    // This really should be a runtime check, not an assertion
+    AvmAssert( nbytes == VMPI_getVMPageSize() );
+    if(symbianJITHeap)
+    {
+        symbianJITHeap->Free(address);
+        if(symbianJITHeap->GetNumAllocs() == 0)
+        {
+            delete symbianJITHeap;
+            symbianJITHeap = 0;
+        }
+    }
 }
 
 void VMPI_makeCodeMemoryExecutable(void *address, size_t nbytes, bool makeItSo)
@@ -256,7 +278,6 @@ const char *VMPI_getenv(const char *name)
 {
     return getenv(name);
 }
-
 
 // Helper functions for VMPI_callWithRegistersSaved, kept in this file to prevent them from
 // being inlined in MMgcPortSymbian.cpp.

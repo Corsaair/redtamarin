@@ -64,6 +64,15 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(NULL)
 endif
 
+ifeq (android,$(TARGET_OS))
+shell_CXXSRCS := $(shell_CXXSRCS) \
+  $(curdir)/PosixPortUtils.cpp \
+  $(curdir)/UnixDebugUtils.cpp \
+  $(curdir)/MMgcPortUnix.cpp \
+  $(curdir)/ThreadsPosix.cpp \
+  $(NULL)
+endif
+
 ifeq (sunos,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/PosixPortUtils.cpp \

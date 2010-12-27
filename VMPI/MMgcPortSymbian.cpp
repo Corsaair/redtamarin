@@ -39,93 +39,9 @@
 
 #include <e32std.h>
 #include <hal.h>
-
 #include "MMgc.h"
-
-/**
-* Experimental code to use RChunk to enable virtual allocation.
-* As JIT is currently off on Symbian it is not required and allocateAlignedMemory is used instead.
-*/
-//#define SYMBIAN_JIT_TEST
-#define USE_RCHUNK
-#ifdef USE_RCHUNK
-    class SymbianHeap
-    {
-    public:
-
-        SymbianHeap(TInt size)
-        {
-            ok = false;
-            startAddr = 0;
-            endAddr = 0;
-            next = 0;
-#ifdef SYMBIAN_JIT_TEST // make all memory executable to quickly test JIT
-            if(chunk.CreateLocalCode(0,size,EOwnerProcess) == KErrNone)
-#else
-            if(chunk.CreateDisconnectedLocal(0,0,size,EOwnerProcess) == KErrNone)
-#endif // SYMBIAN_JIT
-            {
-                ok = true;
-                startAddr = (TInt)chunk.Base();
-                endAddr = startAddr + size;
-            }
-        }
-
-        ~SymbianHeap()
-        {
-            chunk.Close();
-        }
-
-        void Close()
-        {
-            chunk.Close();
-        }
-
-        bool Commit(TInt addr, TInt size)
-        {
-            bool result = false;
-            if(chunk.Commit(addr - startAddr, size) == KErrNone)
-            {
-                result = true;
-            }
-            return result;
-        }
-
-        bool Decommit(TInt addr, TInt size)
-        {
-            bool result = false;
-            if(chunk.Decommit(addr - startAddr, size) == KErrNone)
-            {
-                result = true;
-            }
-            return result;
-        }
-
-        RChunk chunk;
-        TInt startAddr;
-        TInt endAddr;
-        SymbianHeap* next;
-        bool ok;
-    };
-
-    static SymbianHeap* heapListRoot = 0;
-
-    static SymbianHeap* FindHeap(TInt addr)
-    {
-        SymbianHeap* retHeap = 0;
-        SymbianHeap* heap = heapListRoot;
-        while(heap)
-        {
-            if((addr >= heap->startAddr) && (addr < heap->endAddr))
-            {
-                retHeap = heap;
-                break;
-            }
-            heap = heap->next;
-        }
-        return retHeap;
-    }
-#endif // USE_RCHUNK
+#include "AvmDebug.h" // for AvmAssert
+#include "SymbianHeap.h"
 
 size_t VMPI_getVMPageSize()
 {
@@ -146,11 +62,7 @@ bool VMPI_canCommitAlreadyCommittedMemory()
 
 bool VMPI_useVirtualMemory()
 {
-#ifdef USE_RCHUNK
     return true;
-#else // USE_RCHUNK
-    return false;
-#endif // USE_RCHUNK
 }
 
 bool VMPI_areNewPagesDirty()
@@ -158,37 +70,40 @@ bool VMPI_areNewPagesDirty()
     return true;
 }
 
+static SymbianHeap* symbianHeapListRoot = 0;
+
 void* VMPI_reserveMemoryRegion(void* address, size_t size)
 {
+    // After reading the RChunk API it looks like we can not allocate contiguous memory.
+    // Create a new heap when address is null. Otherwise return null which MMgc should handle.
+
+    // Open question is could we instead just create one SymbianHeap instance and always allocate
+    // from there and ignore reserverMemoryRegion and releaseMemoryRegion. However as each region
+    // should be contiguous it's maybe easier just to create multiple regions = heaps.
     void* ptr = 0;
-#ifdef USE_RCHUNK
-    // After reading the RChunk Symbian API it looks like we can not allocate contiguous memory.
-    // Reserve only when address is null. MMgc should handle the rest.
     if(address == NULL)
     {
         SymbianHeap* newHeap = new SymbianHeap(size);
-        if(newHeap && newHeap->ok)
+        if(newHeap && newHeap->GetStart())
         {
-            newHeap->next = heapListRoot;
-            heapListRoot = newHeap;
-            ptr = (void*)newHeap->startAddr;
+            newHeap->m_next = symbianHeapListRoot;
+            symbianHeapListRoot = newHeap;
+            ptr = (void*)newHeap->GetStart();
+        } else
+        {
+            delete newHeap;
         }
     }
-#endif // USE_RCHUNK
     return ptr;
 }
 
 bool VMPI_releaseMemoryRegion(void* address, size_t size)
 {
-#ifdef USE_RCHUNK
-    SymbianHeap* heap = FindHeap((TInt)address);
+    SymbianHeap* heap = SymbianHeap::FindHeap((TUint)address, symbianHeapListRoot);
     if(heap)
     {
-        // close does not have a return value
-        heap->Close();
-
         // remove from list
-        SymbianHeap* list = heapListRoot;
+        SymbianHeap* list = symbianHeapListRoot;
         SymbianHeap* prev = NULL;
         while(list)
         {
@@ -196,73 +111,57 @@ bool VMPI_releaseMemoryRegion(void* address, size_t size)
             {
                 if(prev)
                 {
-                    prev->next = heap->next;
+                    prev->m_next = heap->m_next;
                 } else
                 {
-                    heapListRoot = heap->next;
+                    symbianHeapListRoot = heap->m_next;
                 }
                 delete heap;
                 break;
             }
             prev = list;
-            list = list->next;
+            list = list->m_next;
         }
         return true;
     }
-#endif // USE_RCHUNK
     return false;
 }
 
 bool VMPI_commitMemory(void* address, size_t size)
 {
     bool result = false;
-#ifdef USE_RCHUNK
-    SymbianHeap* heap = FindHeap((TInt)address);
+    SymbianHeap* heap = SymbianHeap::FindHeap((TUint)address, symbianHeapListRoot);
     if(heap)
     {
-        result = heap->Commit((TInt)address, (TInt)size);
-// TEMPORARY FIX: MMgc should zero initialize the memory, but it does not seem to do it in all cases.
+        result = heap->Commit((TUint)address, size);
+        // FIXME https://bugzilla.mozilla.org/show_bug.cgi?id=571407
+        // This needs to be investigated, rather than a simple band-aid applied.
+        // TEMPORARY FIX: MMgc should zero initialize the memory, but it does not seem to do it in all cases.
         if(result)
         {
             memset(address, 0, size);
-        }
-// TEMPORARY FIX: MMgc should zero initialize the memory, but it does not seem to do it in all cases.
-    }
-#if 1
-    if(result)
-    {
-        size_t pageSize = VMPI_getVMPageSize();
-        char* addr = (char*)address;
-        char* temp_addr = addr;
-        while( temp_addr < (addr+size))
+        } else
         {
-            // Touch each page
-            *temp_addr = 0;
-            temp_addr += pageSize;
+            VMPI_debugLog("Failed to allocate normal memory.\n");
         }
     }
-#endif // 1
-
-#endif // USE_RCHUNK
     return result;
 }
 
 bool VMPI_decommitMemory(char *address, size_t size)
 {
     bool result = false;
-#ifdef USE_RCHUNK
-    SymbianHeap* heap = FindHeap((TInt)address);
+    SymbianHeap* heap = SymbianHeap::FindHeap((TUint)address, symbianHeapListRoot);
     if(heap)
     {
-        result = heap->Decommit((TInt)address, (TInt)size);
+        result = heap->Decommit((TUint)address, size);
     }
-#endif // USE_RCHUNK
     return result;
 }
 
+#if 0
 void* VMPI_allocateAlignedMemory(size_t size)
 {
-#ifndef USE_RCHUNK
     char *ptr, *ptr2, *aligned_ptr;
     size_t align_size = VMPI_getVMPageSize();
     size_t align_mask = align_size - 1;
@@ -279,18 +178,23 @@ void* VMPI_allocateAlignedMemory(size_t size)
     *((int *)ptr2)=(int)(aligned_ptr - ptr);
 
     return(aligned_ptr);
-#else
-    return 0;
-#endif // USE_RCHUNK
-}
 
+}
 void VMPI_releaseAlignedMemory(void* address)
 {
-#ifndef USE_RCHUNK
     int *ptr2=(int *)address - 1;
     char *unaligned_ptr = (char*) address - *ptr2;
     free(unaligned_ptr);
-#endif // USE_RCHUNK
+}
+#endif // 0
+
+void VMPI_releaseAlignedMemory(void* address)
+{
+}
+
+void* VMPI_allocateAlignedMemory(size_t)
+{
+    return 0;
 }
 
 size_t VMPI_getPrivateResidentPageCount()
@@ -329,7 +233,8 @@ uint64_t VMPI_getPerformanceCounter()
 
 void VMPI_cleanStack(size_t amt)
 {
-    // TODO
+    // TODO - According to Tommy it does not kill if we don't implement on Symbian.
+    // It could be possible to implement using ARM assembler.
 }
 
 void VMPI_setupPCResolution()
@@ -351,7 +256,6 @@ uintptr_t VMPI_getThreadStackBase()
 }
 
 // Defined in SymbianPortUtils.cpp to prevent them from being inlined below
-
 extern void CallWithRegistersSaved2(void (*fn)(void* stackPointer, void* arg), void* arg, void* buf);
 extern void CallWithRegistersSaved3(void (*fn)(void* stackPointer, void* arg), void* arg, void* buf);
 
@@ -387,4 +291,3 @@ void VMPI_callWithRegistersSaved(void (*fn)(void* stackPointer, void* arg), void
     }
 
 #endif //MEMORY_PROFILER
-

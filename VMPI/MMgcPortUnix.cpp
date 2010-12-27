@@ -611,7 +611,7 @@ void VMPI_callWithRegistersSaved(void (*fn)(void* stackPointer, void* arg), void
                 //
                 // Stack grows up in memory, next frame should be above the current frame.
 
-                if(pNextFrame > pCurrentFrame && ((lr & 0xF0000000) == iProbableLoadAddress)
+                if(pNextFrame > pCurrentFrame && ((lr & 0xF0000000) == iProbableLoadAddress))
                     pCurrentFrame = (void **)pNextFrame;
                 else
                     pCurrentFrame = 0;

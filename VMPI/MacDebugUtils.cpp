@@ -49,5 +49,8 @@ void VMPI_debugLog(const char* message)
 
 void VMPI_debugBreak()
 {
+    // FIXME: Bug 613569: Need for flushing here might be hiding another bug
+    fflush(stdout);
+    fflush(stderr);
     raise(SIGTRAP);
 }

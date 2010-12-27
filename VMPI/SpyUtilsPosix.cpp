@@ -65,7 +65,7 @@ void* SpyConnectionLoop(void*)
 {
     struct sockaddr_un sockAddr;
 
-    socklen_t len = sizeof(sockAddr.sun_family) + strlen(sockAddr.sun_path)+1;
+    socklen_t len = sizeof(sockAddr);
     while(spy_running)
     {
         //wait for spy socket connection
@@ -123,6 +123,8 @@ bool SetupSpyServer()
     //initialize synchronization variables
     pthread_mutex_init(&spy_mutex, NULL);
     pthread_cond_init(&spy_cond, NULL);
+
+    spy_running = true;
 
     //wait for spy connections on a separate thread
     if(pthread_create(&spy_thread, NULL, SpyConnectionLoop, NULL))

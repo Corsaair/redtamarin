@@ -41,10 +41,7 @@
 
 #include <stdlib.h>
 #include <sys/time.h>
-#include <sys/utsname.h>
-#include <sys/statvfs.h>
 #include <math.h>
-#include <pwd.h>
 
 #ifdef AVMPLUS_UNIX
     #include <time.h>
@@ -52,7 +49,6 @@
 
 #ifdef AVMPLUS_MAC
     #include <malloc/malloc.h>
-    #include <CoreServices/CoreServices.h>
 #endif //AVMPLUS_MAC
 
 #include <sys/mman.h>
@@ -130,7 +126,8 @@ uint64_t VMPI_getTime()
 {
     struct timeval tv;
     ::gettimeofday(&tv, NULL);
-    uint64_t result = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+    //typecast tv.tv_sec to uint64_t to prevent overflow when multiplying by 1000.
+    uint64_t result = ((uint64_t)tv.tv_sec * 1000) + (tv.tv_usec / 1000);
     return result;
 }
 
@@ -290,268 +287,6 @@ const char *VMPI_getenv(const char *name)
 {
     return getenv(name);
 }
-
-int VMPI_setenv(const char *name, const char *value, int overwrite)
-{
-    return setenv(name, value, overwrite);
-}
-
-int VMPI_unsetenv(const char *name)
-{
-    return unsetenv(name);
-}
-
-char *VMPI_realpath(char const *path)
-{
-    char resolved[PATH_MAX];
-    return realpath(path, resolved);
-}
-
-void VMPI_getExecutablePath(const char *argv0, char *name)
-{
-    //char* realpath(const char*, char*)
-    realpath(argv0,name);
-}
-
-int VMPI_chmod(const char *path, int mode)
-{
-    return chmod(path, (mode_t)mode);
-}
-
-int VMPI_mkdir(const char *path)
-{
-    //S_IRWXU = Read, write, execute/search by owner.
-    //S_IRWXG = Read, write, execute/search by group.
-    //S_IRWXO = Read, write, execute/search by others.
-    return mkdir(path, S_IRWXU | S_IRWXG | S_IRWXO);
-}
-
-int VMPI_getFileMode(const char *path)
-{
-    struct stat stats;
-    stat(path, &stats);
-    return stats.st_mode;
-}
-
-bool VMPI_isRegularFile(const char *path)
-{
-    return S_ISREG( VMPI_getFileMode(path) );
-    /*
-    bool test = false;
-    struct stat stats;
-    if (!stat(path, &stats)) {
-        if (S_ISREG(stats.st_mode)) {
-            test = true;
-        }
-    }
-    return test;
-    */
-}
-
-bool VMPI_isDirectory(const char *path)
-{
-    return S_ISDIR( VMPI_getFileMode(path) );
-    /*
-    bool test = false;
-    struct stat stats;
-    if (!stat(path, &stats)) {
-        if (S_ISDIR(stats.st_mode)) {
-            test = true;
-        }
-    }
-    return test;
-    */
-}
-
-void VMPI_getOperatingSystemName(char *name)
-{
-    utsname info;
-    const char *osname;
-    
-    if( uname(&info) < 0 ) {
-        osname = "";
-    }
-    else {
-        osname = info.sysname;
-    }
-    
-    VMPI_strcpy( name, osname );
-}
-
-void VMPI_getOperatingSystemNodeName(char *nodename)
-{
-    utsname info;
-    const char *osnodename;
-    
-    if( uname(&info) < 0 ) {
-        osnodename = "";
-    }
-    else {
-        osnodename = info.nodename;
-    }
-    
-    VMPI_strcpy( nodename, osnodename );
-}
-
-void VMPI_getOperatingSystemRelease(char *release)
-{
-    utsname info;
-    const char *osrelease;
-    
-    if( uname(&info) < 0 ) {
-        osrelease = "";
-    }
-    else {
-        osrelease = info.release;
-    }
-    
-    VMPI_strcpy( release, osrelease );
-}
-
-void VMPI_getOperatingSystemVersion(char *version)
-{
-    utsname info;
-    const char *osversion;
-    
-    if( uname(&info) < 0 ) {
-        osversion = "";
-    }
-    else {
-        osversion = info.version;
-    }
-
-    VMPI_strcpy( version, osversion );
-}
-
-void VMPI_getOperatingSystemMachine(char *machine)
-{
-    utsname info;
-    const char *osmachine;
-    
-    if( uname(&info) < 0 ) {
-        osmachine = "";
-    }
-    else {
-        osmachine = info.machine;
-    }
-    
-    VMPI_strcpy( machine, osmachine );
-}
-
-void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix)
-{
-#ifdef AVMPLUS_MAC
-    SInt32 version, version_major, version_minor, version_bugfix;
-    if( Gestalt(gestaltSystemVersion, &version) == noErr )
-    {
-        if( version >= 0x00001040 )
-        {
-            Gestalt(gestaltSystemVersionMajor, &version_major);
-            Gestalt(gestaltSystemVersionMinor, &version_minor);
-            Gestalt(gestaltSystemVersionBugFix, &version_bugfix);
-        }
-        else
-        {
-            version_bugfix = version & 0xf;
-            version >>= 4;
-            version_minor = version & 0xf;
-            version >>= 4;
-            version_major = version - (version >> 4) * 6;
-        }
-        
-        *major  = (int)version_major;
-        *minor  = (int)version_minor;
-        *bugfix = (int)version_bugfix;
-    }
-#else
-    (void)major;
-    (void)minor;
-    (void)bugfix;
-#endif
-}
-
-int WMPI_SocketStart(int major, int minor)
-{
-    (void)major;
-    (void)minor;
-    //no need to initialize socket for POSIX
-    return 0;
-}
-
-void WMPI_SocketStop()
-{
-    //do nothing
-}
-
-/* note:
-   1. getpwuid( geteuid() ) shall return the name associated with the effective user ID of the process
-   2. getlogin() shall return the name associated with the current login activity
-   3. getpwuid( getuid() ) shall return the name associated with the real user ID of the process
-*/
-void VMPI_getUserName(char *username)
-{
-    struct passwd *pws;
-    pws = getpwuid( geteuid() );
-    VMPI_strcpy( username, pws->pw_name );
-}
-
-struct hostent *VMPI_gethostbyaddr(const char *addr)
-{
-    struct in_addr ipv4addr;
-    
-    inet_pton(AF_INET, addr, &ipv4addr);
-    return gethostbyaddr(&ipv4addr, sizeof ipv4addr, AF_INET);
-}
-
-double VMPI_getFreeDiskSpace(const char *path)
-{
-    struct statvfs stats;
-    if( statvfs(path, &stats) != 0) {
-        return -1;
-    }
-    return static_cast<double>(stats.f_bavail) * stats.f_frsize;
-}
-
-double VMPI_getTotalDiskSpace(const char *path)
-{
-    struct statvfs stats;
-    if( statvfs(path, &stats) != 0) {
-        return -1;
-    }
-    return static_cast<double>(stats.f_blocks) * stats.f_frsize;
-}
-
-void VMPI_sleep(int milliseconds)
-{
-    usleep(1000 * milliseconds);
-}
-
-bool VMPI_isNullTerminated(const char *str)
-{
-    int len = VMPI_strlen(str);
-
-    if( str[len]-1 == '\0') {
-        return true;
-    }
-
-    return  false;
-}
-
-char *VMPI_int2char(int n)
-{
-    char buffer[100];
-    char *value;
-    size_t size;
-
-    size  = VMPI_sprintf( buffer, "%d", n ) * sizeof(char);
-    value = (char*) VMPI_alloc( size+1 );
-    VMPI_strcpy( value, buffer );
-    
-    return value;
-}
-
-
-
 
 // Helper functions for VMPI_callWithRegistersSaved, kept in this file to prevent them from
 // being inlined in MMgcPortUnix.cpp / MMgcPortMac.cpp.
