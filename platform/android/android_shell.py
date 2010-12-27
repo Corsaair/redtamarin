@@ -40,34 +40,32 @@
 # assumes the android shell is deployed to /data/app/avmshell
 #
 
-import os,re,sys,subprocess
+import os,re,sys,subprocess,killableprocess,datetime,adb_proxy
 
-
-# find all connected devices
-devices=[]
-cmd='adb devices'
-p=subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-(stdout,stderr)=p.communicate()
-for line in stdout.split('\n'):
-    tokens=line.split()
-    if len(tokens)==2 and tokens[1]=='device':
-        devices.append(tokens[0])
-
+# Return either the USAGE or the -Dversion information
 if len(sys.argv)==1 or sys.argv[1]=='-Dversion':
     if len(sys.argv)==1:
         arg=""
     else:
         arg=sys.argv[1]
-    cmd="adb -s %s shell \"cd /data/app;./avmshell %s\"" % (devices[0],arg)
-    p=subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-    (stdout,stderr)=p.communicate()
+
+    # find all connected devices
+    devices=[]
+    stdout=adb_proxy.main(['devices'])
+    for line in stdout.split('\n'):
+        tokens=line.split()
+        if len(tokens)==2 and tokens[1]=='device':
+            devices.append(tokens[0])
+
+    stdout=adb_proxy.main(["-s %s shell \"cd /data/app;./avmshell %s\"" % (devices[0],arg)])
     print(stdout)
     sys.exit(0)
 
+
+
 args=""
 adbargs=""
-if len(devices)>1:
-    adbargs="-s %s" % devices[0]
+
 threadid=0
 androidid=None
 filelist=[]
@@ -84,17 +82,13 @@ for arg in sys.argv[1:]:
     elif re.search(".abc",arg):
         flatfile=os.path.basename(arg)
         filelist.append(arg)
-        cmd="adb %s push %s /data/app/%s" % (adbargs,arg,flatfile)
-        p=subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-        p.communicate()
+        stdout=adb_proxy.main(["%s push %s /data/app/%s" % (adbargs,arg,flatfile)])
         args+=" %s" % flatfile
     else:
         args+=" %s" % arg
 
 
-cmd="adb %s shell \"/data/app/android_runner.sh %s\"" % (adbargs,args)
-p=subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-(stdout,stderr)=p.communicate()
+stdout=adb_proxy.main(["%s shell \"/data/app/android_runner.sh %s\"" % (adbargs,args)])
 for line in stdout.split('\n'):
     if re.search("EXITCODE=",line):
         exitcode=1
@@ -105,5 +99,7 @@ for line in stdout.split('\n'):
         sys.exit(exitcode)
     else:
         print(line)
+            
+
 print("error: stdout did not contain EXITCODE=")
 sys.exit(1)

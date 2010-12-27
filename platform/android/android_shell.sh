@@ -1,4 +1,6 @@
 #!/bin/bash
+# -*- Mode: sh; indent-tabs-mode: nil; tab-width: 4 -*-
+# vi: set ts=4 sw=4 expandtab: (add to ~/.vimrc: set modeline modelines=5)
 # ***** BEGIN LICENSE BLOCK *****
 # Version: MPL 1.1/GPL 2.0/LGPL 2.1
 #
@@ -47,15 +49,15 @@ id=
 if [ "$1" = "" ] || [ "$1" = "-Dversion" ]
 then
     # Since the adb-shell-deployer ensures that ALL devices are setup with the same shell
-    # we just need to find one device to query 
+    # we just need to find one device to query
     adboutput=`adb devices`
     deviceid=''
     IFS=$'\n'
     for i in ${adboutput}; do
-	if echo $i | grep -q 'device$'; then
-	    deviceid=`echo $i | awk '{print $1}'`
-	    break
-	fi
+        if echo $i | grep -q 'device$'; then
+            deviceid=`echo $i | awk '{print $1}'`
+            break
+        fi
     done
     unset IFS
     adb -s ${deviceid} shell "cd /data/app;./avmshell $1"
@@ -84,7 +86,7 @@ else
                    flatfile=`basename $a`
                    filelist="$filelist $flatfile"
                    adb $adbargs push $file /data/app/$flatfile 2> /dev/null
-                   args="$args $flatfile"       
+                   args="$args $flatfile"
                else
                    args="$args $a"
                fi

@@ -203,6 +203,10 @@ LFLAGS_HEADLESS := -nostdlib -Bdynamic \
 	-Wl,-rpath-link=$(ANDROID_PRODUCT_OUT)/system/lib \
 	$(ANDROID_PRODUCT_OUT)/obj/lib/crtbegin_dynamic.o \
 	$(ANDROID_PRODUCT_OUT)/obj/lib/crtend_android.o
+	
+# Define these to use the ctuils atomics API
+#LFLAGS_HEADLESS := $(LFLAGS_HEADLESS) -lcutils
+#INC := $(INC) -I$(ANDROID_BUILD_TOP)/system/core/include
 
 ifndef VERBOSE
 	VERBOSE := 
@@ -312,7 +316,7 @@ endif
 # end make.common
 
 # Modify variables set by make.common before including other makefiles:
-INC := -I. -I.. -I../.. -I../../shell -I../../core -I../../eval -I../../MMgc -I../../pcre -I../../extensions -I../../VMPI -I../../other-licenses/zlib $(INC)
+INC := -I. -I.. -I../.. -I../../shell -I../../core -I../../eval -I../../MMgc -I../../pcre -I../../extensions -I../../VMPI -I../../vmbase -I../../other-licenses/zlib  -I../../other-licenses $(INC)
 
 AVMSHELL_DEFS := -DUNIX -Dlinux -DUSE_PTHREAD_MUTEX -DNO_SYS_SIGNAL -DHAVE_STDARG -DNO_CONSOLE_FWRITE -DAVMPLUS_ARM -DAVMPLUS_UNIX -DAVMSHELL_BUILD 
 
@@ -330,9 +334,7 @@ LDFLAGS := -lc -lm -lstdc++ -lssl -lgcc
 # Shell Source files
 #****************************************************************************
 
-SHELL_SRCS :=  ../../shell/ByteArrayGlue.cpp \
-  ../../shell/ConsoleOutputStream.cpp \
-  ../../shell/DataIO.cpp \
+SHELL_SRCS := ../../shell/ConsoleOutputStream.cpp \
   ../../shell/DebugCLI.cpp \
   ../../shell/DomainClass.cpp \
   ../../shell/FileClass.cpp \
@@ -344,7 +346,6 @@ SHELL_SRCS :=  ../../shell/ByteArrayGlue.cpp \
   ../../shell/avmshell.cpp \
   ../../shell/avmshellUnix.cpp \
   ../../shell/swf.cpp \
-  ../../shell/../VMPI/AvmAssert.cpp \
   ../../shell/../extensions/DictionaryGlue.cpp \
   ../../shell/../extensions/JavaGlue.cpp \
   ../../shell/../extensions/SamplerScript.cpp \
@@ -357,6 +358,9 @@ SHELL_SRCS :=  ../../shell/ByteArrayGlue.cpp \
   ../../shell/../extensions/ST_mmgc_weakref.cpp \
   ../../shell/../extensions/ST_mmgc_dependent.cpp \
   ../../shell/../extensions/ST_mmgc_gcheap.cpp \
+  ../../shell/../extensions/ST_mmgc_finalize_uninit.cpp \
+  ../../shell/../extensions/ST_vmpi_threads.cpp \
+  ../../shell/../extensions/ST_mmgc_575631.cpp \
 	android_cpuid.cpp
 
 #****************************************************************************

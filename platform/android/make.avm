@@ -49,27 +49,28 @@ AVMPLUS_SRCS := \
 	ActionBlockConstants.cpp \
 	ArrayClass.cpp \
 	ArrayObject.cpp \
-	AtomArray.cpp \
-	atom.cpp \
 	AvmCore.cpp \
 	avm.cpp \
     avmfeatures.cpp \
 	avmplus.cpp \
 	avmplusDebugger.cpp \
 	avmplusHashtable.cpp \
-	avmplusProfiler.cpp \
+	avmplusList.cpp \
 	AvmPlusScriptableObject.cpp \
 	BigInteger.cpp \
 	BooleanClass.cpp \
 	BuiltinTraits.cpp \
+	ByteArrayGlue.cpp \
 	ClassClass.cpp \
 	ClassClosure.cpp \
 	Date.cpp \
+	DataIO.cpp \
 	DateClass.cpp \
 	DateObject.cpp \
 	DescribeTypeClass.cpp \
 	Domain.cpp \
 	DomainEnv.cpp \
+	DomainMgr.cpp \
 	E4XNode.cpp \
 	ErrorClass.cpp \
 	ErrorConstants.cpp \
@@ -173,6 +174,8 @@ AVMPLUS_SRCS := \
     eval-parse-xml.cpp \
     eval-unicode.cpp \
     eval-util.cpp \
+	atom.cpp \
+	AvmAssert.cpp \
 
 ifeq ($(ENABLE_NANOJIT),true)
 	AVMPLUS_SRCS := ${AVMPLUS_SRCS} NativeARM.cpp
@@ -183,6 +186,7 @@ vpath %.cpp ${AVMPLUS_DIR}/core	\
 	${AVMPLUS_DIR}/pcre	\
 	${AVMPLUS_DIR}/platform/unix \
  	${AVMPLUS_DIR}/VMPI \
+ 	${AVMPLUS_DIR}/vmbase \
  	${AVMPLUS_DIR}/eval
 
 AVMPLUS_LIB := ${LIBDIR}/libavmplus.a
