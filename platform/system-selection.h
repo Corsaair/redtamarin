@@ -119,6 +119,12 @@
     #define AVMSYSTEM_MIPS   0
   #endif
 
+  #if defined(__SH4__)
+    #define AVMSYSTEM_SH4   1
+  #else
+    #define AVMSYSTEM_SH4   0
+  #endif
+
 #endif  // mac || unix
 
 #if AVMSYSTEM_WIN32
@@ -144,6 +150,7 @@
 
   #define AVMSYSTEM_PPC    0
   #define AVMSYSTEM_SPARC  0
+  #define AVMSYSTEM_SH4	   0
   #define AVMSYSTEM_MIPS   0
 
 #endif  // win32
@@ -154,6 +161,7 @@
   #define AVMSYSTEM_AMD64   0
   #define AVMSYSTEM_SPARC   0
   #define AVMSYSTEM_MIPS   0
+  #define AVMSYSTEM_SH4    0
 
   #if defined(__ARMCC__)
     #define AVMSYSTEM_ARM    1
@@ -216,7 +224,7 @@
 #elif AVMSYSTEM_PPC || AVMSYSTEM_SPARC
   #define AVMSYSTEM_LITTLE_ENDIAN       0
   #define AVMSYSTEM_BIG_ENDIAN          1
-#elif AVMSYSTEM_MIPS
+#elif AVMSYSTEM_MIPS || AVMSYSTEM_SH4
   #if defined __GNUC__
     #include <endian.h>
     #if __BYTE_ORDER == LITTLE_ENDIAN
@@ -264,7 +272,7 @@
   #endif
   // VFP rules are different from int rules on ARM
   #define AVMSYSTEM_UNALIGNED_FP_ACCESS  0
-#elif AVMSYSTEM_PPC || AVMSYSTEM_SPARC || AVMSYSTEM_MIPS
+#elif AVMSYSTEM_PPC || AVMSYSTEM_SPARC || AVMSYSTEM_MIPS || AVMSYSTEM_SH4
   #define AVMSYSTEM_UNALIGNED_INT_ACCESS 0
   #define AVMSYSTEM_UNALIGNED_FP_ACCESS  0
 #else
