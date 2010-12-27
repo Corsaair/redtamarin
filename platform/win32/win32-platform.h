@@ -48,6 +48,7 @@
  * which is quite picky.  Disable warnings we don't care about.
  */
 #ifdef _MSC_VER
+    #pragma warning(disable:4946) // reinterpret_cast used between related classes (bugzilla 615964)
     #pragma warning(disable:4127) // conditional expression is constant - appears to be compiler noise primarily
     #pragma warning(disable:4201) // nonstandard extension used : nameless struct/union
     #pragma warning(disable:4251) // X needs to have dll-interface to be used by clients of class Y
@@ -100,7 +101,6 @@
 #define VMPI_strncpy        ::strncpy
 #define VMPI_strtol         ::strtol
 #define VMPI_strstr         ::strstr
-#define VMPI_strerror       ::strerror
 
 #define VMPI_sprintf        ::sprintf
 #define VMPI_sscanf         ::sscanf
@@ -138,21 +138,10 @@ int VMPI_vsnprintf(char *s, size_t n, const char *format, va_list args);
 
 #define VMPI_exit           ::exit
 
-#define VMPI_access         _access
-#define VMPI_getcwd         _getcwd
-//#define VMPI_gethostname    ::gethostname
-int VMPI_gethostname(char *name, int namelen);
-#define VMPI_rmdir          _rmdir
-
-#define VMPI_remove    ::remove
-#define VMPI_rename    ::rename
-
-
 #include <stddef.h>
 #include <memory.h>
 #include <string.h>
 #include <stdio.h>
-#include <errno.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <math.h>
@@ -160,278 +149,8 @@ int VMPI_gethostname(char *name, int namelen);
 #include <ctype.h>
 #include <limits.h>
 
-#include <sys/stat.h>
-
-#include <direct.h>
-#include <io.h>
-#include <winsock2.h>
-#include <ws2tcpip.h>
 #include <windows.h>
 #include <malloc.h>
-#pragma comment(lib, "ws2_32.lib")
-
-//a lot of definitions to align with POSIX
-#if !defined(ECURDIR)
-  #define ECURDIR          EACCES
-#endif /* !ECURDIR */
-#if !defined(ENOSYS)
-  #define ENOSYS           EPERM
-#endif /* !ENOSYS */
-
-#if !defined(ENETDOWN)
-  #define ENETDOWN         WSAENETDOWN
-#endif /* !ENETDOWN */
-
-#if !defined(ENETUNREACH)
-  #define ENETUNREACH      WSAENETUNREACH
-#endif /* !ENETUNREACH */
-
-#if !defined(ENETRESET)
-  #define ENETRESET        WSAENETRESET
-#endif /* !ENETRESET */
-
-#if !defined(ECONNABORTED)
-  #define ECONNABORTED     WSAECONNABORTED
-#endif /* !ECONNABORTED */
-
-#if !defined(ECONNRESET)
-  #define ECONNRESET       WSAECONNRESET
-#endif /* !ECONNRESET */
-
-#if !defined(ENOBUFS)
-  #define ENOBUFS          WSAENOBUFS
-#endif /* !ENOBUFS */
-
-#if !defined(EISCONN)
-  #define EISCONN          WSAEISCONN
-#endif /* !EISCONN */
-
-#if !defined(ENOTCONN)
-  #define ENOTCONN         WSAENOTCONN
-#endif /* !ENOTCONN */
-
-#if !defined(ESHUTDOWN)
-  #define ESHUTDOWN        WSAESHUTDOWN
-#endif /* !ESHUTDOWN */
-
-#if !defined(ETOOMANYREFS)
-  #define ETOOMANYREFS     WSAETOOMANYREFS
-#endif /* !ETOOMANYREFS */
-
-#if !defined(ETIMEDOUT)
-  #define ETIMEDOUT        WSAETIMEDOUT
-#endif /* !ETIMEDOUT */
-
-#if !defined(ECONNREFUSED)
-  #define ECONNREFUSED     WSAECONNREFUSED
-#endif /* !ECONNREFUSED */
-
-#if !defined(SHUT_RD)
-  #define SHUT_RD          SD_RECEIVE
-#endif /* !SHUT_RD */
-
-#if !defined(SHUT_RDWR)
-  #define SHUT_RDWR        SD_BOTH
-#endif /* !SHUT_RDWR */
-
-#if !defined(SHUT_WR)
-  #define SHUT_WR          SD_SEND
-#endif /* !SHUT_WR */
-
-
-
-#if !defined(FILENAME_MAX)
-  #define FILENAME_MAX    _MAX_FNAME
-#endif /* !FILENAME_MAX */
-#if !defined(PATH_MAX)
-  #define PATH_MAX        _MAX_PATH
-#endif /* !PATH_MAX */
-
-#if !defined(S_IFMT)
-  #define S_IFMT    _S_IFMT    /* 0xF000 file type mask */
-#endif
-#if !defined(S_IFDIR)
-  #define S_IFDIR   _S_IFDIR   /* 0x4000 directory */
-#endif
-#if !defined(S_IFCHR)
-  #define S_IFCHR   _S_IFCHR   /* 0x2000 character special */
-#endif
-#if !defined(S_IFIFO)
-  #define S_IFIFO   _S_IFIFO   /* 0x1000 pipe */
-#endif
-#if !defined(S_IFREG)
-  #define S_IFREG   _S_IFREG   /* 0x8000 regular */
-#endif
-#if !defined(S_IREAD)
-  #define S_IREAD   _S_IREAD   /* 0x0100 read permission, owner */
-#endif
-#if !defined(S_IWRITE)
-  #define S_IWRITE  _S_IWRITE   /* 0x0080 write permission, owner */
-#endif
-#if !defined(S_IEXEC)
-  #define S_IEXEC   _S_IEXEC   /* 0x0040 execute/search permission, owner */
-#endif
-
-//not used under WIN32, added for AS3 API
-#if !defined(S_IFBLK)
-  #define S_IFBLK   0060000   /* [XSI] block special */
-#endif
-#if !defined(S_IFLNK)
-  #define S_IFLNK   0120000   /* [XSI] symbolic link */
-#endif
-#if !defined(S_IFSOCK)
-  #define S_IFSOCK  0140000   /* [XSI] socket */
-#endif
-
-#if !defined(F_OK)
-  #define F_OK        0
-#endif /* !F_OK */
-#if !defined(X_OK)
-  #define X_OK        1
-#endif /* !X_OK */
-#if !defined(W_OK)
-  #define W_OK        2
-#endif /* !W_OK */
-#if !defined(R_OK)
-  #define R_OK        4
-#endif /* !R_OK */
-
-#ifndef DT_UNKNOWN
-  #define DT_UNKNOWN      0
-#endif /* !DT_UNKNOWN */
-#ifndef DT_FIFO
-  #define DT_FIFO         1
-#endif /* !DT_FIFO */
-#ifndef DT_CHR
-  #define DT_CHR          2
-#endif /* !DT_CHR */
-#ifndef DT_DIR
-  #define DT_DIR          4
-#endif /* !DT_DIR */
-#ifndef DT_BLK
-  #define DT_BLK          6
-#endif /* !DT_BLK */
-#ifndef DT_REG
-  #define DT_REG          8
-#endif /* !DT_REG */
-#ifndef DT_LNK
-  #define DT_LNK          10
-#endif /* !DT_LNK */
-#ifndef DT_SOCK
-  #define DT_SOCK         12
-#endif /* !DT_SOCK */
-#ifndef DT_WHT
-  #define DT_WHT          14
-#endif /* !DT_WHT */
-
-/** \def NUM_ELEMENTS(ar)
- *
- * Evaluates the size of an array.
- *
- * \param ar The array.
- *
- * \warning This produces unintended behaviour if used with a pointer, and
- *  undefined behaviour if used, in C++, with a user-defined type that
- *  defines a subscript operator. See Chapter 14 of <em>Imperfect C++</em>
- *  (http://www.imperfectcplusplus.com/)
- */
-
-#ifndef NUM_ELEMENTS
-  #define NUM_ELEMENTS(ar)      (sizeof(ar) / sizeof(0[ar]))
-#endif /* !NUM_ELEMENTS */
-
-#ifndef FILE_ATTRIBUTE_ERROR
-  #define FILE_ATTRIBUTE_ERROR           (0xFFFFFFFF)
-#endif /* FILE_ATTRIBUTE_ERROR */
-
-#ifndef S_ISDIR
-  #define S_ISDIR(mode)  (((mode) & S_IFMT) == S_IFDIR)
-#endif
-
-#ifndef S_ISREG
-  #define S_ISREG(mode)  (((mode) & S_IFMT) == S_IFREG)
-#endif
-
-
-/**
- * chmod
- */
-
-typedef int mode_t;
-
-//as WIN32 does not have GRP and OTH rights, we map them to the USR rights
-static const mode_t S_IRUSR      = mode_t(S_IREAD);      // read by user
-static const mode_t S_IWUSR      = mode_t(S_IWRITE);     // write by user
-static const mode_t S_IXUSR      = 0;                    // does nothing
-static const mode_t S_IRGRP      = mode_t(S_IREAD);      // read by *USER*
-static const mode_t S_IWGRP      = mode_t(S_IWRITE);     // write by *USER*
-static const mode_t S_IXGRP      = 0;                    // does nothing
-static const mode_t S_IROTH      = mode_t(S_IREAD);      // read by *USER*
-static const mode_t S_IWOTH      = mode_t(S_IWRITE);     // write by *USER*
-static const mode_t S_IXOTH      = 0;                    // does nothing
-
-static const mode_t S_IRWXU      = S_IRUSR | S_IWUSR | S_IXUSR;
-static const mode_t S_IRWXG      = S_IRGRP | S_IWGRP | S_IXGRP;
-static const mode_t S_IRWXO      = S_IROTH | S_IWOTH | S_IXOTH;
-
-
-/**
- * dirent
- */
-
-// this is a big sortcut to be able to use dirent directly in a native class
-typedef struct dirent
-{
-    char *d_name;
-    int d_type;
-} dirent;
-
-typedef struct DIR
-{
-    long                handle; /* -1 for failed rewind */
-    struct _finddata_t  info;
-    struct dirent       result; /* d_name null if first time */
-    char                *name;  /* null-terminated char string */
-} DIR;
-
-
-extern DIR           *opendir(const char *name);
-extern int           closedir(DIR *dir);
-extern struct dirent *readdir(DIR *dir);
-extern void          rewinddir(DIR *dir);
-
-
-/**
- * uname
- */
-
-#ifndef _UTSNAME_LENGTH
-  #define _UTSNAME_LENGTH 255
-#endif
-
-#ifndef _UTSNAME_NODENAME_LENGTH
-  #define _UTSNAME_NODENAME_LENGTH _UTSNAME_LENGTH
-#endif
-
-struct utsname
-{
-  char sysname[_UTSNAME_LENGTH];            // Name of the operating system
-  char nodename[_UTSNAME_NODENAME_LENGTH];  // Name of this node on the network
-  char release[_UTSNAME_LENGTH];            // Current release level
-  char version[_UTSNAME_LENGTH];            // Current version level of this release
-  char machine[_UTSNAME_LENGTH];            // Name of the hardware type the system is running on
-};
-
-#ifndef VER_SUITE_WH_SERVER
-  #define VER_SUITE_WH_SERVER     0x00008000
-#endif
-
-#ifndef PRODUCT_PROFESSIONAL
-  #define PRODUCT_PROFESSIONAL    0x00000030
-#endif
-
-extern int uname (struct utsname *uts);
-
 
 #if defined(UNDER_CE)
 // winmo complains if we try to include <new> and it complains if someone else includes new before us so...
@@ -482,7 +201,7 @@ typedef void *maddr_ptr;
   #endif
   #include <emmintrin.h>
 
-  #ifdef VTUNE
+  #ifdef VMCFG_VTUNE
     #include "JITProfiling.h"
   #endif
 #endif
@@ -526,7 +245,7 @@ typedef unsigned __int64    uint64_t;
     #error "Unrecognized compiler"
 #endif
 
-#if defined(_MSC_VER) && _MSC_VER < 1400 && defined(FEATURE_NANOJIT)
+#if defined(_MSC_VER) && _MSC_VER < 1400 && defined(VMCFG_NANOJIT)
     #define NJ_NO_VARIADIC_MACROS
 #endif
 
@@ -572,6 +291,148 @@ REALLY_INLINE bool VMPI_lockRelease(vmpi_spin_lock_t *lock)
 REALLY_INLINE bool VMPI_lockTestAndAcquire(vmpi_spin_lock_t *lock)
 {
     return ::InterlockedCompareExchange((LPLONG)&lock->lock, 1, 0) == 0;
+}
+
+REALLY_INLINE int32_t VMPI_atomicIncAndGet32WithBarrier(volatile int32_t* value)
+{
+#ifdef UNDER_CE
+    return InterlockedIncrement(const_cast<LONG*>((volatile LONG*)value)); // Barrier semantics are not actually documented
+#else
+    return InterlockedIncrement((volatile LONG*)value);
+#endif
+}
+
+REALLY_INLINE int32_t VMPI_atomicIncAndGet32(volatile int32_t* value)
+{
+    // No barrier-less version is available
+    return VMPI_atomicIncAndGet32WithBarrier(value);
+}
+
+REALLY_INLINE int32_t VMPI_atomicDecAndGet32WithBarrier(volatile int32_t* value)
+{
+#ifdef UNDER_CE
+    return InterlockedDecrement(const_cast<LONG*>((volatile LONG*)value)); // Barrier semantics are not actually documented
+#else
+    return InterlockedDecrement((volatile LONG*)value);
+#endif
+}
+
+REALLY_INLINE int32_t VMPI_atomicDecAndGet32(volatile int32_t* value)
+{
+    // No barrier-less version is available
+    return VMPI_atomicDecAndGet32WithBarrier(value);
+}
+
+REALLY_INLINE bool VMPI_compareAndSwap32WithBarrier(int32_t oldValue, int32_t newValue, volatile int32_t* address)
+{
+#ifdef UNDER_CE
+    return InterlockedCompareExchange(const_cast<LONG*>((volatile LONG*)address), newValue, oldValue) == oldValue;  // Barrier semantics are not actually documented
+#else
+    return InterlockedCompareExchange((volatile LONG*)address, newValue, oldValue) == oldValue;
+#endif
+}
+
+REALLY_INLINE bool VMPI_compareAndSwap32(int32_t oldValue, int32_t newValue, volatile int32_t* address)
+{
+    return VMPI_compareAndSwap32WithBarrier(oldValue, newValue, address);
+}
+
+REALLY_INLINE void VMPI_memoryBarrier()
+{
+    // FIXME: bug 609820 Memory barrier (fence) for win32
+    //
+    // void MemoryBarrier(void) is only available >= Vista
+    // This is a temp solution until we have a x86 asm version.
+    volatile int32_t dummy;
+    VMPI_atomicIncAndGet32WithBarrier(&dummy);
+}
+
+/**
+ * Threads waiting on a conditional variable are recorded in a list
+ * of WaitingThread structs.
+ */
+struct WaitingThread {
+    WaitingThread* next;
+    DWORD threadID;
+    bool notified;
+};
+
+/**
+ * A condition variable is implemented as a linked list of waiting threads.
+ * The variable itself needs to record only the head and the tail of the list.
+ */
+struct vmpi_condvar_t {
+    WaitingThread* head;
+    WaitingThread* tail;
+};
+
+typedef DWORD                  vmpi_thread_t;
+typedef CRITICAL_SECTION       vmpi_mutex_t;
+typedef LPVOID                 vmpi_thread_arg_t; // Argument type for thread start function
+typedef DWORD                  vmpi_thread_rtn_t; // Return type for thread start function
+typedef LPTHREAD_START_ROUTINE vmpi_thread_start_t;
+
+struct vmpi_thread_attr_t {
+    size_t stackSize;
+    size_t guardSize;
+    int priority;
+};
+
+#define VMPI_THREAD_START_CC   WINAPI
+
+REALLY_INLINE bool VMPI_recursiveMutexInit(vmpi_mutex_t* mutex)
+{
+    InitializeCriticalSection(mutex);
+    return true;
+}
+
+REALLY_INLINE bool VMPI_recursiveMutexDestroy(vmpi_mutex_t* mutex)
+{
+    DeleteCriticalSection(mutex);
+    return true;
+}
+
+REALLY_INLINE bool VMPI_recursiveMutexTryLock(vmpi_mutex_t* mutex)
+{
+    return TryEnterCriticalSection(mutex) != 0;
+}
+
+REALLY_INLINE void VMPI_recursiveMutexLock(vmpi_mutex_t* mutex)
+{
+    EnterCriticalSection(mutex);
+}
+
+REALLY_INLINE void VMPI_recursiveMutexUnlock(vmpi_mutex_t* mutex)
+{
+    LeaveCriticalSection(mutex);
+}
+
+REALLY_INLINE bool VMPI_condVarInit(vmpi_condvar_t* condvar)
+{
+    condvar->head = NULL;
+    condvar->tail = NULL;
+    return true;
+}
+
+REALLY_INLINE bool VMPI_condVarDestroy(vmpi_condvar_t* condvar)
+{
+    (void)condvar;
+    return true;
+}
+
+REALLY_INLINE vmpi_thread_t VMPI_currentThread()
+{
+    return (vmpi_thread_t) (uintptr_t)GetCurrentThreadId();
+}
+
+REALLY_INLINE bool VMPI_tlsSetValue(uintptr_t tlsId, void* value)
+{
+    return TlsSetValue((DWORD)tlsId, value) == TRUE;
+}
+
+REALLY_INLINE void* VMPI_tlsGetValue(uintptr_t tlsId)
+{
+    return TlsGetValue((DWORD)tlsId);
 }
 
 #endif // __avmplus_win32_platform__

@@ -39,236 +39,203 @@
 * ***** END LICENSE BLOCK ***** */
 #include "avmplus.h"
 
-#ifdef VTUNE
+
+#ifdef VMCFG_VTUNE
 #include "CodegenLIR.h"
 
-namespace avmplus
+namespace vtune
 {
-    void wtoc(char* Dest, const char* Source, int append)
+    using namespace avmplus;
+    static bool vtune_init = false;
+    static iJIT_IsProfilingActiveFlags vtuneStatus;
+    static iJIT_Method_Load ML;
+    static NIns *endAddr;
+    uint32_t line_cap;
+
+    void dumpVTuneMethodInfo(iJIT_Method_Load* ML)
     {
-        int i = 0;
-        if (Source) {
-            if (append) {
-                int j = -1;
-                while(Source[i] != '\0')
-                {
-                    Dest[i] = Source[i];
-                    if (Dest[i] == ':') {
-                        //Dest[i] = '|';
-                        j = i;
-                    } else if (Dest[i] == '.') {
-                        //Dest[i] = '-';
-                        j = i;
-                    } else if (Dest[i] == '$') {
-                        j = i;
-                    }
-                    ++i;
-                }
-
-                // extract just the method name
-                if (j >= 0) {
-                    i = 0;
-                    while(Source[++j] != '\0')
-                    {
-                        Dest[i++] = Source[j];
-                    }
-                }
-
-                Dest[i++] = '(';
-                Dest[i++] = ')';
-            } else {
-                while(Source[i] != '\0')
-                {
-                    Dest[i] = Source[i];
-                    ++i;
-                }
-            }
-        }
-        Dest[i] = '\0';
-    }
-
-    void CallBack(AvmCore* core, void *UserData, iJIT_ModeFlags Flags)
-    {
-        // This is all busy work to prevent the resulting warnings
-        // from causing an error.  I don't want to change the build
-        // settings.
-        AvmCore* dummy_core;
-        void* dummy_user;
-        iJIT_ModeFlags dummy_flags;
-
-        dummy_core = core;
-        dummy_user = UserData;
-        dummy_flags = Flags;
-    }
-
-    void DumpVTuneMethodInfo(AvmCore* core, iJIT_Method_Load* ML)
-    {
-        core->console << "method_id = " << ML->method_id << "\n";
-        core->console << "method_name = '" << ML->method_name << "'\n";
-        core->console << "method_load_address = " << (int) ML->method_load_address << "\n";
-        core->console << "method_size = " << ML->method_size << "\n";
-        core->console << "line_number_size = " << ML->line_number_size << "\n";
-        core->console << "line_number_table = " << (int) ML->line_number_table << "\n";
+        AvmLog("method_id = %d\n", ML->method_id);
+        AvmLog("method_name = %s\n", ML->method_name);
+        AvmLog("method_load_address = %p\n", ML->method_load_address);
+        AvmLog("method_size = %d\n", ML->method_size);
+        AvmLog("line_number_size = %d\n", ML->line_number_size);
+        AvmLog("line_number_table = %p\n", ML->line_number_table);
 
         if (ML->line_number_table)
         {
-            core->console << "\tline\toffset\n";
+            AvmLog("\tline\toffset\n");
             LineNumberInfo* lines = ML->line_number_table;
-            for (int j = 0; j < (int) ML->line_number_size; j++)
-            {
-                core->console
-                    << "\t"
-                    << lines[j].LineNumber
-                    << "\t"
-                    << lines[j].Offset
-                    << "\n";
-            }
-        }
-
-        core->console << "class_id = " << ML->class_id << "\n";
-        core->console << "class_file_name = '" << ML->class_file_name << "'\n";
-        core->console << "source_file_name = '" << ML->source_file_name << "'\n";
-        core->console << "user_data = " << (int) ML->user_data << "\n";
-        core->console << "user_data_size = " << ML->user_data_size << "\n";
-        core->console << "env = " << ML->env << "\n\n";
-    }
-
-   char* string2char(AvmCore* core, Stringp str)
-   {
-       if (!str->length()) return 0;
-       StringNullTerminatedUTF8 s(core->gc, str);
-       const char* cstr = s.c_str();
-       size_t max = VMPI_strlen(cstr);
-       char* to = (char*)malloc((max+1)*sizeof(char));
-       VMPI_strncpy(to,cstr,max);
-       to[max]='\0';
-       return to;
-   }
-
-   /**
-     * parse a given MethodInfo.format() 'ed name and provide
-     * the starting and ending indcies of each
-    * @param String* - formatted method name
-    * @param int[4]  - array that will be filled with class/method
-    *                  indicies into
-    * @return true, if a class name exists
-    */
-   bool locateNames(AvmCore* core, Stringp name, int* idx)
-   {
-       bool hasClass = true;
-       VMPI_memset(idx,0,sizeof(*idx));
-       if (!name) return false;
-
-       // class
-       // idx[0] = 0;
-       if ( (idx[1]=name->indexOf(core->newString("."))) >= 0 )
-           hasClass = false;  // match means no class name
-       else if ( (idx[1]=name->indexOf(core->newString("$"))) >=0 )
-           idx[1]; // match
-       else if ( (idx[1]=name->indexOf(core->newString("/"))) >= 0 )
-           idx[1]; // match
-       else
-           hasClass = false;  // nothing looks like a class here
-
-       // method
-       if ( (idx[2]=name->lastIndexOf(core->newString("/"))) >= 0 )
-           idx[2]++;  // match
-       else if ( (idx[2]=name->lastIndexOf(core->kcolon)) >= 0 )
-           idx[2]++;  // match
-       else
-           ;  // idx[2] = 0;
-       idx[3] = name->length()-2; // get rid of paren
-
-       return hasClass;
-   }
-
-   void VTune_RegisterMethod(AvmCore* core, JITCodeInfo* inf)
-   {
-        // assume no method inlining so start/end of JIT code gen = method start/end
-       uintptr_t startAt = inf->startAddr;
-       uintptr_t endAt = inf->endAddr;
-       uint32_t methodSize = endAt - startAt;
-
-       Stringp name = inf->method->format(core);
-       int idx[4];
-       bool hasClass = locateNames(core, name, idx);
-
-        // register the method
-        iJIT_Method_Load ML;
-       Stringp mname = name->substring(idx[2],idx[3]);
-        VMPI_memset(&ML, 0, sizeof(iJIT_Method_Load));
-       ML.method_id = (inf->vtune) ? inf->vtune->method_id : iJIT_GetNewMethodID();
-       ML.method_name = string2char(core, mname);
-        ML.method_load_address = (void *)startAt;   // virtual address of that method  - This determines the method range for the iJVM_EVENT_TYPE_ENTER/LEAVE_METHOD_ADDR events
-        ML.method_size = methodSize;    // Size in memory - Must be exact
-
-        // md position / line number table
-       SortedMap<int,LineNumberRecord*,LIST_GCObjects>* tbl = &inf->lineNumTable;
-        int size = tbl->size();
-        LineNumberInfo* lines = 0;
-        if (size)
-        {
-            int bsz = size*sizeof(LineNumberInfo);
-            lines = (LineNumberInfo*) malloc(bsz);
-            VMPI_memset(lines, 0, bsz);
-        }
-
-       String* fileName = 0;
-       int at = 0;
-       for(int i=0; i<size; i++)
-        {
-            sintptr mdPos = tbl->keyAt(i);
-            LineNumberRecord* entry = tbl->at(i);
-           if (entry->filename && entry->lineno)
-           {
-               if (!fileName) fileName = entry->filename;
-
-               // @todo file name should be part of the lines[] record, no?
-               lines[at].LineNumber = entry->lineno;
-               lines[at].Offset = mdPos - startAt;
-               at++;
+            for (int j = 0; j < (int) ML->line_number_size; j++) {
+                AvmLog("\t%d\t%d\n", lines[j].LineNumber, lines[j].Offset);
            }
-       }
+        }
 
-       // @todo hack for vtune since it can't process multiple records with the same method name
-       if (inf->sid>0 && at>0) {
-           mname = core->concatStrings(mname,core->newString("_L"));
-           mname = core->concatStrings(mname,core->intToString(lines[0].LineNumber));
-           mname = core->concatStrings(mname,core->newString("_"));
-           mname = core->concatStrings(mname,core->intToString(inf->sid));
-           if (ML.method_name) free(ML.method_name);
-           ML.method_name = string2char(core,mname);
-       }
+        AvmLog("class_id = %u\n", ML->class_id);
+        AvmLog("class_file_name = '%s'\n", ML->class_file_name);
+        AvmLog("source_file_name = '%s'\n", ML->source_file_name);
+        AvmLog("user_data = %p\n", ML->user_data);
+        AvmLog("user_data_size %u\n", ML->user_data_size);
+        AvmLog("\n");
+   }
 
-       ML.line_number_table = lines;   // Pointer to the begining of the line numbers info array
-       ML.line_number_size = at;       // Line Table size in number of entries - Zero if none
-
-       UTF8String* utf = ( fileName ) ? fileName->toUTF8String() : core->kEmptyString->toUTF8String();
-
-        ML.class_id = 0;                // uniq class ID
-       ML.class_file_name = (hasClass) ? string2char(core,name->substring(idx[0],idx[1])) : 0;     // class file name
-        ML.source_file_name = (char *)(malloc((utf->length()+3)*sizeof(char)));   // +1 for \0 and +2 for wtoc's ()
-        wtoc(ML.source_file_name, utf->c_str(), 0); // source file name
-
-        ML.user_data = NULL;            // bits supplied by the user for saving in the JIT file...
-        ML.user_data_size = 0;          // the size of the user data buffer
-        ML.env = iJDE_JittingAPI;
-
-        // DumpVTuneMethodInfo(core, &ML); // Uncommented to debug VTune
-        iJIT_NotifyEvent(iJVM_EVENT_TYPE_METHOD_LOAD_FINISHED, &ML);
-
-       if (inf->vtune && core->VTuneStatus == iJIT_CALLGRAPH_ON)
-        {
-            MMgc::GCHeap* heap = core->GetGC()->GetGCHeap();
-           heap->SetPageProtection(inf->vtune, sizeof (iJIT_Method_NIDS), false, true);
-       }
-
-        // free everything we alloc'd  ( @todo did vtune really copy all the strings?!? )
-        if (ML.line_number_table) free(ML.line_number_table);
-       if (ML.class_file_name && hasClass) free(ML.class_file_name);
-        if (ML.method_name) free(ML.method_name);
-        if (ML.source_file_name) free(ML.source_file_name);
+    static int indexOf(const char *s, char c) {
+        const char *found = strchr(s, c);
+        return found ? found - s : -1;
     }
-}
+    static int lastIndexOf(const char *s, char c) {
+        const char *found = strrchr(s, c);
+        return found ? found - s : -1;
+    }
 
-#endif /* VTUNE */
+    /**
+       * parse a given MethodInfo.format() 'ed name and provide
+       * the starting and ending indcies of each
+     * @return true, if a class name exists
+     */
+    bool locateNames(const char *name, int* idx)
+    {
+        bool hasClass = true;
+        VMPI_memset(idx,0,sizeof(*idx));
+        if (!name)
+            return false;
+
+        // class
+        // idx[0] = 0;
+        if ((idx[1]=indexOf(name, '.')) >= 0)
+            hasClass = false;  // match means no class name
+        else if ((idx[1]=indexOf(name, '$')) >=0)
+            idx[1]; // match
+        else if ((idx[1]=indexOf(name, '/')) >= 0)
+            idx[1]; // match
+        else
+            hasClass = false;  // nothing looks like a class here
+
+        // method
+        if ((idx[2]=lastIndexOf(name, '/')) >= 0)
+            idx[2]++;  // match
+        else if ((idx[2]=lastIndexOf(name, ':')) >= 0)
+            idx[2]++;  // match
+        else
+            ;  // idx[2] = 0;
+        idx[3] = strlen(name);
+
+        return hasClass;
+    }
+
+    static char *substring(const char *str, int start, int end) {
+        int len = end - start;
+        char *s = (char*) VMPI_alloc(len+1);
+        strncpy(s, str+start, len);
+        s[len] = 0;
+        return s;
+    }
+
+   void vtuneCallback(void *, iJIT_ModeFlags flags) {
+        printf("XXXXXXXXX mode changed %x\n", flags);
+    }
+
+    /** initialize vtune interface one time only */
+    void *vtuneInit(avmplus::String* methodName) {
+        if (!vtune_init) {
+            iJIT_RegisterCallbackEx(0, vtuneCallback);
+            vtune_init = true;
+            vtuneStatus = iJIT_IsProfilingActive();
+            printf("\nVTUNE STATUS %x\n\n", vtuneStatus);
+        }
+        StUTF8String namebuf(methodName);
+        const char *name = namebuf.c_str();
+        int idx[4];
+        bool hasClass = locateNames(name, idx);
+        AvmAssert(ML.env == 0);
+        ML.env = iJDE_JittingAPI;
+        ML.method_id = iJIT_GetNewMethodID();
+        ML.method_name = substring(name, idx[2], idx[3]);
+        if (hasClass) {
+            ML.class_file_name = substring(name, idx[0], idx[1]);
+        }
+        line_cap = 0;
+        return &ML;
+   }
+
+    // free stuff
+    void vtuneCleanup(void*) {
+        if (ML.env) {
+            if (ML.class_file_name)
+                VMPI_free(ML.class_file_name);
+            if (ML.method_name)
+                VMPI_free(ML.method_name);
+            if (ML.source_file_name)
+                VMPI_free(ML.source_file_name);
+            if (ML.line_number_table)
+                VMPI_free(ML.line_number_table);
+            memset(&ML, 0, sizeof(ML));
+        }
+    }
+
+    void fixupLines() {
+        // vtune wants lines in sorted order.
+        // fixme: sorted by offset or sorted by line?  guessing offset.
+        // table is in order of decreasing offsets.  We need to adjust the
+        // offsets relative to start, and put them in increasing order.
+        pLineNumberInfo table = ML.line_number_table;
+        uint32_t count = ML.line_number_size;
+        uint32_t middle = count / 2;
+        uint32_t adj = ML.method_size;
+        for (uint32_t i=0, j=count-1; i < middle; i++, j--) {
+            table[i].Offset += adj;
+            table[j].Offset += adj;
+            LineNumberInfo temp = table[i];
+            table[i] = table[j];
+            table[j] = temp;
+        }
+        if (count & 1) {
+            // odd number of entries, middle entry didn't move or get updated
+            table[middle].Offset += adj;
+        }
+    }
+
+    /** tell profiler where the method starts */
+    void vtuneStart(void* h, nanojit::NIns* start) {
+        AvmAssert(endAddr != 0 && endAddr > start);
+        ML.method_load_address = start;
+        ML.method_size = (char*)endAddr - (char*)start;
+
+        fixupLines();
+        if (ML.line_number_size > 0)
+           dumpVTuneMethodInfo(&ML); // Uncommented to debug VTune
+        iJIT_NotifyEvent(iJVM_EVENT_TYPE_METHOD_LOAD_FINISHED, &ML);
+        vtuneCleanup(h);
+    }
+
+    void vtuneEnd(void*, NIns* end) {
+        endAddr = end;
+    }
+
+    void vtuneFile(void*, void* fn) {
+        StUTF8String st((String*)fn);
+        const char *filename = st.c_str();
+        ML.source_file_name = substring(filename, 0, strlen(filename));
+    }
+
+    void vtuneLine(void*, int line, NIns *pos) {
+        if (!line_cap) {
+            line_cap = 4;
+            ML.line_number_table = (pLineNumberInfo) VMPI_alloc(line_cap * sizeof(LineNumberInfo));
+        } else if (ML.line_number_size == line_cap) {
+            line_cap *= 2;
+            pLineNumberInfo table = (pLineNumberInfo) VMPI_alloc(line_cap * sizeof(LineNumberInfo));
+            memcpy(table, ML.line_number_table, ML.line_number_size*sizeof(LineNumberInfo));
+            VMPI_free(ML.line_number_table);
+            ML.line_number_table = table;
+        }
+
+        // record offset from end for now, will adjust later once we have
+        // the start address.
+        pLineNumberInfo li = &ML.line_number_table[ML.line_number_size];
+        ML.line_number_size++;
+        li->LineNumber = line;
+        li->Offset = (char*)pos - (char*)endAddr;
+    }
+  }
+
+#endif /* VMCFG_VTUNE */

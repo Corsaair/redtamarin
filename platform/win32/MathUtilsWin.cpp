@@ -359,22 +359,4 @@ namespace avmplus
         }
     }
 #endif /* X86_MATH */
-
-#ifdef X86_MATH
-    int32_t MathUtils::real2int(double value)
-    {
-        uint16_t oldcw, newcw;
-        int32_t intval;
-        _asm fnstcw [oldcw];
-        _asm mov ax,[oldcw];
-        _asm or ax,0xc3f;
-        _asm mov [newcw],ax;
-        _asm fldcw [newcw];
-        _asm fld [value];
-        _asm fistp [intval];
-        _asm fldcw [oldcw];
-        return intval;
-    }
-#endif /* X86_MATH */
-
 }

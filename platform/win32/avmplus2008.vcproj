@@ -13,10 +13,10 @@
 			Name="Win32"
 		/>
 		<Platform
-			Name="Windows Mobile 6 Professional SDK (ARMV4I)"
+			Name="x64"
 		/>
 		<Platform
-			Name="x64"
+			Name="Windows Mobile 6 Professional SDK (ARMV4I)"
 		/>
 	</Platforms>
 	<ToolFiles>
@@ -27,7 +27,7 @@
 			OutputDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
 			IntermediateDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops;$(SolutionDir)warnings.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -48,7 +48,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
 				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				ExceptionHandling="0"
@@ -96,96 +96,11 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug|Windows Mobile 6 Professional SDK (ARMV4I)"
-			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
-			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="1"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				ExecutionBucket="7"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
-				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;UNICODE;UNDER_CE=0x501;_WIN32_WCE=0x501;ARM;_ARM_;ARMV5;_DEBUG;DEBUG;_CRT_SECURE_NO_DEPRECATE"
-				MinimalRebuild="false"
-				ExceptionHandling="0"
-				RuntimeLibrary="0"
-				TreatWChar_tAsBuiltInType="false"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="avmplus.h"
-				ProgramDataBaseFileName="$(IntDir)/avmplus.pdb"
-				BrowseInformation="0"
-				WarningLevel="4"
-				WarnAsError="true"
-				DebugInformationFormat="3"
-				DisableSpecificWarnings="4189;4740;4189;4201"
-				CompileForArchitecture="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				AdditionalOptions="/IGNORE:4221"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCCodeSignTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-			<DeploymentTool
-				ForceDirty="-1"
-				RemoteDirectory=""
-				RegisterOutput="0"
-				AdditionalFiles=""
-			/>
-			<DebuggerTool
-			/>
-		</Configuration>
-		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
 			IntermediateDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops;$(SolutionDir)warnings.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -207,7 +122,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
 				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE"
 				StringPooling="true"
 				ExceptionHandling="0"
@@ -255,97 +170,11 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release|Windows Mobile 6 Professional SDK (ARMV4I)"
-			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
-			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="1"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				ExecutionBucket="7"
-				Optimization="2"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
-				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;UNICODE;UNDER_CE=0x501;_WIN32_WCE=0x501;ARM;_ARM_;ARMV5;NDEBUG;_CRT_SECURE_NO_DEPRECATE"
-				StringPooling="true"
-				ExceptionHandling="0"
-				RuntimeLibrary="0"
-				TreatWChar_tAsBuiltInType="false"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="avmplus.h"
-				AssemblerOutput="4"
-				ProgramDataBaseFileName="$(IntDir)/avmplus.pdb"
-				BrowseInformation="0"
-				WarningLevel="4"
-				WarnAsError="true"
-				DebugInformationFormat="3"
-				DisableSpecificWarnings="4189;4740;4189;4201;4127"
-				CompileForArchitecture="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				AdditionalOptions="/IGNORE:4221"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCCodeSignTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-			<DeploymentTool
-				ForceDirty="-1"
-				RemoteDirectory=""
-				RegisterOutput="0"
-				AdditionalFiles=""
-			/>
-			<DebuggerTool
-			/>
-		</Configuration>
-		<Configuration
 			Name="Release_Debugger|Win32"
 			OutputDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
 			IntermediateDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops;$(SolutionDir)warnings.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -367,7 +196,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
 				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;NDEBUG;_CONSOLE;DEBUGGER;_CRT_SECURE_NO_DEPRECATE"
 				StringPooling="true"
 				ExceptionHandling="0"
@@ -414,97 +243,11 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
-			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
-			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="1"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				ExecutionBucket="7"
-				Optimization="2"
-				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
-				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;NDEBUG;_CONSOLE;DEBUGGER;_CRT_SECURE_NO_DEPRECATE"
-				StringPooling="true"
-				ExceptionHandling="0"
-				RuntimeLibrary="0"
-				BufferSecurityCheck="false"
-				TreatWChar_tAsBuiltInType="false"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="avmplus.h"
-				AssemblerOutput="4"
-				ProgramDataBaseFileName="$(IntDir)/avmplus.pdb"
-				BrowseInformation="0"
-				WarningLevel="4"
-				WarnAsError="true"
-				DisableSpecificWarnings="4189;4740;4189;4201"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				AdditionalOptions="/IGNORE:4221"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCCodeSignTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-			<DeploymentTool
-				ForceDirty="-1"
-				RemoteDirectory=""
-				RegisterOutput="0"
-				AdditionalFiles=""
-			/>
-			<DebuggerTool
-			/>
-		</Configuration>
-		<Configuration
 			Name="Debug_Debugger|Win32"
 			OutputDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
 			IntermediateDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops;$(SolutionDir)warnings.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -525,7 +268,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
 				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;_DEBUG;_CONSOLE;DEBUGGER;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				ExceptionHandling="0"
@@ -573,90 +316,6 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
-			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
-			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="1"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				ExecutionBucket="7"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
-				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;UNICODE;UNDER_CE=0x501;_WIN32_WCE=0x501;ARM;_ARM_;ARMV5;_DEBUG;DEBUG;_CRT_SECURE_NO_DEPRECATE;DEBUGGER"
-				MinimalRebuild="true"
-				ExceptionHandling="0"
-				RuntimeLibrary="1"
-				TreatWChar_tAsBuiltInType="false"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="avmplus.h"
-				ProgramDataBaseFileName="$(IntDir)/avmplus.pdb"
-				BrowseInformation="0"
-				WarningLevel="4"
-				WarnAsError="true"
-				DebugInformationFormat="3"
-				DisableSpecificWarnings="4189;4740;4189;4201"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				AdditionalOptions="/IGNORE:4221"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCCodeSignTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-			<DeploymentTool
-				ForceDirty="-1"
-				RemoteDirectory=""
-				RegisterOutput="0"
-				AdditionalFiles=""
-			/>
-			<DebuggerTool
-			/>
-		</Configuration>
-		<Configuration
 			Name="VTune|Win32"
 			OutputDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
 			IntermediateDirectory="obj_9/$(ProjectName)/$(ConfigurationName)"
@@ -683,8 +342,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;..\..\..\..\modules\vtune;.."
-				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;VTUNE"
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
+				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;AVMFEATURE_VTUNE=1"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
@@ -732,93 +391,6 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="VTune|Windows Mobile 6 Professional SDK (ARMV4I)"
-			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
-			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="1"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				ExecutionBucket="7"
-				Optimization="3"
-				InlineFunctionExpansion="0"
-				FavorSizeOrSpeed="2"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;..;..\..\vtune"
-				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;VTUNE;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE"
-				StringPooling="true"
-				ExceptionHandling="0"
-				RuntimeLibrary="0"
-				BufferSecurityCheck="false"
-				TreatWChar_tAsBuiltInType="false"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="avmplus.h"
-				AssemblerOutput="4"
-				ProgramDataBaseFileName="$(IntDir)/avmplus.pdb"
-				BrowseInformation="0"
-				WarningLevel="4"
-				WarnAsError="true"
-				DebugInformationFormat="3"
-				DisableSpecificWarnings="4189;4740;4189;4201"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				AdditionalOptions="/IGNORE:4221"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCCodeSignTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-			<DeploymentTool
-				ForceDirty="-1"
-				RemoteDirectory=""
-				RegisterOutput="0"
-				AdditionalFiles=""
-			/>
-			<DebuggerTool
-			/>
-		</Configuration>
-		<Configuration
 			Name="MemoryProfiler|Win32"
 			OutputDirectory="&quot;obj_9/$(ProjectName)/$(ConfigurationName)&quot;"
 			IntermediateDirectory="&quot;obj_9/$(ProjectName)/$(ConfigurationName)&quot;"
@@ -846,7 +418,7 @@
 				AdditionalOptions="/Oy-"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
 				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;MMGC_MEMORY_PROFILER"
 				StringPooling="true"
 				ExceptionHandling="0"
@@ -895,97 +467,11 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="MemoryProfiler|Windows Mobile 6 Professional SDK (ARMV4I)"
-			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
-			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="1"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				ExecutionBucket="7"
-				Optimization="2"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
-				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;UNICODE;UNDER_CE=0x501;_WIN32_WCE=0x501;ARM;_ARM_;ARMV5;NDEBUG;_CRT_SECURE_NO_DEPRECATE"
-				StringPooling="true"
-				ExceptionHandling="0"
-				RuntimeLibrary="0"
-				TreatWChar_tAsBuiltInType="false"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="avmplus.h"
-				AssemblerOutput="4"
-				ProgramDataBaseFileName="$(IntDir)/avmplus.pdb"
-				BrowseInformation="0"
-				WarningLevel="4"
-				WarnAsError="true"
-				DebugInformationFormat="3"
-				DisableSpecificWarnings="4189;4740;4189;4201;4127"
-				CompileForArchitecture="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				AdditionalOptions="/IGNORE:4221"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCCodeSignTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-			<DeploymentTool
-				ForceDirty="-1"
-				RemoteDirectory=""
-				RegisterOutput="0"
-				AdditionalFiles=""
-			/>
-			<DebuggerTool
-			/>
-		</Configuration>
-		<Configuration
 			Name="Debug|x64"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops;$(SolutionDir)warnings.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -1007,7 +493,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
 				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				ExceptionHandling="0"
@@ -1058,7 +544,7 @@
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops;$(SolutionDir)warnings.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -1081,7 +567,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
 				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE"
 				StringPooling="true"
 				ExceptionHandling="0"
@@ -1133,7 +619,7 @@
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops;$(SolutionDir)warnings.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -1156,7 +642,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
 				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;NDEBUG;_CONSOLE;DEBUGGER;_CRT_SECURE_NO_DEPRECATE"
 				StringPooling="true"
 				ExceptionHandling="0"
@@ -1208,7 +694,7 @@
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops;$(SolutionDir)warnings.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -1230,7 +716,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
 				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;_DEBUG;_CONSOLE;DEBUGGER;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				ExceptionHandling="0"
@@ -1304,7 +790,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
 				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE"
 				StringPooling="true"
 				ExceptionHandling="0"
@@ -1379,7 +865,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\VMPI;..\..\MMgc;..\..\core;..\..\shell;..\..\pcre;..\..\eval;.."
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
 				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE"
 				StringPooling="true"
 				ExceptionHandling="0"
@@ -1424,6 +910,520 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug|Windows Mobile 6 Professional SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops;$(SolutionDir)warnings.vsprops"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="1"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
+				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;UNICODE;UNDER_CE=0x501;_WIN32_WCE=0x501;ARM;_ARM_;ARMV5;_DEBUG;DEBUG;_CRT_SECURE_NO_DEPRECATE"
+				MinimalRebuild="false"
+				ExceptionHandling="0"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="false"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="avmplus.h"
+				ProgramDataBaseFileName="$(IntDir)/avmplus.pdb"
+				BrowseInformation="0"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="3"
+				DisableSpecificWarnings="4189;4740;4189;4201"
+				CompileForArchitecture="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				AdditionalOptions="/IGNORE:4221"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Windows Mobile 6 Professional SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops;$(SolutionDir)warnings.vsprops"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="1"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="2"
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
+				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;UNICODE;UNDER_CE=0x501;_WIN32_WCE=0x501;ARM;_ARM_;ARMV5;NDEBUG;_CRT_SECURE_NO_DEPRECATE"
+				StringPooling="true"
+				ExceptionHandling="0"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="false"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="avmplus.h"
+				AssemblerOutput="4"
+				ProgramDataBaseFileName="$(IntDir)/avmplus.pdb"
+				BrowseInformation="0"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="3"
+				DisableSpecificWarnings="4189;4740;4189;4201;4127"
+				CompileForArchitecture="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				AdditionalOptions="/IGNORE:4221"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops;$(SolutionDir)warnings.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="1"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
+				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;NDEBUG;_CONSOLE;DEBUGGER;_CRT_SECURE_NO_DEPRECATE"
+				StringPooling="true"
+				ExceptionHandling="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				TreatWChar_tAsBuiltInType="false"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="avmplus.h"
+				AssemblerOutput="4"
+				ProgramDataBaseFileName="$(IntDir)/avmplus.pdb"
+				BrowseInformation="0"
+				WarningLevel="4"
+				WarnAsError="true"
+				DisableSpecificWarnings="4189;4740;4189;4201"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				AdditionalOptions="/IGNORE:4221"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops;$(SolutionDir)warnings.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="1"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
+				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;UNICODE;UNDER_CE=0x501;_WIN32_WCE=0x501;ARM;_ARM_;ARMV5;_DEBUG;DEBUG;_CRT_SECURE_NO_DEPRECATE;DEBUGGER"
+				MinimalRebuild="true"
+				ExceptionHandling="0"
+				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="false"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="avmplus.h"
+				ProgramDataBaseFileName="$(IntDir)/avmplus.pdb"
+				BrowseInformation="0"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="3"
+				DisableSpecificWarnings="4189;4740;4189;4201"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				AdditionalOptions="/IGNORE:4221"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="VTune|Windows Mobile 6 Professional SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="1"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="3"
+				InlineFunctionExpansion="0"
+				FavorSizeOrSpeed="2"
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
+				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;AVMFEATURE_VTUNE=1;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE"
+				StringPooling="true"
+				ExceptionHandling="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				TreatWChar_tAsBuiltInType="false"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="avmplus.h"
+				AssemblerOutput="4"
+				ProgramDataBaseFileName="$(IntDir)/avmplus.pdb"
+				BrowseInformation="0"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="3"
+				DisableSpecificWarnings="4189;4740;4189;4201"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				AdditionalOptions="/IGNORE:4221"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="MemoryProfiler|Windows Mobile 6 Professional SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 6 Professional SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="1"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="2"
+				AdditionalIncludeDirectories="..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;.."
+				PreprocessorDefinitions="WIN32_LEAN_AND_MEAN;WIN32;AVMSHELL_BUILD;UNICODE;UNDER_CE=0x501;_WIN32_WCE=0x501;ARM;_ARM_;ARMV5;NDEBUG;_CRT_SECURE_NO_DEPRECATE"
+				StringPooling="true"
+				ExceptionHandling="0"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="false"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="avmplus.h"
+				AssemblerOutput="4"
+				ProgramDataBaseFileName="$(IntDir)/avmplus.pdb"
+				BrowseInformation="0"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="3"
+				DisableSpecificWarnings="4189;4740;4189;4201;4127"
+				CompileForArchitecture="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				AdditionalOptions="/IGNORE:4221"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
 			/>
 		</Configuration>
 	</Configurations>
@@ -1484,6 +1484,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\core\ArrayObject-inlines.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\core\ArrayObject.cpp"
 				>
 			</File>
@@ -1492,23 +1496,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\core\atom-inlines.h"
+				RelativePath="..\..\vmbase\atom-inlines.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\core\atom.cpp"
+				RelativePath="..\..\vmbase\atom.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\core\atom.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\core\AtomArray.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\core\AtomArray.h"
+				RelativePath="..\..\vmbase\atom.h"
 				>
 			</File>
 			<File
@@ -1556,34 +1552,10 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\core\WeakAtom.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\core\WeakAtom-inlines.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\core\WeakAtom.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\core\WeakAtom-inlines.h"
-				>
-			</File>
-			<File
 				RelativePath=".\avmplus.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Windows Mobile 6 Professional SDK (ARMV4I)"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1599,23 +1571,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Windows Mobile 6 Professional SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Release_Debugger|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1631,14 +1587,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="VTune|Win32"
 					>
 					<Tool
@@ -1647,23 +1595,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="VTune|Windows Mobile 6 Professional SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="MemoryProfiler|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="MemoryProfiler|Windows Mobile 6 Professional SDK (ARMV4I)"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1718,6 +1650,54 @@
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Windows Mobile 6 Professional SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Windows Mobile 6 Professional SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="VTune|Windows Mobile 6 Professional SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="MemoryProfiler|Windows Mobile 6 Professional SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\core\avmplus.h"
@@ -1744,11 +1724,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\core\avmplusList.h"
+				RelativePath="..\..\core\avmplusList-impl.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\core\avmplusProfiler.cpp"
+				RelativePath="..\..\core\avmplusList-inlines.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\avmplusList.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\avmplusList.h"
 				>
 			</File>
 			<File
@@ -1788,11 +1776,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\core\ByteArrayGlue.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\ByteArrayGlue.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\core\ClassClass.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\core\ClassClass.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\ClassClosure-inlines.h"
 				>
 			</File>
 			<File
@@ -1833,6 +1833,14 @@
 			</File>
 			<File
 				RelativePath=".\coff.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\DataIO.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\DataIO.h"
 				>
 			</File>
 			<File
@@ -1884,6 +1892,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\core\DomainMgr.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\DomainMgr.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\core\E4XNode.cpp"
 				>
 			</File>
@@ -1908,11 +1924,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\core\exec.cpp"
+				RelativePath="..\..\core\Exception.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\core\exec.h"
+				RelativePath="..\..\core\Exception.h"
 				>
 			</File>
 			<File
@@ -1928,11 +1944,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\core\Exception.cpp"
+				RelativePath="..\..\core\exec.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\core\Exception.h"
+				RelativePath="..\..\core\exec.h"
 				>
 			</File>
 			<File
@@ -1992,6 +2008,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\core\MathUtils-inlines.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\core\MathUtils.cpp"
 				>
 			</File>
@@ -2000,11 +2020,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MathUtilsWin.cpp"
+				RelativePath=".\MathUtilsWin-inlines.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MathUtilsWin-inlines.h"
+				RelativePath=".\MathUtilsWin.cpp"
 				>
 			</File>
 			<File
@@ -2316,6 +2336,80 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\vmbase\vmbase-inlines.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\vmbase\vmbase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\vmbase\VMThread-inlines.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\vmbase\VMThread.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+						PrecompiledHeaderThrough=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+						PrecompiledHeaderThrough=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Debugger|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+						PrecompiledHeaderThrough=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Debugger|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+						PrecompiledHeaderThrough=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="VTune|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+						PrecompiledHeaderThrough=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="MemoryProfiler|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+						PrecompiledHeaderThrough=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\vmbase\VMThread.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\core\VTable-inlines.h"
 				>
 			</File>
@@ -2332,6 +2426,22 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\core\WeakAtom-inlines.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\WeakAtom-inlines.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\WeakAtom.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\WeakAtom.h"
+				>
+			</File>
+			<File
 				RelativePath=".\win32setjmp.cpp"
 				>
 				<FileConfiguration
@@ -2344,40 +2454,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Windows Mobile 6 Professional SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						PrecompiledHeaderThrough=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Windows Mobile 6 Professional SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="MemoryProfiler|Windows Mobile 6 Professional SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Debug|x64"
 					ExcludedFromBuild="true"
 					>
@@ -2421,6 +2497,40 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="MemoryProfiler|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Windows Mobile 6 Professional SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+						PrecompiledHeaderThrough=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Windows Mobile 6 Professional SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="MemoryProfiler|Windows Mobile 6 Professional SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2432,38 +2542,6 @@
 				RelativePath=".\win64setjmp.asm"
 				>
 				<FileConfiguration
-					Name="Debug|Windows Mobile 6 Professional SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Windows Mobile 6 Professional SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="MemoryProfiler|Windows Mobile 6 Professional SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Debug|x64"
 					>
 					<Tool
@@ -2515,6 +2593,38 @@
 						Name="VCCustomBuildTool"
 						CommandLine="ml64.exe /Fo$(IntDir)\Win64setjmp.obj /c /FlWin64setjmp.cod Win64setjmp.asm&#x0D;&#x0A;"
 						Outputs="$(IntDir)\Win64setjmp.obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Windows Mobile 6 Professional SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Windows Mobile 6 Professional SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Debugger|Windows Mobile 6 Professional SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="MemoryProfiler|Windows Mobile 6 Professional SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
 			</File>
@@ -2691,6 +2801,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\core\ByteArray.as"
+				>
+			</File>
+			<File
 				RelativePath="..\..\core\Class.as"
 				>
 			</File>
@@ -2708,6 +2822,14 @@
 			</File>
 			<File
 				RelativePath="..\..\core\Function.as"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\IDataInput.as"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\IDataOutput.as"
 				>
 			</File>
 			<File
@@ -2753,6 +2875,14 @@
 		</File>
 		<File
 			RelativePath="..\..\core\ErrorConstants.xml"
+			>
+		</File>
+		<File
+			RelativePath="..\..\core\opcodes.tbl"
+			>
+		</File>
+		<File
+			RelativePath="..\..\core\peephole.tbl"
 			>
 		</File>
 	</Files>

@@ -37,13 +37,14 @@
   <ItemGroup>
     <ClCompile Include="..\..\core\AbcData.cpp" />
     <ClCompile Include="..\..\core\AbcEnv.cpp" />
-    <ClCompile Include="..\..\core\AbcGen.cpp" />
     <ClCompile Include="..\..\core\AbcParser.cpp" />
     <ClCompile Include="..\..\core\ActionBlockConstants.cpp" />
     <ClCompile Include="..\..\core\ArrayClass.cpp" />
     <ClCompile Include="..\..\core\ArrayObject.cpp" />
-    <ClCompile Include="..\..\core\atom.cpp" />
-    <ClCompile Include="..\..\core\AtomArray.cpp" />
+    <ClCompile Include="..\..\MMgc\GCPolicyManager.cpp" />
+    <ClCompile Include="..\..\MMgc\PageMap.cpp" />
+    <ClCompile Include="..\..\vmbase\atom.cpp" />
+    <ClCompile Include="..\..\core\avmplusList.cpp" />
     <ClCompile Include="..\..\core\avm.cpp" />
     <ClCompile Include="..\..\core\AvmCore.cpp" />
     <ClCompile Include="..\..\core\avmfeatures.cpp" />
@@ -61,7 +62,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\core\avmplusHashtable.cpp" />
-    <ClCompile Include="..\..\core\avmplusProfiler.cpp" />
     <ClCompile Include="..\..\core\AvmPlusScriptableObject.cpp" />
     <ClCompile Include="..\..\core\BigInteger.cpp" />
     <ClCompile Include="..\..\core\BooleanClass.cpp" />
@@ -96,6 +96,7 @@
     <ClCompile Include="..\..\core\DescribeTypeClass.cpp" />
     <ClCompile Include="..\..\core\Domain.cpp" />
     <ClCompile Include="..\..\core\DomainEnv.cpp" />
+    <ClCompile Include="..\..\core\DomainMgr.cpp" />
     <ClCompile Include="..\..\core\E4XNode.cpp" />
     <ClCompile Include="..\..\core\ErrorClass.cpp" />
     <ClCompile Include="..\..\core\ErrorConstants.cpp" />
@@ -171,10 +172,13 @@
     <ClCompile Include="..\..\extensions\ST_avmplus_basics.cpp" />
     <ClCompile Include="..\..\extensions\ST_avmplus_peephole.cpp" />
     <ClCompile Include="..\..\extensions\ST_mmgc_543560.cpp" />
+    <ClCompile Include="..\..\extensions\ST_mmgc_575631.cpp" />
     <ClCompile Include="..\..\extensions\ST_mmgc_basics.cpp" />
     <ClCompile Include="..\..\extensions\ST_mmgc_dependent.cpp" />
+    <ClCompile Include="..\..\extensions\ST_mmgc_finalize_uninit.cpp" />
     <ClCompile Include="..\..\extensions\ST_mmgc_gcheap.cpp" />
     <ClCompile Include="..\..\extensions\ST_mmgc_threads.cpp" />
+    <ClCompile Include="..\..\extensions\ST_mmgc_weakref.cpp" />
     <ClCompile Include="..\..\MMgc\FixedAlloc.cpp" />
     <ClCompile Include="..\..\MMgc\FixedMalloc.cpp" />
     <ClCompile Include="..\..\MMgc\GC.cpp" />
@@ -310,9 +314,9 @@
     <ClCompile Include="..\..\pcre\pcre_xclass.cpp" />
     <ClCompile Include="..\..\shell\avmshell.cpp" />
     <ClCompile Include="..\..\shell\avmshellWin.cpp" />
-    <ClCompile Include="..\..\shell\ByteArrayGlue.cpp" />
+    <ClCompile Include="..\..\core\ByteArrayGlue.cpp" />
     <ClCompile Include="..\..\shell\ConsoleOutputStream.cpp" />
-    <ClCompile Include="..\..\shell\DataIO.cpp" />
+    <ClCompile Include="..\..\core\DataIO.cpp" />
     <ClCompile Include="..\..\shell\DebugCLI.cpp" />
     <ClCompile Include="..\..\shell\DomainClass.cpp" />
     <ClCompile Include="..\..\shell\FileClass.cpp" />
@@ -331,7 +335,7 @@
     <ClCompile Include="..\..\shell\swf.cpp" />
     <ClCompile Include="..\..\shell\SystemClass.cpp" />
     <ClCompile Include="..\..\shell\WinFile.cpp" />
-    <ClCompile Include="..\..\VMPI\AvmAssert.cpp" />
+    <ClCompile Include="..\..\vmbase\AvmAssert.cpp" />
     <ClCompile Include="..\..\VMPI\MMgcPortWin.cpp" />
     <ClCompile Include="..\..\VMPI\SpyUtilsWin.cpp" />
     <ClCompile Include="..\..\VMPI\ThreadsWin.cpp" />
@@ -365,7 +369,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\core\AbcEnv-inlines.h" />
     <ClInclude Include="..\..\core\AbcEnv.h" />
-    <ClInclude Include="..\..\core\AbcGen.h" />
     <ClInclude Include="..\..\core\AbcParser-inlines.h" />
     <ClInclude Include="..\..\core\AbcParser.h" />
     <ClInclude Include="..\..\core\ActionBlockConstants.h" />
@@ -374,9 +377,9 @@
     <ClInclude Include="..\..\core\ArrayObject-inlines.h" />
     <ClInclude Include="..\..\core\ArrayObject.h" />
     <ClInclude Include="..\..\core\atom-inlines.h" />
-    <ClInclude Include="..\..\core\atom.h" />
-    <ClInclude Include="..\..\core\AtomArray-inlines.h" />
-    <ClInclude Include="..\..\core\AtomArray.h" />
+    <ClInclude Include="..\..\MMgc\GCPolicyManager.h" />
+    <ClInclude Include="..\..\MMgc\PageMap.h" />
+    <ClInclude Include="..\..\vmbase\atom.h" />
     <ClInclude Include="..\..\core\AtomWriteBarrier.h" />
     <ClInclude Include="..\..\core\avm.h" />
     <ClInclude Include="..\..\core\avmbuild.h" />
@@ -389,6 +392,8 @@
     <ClInclude Include="..\..\core\avmplusHashtable-inlines.h" />
     <ClInclude Include="..\..\core\avmplusHashtable.h" />
     <ClInclude Include="..\..\core\avmplusList.h" />
+    <ClInclude Include="..\..\core\avmplusList-inlines.h" />
+    <ClInclude Include="..\..\core\avmplusList-impl.h" />
     <ClInclude Include="..\..\core\avmplusProfiler.h" />
     <ClInclude Include="..\..\core\AvmPlusScriptableObject.h" />
     <ClInclude Include="..\..\core\avmplusStack.h" />
@@ -423,6 +428,7 @@
     <ClInclude Include="..\..\core\DescribeTypeClass.h" />
     <ClInclude Include="..\..\core\Domain.h" />
     <ClInclude Include="..\..\core\DomainEnv.h" />
+    <ClInclude Include="..\..\core\DomainMgr.h" />
     <ClInclude Include="..\..\core\E4XNode.h" />
     <ClInclude Include="..\..\core\ErrorClass.h" />
     <ClInclude Include="..\..\core\ErrorConstants.h" />
@@ -620,22 +626,21 @@
     <ClInclude Include="..\..\pcre\ucpinternal.h" />
     <ClInclude Include="..\..\shell\avmshell-features.h" />
     <ClInclude Include="..\..\shell\avmshell.h" />
-    <ClInclude Include="..\..\shell\ByteArrayGlue.h" />
+    <ClInclude Include="..\..\core\ByteArrayGlue.h" />
     <ClInclude Include="..\..\shell\ConsoleOutputStream.h" />
-    <ClInclude Include="..\..\shell\DataIO.h" />
+    <ClInclude Include="..\..\core\DataIO.h" />
     <ClInclude Include="..\..\shell\DebugCLI.h" />
     <ClInclude Include="..\..\shell\DomainClass.h" />
     <ClInclude Include="..\..\shell\File.h" />
     <ClInclude Include="..\..\shell\FileClass.h" />
     <ClInclude Include="..\..\shell\FileInputStream.h" />
-    <ClInclude Include="..\..\shell\genericzlib.h" />
     <ClInclude Include="..\..\shell\Platform.h" />
     <ClInclude Include="..\..\shell\Profiler.h" />
     <ClInclude Include="..\..\shell\ShellCore.h" />
     <ClInclude Include="..\..\shell\shell_toplevel.h" />
     <ClInclude Include="..\..\shell\SystemClass.h" />
     <ClInclude Include="..\..\shell\WinFile.h" />
-    <ClInclude Include="..\..\VMPI\AvmAssert.h" />
+    <ClInclude Include="..\..\vmbase\AvmAssert.h" />
     <ClInclude Include="..\..\VMPI\VMPI.h" />
     <ClInclude Include="..\..\vprof\vprof.h" />
     <ClInclude Include="..\system-selection.h" />
@@ -808,7 +813,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\VMPI;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAsManaged>false</CompileAsManaged>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -838,7 +843,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\VMPI;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAsManaged>false</CompileAsManaged>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -868,7 +873,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\VMPI;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAsManaged>false</CompileAsManaged>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -884,6 +889,7 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>false</OpenMPSupport>
       <DisableSpecificWarnings>4201;4131;4127</DisableSpecificWarnings>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -898,7 +904,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\VMPI;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAsManaged>false</CompileAsManaged>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -914,6 +920,7 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>false</OpenMPSupport>
       <DisableSpecificWarnings>4201;4131;4127</DisableSpecificWarnings>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -927,9 +934,9 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
-      <Optimization>Full</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>false</FunctionLevelLinking>
-      <AdditionalIncludeDirectories>..\..\VMPI;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAsManaged>false</CompileAsManaged>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -944,6 +951,7 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>false</OpenMPSupport>
       <DisableSpecificWarnings>4201;4131;4127</DisableSpecificWarnings>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -957,9 +965,9 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debugger|Win32'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
-      <Optimization>Full</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>false</FunctionLevelLinking>
-      <AdditionalIncludeDirectories>..\..\VMPI;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAsManaged>false</CompileAsManaged>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -974,6 +982,7 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>false</OpenMPSupport>
       <DisableSpecificWarnings>4201;4131;4127</DisableSpecificWarnings>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -987,9 +996,9 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
-      <Optimization>Full</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>false</FunctionLevelLinking>
-      <AdditionalIncludeDirectories>..\..\VMPI;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAsManaged>false</CompileAsManaged>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -1004,6 +1013,8 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>false</OpenMPSupport>
       <DisableSpecificWarnings>4201;4131;4127</DisableSpecificWarnings>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -1017,9 +1028,9 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debugger|x64'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
-      <Optimization>Full</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>false</FunctionLevelLinking>
-      <AdditionalIncludeDirectories>..\..\VMPI;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VMPI;..\..\vmbase;..\..\shell;..\..\extensions;..\..\MMgc;..\..\other-licenses\zlib;..\..\core;..\..\eval;..\..\pcre;..\..\nanojit;.;..</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAsManaged>false</CompileAsManaged>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -1034,6 +1045,8 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>false</OpenMPSupport>
       <DisableSpecificWarnings>4201;4131;4127</DisableSpecificWarnings>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

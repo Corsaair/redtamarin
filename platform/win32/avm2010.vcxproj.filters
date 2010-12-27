@@ -42,9 +42,6 @@
     <ClCompile Include="..\..\core\AbcEnv.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\core\AbcGen.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\core\AbcParser.cpp">
       <Filter>core</Filter>
     </ClCompile>
@@ -57,10 +54,7 @@
     <ClCompile Include="..\..\core\ArrayObject.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\core\atom.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\AtomArray.cpp">
+    <ClCompile Include="..\..\core\avmplusList.cpp">
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\core\avm.cpp">
@@ -85,9 +79,6 @@
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\core\avmplusHashtable.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\avmplusProfiler.cpp">
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\core\AvmPlusScriptableObject.cpp">
@@ -579,13 +570,13 @@
     <ClCompile Include="..\..\shell\avmshellWin.cpp">
       <Filter>shell</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\shell\ByteArrayGlue.cpp">
+    <ClCompile Include="..\..\core\ByteArrayGlue.cpp">
       <Filter>shell</Filter>
     </ClCompile>
     <ClCompile Include="..\..\shell\ConsoleOutputStream.cpp">
       <Filter>shell</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\shell\DataIO.cpp">
+    <ClCompile Include="..\..\core\DataIO.cpp">
       <Filter>shell</Filter>
     </ClCompile>
     <ClCompile Include="..\..\shell\DebugCLI.cpp">
@@ -614,9 +605,6 @@
     </ClCompile>
     <ClCompile Include="..\..\shell\WinFile.cpp">
       <Filter>shell</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\VMPI\AvmAssert.cpp">
-      <Filter>VMPI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\VMPI\MMgcPortWin.cpp">
       <Filter>VMPI</Filter>
@@ -648,15 +636,34 @@
     <ClCompile Include="..\..\core\exec-verifyall.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\extensions\ST_mmgc_weakref.cpp">
+      <Filter>extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\ST_mmgc_finalize_uninit.cpp">
+      <Filter>extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\core\DomainMgr.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\ST_mmgc_575631.cpp" />
+    <ClCompile Include="..\..\vmbase\atom.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vmbase\AvmAssert.cpp">
+      <Filter>VMPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MMgc\GCPolicyManager.cpp">
+      <Filter>MMgc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MMgc\PageMap.cpp">
+      <Filter>MMgc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\core\AbcEnv.h">
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\core\AbcEnv-inlines.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\AbcGen.h">
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\core\AbcParser.h">
@@ -678,15 +685,6 @@
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\core\ArrayObject-inlines.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\atom.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\AtomArray.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\AtomArray-inlines.h">
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\core\atom-inlines.h">
@@ -726,6 +724,12 @@
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\core\avmplusList.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\avmplusList-impl.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\avmplusList-inlines.h">
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\core\avmplusProfiler.h">
@@ -1289,13 +1293,13 @@
     <ClInclude Include="..\..\shell\avmshell-features.h">
       <Filter>shell</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\shell\ByteArrayGlue.h">
+    <ClInclude Include="..\..\core\ByteArrayGlue.h">
       <Filter>shell</Filter>
     </ClInclude>
     <ClInclude Include="..\..\shell\ConsoleOutputStream.h">
       <Filter>shell</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\shell\DataIO.h">
+    <ClInclude Include="..\..\core\DataIO.h">
       <Filter>shell</Filter>
     </ClInclude>
     <ClInclude Include="..\..\shell\DebugCLI.h">
@@ -1311,9 +1315,6 @@
       <Filter>shell</Filter>
     </ClInclude>
     <ClInclude Include="..\..\shell\FileInputStream.h">
-      <Filter>shell</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\shell\genericzlib.h">
       <Filter>shell</Filter>
     </ClInclude>
     <ClInclude Include="..\..\shell\Platform.h">
@@ -1334,9 +1335,6 @@
     <ClInclude Include="..\..\shell\WinFile.h">
       <Filter>shell</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\VMPI\AvmAssert.h">
-      <Filter>VMPI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\VMPI\VMPI.h">
       <Filter>VMPI</Filter>
     </ClInclude>
@@ -1348,6 +1346,21 @@
     </ClInclude>
     <ClInclude Include="..\..\core\exec-inlines.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\core\DomainMgr.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vmbase\atom.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vmbase\AvmAssert.h">
+      <Filter>VMPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MMgc\GCPolicyManager.h">
+      <Filter>MMgc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MMgc\PageMap.h">
+      <Filter>MMgc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
