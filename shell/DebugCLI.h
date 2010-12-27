@@ -49,11 +49,11 @@ namespace avmshell
     class BreakAction : public MMgc::GCObject
     {
     public:
-        BreakAction *prev;
-        BreakAction *next;
-        SourceFile *sourceFile;
+        DWB(BreakAction*) prev;
+        DWB(BreakAction*) next;
+        DWB(SourceFile*) sourceFile;
         int id;
-        Stringp filename;
+        DRCWB(Stringp) filename;
         int linenum;
 
         BreakAction(SourceFile *sourceFile,
@@ -73,7 +73,7 @@ namespace avmshell
     /**
      * This can be either an l-value or an r-value.
      */
-    class IValue
+    class IValue : public MMgc::GCFinalizedObject
     {
     public:
         virtual ~IValue() {}
@@ -93,7 +93,7 @@ namespace avmshell
         virtual void set(Atom /*newValue*/) { AvmAssert(false); }
 
     private:
-        Atom value;
+        ATOM_WB value;
     };
 
     /**
@@ -118,7 +118,7 @@ namespace avmshell
         }
 
     private:
-        DebugFrame* frame;
+        DWB(DebugFrame*) frame;
         int index;
     };
 
@@ -144,7 +144,7 @@ namespace avmshell
         }
 
     private:
-        DebugFrame* frame;
+        DWB(DebugFrame*) frame;
         int index;
     };
 
@@ -154,8 +154,8 @@ namespace avmshell
     class PropertyValue: public IValue
     {
     public:
-        PropertyValue(ScriptObject* parent, Multiname* propertyname)
-        : parent(parent), propertyname(propertyname) { }
+        PropertyValue(ScriptObject* parent, Multiname& propertyname)
+            : parent(parent), propertyname(propertyname) { }
 
         virtual bool isLValue() { return true; }
         virtual Atom get()
@@ -168,16 +168,18 @@ namespace avmshell
         }
 
     private:
-        ScriptObject* parent;
-        Multiname* propertyname;
+        DRCWB(ScriptObject*) parent;
+        HeapMultiname propertyname;
     };
 
     /**
      * A simple command line interface for the Debugger.
      * Supports a gdb-like command line.
      */
-    class DebugCLI : public avmplus::Debugger
+    class GC_CPP_EXACT_IFDEF(DebugCLI, avmplus::Debugger, DEBUGGER)
     {
+    private:
+        DebugCLI(AvmCore *core, Debugger::TraceLevel tracelevel);
     public:
         /** @name command codes */
         /*@{*/
@@ -222,7 +224,11 @@ namespace avmshell
             int id;
         };
 
-        DebugCLI(AvmCore *core, Debugger::TraceLevel tracelevel);
+        REALLY_INLINE static DebugCLI* create(MMgc::GC* gc, AvmCore *core, Debugger::TraceLevel tracelevel)
+        {
+            return MMgc::setExact(new (gc) DebugCLI(core, tracelevel));
+        }
+
         ~DebugCLI();
 
         void enterDebugger();
@@ -263,20 +269,26 @@ namespace avmshell
          */
         Stringp formatValue(Atom value);
 
+        GC_DATA_BEGIN(DebugCLI)
+        
     private:
         bool activeFlag;
         char *currentSource;
         uint32_t currentSourceLen;
-        Stringp currentFile;
+        DRCWB(Stringp) GC_POINTER(currentFile);
         int breakpointCount;
         bool warnMissingSource;
 
-        BreakAction *firstBreakAction, *lastBreakAction;
+        DWB(BreakAction*) GC_POINTER(firstBreakAction);
+        DWB(BreakAction*) GC_POINTER(lastBreakAction);
 
         enum { kMaxCommandLine = 1024 };
         char commandLine[kMaxCommandLine];
         char lastCommand[kMaxCommandLine];
         char *currentToken;
+        
+        GC_DATA_END(DebugCLI)
+
         char *nextToken();
 
         void printIP();

@@ -233,13 +233,16 @@ namespace avmshell
         for (int i=0; i<count; i++)
         {
             // write out the name
-            Stringp nm;
-                if (info && frame->argumentName(i, nm))
+            if (info)
+            {
+                Stringp nm = info->getArgName(i);
+                if (nm != core->kundefined)
                     core->console << nm << "=";
+            }
 
-                core->console << asAtom(*ptr++);
-                if (i<count-1)
-                    core->console << ",";
+            core->console << asAtom(*ptr++);
+            if (i<count-1)
+                core->console << ",";
         }
         core->console << ") at ";
         if (src)
@@ -596,6 +599,7 @@ namespace avmshell
     class ScopeBuilder : public CallStackNode::IScopeChainEnumerator
     {
     public:
+        ScopeBuilder(MMgc::GC* gc) : scopeChain(gc, kListInitialCapacity) { }
         /*virtual*/ void addScope(Atom scope)
         {
             // null/undefined are not legal entries for scope, but
@@ -608,7 +612,7 @@ namespace avmshell
             scopeChain.add(scope);
         }
 
-        List<Atom> scopeChain;
+        AtomList scopeChain;
     };
 
     void DebugCLI::throwUndefinedVarError(const char* name)
@@ -705,10 +709,10 @@ namespace avmshell
             MethodEnv* env = frame->trace->env();
             if (env)
             {
-                ScopeBuilder scopeBuilder;
+                ScopeBuilder scopeBuilder(core->GetGC());
                 frame->trace->enumerateScopeChainAtoms(scopeBuilder);
 
-                for (uint32_t i=0, n=scopeBuilder.scopeChain.size(); i<n; ++i)
+                for (uint32_t i=0, n=scopeBuilder.scopeChain.length(); i<n; ++i)
                 {
                     StPropertyFinder finder(core, scopeBuilder.scopeChain.get(i), name);
                     finder.iterate();
@@ -722,17 +726,15 @@ namespace avmshell
         MethodEnv* env = frame->trace->env();
         if (env)
         {
-            Multiname* mn = new (core->gc) Multiname(
-                    core->getAnyPublicNamespace(),
-                    core->internStringLatin1(name)
-            );
-            ScriptEnv* script = env->getScriptEnv(mn);
+            Multiname mn(core->getAnyPublicNamespace(),
+                         core->internStringLatin1(name));
+            ScriptEnv* script = core->domainMgr()->findScriptEnvInDomainEnvByMultiname(env->domainEnv(), mn);
             if (script != (ScriptEnv*)BIND_NONE && script != (ScriptEnv*)BIND_AMBIGUOUS)
             {
                 ScriptObject* global = script->global;
                 if (global)
                 {
-                    return new PropertyValue(global, mn);
+                    return new (core->gc) PropertyValue(global, mn);
                 }
         }
     }
@@ -803,10 +805,8 @@ namespace avmshell
                             // on it will define a new property.  If the parent object is not
                             // dynamic, then get() and set() will throw exceptions.  Either way,
                             // that's the correct behavior.
-                            Multiname* mn = new (core->gc) Multiname(
-            core->getAnyPublicNamespace(),
-            core->internStringLatin1(name)
-        );
+                            Multiname mn(core->getAnyPublicNamespace(),
+                                         core->internStringLatin1(name));
                             value = new (core->gc) PropertyValue(AvmCore::atomToScriptObject(parent), mn);
                         }
                         else
@@ -1074,8 +1074,8 @@ namespace avmshell
                 if (!key)
                     continue;
                 Binding b = iter.value();
-                Multiname* mn = new (core->gc) Multiname(iter.ns(), key);
-                if (!process(mn, AvmCore::bindingKind(b)))
+                Multiname mn(iter.ns(), key);
+                if (!process(&mn, AvmCore::bindingKind(b)))
                     return;
             }
             t = t->base;
@@ -1085,8 +1085,8 @@ namespace avmshell
         int index = 0;
         while ((index = object->nextNameIndex(index)) != 0)
         {
-            Multiname* mn = new (core->gc) Multiname(core->getAnyPublicNamespace(), core->string(object->nextName(index)));
-            if (!process(mn, BKIND_VAR))
+            Multiname mn(core->getAnyPublicNamespace(), core->string(object->nextName(index)));
+            if (!process(&mn, BKIND_VAR))
                 return;
         }
     }
@@ -1102,7 +1102,7 @@ namespace avmshell
     {
         if (key->getName()->equalsLatin1(propertyname))
         {
-            value = new (core->gc) PropertyValue(object, key);
+            value = new (core->gc) PropertyValue(object, *key);
             return false; // stop iterating
         }
 
