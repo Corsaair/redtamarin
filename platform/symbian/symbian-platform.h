@@ -106,11 +106,16 @@
 #define REALLY_INLINE inline
 
 #ifdef __WINSCW__
+#define DISABLE_STATIC_PCRECONTEXT
 #undef _WIN32
 #undef __MWERKS__
 #endif
 
-#if defined(__GNUC__)
+#ifdef MMGC_OVERRIDE_GLOBAL_NEW
+    #error "configuration not supported"
+#endif
+
+#if defined(__ARMCC__)
     #define AVMPLUS_ALIGN8(type) type __attribute__ ((aligned (8)))
     #define AVMPLUS_ALIGN16(type) type __attribute__ ((aligned (16)))
 #else
@@ -118,6 +123,8 @@
     #define AVMPLUS_ALIGN8(type) type
     #define AVMPLUS_ALIGN16(type) type
 #endif
+
+typedef pthread_t vmpi_thread_t;
 
 /**
 * Type defintion for an opaque data type representing platform-defined spin lock
@@ -137,14 +144,29 @@ REALLY_INLINE void VMPI_lockInit(vmpi_spin_lock_t* lock)
 
 REALLY_INLINE void VMPI_lockDestroy(vmpi_spin_lock_t *lock)
 {
-    pthread_mutex_destroy((pthread_mutex_t*)&lock->lock);
+	// Avm can call VMPI_lockDestroy before calling VMPI_lockRelease.
+	if(pthread_mutex_trylock((pthread_mutex_t*)&lock->lock) == EBUSY)
+	{
+		pthread_mutex_unlock((pthread_mutex_t*)&lock->lock);
+	}
+	pthread_mutex_destroy((pthread_mutex_t*)&lock->lock);
 }
 
 REALLY_INLINE bool VMPI_lockAcquire(vmpi_spin_lock_t *lock)
 {
-    // detect deadlock situations - happens sometimes
-    int ret = pthread_mutex_trylock( (pthread_mutex_t*)&lock->lock );
-    return (ret == 0);
+	// It's allowed that different threads try to lock the same lock.
+	int ret = 0;
+	int counter = 0;
+	while (true)
+	{
+		ret = pthread_mutex_trylock( (pthread_mutex_t*)&lock->lock ); 
+		if(ret == 0 || ret != EBUSY) // some bad error
+			break;		
+		counter = (counter++) & 63;
+		if(counter == 0)
+			sched_yield();
+	}
+	return ret == 0;
 }
 
 REALLY_INLINE bool VMPI_lockRelease(vmpi_spin_lock_t *lock)
@@ -156,5 +178,9 @@ REALLY_INLINE bool VMPI_lockTestAndAcquire(vmpi_spin_lock_t *lock)
 {
     return pthread_mutex_trylock((pthread_mutex_t*)&lock->lock) == 0;
 }
+
+#define EMULATE_ATOMICS_WITH_PTHREAD_MUTEX
+
+#include "../VMPI/ThreadsPosix-inlines.h"
 
 #endif // __avmplus_symbian_platform__
