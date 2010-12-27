@@ -56,7 +56,6 @@
 #define VMPI_strncpy        ::strncpy
 #define VMPI_strtol         ::strtol
 #define VMPI_strstr         ::strstr
-#define VMPI_strerror       ::strerror
 
 #define VMPI_sprintf        ::sprintf
 #define VMPI_snprintf       ::snprintf
@@ -79,15 +78,6 @@
 #define VMPI_isalpha ::isalpha
 #define VMPI_abort   ::abort
 #define VMPI_exit    ::exit
-
-#define VMPI_access         ::access
-#define VMPI_getcwd         ::getcwd
-#define VMPI_gethostname    ::gethostname
-#define VMPI_rmdir          ::rmdir
-
-#define VMPI_remove    ::remove
-#define VMPI_rename    ::rename
-
 
 // Set up a jmp_buf suitable for VMPI_longjmpNoUnwind.
 // Use the routine version with an underscore to avoid system calls
@@ -121,28 +111,21 @@
 #include <AvailabilityMacros.h>
 
 #include <sys/mman.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <errno.h>
 #include <stdlib.h>
 
 #include <unistd.h>
-#include <dirent.h>
 #include <pthread.h>
 #include <new>
 #include <libkern/OSAtomic.h>
 #include <signal.h>
-
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <netdb.h>
 
 #ifdef DEBUG
 #include <assert.h>
 #endif
 
 typedef void *maddr_ptr;
+typedef pthread_t vmpi_thread_t;
 
 #ifdef AVMPLUS_MAC_CARBON
     /**
@@ -258,5 +241,66 @@ REALLY_INLINE bool VMPI_lockTestAndAcquire(vmpi_spin_lock_t* lock)
     }
     return false;
 }
+
+REALLY_INLINE int32_t VMPI_atomicIncAndGet32WithBarrier(volatile int32_t* value)
+{
+#if MACOSX_DEPLOYMENT_TARGET == MACOSX_DEPLOYMENT_TARGET_10_4
+    return OSAtomicIncrement32Barrier(const_cast<int32_t*>(value));
+#else
+    return OSAtomicIncrement32Barrier(value);
+#endif
+}
+
+REALLY_INLINE int32_t VMPI_atomicIncAndGet32(volatile int32_t* value)
+{
+#if MACOSX_DEPLOYMENT_TARGET == MACOSX_DEPLOYMENT_TARGET_10_4
+    return OSAtomicIncrement32(const_cast<int32_t*>(value));
+#else
+    return OSAtomicIncrement32(value);
+#endif
+}
+
+REALLY_INLINE int32_t VMPI_atomicDecAndGet32WithBarrier(volatile int32_t* value)
+{
+#if MACOSX_DEPLOYMENT_TARGET == MACOSX_DEPLOYMENT_TARGET_10_4
+    return OSAtomicDecrement32Barrier(const_cast<int32_t*>(value));
+#else
+    return OSAtomicDecrement32Barrier(value);
+#endif
+}
+
+REALLY_INLINE int32_t VMPI_atomicDecAndGet32(volatile int32_t* value)
+{
+#if MACOSX_DEPLOYMENT_TARGET == MACOSX_DEPLOYMENT_TARGET_10_4
+    return OSAtomicDecrement32(const_cast<int32_t*>(value));
+#else
+    return OSAtomicDecrement32(value);
+#endif
+}
+
+REALLY_INLINE bool VMPI_compareAndSwap32(int32_t oldValue, int32_t newValue, volatile int32_t* address)
+{
+#if MACOSX_DEPLOYMENT_TARGET == MACOSX_DEPLOYMENT_TARGET_10_4
+    return OSAtomicCompareAndSwap32(oldValue, newValue, const_cast<int32_t*>(address));
+#else
+    return OSAtomicCompareAndSwap32(oldValue, newValue, address);
+#endif
+}
+
+REALLY_INLINE bool VMPI_compareAndSwap32WithBarrier(int32_t oldValue, int32_t newValue, volatile int32_t* address)
+{
+#if MACOSX_DEPLOYMENT_TARGET == MACOSX_DEPLOYMENT_TARGET_10_4
+    return OSAtomicCompareAndSwap32Barrier(oldValue, newValue, const_cast<int32_t*>(address));
+#else
+    return OSAtomicCompareAndSwap32Barrier(oldValue, newValue, address);
+#endif
+}
+
+REALLY_INLINE void VMPI_memoryBarrier()
+{
+    OSMemoryBarrier();
+}
+
+#include "../VMPI/ThreadsPosix-inlines.h"
 
 #endif // __avmplus_mac_platform__

@@ -20,7 +20,7 @@
 <booleanAttribute key="org.eclipse.cdt.launch.ENABLE_REGISTER_BOOKKEEPING" value="false"/>
 <booleanAttribute key="org.eclipse.cdt.launch.ENABLE_VARIABLE_BOOKKEEPING" value="false"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_ARGUMENTS" value="${project_loc}/esc/test/sanity/tests/hello.es.abc"/>
-<stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="Mac-32-Debug-Debugger/avm"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="Mac-64-Debug/avm"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="avmshell-project"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_ID_ATTR" value=""/>
 <booleanAttribute key="org.eclipse.cdt.launch.use_terminal" value="true"/>
