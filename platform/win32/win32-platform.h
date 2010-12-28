@@ -435,5 +435,7 @@ REALLY_INLINE void* VMPI_tlsGetValue(uintptr_t tlsId)
     return TlsGetValue((DWORD)tlsId);
 }
 
+#include "win32-platform2.h"
+
 #endif // __avmplus_win32_platform__
 
