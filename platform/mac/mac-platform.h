@@ -302,5 +302,6 @@ REALLY_INLINE void VMPI_memoryBarrier()
 }
 
 #include "../VMPI/ThreadsPosix-inlines.h"
+#include "mac-platform2.h"
 
 #endif // __avmplus_mac_platform__
