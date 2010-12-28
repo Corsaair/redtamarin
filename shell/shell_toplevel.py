@@ -64,8 +64,28 @@ print("Building shell_toplevel...")
 
 configs = ""
 
+classes  = ""
+
+classes += " shell_toplevel.as"
+classes += " Domain.as"
+classes += " ../extensions/Sampler.as"
+classes += " ../extensions/Trace.as"
+classes += " ../extensions/Dictionary.as"
+
+# redtamarin API
+classes += " ../as3/clib/C/stdlib.as"
+classes += " ../as3/clib/C/errno.as"
+classes += " ../as3/clib/C/string.as"
+classes += ""
+
+classes += " Endian.as"
+classes += " Java.as"
+
 # compile builtins
-os.system(asc+" -abcfuture -import ../core/builtin.abc -builtin "+configs+"-apiversioning -out shell_toplevel shell_toplevel.as Domain.as ../extensions/Sampler.as ../extensions/Trace.as ../extensions/Dictionary.as Endian.as Java.as")
+# os.system(asc+" -abcfuture -import ../core/builtin.abc -builtin "+configs+"-apiversioning -out shell_toplevel shell_toplevel.as Domain.as ../extensions/Sampler.as ../extensions/Trace.as ../extensions/Dictionary.as Endian.as Java.as")
+
+os.system(asc+" -abcfuture -import ../core/builtin.abc -builtin "+configs+"-apiversioning -out shell_toplevel"+classes)
+
 
 print("Generating native thunks...")
 os.system("python ../utils/nativegen.py ../core/builtin.abc shell_toplevel.abc")
