@@ -63,8 +63,11 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../extensions/JavaGlue.cpp \
   $(curdir)/../extensions/SamplerScript.cpp \
   $(curdir)/../api/clib/StdlibClass.cpp \
-  $(curdir)/../api/clib/CErrnoClass.cpp \
+  $(curdir)/../api/clib/UnistdClass.cpp \
   $(curdir)/../api/clib/CStringClass.cpp \
+  $(curdir)/../api/clib/CErrnoClass.cpp \
+  $(curdir)/../api/clib/StdioClass.cpp \
+  $(curdir)/../api/clib/CSocketClass.cpp \
   $(NULL)
 
 ifeq (windows,$(TARGET_OS))
