@@ -37,8 +37,8 @@
 
 PROGRAMS += shell
 
-shell_BASENAME = avmshell
-shell_INCLUDES = -I$(srcdir) -I$(topsrcdir)/extensions
+shell_BASENAME = redshell
+shell_INCLUDES = -I$(srcdir) -I$(topsrcdir)/extensions -I$(topsrcdir)/api/clib -I$(topsrcdir)/api/shell
 shell_DEFINES = -DAVMPLUS_SHELL
 shell_STATIC_LIBRARIES = zlib MMgc avmplus vmbase
 shell_DIR := $(curdir)/
@@ -62,21 +62,9 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../extensions/DictionaryGlue.cpp \
   $(curdir)/../extensions/JavaGlue.cpp \
   $(curdir)/../extensions/SamplerScript.cpp \
-  $(curdir)/../extensions/Selftest.cpp \
-  $(curdir)/../extensions/SelftestInit.cpp \
-  $(curdir)/../extensions/ST_avmplus_basics.cpp \
-  $(curdir)/../extensions/ST_avmplus_peephole.cpp \
-  $(curdir)/../extensions/ST_mmgc_basics.cpp \
-  $(curdir)/../extensions/ST_mmgc_dependent.cpp \
-  $(curdir)/../extensions/ST_mmgc_finalize_uninit.cpp \
-  $(curdir)/../extensions/ST_mmgc_threads.cpp \
-  $(curdir)/../extensions/ST_mmgc_weakref.cpp \
-  $(curdir)/../extensions/ST_mmgc_543560.cpp \
-  $(curdir)/../extensions/ST_mmgc_575631.cpp \
-  $(curdir)/../extensions/ST_mmgc_580603.cpp \
-  $(curdir)/../extensions/ST_mmgc_gcheap.cpp \
-  $(curdir)/../extensions/ST_vmbase_concurrency.cpp \
-  $(curdir)/../extensions/ST_vmpi_threads.cpp \
+  $(curdir)/../api/clib/StdlibClass.cpp \
+  $(curdir)/../api/clib/CErrnoClass.cpp \
+  $(curdir)/../api/clib/CStringClass.cpp \
   $(NULL)
 
 ifeq (windows,$(TARGET_OS))
