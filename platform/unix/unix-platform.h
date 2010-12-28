@@ -554,5 +554,6 @@ REALLY_INLINE void VMPI_memoryBarrier()
 #endif
 
 #include "../VMPI/ThreadsPosix-inlines.h"
+#include "unix-platform2.h"
 
 #endif // __avmplus_unix_platform__
