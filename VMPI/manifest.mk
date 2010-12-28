@@ -39,6 +39,7 @@ ifeq (windows,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/WinDebugUtils.cpp \
   $(curdir)/WinPortUtils.cpp \
+  $(curdir)/WinPortUtils2.cpp \
   $(curdir)/MMgcPortWin.cpp \
   $(curdir)/SpyUtilsWin.cpp \
   $(curdir)/ThreadsWin.cpp \
@@ -49,6 +50,7 @@ ifeq (darwin,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/MacDebugUtils.cpp \
   $(curdir)/PosixPortUtils.cpp \
+  $(curdir)/PosixPortUtils2.cpp \
   $(curdir)/MMgcPortMac.cpp \
   $(curdir)/SpyUtilsPosix.cpp \
   $(curdir)/ThreadsPosix.cpp \
@@ -58,6 +60,7 @@ endif
 ifeq (linux,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/PosixPortUtils.cpp \
+  $(curdir)/PosixPortUtils2.cpp \
   $(curdir)/UnixDebugUtils.cpp \
   $(curdir)/MMgcPortUnix.cpp \
   $(curdir)/ThreadsPosix.cpp \

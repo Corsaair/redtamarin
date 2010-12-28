@@ -940,6 +940,6 @@ extern size_t VMPI_threadAttrDefaultGuardSize();
  */
 extern size_t VMPI_threadAttrDefaultStackSize();
 
-
+#include "VMPI2.h"
 
 #endif /* __avmplus_VMPI__ */
