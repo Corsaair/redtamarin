@@ -116,7 +116,8 @@ package flash.system
 package
 {
 
-    import avmplus.*
+    import avmplus.*;
+    import C.errno.*;
 
     public function getClassByName( name:String ):Class
     {
@@ -144,16 +145,16 @@ package
     {
         return System.readLine();
     }
+    
+    /* note:
+       By default, something somewhere in tamarin define errno=2
+       eg. "No such file or directory"
+
+       for our API we want errno set as 0 (zero) from the start of the application
+       here forcing errno=0 in the unnamed package allow to do this
+    */
+    errno = 0;
 }
 
-// test library code
 
-/*
- tests
- - unversioned names: are in all versions, as though version 0
- - versioned names: are not visible to smaller versions (bindings, not number)
- - multiple versioned names: are visible to all compatible versions
- - class, interface, method, accessor, slot, static names
- - running multiple active versions
-*/
 
