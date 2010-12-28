@@ -40,6 +40,41 @@
 #ifndef __avmplus_mac_platform2__
 #define __avmplus_mac_platform2__
 
+//for const MAX_PATH in C.stdlib
+//#include <limits.h> //already included in mac-platform.h
+
+//for C.stdlib
+//#include <stdlib.h> //already included in mac-platform.h
+
+//for mode_t, needed with chmod
+#include <sys/types.h>
+
+//for const in C.unistd, chmod()
+#include <sys/stat.h>
+
+//for VMPI_getUserName()/getpwuid() used in C.unistd
+#include <pwd.h>
+
+//for const in C.socket
+#include <sys/socket.h>
+#include <netinet/in.h>
+
+//for C.socket gethostbyaddr(), gethostbyname()
+#include <arpa/inet.h>
+#include <netdb.h>
+
+
+//C.string
 #define VMPI_strerror    ::strerror
+
+//C.unistd
+#define VMPI_access      ::access
+#define VMPI_getcwd      ::getcwd
+#define VMPI_gethostname ::gethostname
+#define VMPI_rmdir       ::rmdir
+
+//C.stdio
+#define VMPI_remove      ::remove
+#define VMPI_rename      ::rename
 
 #endif // __avmplus_mac_platform2__
