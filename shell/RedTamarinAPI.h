@@ -40,9 +40,21 @@
 #ifndef __redtamarin_api__
 #define __redtamarin_api__
 
-//API
+//clib
 #include "StdlibClass.h"
-#include "CErrnoClass.h"
+#include "UnistdClass.h"
 #include "CStringClass.h"
+#include "CErrnoClass.h"
+#include "StdioClass.h"
+#include "CSocketClass.h"
+
+//File System API
+//#include "FileSystemClass.h"
+
+//Operating System API
+//#include "OperatingSystemClass.h"
+
+//Socket API
+//#include "SocketClass.h"
 
 #endif /* __redtamarin_api__ */
