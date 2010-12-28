@@ -40,6 +40,8 @@
 #ifndef __avmplus_VMPI2__
 #define __avmplus_VMPI2__
 
+// ---- C.stdlib ---- 
+
 /**
  * wrapper around setenv function
  * @return 0 if successful
@@ -57,5 +59,31 @@ extern int VMPI_unsetenv(const char *name);
  * @return resolved path
  */
 extern char *VMPI_realpath(char const *path);
+
+// ---- C.stdlib ---- END
+
+
+// ---- C.unistd ---- 
+
+extern int VMPI_chmod(const char *path, int mode);
+
+/**
+ * wrapper around mkdir function to create a directory
+ * @return 0 if successful
+ */
+extern int VMPI_mkdir(const char *path);
+
+extern void VMPI_sleep(int milliseconds);
+
+extern void VMPI_getUserName(char *username);
+
+// ---- C.unistd ---- END
+
+
+// ---- C.socket ---- 
+
+extern struct hostent *VMPI_gethostbyaddr(const char *addr);
+
+// ---- C.socket ---- END
 
 #endif /* __avmplus_VMPI2__ */

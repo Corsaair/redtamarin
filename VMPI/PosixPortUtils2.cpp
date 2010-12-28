@@ -37,10 +37,10 @@
 *
 * ***** END LICENSE BLOCK ***** */
 
-#include <limits.h>
-#include <stdlib.h>
+#include "avmplus.h"
 
 
+// ---- C.stdlib ---- 
 
 int VMPI_setenv(const char *name, const char *value, int overwrite)
 {
@@ -57,4 +57,54 @@ char *VMPI_realpath(char const *path)
     char resolved[PATH_MAX];
     return realpath(path, resolved);
 }
+
+// ---- C.stdlib ---- END
+
+
+// ---- C.unistd ---- 
+
+int VMPI_chmod(const char *path, int mode)
+{
+    return chmod(path, (mode_t)mode);
+}
+
+int VMPI_mkdir(const char *path)
+{
+    //S_IRWXU = Read, write, execute/search by owner.
+    //S_IRWXG = Read, write, execute/search by group.
+    //S_IRWXO = Read, write, execute/search by others.
+    return mkdir(path, S_IRWXU | S_IRWXG | S_IRWXO);
+}
+
+void VMPI_sleep(int milliseconds)
+{
+    usleep(1000 * milliseconds);
+}
+
+/* note:
+   1. getpwuid( geteuid() ) shall return the name associated with the effective user ID of the process
+   2. getlogin() shall return the name associated with the current login activity
+   3. getpwuid( getuid() ) shall return the name associated with the real user ID of the process
+*/
+void VMPI_getUserName(char *username)
+{
+    struct passwd *pws;
+    pws = getpwuid( geteuid() );
+    VMPI_strcpy( username, pws->pw_name );
+}
+
+// ---- C.unistd ---- END
+
+
+// ---- C.socket ---- 
+
+struct hostent *VMPI_gethostbyaddr(const char *addr)
+{
+    struct in_addr ipv4addr;
+    
+    inet_pton(AF_INET, addr, &ipv4addr);
+    return gethostbyaddr(&ipv4addr, sizeof ipv4addr, AF_INET);
+}
+
+// ---- C.socket ---- END
 
