@@ -43,45 +43,7 @@
 
 namespace avmshell
 {
-    // this class exists solely to test native classes that use MI.
-    /*class MIClass : public avmplus::ClassClosure
-    {
-    public:
-        MIClass(VTable* cvtable) : ClassClosure(cvtable) {}
-        ~MIClass() {}
-
-        DECLARE_SLOTS_MIClass;
-    };*/
-
-    // this class exists solely to test native classes that use MI.
-    class MixinClassThatDoesNotDescendFromScriptObject
-    {
-    public:
-        const double factor;
-        MixinClassThatDoesNotDescendFromScriptObject(double f) : factor(f) {}
-        // evil, wrong version that we DO NOT WANT
-        double plus(double v) { return v * factor; }
-    };
-
-    // this class exists solely to test native classes that use MI.
-    /*class MIObjectImpl : public avmplus::ScriptObject
-    {
-    public:
-        const double amount;
-        MIObjectImpl(VTable* vtable, ScriptObject* prototype, double a) : ScriptObject(vtable, prototype), amount(a) {}
-        double plus(double v) { return v + amount; }
-    };*/
-
-    // this class exists solely to test native classes that use MI.
-    /*class MIObject : public MIObjectImpl, public MixinClassThatDoesNotDescendFromScriptObject
-    {
-    public:
-        MIObject(VTable* vtable, ScriptObject* prototype) : MIObjectImpl(vtable, prototype, 1), MixinClassThatDoesNotDescendFromScriptObject(2) {}
-        ~MIObject() {}
-
-        DECLARE_SLOTS_MIObject;
-    };*/
-
+    
     /**
      * A simple class that has some native methods.
      * Included as an example for writers of native methods,
@@ -177,12 +139,6 @@ namespace avmshell
 
         // Queue a garbage collection request.
         void queueCollection();
-
-        // function exists solely to test native-methods with custom namespaces
-        void ns_example_nstest() { }
-
-        // function exists solely to test ScriptObject::isGlobalObject
-        bool isGlobal(Atom o);
 
         void disposeXML(XMLObject *xmlObject);
 

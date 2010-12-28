@@ -264,11 +264,6 @@ namespace avmshell
         core()->GetGC()->QueueCollection();
     }
 
-    bool SystemClass::isGlobal(Atom o)
-    {
-        return AvmCore::isObject(o) ? AvmCore::atomToScriptObject(o)->isGlobalObject() : false;
-    }
-
     void SystemClass::disposeXML(XMLObject *xmlObject)
     {
         if(xmlObject)
