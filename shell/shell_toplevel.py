@@ -74,8 +74,11 @@ classes += " ../extensions/Dictionary.as"
 
 # redtamarin API
 classes += " ../as3/clib/C/stdlib.as"
-classes += " ../as3/clib/C/errno.as"
+classes += " ../as3/clib/C/unistd.as"
 classes += " ../as3/clib/C/string.as"
+classes += " ../as3/clib/C/errno.as"
+classes += " ../as3/clib/C/stdio.as"
+classes += " ../as3/clib/C/socket.as"
 classes += ""
 
 classes += " Endian.as"
