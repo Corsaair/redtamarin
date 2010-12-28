@@ -44,14 +44,14 @@
 namespace avmshell
 {
     // this class exists solely to test native classes that use MI.
-    class MIClass : public avmplus::ClassClosure
+    /*class MIClass : public avmplus::ClassClosure
     {
     public:
         MIClass(VTable* cvtable) : ClassClosure(cvtable) {}
         ~MIClass() {}
 
         DECLARE_SLOTS_MIClass;
-    };
+    };*/
 
     // this class exists solely to test native classes that use MI.
     class MixinClassThatDoesNotDescendFromScriptObject
@@ -64,23 +64,23 @@ namespace avmshell
     };
 
     // this class exists solely to test native classes that use MI.
-    class MIObjectImpl : public avmplus::ScriptObject
+    /*class MIObjectImpl : public avmplus::ScriptObject
     {
     public:
         const double amount;
         MIObjectImpl(VTable* vtable, ScriptObject* prototype, double a) : ScriptObject(vtable, prototype), amount(a) {}
         double plus(double v) { return v + amount; }
-    };
+    };*/
 
     // this class exists solely to test native classes that use MI.
-    class MIObject : public MIObjectImpl, public MixinClassThatDoesNotDescendFromScriptObject
+    /*class MIObject : public MIObjectImpl, public MixinClassThatDoesNotDescendFromScriptObject
     {
     public:
         MIObject(VTable* vtable, ScriptObject* prototype) : MIObjectImpl(vtable, prototype, 1), MixinClassThatDoesNotDescendFromScriptObject(2) {}
         ~MIObject() {}
 
         DECLARE_SLOTS_MIObject;
-    };
+    };*/
 
     /**
      * A simple class that has some native methods.
