@@ -69,9 +69,11 @@
 
 //C.unistd
 #define VMPI_access      ::access
+#define VMPI_chdir       ::chdir
 #define VMPI_getcwd      ::getcwd
 #define VMPI_gethostname ::gethostname
 #define VMPI_rmdir       ::rmdir
+#define VMPI_unlink      ::unlink
 
 //C.stdio
 #define VMPI_remove      ::remove
