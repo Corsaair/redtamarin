@@ -47,6 +47,8 @@ package avmplus
         public native static function exit(status:int):void
         public native static function exec(command:String):int
 
+        public native static function get programFilename():String; //really argv[0]
+
         public native static function getAvmplusVersion():String
         public native static function getFeatures():String
         public native static function getRunmode():String
