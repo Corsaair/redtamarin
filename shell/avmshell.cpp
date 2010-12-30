@@ -59,7 +59,7 @@ namespace avmshell
 
     ShellSettings::ShellSettings()
         : ShellCoreSettings()
-        , programFilename(NULL)
+        //, programFilename(NULL)
         , filenames(NULL)
         , numfiles(-1)
         , do_selftest(false)
@@ -122,6 +122,7 @@ namespace avmshell
         MMgc::GCHeap::EnterLockInit();
         MMgc::GCHeapConfig conf;
         //conf.verbose = AvmCore::DEFAULT_VERBOSE_ON;
+        //conf.verbose = true; //should be commented out for release
         MMgc::GCHeap::Init(conf);
 
         // Note that output from the command line parser (usage messages, error messages,
@@ -672,6 +673,43 @@ namespace avmshell
         // options filenames -- args
 
         settings.programFilename = argv[0];     // How portable / reliable is this?
+
+        /* note:
+           we want to know early if we are a projector or not
+           and if we are we want to shortcircuit the avmshell args parsing logic
+
+           why ?
+           let's say I want to run a program.abc with those options "-a -b -c test.txt"
+           but I don't want to use "--" when my program is a projector
+
+            example:
+           ./redshell program.abc -- -a -b -c test.txt
+           ./program -a -b -c test.txt
+
+           with previous avmshell logic you would have to write
+           ./program -- -a -b -c test.txt
+
+           thanks bu no thanks, I hate the "--", I don't want the "--", bye bye the "--"
+        */
+
+#ifdef AVMSHELL_PROJECTOR_SUPPORT
+        if (settings.programFilename != NULL && ShellCore::isValidProjectorFile(settings.programFilename)) {
+            if (settings.do_selftest || settings.do_repl || settings.numfiles > 0) {
+                AvmLog("Projector files can't be used with -repl, -Dselftest, or program file arguments.\n");
+                usage();
+            }
+            if (settings.numthreads > 1 || settings.numworkers > 1) {
+                AvmLog("A projector requires exactly one worker on one thread.\n");
+                usage();
+            }
+
+            settings.arguments = &argv[1]; //copy all args after argv[0]
+            settings.numargs   = argc - 1;
+            settings.do_projector = 1;
+            return;
+        }
+#endif
+        
         for (int i=1; i < argc ; i++) {
             const char * const arg = argv[i];
 
@@ -1080,21 +1118,6 @@ namespace avmshell
         }
 
         // Vetting the options
-
-#ifdef AVMSHELL_PROJECTOR_SUPPORT
-        if (settings.programFilename != NULL && ShellCore::isValidProjectorFile(settings.programFilename)) {
-            if (settings.do_selftest || settings.do_repl || settings.numfiles > 0) {
-                AvmLog("Projector files can't be used with -repl, -Dselftest, or program file arguments.\n");
-                usage();
-            }
-            if (settings.numthreads > 1 || settings.numworkers > 1) {
-                AvmLog("A projector requires exactly one worker on one thread.\n");
-                usage();
-            }
-            settings.do_projector = 1;
-            return;
-        }
-#endif
 
 #ifndef VMCFG_AOT
         if (settings.numfiles == 0) {
