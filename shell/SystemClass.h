@@ -65,6 +65,7 @@ namespace avmshell
         // set by shell
         static int user_argc;
         static char **user_argv;
+        static char *exec_name;
 
         /**
          * Implementation of System.exit
@@ -72,6 +73,8 @@ namespace avmshell
          * Exits the VM with OS exit code specified by  status.
          */
         void exit(int status);
+        
+        Stringp get_programFilename();
 
         /**
          * Implementation of System.getAvmplusVersion

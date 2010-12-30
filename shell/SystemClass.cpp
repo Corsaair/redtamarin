@@ -187,7 +187,13 @@ namespace avmshell
 
     int SystemClass::user_argc;
     char **SystemClass::user_argv;
+    char *SystemClass::exec_name;
 
+    Stringp SystemClass::get_programFilename()
+    {
+        return core()->newStringUTF8( exec_name );
+    }
+    
     ArrayObject * SystemClass::getArgv()
     {
         // get VTable for avmplus.System
@@ -195,9 +201,10 @@ namespace avmshell
         AvmCore *core = this->core();
 
         ArrayObject *array = toplevel->arrayClass->newArray();
-        for(int i=0; i<user_argc;i++)
+        for(int i=0; i<user_argc;i++) {
             array->setUintProperty(i, core->newStringUTF8(user_argv[i])->atom());
-
+        }
+        
         return array;
     }
 
