@@ -47,7 +47,8 @@ namespace avmshell
     const int kScriptGracePeriod = 5;
 
     ShellCoreSettings::ShellCoreSettings()
-        : arguments(NULL)
+        : programFilename(NULL)
+        , arguments(NULL)
         , numargs(-1)
         , nodebugger(false)
         , astrace_console(0)
@@ -408,6 +409,7 @@ namespace avmshell
 
             SystemClass::user_argc = settings.numargs;
             SystemClass::user_argv = settings.arguments;
+            SystemClass::exec_name = settings.programFilename;
 
 #ifdef DEBUGGER
             initBuiltinPool((avmplus::Debugger::TraceLevel)settings.astrace_console);

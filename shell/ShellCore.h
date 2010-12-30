@@ -60,6 +60,7 @@ namespace avmshell
     public:
         ShellCoreSettings();
 
+        char* programFilename;          // name of the executable, or NULL
         char** arguments;               // non-terminated array of argument values, never NULL
         int numargs;                    // number of entries in 'arguments'
         bool nodebugger;
