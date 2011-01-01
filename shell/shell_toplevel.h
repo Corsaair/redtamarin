@@ -54,9 +54,9 @@ namespace avmplus {
     class NewObjectSampleObject; // flash.sampler::NewObjectSample
     class SampleClass; // flash.sampler::Sample$
     class SampleObject; // flash.sampler::Sample
-    class ScriptObject; // flash.trace::Trace
     class ScriptObject; // avmplus::System
     class ScriptObject; // avmplus::File
+    class ScriptObject; // flash.trace::Trace
     class ScriptObject; // C.stdlib::__stdlib
     class ScriptObject; // C.unistd::__unistd
     class ScriptObject; // C.string::__string
