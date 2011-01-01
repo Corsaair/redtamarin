@@ -39,9 +39,8 @@
 
 #include "avmplus.h"
 
-#include <errno.h>
-
-
+//for C.errno
+//#include <errno.h> //already included in win32-platform2.h
 
 
 
@@ -288,58 +287,196 @@ int errno_from_Win32(unsigned long w32Err)
     return EINVAL;
 }
 
+static int setenv_with_putenv(const char *name, const char *value)
+{
+    if(NULL != strchr(name, '='))
+    {
+        errno = EINVAL;
+        return -1;
+    }
+    else
+    {
+        size_t  nameLen     =   VMPI_strlen(name);
+        size_t  valueLen    =   VMPI_strlen(value);
+        size_t  required    =   1 + nameLen + 1 + valueLen;
+        char    buffer_[101];
+        char    *buffer     =   (NUM_ELEMENTS(buffer_) < required)
+                                    ? (char*)malloc(required * sizeof(char))
+                                    : &buffer_[0];
+
+        if(NULL == buffer)
+        {
+            errno = ENOMEM;
+            return -1;
+        }
+        else
+        {
+            int r;
+            (void)VMPI_strncpy(&buffer[0], name, nameLen);
+            buffer[nameLen] = '=';
+            buffer[nameLen + 1] = '\0';
+            (void)VMPI_strncpy(&buffer[nameLen + 1], value, valueLen);
+            buffer[nameLen + 1 + valueLen] = '\0';
+
+            r = _putenv(&buffer[0]);
+
+            if(buffer != &buffer_[0])
+            {
+                VMPI_free(buffer);
+            }
+
+            return r;
+        }
+    }
+}
+
+
+int WIN32_SocketStart(int major, int minor)
+{
+    WSADATA wsaData;
+    WORD wVersionRequested;
+    int err;
+    
+    wVersionRequested = MAKEWORD(major, minor);
+    err = WSAStartup(wVersionRequested, &wsaData);
+    
+    if (err != 0) {
+        printf("WSAStartup failed with error: %d\n", err);
+        return 1;
+    }
+
+    return 0;
+}
+
+void WIN32_SocketStop()
+{
+    /* note:
+       it would be a bad idea to call the WSA cleanup in the middle of code execution
+       the function is here but not used, in Platform.h for WIN32
+       when exit() is called we also call WSACleanup(), much cleaner approach imho
+
+       Also we could also suppress the need to call WIN32_SocketStart
+       by calling it by default in the start() function of Platform.h
+       not sure how it can affect memory/load to automatically call it
+       if no socket related code is used
+    */
+    WSACleanup();
+}
+
+
 // ---- utilities ---- END
 
 
 // ---- POSIX compatibility layer ---- 
 
-char *realpath(char const *path, char resolvedPath[])
-{
-    /* path is made absolute in three steps:
-     *
-     * 1. Call GetFullPathNameA()
-     * 2. Resolve all /./
-     * 3. Resolve all /../
-     */
-    DWORD   attr    =   GetFileAttributesA(path);
 
-    if(FILE_ATTRIBUTE_ERROR == attr)
-    {
-        errno = ENOENT;
-        return NULL;
-    }
-    else
-    {
-        LPSTR   lpFile;
-        DWORD   dw  =   GetFullPathNameA(path, 1 + _MAX_PATH, resolvedPath, &lpFile);
 
-        if(0 == dw)
-        {
-            errno = errno_from_Win32(GetLastError());
-            return NULL;
-        }
-        else
-        {
-            return resolvedPath;
-        }
-    }
-}
 
 // ---- POSIX compatibility layer ---- END
 
 
+// ---- C.stdlib ---- 
+
+int VMPI_setenv(const char *name, const char *value, int overwrite)
+{
+    if(!overwrite)
+    {
+        //VMPI_log("getenv = [");
+        //VMPI_log(VMPI_getenv(name));
+        //VMPI_log("]\n");
+        if(NULL != VMPI_getenv(name))
+        {
+            return 0;
+        }
+    }
+
+    return setenv_with_putenv(name, value);
+}
+
+int VMPI_unsetenv(const char *name)
+{
+    return setenv_with_putenv(name, "");
+}
+
 char *VMPI_realpath(char const *path)
 {
-    char resolved[PATH_MAX];
-    return realpath(path, resolved);
-    
     /* note:
-       alternative way of doing, don't use
        if the path does not exists the path will still resolve
        and does not set errno to ENOENT "No such file or directory"
     */
-    //char full[_MAX_PATH];
-    //return _fullpath( full, path, _MAX_PATH );
+    char* full = NULL;
+    char* result = NULL;
+    
+    if( VMPI_access(path, F_OK) ) {
+        errno = ENOENT;
+        return NULL;
+    }
+    
+    //char *_fullpath( char *absPath, const char *relPath, size_t maxLength );
+    result = _fullpath( full, path, PATH_MAX );
+    //and from this point 'full' is fuxored and 'result' is all good
+    
+    if( result != NULL ) {
+        return result;
+    }
+    
+    return NULL; 
 }
 
+// ---- C.stdlib ---- END
+
+
+// ---- C.unistd ---- 
+
+int VMPI_chmod(const char *path, int mode)
+{
+    return _chmod(path, (mode_t)mode);
+}
+
+int VMPI_mkdir(const char *path)
+{
+    return _mkdir(path);
+}
+
+void VMPI_sleep(int milliseconds)
+{
+    Sleep(milliseconds);
+}
+
+void VMPI_getUserName(char *username)
+{
+    DWORD bufsize = 256;
+    GetUserName(username, &bufsize);
+}
+
+int VMPI_gethostname(char *name, int namelen)
+{
+    int result = -1;
+    
+    if( WIN32_SocketStart(2,2) == 0 ) {
+        result = ::gethostname(name, namelen);
+    }
+    
+    return result;
+}
+
+// ---- C.unistd ---- END
+
+
+// ---- C.socket ---- 
+
+struct hostent *VMPI_gethostbyaddr(const char *addr)
+{
+    struct in_addr data_addr = { 0 };
+    
+    if( WIN32_SocketStart(2,2) == 0 ) {
+        data_addr.s_addr = inet_addr(addr);
+        return gethostbyaddr((char *) &data_addr, 4, AF_INET);
+    }
+    
+    return NULL;
+}
+
+
+// ---- C.socket ---- END
 
