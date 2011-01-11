@@ -44,6 +44,7 @@
     #include <CoreServices/CoreServices.h>
 #endif //AVMPLUS_MAC
 
+// ---- utilities ----
 
 char *VMPI_int2char(int n)
 {
@@ -57,6 +58,8 @@ char *VMPI_int2char(int n)
     
     return value;
 }
+
+// ---- utilities ---- END
 
 
 // ---- C.stdlib ---- 
