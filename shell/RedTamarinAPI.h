@@ -48,13 +48,10 @@
 #include "StdioClass.h"
 #include "CSocketClass.h"
 
-//File System API
-//#include "FileSystemClass.h"
-
-//Operating System API
-//#include "OperatingSystemClass.h"
-
-//Socket API
+//AVMPlus API
+#include "SystemClass.h"
+#include "OperatingSystemClass.h"
+#include "FileSystemClass.h"
 //#include "SocketClass.h"
 
 #endif /* __redtamarin_api__ */
