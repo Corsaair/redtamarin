@@ -57,7 +57,6 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/FileClass.cpp \
   $(curdir)/FileInputStream.cpp \
   $(curdir)/ShellCore.cpp \
-  $(curdir)/SystemClass.cpp \
   $(curdir)/swf.cpp \
   $(curdir)/../extensions/DictionaryGlue.cpp \
   $(curdir)/../extensions/JavaGlue.cpp \
@@ -68,6 +67,9 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../api/clib/CErrnoClass.cpp \
   $(curdir)/../api/clib/StdioClass.cpp \
   $(curdir)/../api/clib/CSocketClass.cpp \
+  $(curdir)/../api/shell/SystemClass.cpp \
+  $(curdir)/../api/shell/OperatingSystemClass.cpp \
+  $(curdir)/../api/shell/FileSystemClass.cpp \
   $(NULL)
 
 ifeq (windows,$(TARGET_OS))
