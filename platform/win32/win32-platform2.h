@@ -62,6 +62,7 @@
 
 //for gethostname, gethostbyaddr
 #include <winsock2.h>
+#pragma comment(lib, "user32.lib")
 #pragma comment(lib, "ws2_32.lib")
 
 
@@ -312,6 +313,64 @@ static const mode_t S_IXOTH      = 0;                    // does nothing
 static const mode_t S_IRWXU      = S_IRUSR | S_IWUSR | S_IXUSR;
 static const mode_t S_IRWXG      = S_IRGRP | S_IWGRP | S_IXGRP;
 static const mode_t S_IRWXO      = S_IROTH | S_IWOTH | S_IXOTH;
+
+
+/**
+ * dirent
+ */
+
+// this is a big sortcut to be able to use dirent directly in a native class
+typedef struct dirent
+{
+    char *d_name;
+    int d_type;
+} dirent;
+
+typedef struct DIR
+{
+    long                handle; /* -1 for failed rewind */
+    struct _finddata_t  info;
+    struct dirent       result; /* d_name null if first time */
+    char                *name;  /* null-terminated char string */
+} DIR;
+
+
+extern DIR           *opendir(const char *name);
+extern int           closedir(DIR *dir);
+extern struct dirent *readdir(DIR *dir);
+extern void          rewinddir(DIR *dir);
+
+
+/**
+ * uname
+ */
+
+#ifndef _UTSNAME_LENGTH
+  #define _UTSNAME_LENGTH 255
+#endif
+
+#ifndef _UTSNAME_NODENAME_LENGTH
+  #define _UTSNAME_NODENAME_LENGTH _UTSNAME_LENGTH
+#endif
+
+struct utsname
+{
+  char sysname[_UTSNAME_LENGTH];            // Name of the operating system
+  char nodename[_UTSNAME_NODENAME_LENGTH];  // Name of this node on the network
+  char release[_UTSNAME_LENGTH];            // Current release level
+  char version[_UTSNAME_LENGTH];            // Current version level of this release
+  char machine[_UTSNAME_LENGTH];            // Name of the hardware type the system is running on
+};
+
+#ifndef VER_SUITE_WH_SERVER
+  #define VER_SUITE_WH_SERVER     0x00008000
+#endif
+
+#ifndef PRODUCT_PROFESSIONAL
+  #define PRODUCT_PROFESSIONAL    0x00000030
+#endif
+
+extern int uname (struct utsname *uts);
 
 
 #endif // __avmplus_win32_platform2__
