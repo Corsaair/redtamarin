@@ -40,6 +40,9 @@
 #ifndef __avmplus_VMPI2__
 #define __avmplus_VMPI2__
 
+extern char *VMPI_int2char(int n);
+
+
 // ---- C.stdlib ---- 
 
 /**
@@ -86,4 +89,39 @@ extern struct hostent *VMPI_gethostbyaddr(const char *addr);
 
 // ---- C.socket ---- END
 
+
+// ---- avmplus.OperatingSystem ---- 
+
+extern void VMPI_getOperatingSystemName(char *name);
+
+extern void VMPI_getOperatingSystemNodeName(char *nodename);
+
+extern void VMPI_getOperatingSystemRelease(char *release);
+
+extern void VMPI_getOperatingSystemVersion(char *version);
+
+extern void VMPI_getOperatingSystemMachine(char *machine);
+
+extern void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix);
+
+// ---- avmplus.OperatingSystem ---- END
+
+
+// ---- avmplus.FileSystem ---- 
+
+extern int VMPI_getFileMode(const char *path);
+
+extern double VMPI_getFileSize(const char *path);
+
+extern double VMPI_getFileLastModifiedTime(const char *path);
+
+extern bool VMPI_isRegularFile(const char *path);
+
+extern bool VMPI_isDirectory(const char *path);
+
+extern double VMPI_getFreeDiskSpace(const char *path);
+
+extern double VMPI_getTotalDiskSpace(const char *path);
+
+// ---- avmplus.FileSystem ---- END
 #endif /* __avmplus_VMPI2__ */
