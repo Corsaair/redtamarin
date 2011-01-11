@@ -39,6 +39,25 @@
 
 #include "avmplus.h"
 
+#ifdef AVMPLUS_MAC
+    #include <malloc/malloc.h>
+    #include <CoreServices/CoreServices.h>
+#endif //AVMPLUS_MAC
+
+
+char *VMPI_int2char(int n)
+{
+    char buffer[100];
+    char *value;
+    size_t size;
+
+    size  = VMPI_sprintf( buffer, "%d", n ) * sizeof(char);
+    value = (char*) VMPI_alloc( size+1 );
+    VMPI_strcpy( value, buffer );
+    
+    return value;
+}
+
 
 // ---- C.stdlib ---- 
 
@@ -54,8 +73,23 @@ int VMPI_unsetenv(const char *name)
 
 char *VMPI_realpath(char const *path)
 {
-    char resolved[PATH_MAX];
-    return realpath(path, resolved);
+    //char resolved[PATH_MAX];
+    //return realpath(path, resolved);
+
+    char* full = NULL;
+    char* result = NULL;
+
+    result = realpath(path, full);
+    
+    //printf( "realpath path = %s\n", path );
+    //printf( "realpath full = %s\n", full );
+    //printf( "realpath result = %s\n", result );
+    
+    if( result != NULL ) {
+        return result;
+    }
+    
+    return NULL;
 }
 
 // ---- C.stdlib ---- END
@@ -107,4 +141,182 @@ struct hostent *VMPI_gethostbyaddr(const char *addr)
 }
 
 // ---- C.socket ---- END
+
+
+// ---- avmplus.OperatingSystem ---- 
+
+//OperatingSystem.getName()
+void VMPI_getOperatingSystemName(char *name)
+{
+    utsname info;
+    const char *osname;
+    
+    if( uname(&info) < 0 ) {
+        osname = "";
+    }
+    else {
+        osname = info.sysname;
+    }
+    
+    VMPI_strcpy( name, osname );
+}
+
+//OperatingSystem.getNodeName()
+void VMPI_getOperatingSystemNodeName(char *nodename)
+{
+    utsname info;
+    const char *osnodename;
+    
+    if( uname(&info) < 0 ) {
+        osnodename = "";
+    }
+    else {
+        osnodename = info.nodename;
+    }
+    
+    VMPI_strcpy( nodename, osnodename );
+}
+
+//OperatingSystem.getRelease()
+void VMPI_getOperatingSystemRelease(char *release)
+{
+    utsname info;
+    const char *osrelease;
+    
+    if( uname(&info) < 0 ) {
+        osrelease = "";
+    }
+    else {
+        osrelease = info.release;
+    }
+    
+    VMPI_strcpy( release, osrelease );
+}
+
+//OperatingSystem.getVersion()
+void VMPI_getOperatingSystemVersion(char *version)
+{
+    utsname info;
+    const char *osversion;
+    
+    if( uname(&info) < 0 ) {
+        osversion = "";
+    }
+    else {
+        osversion = info.version;
+    }
+
+    VMPI_strcpy( version, osversion );
+}
+
+//OperatingSystem.getMachine()
+void VMPI_getOperatingSystemMachine(char *machine)
+{
+    utsname info;
+    const char *osmachine;
+    
+    if( uname(&info) < 0 ) {
+        osmachine = "";
+    }
+    else {
+        osmachine = info.machine;
+    }
+    
+    VMPI_strcpy( machine, osmachine );
+}
+
+//OperatingSystem.getVendorVersion()
+void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix)
+{
+#ifdef AVMPLUS_MAC
+    SInt32 version, version_major, version_minor, version_bugfix;
+    if( Gestalt(gestaltSystemVersion, &version) == noErr )
+    {
+        if( version >= 0x00001040 )
+        {
+            Gestalt(gestaltSystemVersionMajor, &version_major);
+            Gestalt(gestaltSystemVersionMinor, &version_minor);
+            Gestalt(gestaltSystemVersionBugFix, &version_bugfix);
+        }
+        else
+        {
+            version_bugfix = version & 0xf;
+            version >>= 4;
+            version_minor = version & 0xf;
+            version >>= 4;
+            version_major = version - (version >> 4) * 6;
+        }
+        
+        *major  = (int)version_major;
+        *minor  = (int)version_minor;
+        *bugfix = (int)version_bugfix;
+    }
+#else
+    (void)major;
+    (void)minor;
+    (void)bugfix;
+#endif
+}
+
+// ---- avmplus.OperatingSystem ---- 
+
+
+// ---- avmplus.FileSystem ---- 
+
+int VMPI_getFileMode(const char *path)
+{
+    struct stat stats;
+    stat(path, &stats);
+    return stats.st_mode;
+}
+
+double VMPI_getFileSize(const char *path)
+{
+    struct stat stats;
+    stat(path, &stats);
+    return stats.st_size;
+}
+
+double VMPI_getFileLastModifiedTime(const char *path)
+{
+    struct stat stats;
+    stat(path, &stats);
+    return double( stats.st_mtime ) * 1000.0;
+    //return double( stats.st_atime ) * 1000.0;
+    //return double( stats.st_ctime ) * 1000.0;
+}
+
+bool VMPI_isRegularFile(const char *path)
+{
+    return S_ISREG( VMPI_getFileMode(path) );
+}
+
+bool VMPI_isDirectory(const char *path)
+{
+    return S_ISDIR( VMPI_getFileMode(path) );
+}
+
+//bool VMPI_isSymbolicLink(const char *path)
+
+double VMPI_getFreeDiskSpace(const char *path)
+{
+    struct statvfs stats;
+    if( statvfs(path, &stats) != 0) {
+        return -1;
+    }
+    return static_cast<double>(stats.f_bavail) * stats.f_frsize;
+}
+
+double VMPI_getTotalDiskSpace(const char *path)
+{
+    struct statvfs stats;
+    if( statvfs(path, &stats) != 0) {
+        return -1;
+    }
+    return static_cast<double>(stats.f_blocks) * stats.f_frsize;
+}
+
+// ---- avmplus.FileSystem ---- END
+
+
 
