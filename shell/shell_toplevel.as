@@ -40,7 +40,8 @@
 package avmplus
 {
     import flash.utils.ByteArray
-    
+
+    /*
     [native(cls="::avmshell::SystemClass", classgc="exact", methods="auto")]
     public class System
     {
@@ -84,6 +85,7 @@ package avmplus
 
         public native static function disposeXML(xml:XML):void;
     }
+    */
 
     [native(cls="::avmshell::FileClass", methods="auto")]
     public class File
