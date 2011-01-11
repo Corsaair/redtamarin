@@ -50,6 +50,7 @@
 #include <sys/types.h>
 
 //for const in C.unistd, chmod()
+//for stat(), in avmplus.FileSystem
 #include <sys/stat.h>
 
 //for VMPI_getUserName()/getpwuid() used in C.unistd
@@ -63,6 +64,14 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
+//for uname(), in avmplus.OperatingSystem
+#include <sys/utsname.h>
+
+//for statvfs(), in avmplus.FileSystem
+#include <sys/statvfs.h>
+
+//for opendir(), readdir(), closedir(), DIR, etc., in avmplus.FileSystem
+#include <dirent.h>
 
 //C.string
 #define VMPI_strerror    ::strerror
