@@ -46,6 +46,9 @@
 //for C.stdlib
 //#include <stdlib.h> //already included in mac-platform.h
 
+//for fileno(), popen()
+//#include <stdio.h> //already included in mac-platform.h
+
 //for mode_t, needed with chmod
 #include <sys/types.h>
 
@@ -73,6 +76,9 @@
 //for opendir(), readdir(), closedir(), DIR, etc., in avmplus.FileSystem
 #include <dirent.h>
 
+//for setlocale, used with VMPI_getLocale
+#include <locale.h>
+
 //C.string
 #define VMPI_strerror    ::strerror
 
@@ -81,11 +87,15 @@
 #define VMPI_chdir       ::chdir
 #define VMPI_getcwd      ::getcwd
 #define VMPI_gethostname ::gethostname
+#define VMPI_getpid      ::getpid
 #define VMPI_rmdir       ::rmdir
 #define VMPI_unlink      ::unlink
+
 
 //C.stdio
 #define VMPI_remove      ::remove
 #define VMPI_rename      ::rename
+#define VMPI_popen       ::popen  //not defined in C.stdio, used by SystemClass::popenRead
+#define VMPI_pclose      ::pclose //not defined in C.stdio, used by SystemClass::popenRead
 
 #endif // __avmplus_mac_platform2__
