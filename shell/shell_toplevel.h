@@ -55,8 +55,6 @@ namespace avmplus {
     class SampleClass; // flash.sampler::Sample$
     class SampleObject; // flash.sampler::Sample
     class ScriptObject; // avmplus::File
-    class ScriptObject; // C.string::__string
-    class ScriptObject; // C.errno::__errno
     class ScriptObject; // C.stdio::__stdio
     class ScriptObject; // C.socket::__socket
     class ScriptObject; // avmplus::System
@@ -65,6 +63,8 @@ namespace avmplus {
     class ScriptObject; // flash.trace::Trace
     class ScriptObject; // C.stdlib::__stdlib
     class ScriptObject; // C.unistd::__unistd
+    class ScriptObject; // C.string::__string
+    class ScriptObject; // C.errno::__errno
     class StackFrameClass; // flash.sampler::StackFrame$
     class StackFrameObject; // flash.sampler::StackFrame
     class String; // String
@@ -302,49 +302,48 @@ const uint32_t avmplus_System_totalMemory_get = 270;
 const uint32_t avmplus_System_freeMemory_get = 271;
 const uint32_t avmplus_System_privateMemory_get = 272;
 const uint32_t avmplus_System_private_popenRead = 276;
-const uint32_t avmplus_System_private_popenWrite = 277;
-const uint32_t avmplus_System_getAvmplusVersion = 279;
-const uint32_t avmplus_System_getFeatures = 281;
-const uint32_t avmplus_System_getRunmode = 282;
-const uint32_t avmplus_System_getTimer = 283;
-const uint32_t avmplus_System_readLine = 284;
-const uint32_t avmplus_System_trace = 285;
-const uint32_t avmplus_System_write = 286;
-const uint32_t avmplus_System_stdinLength_get = 288;
-const uint32_t avmplus_System_stdinRead = 290;
-const uint32_t avmplus_System_stdinReadAll = 291;
-const uint32_t avmplus_System_stdoutWrite = 292;
-const uint32_t avmplus_System_debugger = 293;
-const uint32_t avmplus_System_isDebugger = 294;
-const uint32_t avmplus_System_forceFullCollection = 295;
-const uint32_t avmplus_System_queueCollection = 296;
-const uint32_t avmplus_System_disposeXML = 297;
-const uint32_t avmplus_OperatingSystem_private_getName = 302;
-const uint32_t avmplus_OperatingSystem_private_getNodeName = 303;
-const uint32_t avmplus_OperatingSystem_private_getRelease = 304;
-const uint32_t avmplus_OperatingSystem_private_getVersion = 305;
-const uint32_t avmplus_OperatingSystem_private_getMachine = 306;
-const uint32_t avmplus_OperatingSystem_private_getVendorVersion = 307;
-const uint32_t avmplus_OperatingSystem_private_getSystemLocale = 321;
-const uint32_t avmplus_FileSystem_exists = 353;
-const uint32_t avmplus_FileSystem_read = 354;
-const uint32_t avmplus_FileSystem_write = 355;
-const uint32_t avmplus_FileSystem_readByteArray = 356;
-const uint32_t avmplus_FileSystem_writeByteArray = 357;
-const uint32_t avmplus_FileSystem_getFileMode = 358;
-const uint32_t avmplus_FileSystem_getFileSize = 359;
-const uint32_t avmplus_FileSystem_getLastModifiedTime = 361;
-const uint32_t avmplus_FileSystem_isRegularFile = 369;
-const uint32_t avmplus_FileSystem_isDirectory = 371;
-const uint32_t avmplus_FileSystem_listFiles = 384;
-const uint32_t avmplus_FileSystem_getFreeDiskSpace = 393;
-const uint32_t avmplus_FileSystem_getTotalDiskSpace = 394;
-const uint32_t avmplus_JObject_create = 402;
-const uint32_t avmplus_JObject_createArray = 403;
-const uint32_t avmplus_JObject_toArray = 404;
-const uint32_t avmplus_JObject_constructorSignature = 405;
-const uint32_t avmplus_JObject_methodSignature = 406;
-const uint32_t avmplus_JObject_fieldSignature = 407;
+const uint32_t avmplus_System_getAvmplusVersion = 278;
+const uint32_t avmplus_System_getFeatures = 280;
+const uint32_t avmplus_System_getRunmode = 281;
+const uint32_t avmplus_System_getTimer = 282;
+const uint32_t avmplus_System_readLine = 283;
+const uint32_t avmplus_System_trace = 284;
+const uint32_t avmplus_System_write = 285;
+const uint32_t avmplus_System_stdinLength_get = 287;
+const uint32_t avmplus_System_stdinRead = 289;
+const uint32_t avmplus_System_stdinReadAll = 290;
+const uint32_t avmplus_System_stdoutWrite = 291;
+const uint32_t avmplus_System_debugger = 292;
+const uint32_t avmplus_System_isDebugger = 293;
+const uint32_t avmplus_System_forceFullCollection = 294;
+const uint32_t avmplus_System_queueCollection = 295;
+const uint32_t avmplus_System_disposeXML = 296;
+const uint32_t avmplus_OperatingSystem_private_getName = 301;
+const uint32_t avmplus_OperatingSystem_private_getNodeName = 302;
+const uint32_t avmplus_OperatingSystem_private_getRelease = 303;
+const uint32_t avmplus_OperatingSystem_private_getVersion = 304;
+const uint32_t avmplus_OperatingSystem_private_getMachine = 305;
+const uint32_t avmplus_OperatingSystem_private_getVendorVersion = 306;
+const uint32_t avmplus_OperatingSystem_private_getSystemLocale = 320;
+const uint32_t avmplus_FileSystem_exists = 352;
+const uint32_t avmplus_FileSystem_read = 353;
+const uint32_t avmplus_FileSystem_write = 354;
+const uint32_t avmplus_FileSystem_readByteArray = 355;
+const uint32_t avmplus_FileSystem_writeByteArray = 356;
+const uint32_t avmplus_FileSystem_getFileMode = 357;
+const uint32_t avmplus_FileSystem_getFileSize = 358;
+const uint32_t avmplus_FileSystem_getLastModifiedTime = 360;
+const uint32_t avmplus_FileSystem_isRegularFile = 368;
+const uint32_t avmplus_FileSystem_isDirectory = 370;
+const uint32_t avmplus_FileSystem_listFiles = 383;
+const uint32_t avmplus_FileSystem_getFreeDiskSpace = 392;
+const uint32_t avmplus_FileSystem_getTotalDiskSpace = 393;
+const uint32_t avmplus_JObject_create = 401;
+const uint32_t avmplus_JObject_createArray = 402;
+const uint32_t avmplus_JObject_toArray = 403;
+const uint32_t avmplus_JObject_constructorSignature = 404;
+const uint32_t avmplus_JObject_methodSignature = 405;
+const uint32_t avmplus_JObject_fieldSignature = 406;
 
 extern AvmBox avmplus_Domain_currentDomain_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Domain_MIN_DOMAIN_MEMORY_LENGTH_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -526,7 +525,6 @@ extern double avmplus_System_totalMemory_get_thunk(AvmMethodEnv env, uint32_t ar
 extern double avmplus_System_freeMemory_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern double avmplus_System_privateMemory_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_System_private_popenRead_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-extern AvmBox avmplus_System_private_popenWrite_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_System_getAvmplusVersion_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_System_getFeatures_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_System_getRunmode_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -640,7 +638,6 @@ extern AvmBox shell_toplevel_func_v2a_ob_thunk(AvmMethodEnv env, uint32_t argc, 
 extern AvmBox shell_toplevel_v2a_oss_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_FileSystem_write_thunk  shell_toplevel_v2a_oss_thunk
 #define avmplus_File_write_thunk  shell_toplevel_v2a_oss_thunk
-#define avmplus_System_private_popenWrite_thunk  shell_toplevel_v2a_oss_thunk
 
 extern double shell_toplevel_func_d2d_oa_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define native_script_function_flash_sampler_getSize_thunk  shell_toplevel_func_d2d_oa_thunk
