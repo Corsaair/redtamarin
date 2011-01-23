@@ -59,6 +59,12 @@ char *VMPI_int2char(int n)
     return value;
 }
 
+char *VMPI_getLocale()
+{
+    //get the Environment's default locale
+    return setlocale( LC_ALL, "" );
+}
+
 // ---- utilities ---- END
 
 
@@ -144,6 +150,19 @@ struct hostent *VMPI_gethostbyaddr(const char *addr)
 }
 
 // ---- C.socket ---- END
+
+
+// ---- avmplus.System ---- 
+
+double VMPI_getStdinFileLength()
+{
+    int stdinHandle = fileno(stdin);
+    struct stat stats;
+    fstat(stdinHandle, &stats);
+    return stats.st_size;
+}
+
+// ---- avmplus.System ---- END
 
 
 // ---- avmplus.OperatingSystem ---- 
