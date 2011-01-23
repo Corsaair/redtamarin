@@ -285,6 +285,11 @@ void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix)
 
 // ---- avmplus.FileSystem ---- 
 
+int VMPI_getLogicalDrives()
+{
+    return 0;
+}
+
 int VMPI_getFileMode(const char *path)
 {
     struct stat stats;
@@ -319,6 +324,18 @@ bool VMPI_isDirectory(const char *path)
 }
 
 //bool VMPI_isSymbolicLink(const char *path)
+
+bool VMPI_isAttributeHidden(const char *path)
+{
+#ifdef AVMPLUS_MAC
+    struct stat stats;
+    stat(path, &stats);
+    return (stats.st_flags & UF_HIDDEN);
+#else
+    (void)path;
+    return false;
+#endif
+}
 
 double VMPI_getFreeDiskSpace(const char *path)
 {
