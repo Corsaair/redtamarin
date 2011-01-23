@@ -59,13 +59,16 @@
 //for _chdir, _getcwd, _rmdir, 
 #include <direct.h>
 
-
 //for gethostname, gethostbyaddr
 #include <winsock2.h>
 #pragma comment(lib, "user32.lib")
 #pragma comment(lib, "ws2_32.lib")
 
+//for setlocale, used with VMPI_getLocale
+#include <locale.h>
 
+//for _getpid
+#include <process.h>
 
 //C.string
 #define VMPI_strerror    ::strerror
@@ -84,12 +87,15 @@
 */
 int VMPI_gethostname(char *name, int namelen);
 
+#define VMPI_getpid         _getpid
 #define VMPI_rmdir          _rmdir        //_wrmdir
 #define VMPI_unlink         _unlink       //_wunlink
 
 //C.stdio
 #define VMPI_remove    ::remove           //_wremove
 #define VMPI_rename    ::rename           //_wrename
+#define VMPI_popen     _popen             //_wpopen //not defined in C.stdio, used by SystemClass::popenRead
+#define VMPI_pclose    _pclose                      //not defined in C.stdio, used by SystemClass::popenRead
 
 
 
