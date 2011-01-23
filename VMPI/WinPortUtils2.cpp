@@ -377,6 +377,12 @@ char *VMPI_int2char(int n)
     return value;
 }
 
+char *VMPI_getLocale()
+{
+    //get the Environment's default locale
+    return setlocale( LC_ALL, "" );
+}
+
 // ---- utilities ---- END
 
 
@@ -910,6 +916,18 @@ struct hostent *VMPI_gethostbyaddr(const char *addr)
 
 // ---- C.socket ---- END
 
+// ---- avmplus.System ---- 
+
+double VMPI_getStdinFileLength()
+{
+    int stdinHandle = _fileno(stdin);
+    struct _stat stats;
+    _fstat(stdinHandle, &stats);
+    return stats.st_size;
+}
+
+// ---- avmplus.System ---- END
+
 
 // ---- avmplus.OperatingSystem ---- 
 
@@ -1015,6 +1033,12 @@ void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix)
 
 // ---- avmplus.FileSystem ---- 
 
+int VMPI_getLogicalDrives()
+{
+    DWORD drives = GetLogicalDrives();
+    return (int)drives;
+}
+
 int VMPI_getFileMode(const char *path)
 {
     struct _stat stats;
@@ -1056,6 +1080,17 @@ bool VMPI_isDirectory(const char *path)
 }
 
 //bool VMPI_isSymbolicLink(const char *path)
+
+bool VMPI_isAttributeHidden(const char *path)
+{
+    DWORD attrib = GetFileAttributes( path );
+    
+    if(attrib & FILE_ATTRIBUTE_HIDDEN) {
+        return true;
+    }
+    
+    return false;
+}
 
 double VMPI_getFreeDiskSpace(const char *path)
 {
