@@ -42,6 +42,7 @@
 
 extern char *VMPI_int2char(int n);
 
+extern char *VMPI_getLocale();
 
 // ---- C.stdlib ---- 
 
@@ -88,6 +89,13 @@ extern void VMPI_getUserName(char *username);
 extern struct hostent *VMPI_gethostbyaddr(const char *addr);
 
 // ---- C.socket ---- END
+
+
+// ---- avmplus.System ---- 
+
+extern double VMPI_getStdinFileLength();
+
+// ---- avmplus.System ---- END
 
 
 // ---- avmplus.OperatingSystem ---- 
