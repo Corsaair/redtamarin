@@ -55,16 +55,16 @@ namespace avmplus {
     class SampleClass; // flash.sampler::Sample$
     class SampleObject; // flash.sampler::Sample
     class ScriptObject; // avmplus::File
-    class ScriptObject; // C.stdio::__stdio
-    class ScriptObject; // C.socket::__socket
-    class ScriptObject; // avmplus::System
-    class ScriptObject; // avmplus::OperatingSystem
-    class ScriptObject; // avmplus::FileSystem
     class ScriptObject; // flash.trace::Trace
     class ScriptObject; // C.stdlib::__stdlib
     class ScriptObject; // C.unistd::__unistd
     class ScriptObject; // C.string::__string
     class ScriptObject; // C.errno::__errno
+    class ScriptObject; // C.stdio::__stdio
+    class ScriptObject; // C.socket::__socket
+    class ScriptObject; // avmplus::System
+    class ScriptObject; // avmplus::OperatingSystem
+    class ScriptObject; // avmplus::FileSystem
     class StackFrameClass; // flash.sampler::StackFrame$
     class StackFrameObject; // flash.sampler::StackFrame
     class String; // String
@@ -325,25 +325,27 @@ const uint32_t avmplus_OperatingSystem_private_getVersion = 304;
 const uint32_t avmplus_OperatingSystem_private_getMachine = 305;
 const uint32_t avmplus_OperatingSystem_private_getVendorVersion = 306;
 const uint32_t avmplus_OperatingSystem_private_getSystemLocale = 320;
-const uint32_t avmplus_FileSystem_exists = 352;
-const uint32_t avmplus_FileSystem_read = 353;
-const uint32_t avmplus_FileSystem_write = 354;
-const uint32_t avmplus_FileSystem_readByteArray = 355;
-const uint32_t avmplus_FileSystem_writeByteArray = 356;
-const uint32_t avmplus_FileSystem_getFileMode = 357;
-const uint32_t avmplus_FileSystem_getFileSize = 358;
-const uint32_t avmplus_FileSystem_getLastModifiedTime = 360;
-const uint32_t avmplus_FileSystem_isRegularFile = 368;
-const uint32_t avmplus_FileSystem_isDirectory = 370;
-const uint32_t avmplus_FileSystem_listFiles = 383;
-const uint32_t avmplus_FileSystem_getFreeDiskSpace = 392;
-const uint32_t avmplus_FileSystem_getTotalDiskSpace = 393;
-const uint32_t avmplus_JObject_create = 401;
-const uint32_t avmplus_JObject_createArray = 402;
-const uint32_t avmplus_JObject_toArray = 403;
-const uint32_t avmplus_JObject_constructorSignature = 404;
-const uint32_t avmplus_JObject_methodSignature = 405;
-const uint32_t avmplus_JObject_fieldSignature = 406;
+const uint32_t avmplus_FileSystem_private__getLogicalDrives = 349;
+const uint32_t avmplus_FileSystem_exists = 354;
+const uint32_t avmplus_FileSystem_read = 355;
+const uint32_t avmplus_FileSystem_write = 356;
+const uint32_t avmplus_FileSystem_readByteArray = 357;
+const uint32_t avmplus_FileSystem_writeByteArray = 358;
+const uint32_t avmplus_FileSystem_getFileMode = 359;
+const uint32_t avmplus_FileSystem_getFileSize = 360;
+const uint32_t avmplus_FileSystem_getLastModifiedTime = 362;
+const uint32_t avmplus_FileSystem_isRegularFile = 370;
+const uint32_t avmplus_FileSystem_private__isAttributeHidden = 371;
+const uint32_t avmplus_FileSystem_isDirectory = 373;
+const uint32_t avmplus_FileSystem_listFiles = 386;
+const uint32_t avmplus_FileSystem_getFreeDiskSpace = 395;
+const uint32_t avmplus_FileSystem_getTotalDiskSpace = 396;
+const uint32_t avmplus_JObject_create = 404;
+const uint32_t avmplus_JObject_createArray = 405;
+const uint32_t avmplus_JObject_toArray = 406;
+const uint32_t avmplus_JObject_constructorSignature = 407;
+const uint32_t avmplus_JObject_methodSignature = 408;
+const uint32_t avmplus_JObject_fieldSignature = 409;
 
 extern AvmBox avmplus_Domain_currentDomain_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Domain_MIN_DOMAIN_MEMORY_LENGTH_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -548,6 +550,7 @@ extern AvmBox avmplus_OperatingSystem_private_getVersion_thunk(AvmMethodEnv env,
 extern AvmBox avmplus_OperatingSystem_private_getMachine_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_OperatingSystem_private_getVendorVersion_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_OperatingSystem_private_getSystemLocale_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_FileSystem_private__getLogicalDrives_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_exists_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_read_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_write_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -557,6 +560,7 @@ extern AvmBox avmplus_FileSystem_getFileMode_thunk(AvmMethodEnv env, uint32_t ar
 extern double avmplus_FileSystem_getFileSize_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_getLastModifiedTime_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_isRegularFile_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_FileSystem_private__isAttributeHidden_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_isDirectory_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_FileSystem_listFiles_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern double avmplus_FileSystem_getFreeDiskSpace_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -783,6 +787,7 @@ extern AvmBox shell_toplevel_i2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox
 #define C_unistd___unistd_W_OK_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_unistd___unistd_X_OK_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_unistd___unistd_getpid_thunk  shell_toplevel_i2a_o_thunk
+#define avmplus_FileSystem_private__getLogicalDrives_thunk  shell_toplevel_i2a_o_thunk
 #define avmplus_System_apiVersion_get_thunk  shell_toplevel_i2a_o_thunk
 #define avmplus_System_swfVersion_get_thunk  shell_toplevel_i2a_o_thunk
 
@@ -822,6 +827,7 @@ extern AvmBox shell_toplevel_b2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 #define avmplus_FileSystem_exists_thunk  shell_toplevel_b2a_os_thunk
 #define avmplus_FileSystem_isDirectory_thunk  shell_toplevel_b2a_os_thunk
 #define avmplus_FileSystem_isRegularFile_thunk  shell_toplevel_b2a_os_thunk
+#define avmplus_FileSystem_private__isAttributeHidden_thunk  shell_toplevel_b2a_os_thunk
 #define avmplus_File_exists_thunk  shell_toplevel_b2a_os_thunk
 
 extern AvmBox shell_toplevel_a2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
