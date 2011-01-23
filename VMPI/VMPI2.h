@@ -117,6 +117,8 @@ extern void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *b
 
 // ---- avmplus.FileSystem ---- 
 
+extern int VMPI_getLogicalDrives();
+
 extern int VMPI_getFileMode(const char *path);
 
 extern double VMPI_getFileSize(const char *path);
@@ -126,6 +128,8 @@ extern double VMPI_getFileLastModifiedTime(const char *path);
 extern bool VMPI_isRegularFile(const char *path);
 
 extern bool VMPI_isDirectory(const char *path);
+
+extern bool VMPI_isAttributeHidden(const char *path);
 
 extern double VMPI_getFreeDiskSpace(const char *path);
 
