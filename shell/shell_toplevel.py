@@ -82,6 +82,7 @@ classes += " ../as3/clib/C/socket.as"
 classes += " ../as3/shell/avmplus/System.as"
 classes += " ../as3/shell/avmplus/OperatingSystem.as"
 classes += " ../as3/shell/avmplus/FileSystem.as"
+classes += " ../as3/shell/avmplus/Socket.as"
 classes += ""
 
 classes += " Endian.as"
