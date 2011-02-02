@@ -60,7 +60,7 @@ namespace avmshell
         explicit WinSocket(int socket) { _socket = (SOCKET)socket; }
         virtual ~WinSocket() { Shutdown(); }
 
-        bool Bind(const int port);
+        bool Bind(const char* host, const int port);
         bool Listen(int backlog) const;
         int Accept() const;
 
@@ -68,7 +68,9 @@ namespace avmshell
         bool Shutdown();
 
         int Send(const char* data, int len, int flags) const;
+        int SendTo(const char* host, const char* port, const char* data, int len, int flags) const;
         int Receive(char* data, int len, int flags) const;
+        int ReceiveFrom(char* data, int len, int flags) const;
 
         int GetDescriptor();
         int GetType();
@@ -79,10 +81,17 @@ namespace avmshell
         bool GetBroadcast();
         void SetBroadcast(bool broadcast);
 
+        void SetNoSigPipe();
+
         bool IsValid() const { return _socket != INVALID_SOCKET; }
+
+        int isReadable();
+        int isWritable();
+        int isExceptional();
 
         static bool Setup();
         static int getLastError();
+        static int getMaxSelectDescriptor();
 
         
     private:

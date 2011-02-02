@@ -42,7 +42,7 @@
 namespace avmshell
 {
     
-    bool WinSocket::Bind(const int port)
+    bool WinSocket::Bind(const char* host, const int port)
     {
         if(!IsValid()) {
             return false;
@@ -51,7 +51,8 @@ namespace avmshell
         sockaddr_in addr;
         memset(&addr, 0, sizeof(addr));
         addr.sin_family = AF_INET;
-        addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+        //addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+        addr.sin_addr.s_addr = inet_addr(host);
         addr.sin_port = htons( (u_short)port );
         int status = bind(_socket,
                           reinterpret_cast<struct sockaddr *>(&addr),
@@ -129,14 +130,6 @@ namespace avmshell
     bool WinSocket::Shutdown()
     {
         if(IsValid()) {
-            // Shutdown socket for both read and write.
-            /*
-            int status = shutdown(_socket, SHUT_RDWR);
-            //printf( "PosixSocket::Shutdown status = %d\n", status );
-            close(_socket);
-            _socket = -1;
-            return status == 0;
-            */
             int status = shutdown(_socket, SD_BOTH);
             closesocket(_socket);
             _socket = INVALID_SOCKET;
@@ -151,6 +144,50 @@ namespace avmshell
         int status = send(_socket, data, len, flags);
         return status;
     }
+
+    int WinSocket::SendTo(const char* host, const char* port, const char* data, int len, int flags) const
+    {
+        if(!IsValid()) {
+            return -1;
+        }
+        
+        //inline GetType()
+        int type;
+        int tlen = sizeof(type);
+        int tstatus = getsockopt(_socket, SOL_SOCKET, SO_TYPE, (char*)&type, &tlen);
+        if(tstatus != 0) {
+            //printf( "GetType status = %i", tstatus );
+            return tstatus;
+        }
+        
+        // Lookup host and port.
+        struct addrinfo *result = NULL;
+        struct addrinfo hints;
+        memset(&hints, 0, sizeof(addrinfo));
+        hints.ai_family = AF_INET;
+
+        switch(type)
+        {
+            case SOCK_STREAM:
+            hints.ai_socktype = SOCK_STREAM;
+            hints.ai_protocol = IPPROTO_TCP;
+            break;
+
+            case SOCK_DGRAM:
+            hints.ai_socktype = SOCK_DGRAM;
+            hints.ai_protocol = IPPROTO_UDP;
+            break;
+        }
+
+        int status = getaddrinfo(host, port, &hints, &result);
+        if(status != 0) {
+            return -1;
+        }
+        
+        status = sendto(_socket, data, len, flags, result->ai_addr, result->ai_addrlen);
+        return status;
+    }
+
     
     int WinSocket::Receive(char* data, int len, int flags) const
     {
@@ -158,10 +195,28 @@ namespace avmshell
         return status;
     }
 
+    int WinSocket::ReceiveFrom(char* data, int len, int flags) const
+    {
+        if(!IsValid()) {
+            return -1;
+        }
+        
+        struct sockaddr_storage their_addr;
+        socklen_t addr_len;
+        addr_len = sizeof their_addr;
+        
+        int status = recvfrom(_socket, data, len, flags, (struct sockaddr *)&their_addr, &addr_len);
+        //TODO: save the received address and port
+        return status;
+    }
+
 
     int WinSocket::GetDescriptor()
     {
-        return (int)_socket;
+        if(IsValid()) {
+            return (int)_socket;
+        }
+        return -1; //we don't want to return INVALID_SOCKET
     }
     
     int WinSocket::GetType()
@@ -170,7 +225,8 @@ namespace avmshell
         int len = sizeof(val);
         int status = getsockopt(_socket, SOL_SOCKET, SO_TYPE, (char*)&val, &len);
         if(status != 0) {
-            printf( "GetType status = %i", status );
+            //printf( "GetType status = %i", status );
+            return status; //we want to return -1 in case of problem
         }
         return val;
     }
@@ -181,7 +237,6 @@ namespace avmshell
         int len = sizeof(val);
         int status = getsockopt(_socket, SOL_SOCKET, SO_REUSEADDR, (char*)&val, &len);
         if(status == 0) {
-            //return (bool)val;
             return val != 0;
         }
         return false;
@@ -200,7 +255,6 @@ namespace avmshell
         int len = sizeof(val);
         int status = getsockopt(_socket, SOL_SOCKET, SO_BROADCAST, (char*)&val, &len);
         if(status == 0) {
-            //return (bool)val;
             return val != 0;
         }
         return false;
@@ -213,6 +267,79 @@ namespace avmshell
         setsockopt(_socket, SOL_SOCKET, SO_BROADCAST, (char*)&val, len);
     }
 
+    void WinSocket::SetNoSigPipe()
+    {
+        /*
+        Under Unix, if you’re blocking on send() and your program is ignoring the SIGPIPE signal,
+        it will return with a -1 when the remote peer disconnects, and errno will be EPIPE.
+        Otherwise, your program will be sent the SIGPIPE signal,
+        which will terminate your program if you don’t handle it.
+
+        Under Winsock, the SIGPIPE/EPIPE functionality does not exist at all:
+        send() will either return 0 for a normal disconnect or -1 for an abnormal disconnect,
+        with WSAGetLastError() returning the same errors as in the recv() discussion above.
+        */
+    }
+
+    int WinSocket::isReadable()
+    {
+        int status;
+        fd_set fds;
+        struct timeval tv;
+        
+        FD_ZERO(&fds);
+        FD_SET(_socket,&fds);
+        tv.tv_sec = tv.tv_usec = 0;
+        
+        status = select(_socket+1, &fds, NULL, NULL, &tv);
+        
+        if( status < 0 ) {
+            return -1;
+        }
+        
+        return FD_ISSET(_socket,&fds) ? 1 : 0;
+    }
+    
+    int WinSocket::isWritable()
+    {
+        int status;
+        fd_set fds;
+        struct timeval tv;
+        
+        FD_ZERO(&fds);
+        FD_SET(_socket,&fds);
+        tv.tv_sec = tv.tv_usec = 0;
+
+        status = select(_socket+1, NULL, &fds, NULL, &tv);
+
+        if( status < 0 ) {
+            return -1;
+        }
+
+        return FD_ISSET(_socket,&fds) ? 1 : 0;
+    }
+    
+    int WinSocket::isExceptional()
+    {
+        int status;
+        fd_set fds;
+        struct timeval tv;
+        
+        FD_ZERO(&fds);
+        FD_SET(_socket,&fds);
+        tv.tv_sec = tv.tv_usec = 0;
+        
+        status = select(_socket+1, NULL, NULL, &fds, &tv);
+
+        if( status < 0 ) {
+            return -1;
+        }
+
+        return FD_ISSET(_socket,&fds) ? 1 : 0;
+    }
+
+
+
     bool WinSocket::Setup()
     {
         //initialize Winsock32
@@ -220,11 +347,12 @@ namespace avmshell
         WORD version_requested;
         int err;
         
-        version_requested = MAKEWORD(1, 0);
+        //version_requested = MAKEWORD(1, 1); //Winsock 1.1
+        version_requested = MAKEWORD(2, 0); //Winsock 2.0
         err = WSAStartup(version_requested, &winsock_data);
         
         if(err != 0) {
-            printf( "Unable to initialize Winsock, err = %d\n", WinSocket::LastError() );
+            printf( "Unable to initialize Winsock, err = %d\n", WinSocket::getLastError() );
         }
         
         return err == 0;
@@ -234,7 +362,11 @@ namespace avmshell
     {
         return WSAGetLastError();
     }
-
+    
+    int WinSocket::getMaxSelectDescriptor()
+    {
+        return FD_SETSIZE;
+    }
 
 }
 
