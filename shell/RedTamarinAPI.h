@@ -52,6 +52,6 @@
 #include "SystemClass.h"
 #include "OperatingSystemClass.h"
 #include "FileSystemClass.h"
-//#include "SocketClass.h"
+#include "SocketClass.h"
 
 #endif /* __redtamarin_api__ */
