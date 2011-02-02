@@ -61,6 +61,9 @@ namespace avmshell
 
     Socket* PosixPartialPlatform::createSocket()
     {
+        return mmfx_new( PosixSocket() );
+
+        /*
         if( PosixSocket::Setup() )
         {
             return mmfx_new( PosixSocket() );
@@ -71,10 +74,14 @@ namespace avmshell
             printf("Failed to create default socket.\n");
             return NULL;
         }
+        */
     }
 
     Socket* PosixPartialPlatform::createCustomSocket(int family, int socktype, int protocol)
     {
+        return mmfx_new( PosixSocket(family, socktype, protocol) );
+        
+        /*
         if( PosixSocket::Setup() )
         {
             return mmfx_new( PosixSocket(family, socktype, protocol) );
@@ -85,10 +92,14 @@ namespace avmshell
             printf("Failed to create custom socket.\n");
             return NULL;
         }
+        */
     }
     
     Socket* PosixPartialPlatform::createSocketFrom(int sd)
     {
+        return mmfx_new( PosixSocket(sd) );
+        
+        /*
         if( PosixSocket::Setup() )
         {
             return mmfx_new( PosixSocket(sd) );
@@ -99,6 +110,7 @@ namespace avmshell
             printf("Failed to create socket from descriptor.\n");
             return NULL;
         }
+        */
     }
     
     void PosixPartialPlatform::destroySocket(Socket* socket)
