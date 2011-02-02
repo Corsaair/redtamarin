@@ -283,6 +283,10 @@ namespace avmshell
 
     int WinSocket::isReadable()
     {
+        if(!IsValid()) {
+            return -1;
+        }
+        
         int status;
         fd_set fds;
         struct timeval tv;
@@ -302,6 +306,10 @@ namespace avmshell
     
     int WinSocket::isWritable()
     {
+        if(!IsValid()) {
+            return -1;
+        }
+        
         int status;
         fd_set fds;
         struct timeval tv;
@@ -321,6 +329,10 @@ namespace avmshell
     
     int WinSocket::isExceptional()
     {
+        if(!IsValid()) {
+            return -1;
+        }
+        
         int status;
         fd_set fds;
         struct timeval tv;

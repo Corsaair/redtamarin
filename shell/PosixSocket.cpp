@@ -285,6 +285,10 @@ namespace avmshell
 
     int PosixSocket::isReadable()
     {
+        if(!IsValid()) {
+            return -1;
+        }
+        
         int status;
         fd_set fds;
         struct timeval tv;
@@ -304,6 +308,10 @@ namespace avmshell
     
     int PosixSocket::isWritable()
     {
+        if(!IsValid()) {
+            return -1;
+        }
+        
         int status;
         fd_set fds;
         struct timeval tv;
@@ -323,6 +331,10 @@ namespace avmshell
     
     int PosixSocket::isExceptional()
     {
+        if(!IsValid()) {
+            return -1;
+        }
+        
         int status;
         fd_set fds;
         struct timeval tv;
