@@ -109,4 +109,8 @@
 #define VMPI_popen       ::popen  //not defined in C.stdio, used by SystemClass::popenRead
 #define VMPI_pclose      ::pclose //not defined in C.stdio, used by SystemClass::popenRead
 
+
+//avmplus.Socket
+#define VMPI_inet_ntop   ::inet_ntop
+
 #endif // __avmplus_mac_platform2__
