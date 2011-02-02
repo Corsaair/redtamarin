@@ -54,7 +54,6 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/ConsoleOutputStream.cpp \
   $(curdir)/DebugCLI.cpp \
   $(curdir)/DomainClass.cpp \
-  $(curdir)/FileClass.cpp \
   $(curdir)/FileInputStream.cpp \
   $(curdir)/ShellCore.cpp \
   $(curdir)/swf.cpp \
@@ -70,12 +69,14 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../api/shell/SystemClass.cpp \
   $(curdir)/../api/shell/OperatingSystemClass.cpp \
   $(curdir)/../api/shell/FileSystemClass.cpp \
+  $(curdir)/../api/shell/SocketClass.cpp \
   $(NULL)
 
 ifeq (windows,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/avmshellWin.cpp \
   $(curdir)/WinFile.cpp \
+  $(curdir)/WinSocket.cpp \
   $(NULL)
 endif
 
@@ -83,6 +84,7 @@ ifeq (darwin,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/avmshellMac.cpp \
   $(curdir)/PosixFile.cpp \
+  $(curdir)/PosixSocket.cpp \
   $(curdir)/PosixPartialPlatform.cpp \
   $(NULL)
 endif
@@ -91,6 +93,7 @@ ifeq (linux,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/avmshellUnix.cpp \
   $(curdir)/PosixFile.cpp \
+  $(curdir)/PosixSocket.cpp \
   $(curdir)/PosixPartialPlatform.cpp \
   $(NULL)
 endif
@@ -99,6 +102,7 @@ ifeq (android,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/avmshellUnix.cpp \
   $(curdir)/PosixFile.cpp \
+  $(curdir)/PosixSocket.cpp \
   $(curdir)/PosixPartialPlatform.cpp \
   $(NULL)
 endif
@@ -107,6 +111,7 @@ ifeq (sunos,$(TARGET_OS))
 shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/avmshellUnix.cpp \
   $(curdir)/PosixFile.cpp \
+  $(curdir)/PosixSocket.cpp \
   $(curdir)/PosixPartialPlatform.cpp \
   $(NULL)
 endif
