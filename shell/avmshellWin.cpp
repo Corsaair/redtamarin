@@ -60,6 +60,12 @@ namespace avmshell
         {
             // Increase the accuracy of getTimer and Date to 1 ms from the 16 ms default
             timeBeginPeriod(1);
+            
+            // Initialize WSAStartup() only once
+            if( !WinSocket::Setup() ) {
+                AvmLog("Failed to initialize Winsock.\n");
+                printf("Failed to initialize Winsock.\n");
+            }
         }
 
         virtual ~WinPlatform()
@@ -122,6 +128,8 @@ namespace avmshell
 
     Socket* WinPlatform::createSocket()
     {
+        return new WinSocket();
+        /*
         if( WinSocket::Setup() )
         {
             return new WinSocket();
@@ -131,10 +139,13 @@ namespace avmshell
             AvmLog("Failed to create default socket.\n");
             return NULL;
         }
+        */
     }
 
     Socket* WinPlatform::createCustomSocket(int family, int socktype, int protocol)
     {
+        return new WinSocket(family, socktype, protocol);
+        /*
         if( WinSocket::Setup() )
         {
             return new WinSocket(family, socktype, protocol);
@@ -144,10 +155,13 @@ namespace avmshell
             AvmLog("Failed to create custom socket.\n");
             return NULL;
         }
+        */
     }
     
     Socket* WinPlatform::createSocketFrom(int sd)
     {
+        return new WinSocket(sd);
+        /*
         if( WinSocket::Setup() )
         {
             return new WinSocket(sd);
@@ -157,6 +171,7 @@ namespace avmshell
             AvmLog("Failed to create socket from descriptor.\n");
             return NULL;
         }
+        */
     }
     
     void WinPlatform::destroySocket(Socket* socket)
