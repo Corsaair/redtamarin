@@ -59,7 +59,7 @@ namespace avmshell
         virtual ~Socket() {}
 
         // Server initialization.
-        virtual bool Bind(const int port) = 0;
+        virtual bool Bind(const char* host, const int port) = 0;
         virtual bool Listen(int backlog) const = 0;
         virtual int Accept() const = 0;
 
@@ -73,7 +73,12 @@ namespace avmshell
 
         // Data Transimission
         virtual int Send(const char* data, int len, int flags) const = 0;
+        virtual int SendTo(const char* host, const char* port, const char* data, int len, int flags) const = 0;
         virtual int Receive(char* data, int len, int flags) const = 0;
+        virtual int ReceiveFrom(char* data, int len, int flags) const = 0;
+
+        // Get the socket descriptor
+        virtual int GetDescriptor() = 0;
 
         // Get the value of the SO_TYPE socket option.
         virtual int GetType() = 0;
@@ -86,10 +91,17 @@ namespace avmshell
         virtual bool GetBroadcast() = 0;
         virtual void SetBroadcast(bool broadcast) = 0;
 
+        virtual void SetNoSigPipe() = 0;
+
         virtual bool IsValid() const = 0;
 
+        virtual int isReadable() = 0;
+        virtual int isWritable() = 0;
+        virtual int isExceptional() = 0;
+
         static bool Setup();
-        static int LastError();
+        static int getLastError();
+        static int getMaxSelectDescriptor();
         
     };
 }
