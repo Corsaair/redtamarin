@@ -49,6 +49,12 @@
 //for fileno(), popen()
 //#include <stdio.h> //already included in mac-platform.h
 
+//for select(), FD_SET(), etc. used by SocketClass
+//we need to redefine FD_SETSIZE before the select.h include
+#undef FD_SETSIZE
+#define FD_SETSIZE 4096
+#include <sys/select.h>
+
 //for mode_t, needed with chmod
 #include <sys/types.h>
 
@@ -66,6 +72,11 @@
 //for C.socket gethostbyaddr(), gethostbyname()
 #include <arpa/inet.h>
 #include <netdb.h>
+
+//for ioctl()
+#include <sys/ioctl.h>
+//for FIONREAD
+#include <sys/filio.h>
 
 //for uname(), in avmplus.OperatingSystem
 #include <sys/utsname.h>
