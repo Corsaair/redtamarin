@@ -60,16 +60,19 @@ namespace avmshell
         explicit PosixSocket(int socket): _socket(socket) {}
         virtual ~PosixSocket() { Shutdown(); }
 
-        bool Bind(const int port);
+        bool Bind(const char* host, const int port);
         bool Listen(int backlog) const;
         int Accept() const;
 
         bool Connect(const char* host, const char* port);
         bool Shutdown();
-
+        
         int Send(const char* data, int len, int flags) const;
+        int SendTo(const char* host, const char* port, const char* data, int len, int flags) const;
         int Receive(char* data, int len, int flags) const;
+        int ReceiveFrom(char* data, int len, int flags) const;
 
+        int GetDescriptor();
         int GetType();
         
         bool GetReuseAddress();
@@ -78,10 +81,17 @@ namespace avmshell
         bool GetBroadcast();
         void SetBroadcast(bool broadcast);
 
+        void SetNoSigPipe();
+
         bool IsValid() const { return _socket != -1; }
 
+        int isReadable();
+        int isWritable();
+        int isExceptional();
+
         static bool Setup();
-        static int LastError();
+        static int getLastError();
+        static int getMaxSelectDescriptor();
 
         
     private:
