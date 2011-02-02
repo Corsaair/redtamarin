@@ -59,10 +59,23 @@
 //for _chdir, _getcwd, _rmdir, 
 #include <direct.h>
 
-//for gethostname, gethostbyaddr
+//we need to define FD_SETSIZE before the winsock.h include
+#ifndef FD_SETSIZE
+#define FD_SETSIZE      4096
+#endif /* FD_SETSIZE */ 
+
+//for socket, gethostname, gethostbyaddr
+//Winsock 1.1, in WinSocket::Setup() use MAKEWORD(1, 1)
+//#include <winsock.h>
+//#pragma comment(lib, "wsock32.lib")
+//Winsock 2.0, in WinSocket::Setup() use MAKEWORD(2, 0)
 #include <winsock2.h>
-#pragma comment(lib, "user32.lib")
 #pragma comment(lib, "ws2_32.lib")
+//for struct addrinfo
+#include <ws2tcpip.h>
+
+//other
+#pragma comment(lib, "user32.lib")
 
 //for setlocale, used with VMPI_getLocale
 #include <locale.h>
@@ -167,7 +180,6 @@ int VMPI_gethostname(char *name, int namelen);
 #if !defined(SHUT_WR)
   #define SHUT_WR          SD_SEND
 #endif /* !SHUT_WR */
-
 
 
 #if !defined(FILENAME_MAX)
@@ -378,5 +390,22 @@ struct utsname
 
 extern int uname (struct utsname *uts);
 
+/**
+ * missing in WIN32 socket
+ */
+
+#if !defined(MSG_DONTWAIT)
+  #define MSG_DONTWAIT        0
+#endif /* !MSG_DONTWAIT */
+
+
+#if !defined(INET6_ADDRSTRLEN)
+  #define INET6_ADDRSTRLEN    46
+#endif /* !INET6_ADDRSTRLEN */
+
+typedef int socklen_t;
+
+//const char *inet_ntop(int af, const void *restrict src, char *restrict dst, socklen_t size);
+extern const char* VMPI_inet_ntop(int af, const void* src, char* dst, int cnt);
 
 #endif // __avmplus_win32_platform2__
