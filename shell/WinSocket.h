@@ -70,6 +70,7 @@ namespace avmshell
         int Send(const char* data, int len, int flags) const;
         int Receive(char* data, int len, int flags) const;
 
+        int GetDescriptor();
         int GetType();
         
         bool GetReuseAddress();
@@ -81,7 +82,7 @@ namespace avmshell
         bool IsValid() const { return _socket != INVALID_SOCKET; }
 
         static bool Setup();
-        static int LastError();
+        static int getLastError();
 
         
     private:

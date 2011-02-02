@@ -157,6 +157,12 @@ namespace avmshell
         int status = recv(_socket, data, len, flags);
         return status;
     }
+
+
+    int WinSocket::GetDescriptor()
+    {
+        return (int)_socket;
+    }
     
     int WinSocket::GetType()
     {
@@ -224,7 +230,7 @@ namespace avmshell
         return err == 0;
     }
 
-    int WinSocket::LastError()
+    int WinSocket::getLastError()
     {
         return WSAGetLastError();
     }
