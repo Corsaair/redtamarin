@@ -100,14 +100,15 @@ namespace avmshell
     class ShellToplevel;
 }
 
-#include "Selftest.h"
+//#include "Selftest.h"
 #include "Platform.h"
 #include "File.h"
+#include "Socket.h"
 
 #include "FileInputStream.h"
 #include "ConsoleOutputStream.h"
-#include "SystemClass.h"
-#include "FileClass.h"
+//#include "SystemClass.h"
+//#include "FileClass.h"
 #include "DomainClass.h"
 #include "DebugCLI.h"
 #include "DataIO.h"
