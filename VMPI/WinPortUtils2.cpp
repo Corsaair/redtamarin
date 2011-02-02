@@ -808,6 +808,35 @@ int uname(struct utsname *uts)
     return 0;
 }
 
+const char* VMPI_inet_ntop(int af, const void* src, char* dst, int cnt)
+{
+    struct sockaddr_in srcaddr;
+    
+    VMPI_memset(&srcaddr, 0, sizeof(struct sockaddr_in));
+    VMPI_memcpy(&(srcaddr.sin_addr), src, sizeof(srcaddr.sin_addr));
+    
+    switch( af )
+    {
+        case AF_INET:
+        srcaddr.sin_family = AF_INET;
+        break;
+        
+        case AF_INET6:
+        srcaddr.sin_family = AF_INET6;
+        break;
+    }
+    
+    
+    if(WSAAddressToString((struct sockaddr*) &srcaddr, sizeof(struct sockaddr_in), 0, dst, (LPDWORD) &cnt) != 0)
+    {
+        DWORD rv = WSAGetLastError();
+        printf("WSAAddressToString() : %d\n",rv);
+        return NULL;
+    }
+    
+    return dst;
+}
+
 // ---- POSIX compatibility layer ---- END
 
 
