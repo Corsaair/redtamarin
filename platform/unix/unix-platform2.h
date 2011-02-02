@@ -46,10 +46,20 @@
 //for C.stdlib
 //#include <stdlib.h> //already included in mac-platform.h
 
+//for fileno(), popen()
+//#include <stdio.h> //already included in mac-platform.h
+
+//for select(), FD_SET(), etc. used by SocketClass
+//we need to redefine FD_SETSIZE before the select.h include
+#undef FD_SETSIZE
+#define FD_SETSIZE 4096
+#include <sys/select.h>
+
 //for mode_t, needed with chmod
 #include <sys/types.h>
 
 //for const in C.unistd, chmod()
+//for stat(), in avmplus.FileSystem
 #include <sys/stat.h>
 
 //for VMPI_getUserName()/getpwuid() used in C.unistd
@@ -63,6 +73,26 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
+//for ioctl()
+#include <sys/ioctl.h>
+//for FIONREAD
+#include <sys/ioctl.h>
+#ifndef FIONREAD
+  #include <sys/filio.h> /* Solaris 2 puts it here */
+#endif
+
+//for uname(), in avmplus.OperatingSystem
+#include <sys/utsname.h>
+
+//for statvfs(), in avmplus.FileSystem
+#include <sys/statvfs.h>
+
+//for opendir(), readdir(), closedir(), DIR, etc., in avmplus.FileSystem
+#include <dirent.h>
+
+//for setlocale, used with VMPI_getLocale
+#include <locale.h>
+
 
 //C.string
 #define VMPI_strerror    ::strerror
@@ -72,11 +102,18 @@
 #define VMPI_chdir       ::chdir
 #define VMPI_getcwd      ::getcwd
 #define VMPI_gethostname ::gethostname
+#define VMPI_getpid      ::getpid
 #define VMPI_rmdir       ::rmdir
 #define VMPI_unlink      ::unlink
 
 //C.stdio
 #define VMPI_remove      ::remove
 #define VMPI_rename      ::rename
+#define VMPI_popen       ::popen  //not defined in C.stdio, used by SystemClass::popenRead
+#define VMPI_pclose      ::pclose //not defined in C.stdio, used by SystemClass::popenRead
+
+
+//avmplus.Socket
+#define VMPI_inet_ntop   ::inet_ntop
 
 #endif // __avmplus_unix_platform2__
