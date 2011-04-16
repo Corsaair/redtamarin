@@ -37,6 +37,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+/*
 package avmplus
 {
     public function debugger()
@@ -44,9 +45,11 @@ package avmplus
         System.debugger()
     }
 }
+*/
 
 // The flash.system package is present so identical ATS test media can be used
 // in the command-line VM and the Player
+/*
 package flash.system
 {
     import avmplus.*;
@@ -57,6 +60,7 @@ package flash.system
         public static function get isDebugger():Boolean { return System.isDebugger(); }
     }
 }
+*/
 
 package
 {
@@ -64,10 +68,12 @@ package
     import avmplus.*;
     import C.errno.*;
 
+    /*
     public function getClassByName( name:String ):Class
     {
         return Domain.currentDomain.getClass( name) ;
     }
+    */
 
     // nonstandard extensions to ECMAScript
     public function print( ...s )
@@ -81,10 +87,12 @@ package
         System.trace( s )
     }
 
+    /*
     public function getTimer():uint
     {
         return System.getTimer();
     }
+    */
 
     public function readLine():String
     {
