@@ -37,44 +37,37 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-/*
-package avmplus
-{
-    public function debugger()
-    {
-        System.debugger()
-    }
-}
-*/
-
-// The flash.system package is present so identical ATS test media can be used
-// in the command-line VM and the Player
-/*
-package flash.system
-{
-    import avmplus.*;
-
-    public final class Capabilities
-    {
-        public static function get playerType():String { return "AVMPlus"; }
-        public static function get isDebugger():Boolean { return System.isDebugger(); }
-    }
-}
-*/
-
 package
 {
 
-    import avmplus.*;
+    import avmplus.System;
+    import avmplus.Domain;
+    import avmplus.profiles.RedTamarinProfile;
     import C.errno.*;
 
-    /*
+    /* note:
+       this function is essential for when we run code with
+       
+        - running scripts
+          ./redshell file.as
+       
+        - read-eval-print mode
+          ./redshell -repl
+
+       in both those cases you can not use the `import` statement
+       but because builtin.abc and toplevel.abc are already embedded
+       in the shell you can still invoke those classes with this workaround
+
+       //import avmplus.System;
+       //trace( System.argv );
+       var sys:* = getClassByName( "avmplus.System" );
+       trace( sys.argv );
+    */
     public function getClassByName( name:String ):Class
     {
-        return Domain.currentDomain.getClass( name) ;
+        return Domain.currentDomain.getClass( name ) ;
     }
-    */
-
+    
     // nonstandard extensions to ECMAScript
     public function print( ...s )
     {
@@ -86,18 +79,19 @@ package
     {
         System.trace( s )
     }
-
-    /*
-    public function getTimer():uint
-    {
-        return System.getTimer();
-    }
-    */
-
+    
     public function readLine():String
     {
         return System.readLine();
     }
+
+    /* note:
+       From this point we are in the static code block execution
+       and so the code is called as soon as the class is loaded.
+
+       Here the trick is that we are in the anonymous package,
+       so this particular static code block is executed before anything else.
+    */
     
     /* note:
        By default, something somewhere in tamarin define errno=2
@@ -107,6 +101,13 @@ package
        here forcing errno=0 in the unnamed package allow to do this
     */
     errno = 0;
+
+    /* note:
+       we define the default profile here
+       if you want another profile by default
+       just redefine SYstem.profile in your code
+    */
+    System.profile = new RedTamarinProfile();
 }
 
 
