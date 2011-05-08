@@ -54,14 +54,31 @@ package
         - read-eval-print mode
           ./redshell -repl
 
-       in both those cases you can not use the `import` statement
-       but because builtin.abc and toplevel.abc are already embedded
-       in the shell you can still invoke those classes with this workaround
+        - eval() call from within the API
+          System.eval( source )
 
-       //import avmplus.System;
-       //trace( System.argv );
+       in all those cases you can not use the `import` statement
+       for fully qualified name
+       import avmplus.System; //will not work
+
+       but you can use the `import` statement for non qualified name
+       import avmplus.*; //will work
+
+       also you can call functions declared at the anonymous package level
+       (that's why you can call getClassByName() without the need of an import)
+
+
+       to invoke classes defined in builtin.abc and toplevel.abc
+       or any other *.abc loaded in memory for that matter
+       
+       in the shell you can use this workaround
        var sys:* = getClassByName( "avmplus.System" );
        trace( sys.argv );
+
+       this workaround will aork also when you have an ambiguity in the class name
+       (eg. 2 classes with the same name in a different package that you want to import)
+       var sys:*  = getClassByName( "avmplus.System" );
+       var fsys:* = getClassByName( "flash.system.System" );
     */
     public function getClassByName( name:String ):Class
     {
