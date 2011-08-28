@@ -113,7 +113,7 @@ namespace avmshell
      */
     class ShellCore : public AvmCore
     {
-    friend class SystemClass;
+        friend class SystemClass;
         friend class avmplus::DomainObject;
     public:
         /**
