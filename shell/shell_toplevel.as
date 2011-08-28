@@ -41,8 +41,9 @@ package
 {
 
     import avmplus.System;
+    import avmplus.FileSystem;
     import avmplus.Domain;
-    import avmplus.profiles.RedTamarinProfile;
+    import C.stdlib.*;
     import C.errno.*;
 
     /* note:
@@ -80,9 +81,105 @@ package
        var sys:*  = getClassByName( "avmplus.System" );
        var fsys:* = getClassByName( "flash.system.System" );
     */
-    public function getClassByName( name:String ):Class
+    public function getClassByName( name:String, domain:Domain = null ):Class
     {
-        return Domain.currentDomain.getClass( name ) ;
+        if( !domain )
+        {
+            domain = Domain.currentDomain;
+        }
+        
+        return domain.getClass( name ) ;
+    }
+
+    /* note:
+       load an external library into memory
+
+       A valid library has the extension ".abc"
+       if you provide "test" (a name without extension), we will search automatically for "test.abc"
+       if you provide any other extension a warning message will display and the loading stop
+
+       When looking for a library a certain order is followed
+       if you provide an absolute path like "/var/lib/mystuff/test.abc"
+       we test for the existence fo the file and if it exists we load it
+       if it does not exists, we display a warning and the loading stop
+       
+       if you provide a relative path like "test.abc"
+       - first we search "test.abc" in the current directory
+       - then we search "test.abc" in the startup directory
+       - then we search "test.abc" in the REDTAMARINHOME/lib directory
+       - if REDTAMARINPATH exists we search in each directories contained in REDTAMARINPATH
+       
+    */
+    public function loadLibrary( name:String, domain:Domain = null  ):void
+    {
+        var ext:String = FileSystem.getExtension( name );
+
+        if( ext != "abc" )
+        {
+            trace( "\""+name+"\" is not a valid library, extension should be 'abc' not '"+ext+"'" );
+            return;
+        }
+        
+        if( ext == "" )
+        {
+            name += ".abc"; //we automatically add the extension if not found
+        }
+        
+        if( !FileSystem.isAbsolutePath( name ) )
+        {
+            if( !FileSystem.exists( name ) )
+            {
+                trace( "\""+name+"\" could not be found on the file system." );
+                return;
+            }
+        }
+        else
+        {
+            var i:uint;
+            var paths:Array = [];
+                paths.push( name );
+                paths.push( FileSystem.absolutePath(name) );
+                paths.push( FileSystem.ensureEndsWithSeparator(System.workingDirectory) + name );
+                paths.push( FileSystem.ensureEndsWithSeparator(System.startupDirectory) + name );
+
+            var home:String = getenv( "REDTAMARINHOME" );
+            if( home != "" )
+            {
+                home = FileSystem.ensureEndsWithSeparator(home) + "lib";
+                paths.push( FileSystem.ensureEndsWithSeparator(home) + name );
+            }
+
+            var path:String = getenv( "REDTAMARINPATH" );
+            if( path != "" )
+            {
+                var pathsep:String = FileSystem.pathSeparator;
+                var morepaths:Array = path.split( pathsep );
+                for( i=0; i<morepaths.length; i++ )
+                {
+                    paths.push( FileSystem.ensureEndsWithSeparator( morepaths[i] ) + name );
+                }
+            }
+
+            trace( "DEBUG - all search path for library" );
+            trace( paths.join( "\n" ) );
+            for( i=0; i<paths.length; i++ )
+            {
+                name = paths[i];
+                trace( "DEBUG - test path: " + name );
+                if( FileSystem.exists( name ) )
+                {
+                    break; //found a valid path
+                }
+            }
+        }
+        
+        if( !domain )
+        {
+            domain = Domain.currentDomain;
+        }
+        
+        trace( "DEBUG - loading library from \"" + name + "\"" )
+        domain.load( name );
     }
     
     // nonstandard extensions to ECMAScript
@@ -118,13 +215,6 @@ package
        here forcing errno=0 in the unnamed package allow to do this
     */
     errno = 0;
-
-    /* note:
-       we define the default profile here
-       if you want another profile by default
-       just redefine SYstem.profile in your code
-    */
-    System.profile = new RedTamarinProfile();
 }
 
 
