@@ -75,6 +75,8 @@
 
 //for ioctl()
 #include <sys/ioctl.h>
+//for fcntl()
+#include <fcntl.h>
 //for FIONREAD
 #include <sys/filio.h>
 
