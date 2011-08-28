@@ -77,6 +77,8 @@
 #include <sys/ioctl.h>
 //for FIONREAD
 #include <sys/ioctl.h>
+//for fcntl()
+#include <fcntl.h>
 #ifndef FIONREAD
   #include <sys/filio.h> /* Solaris 2 puts it here */
 #endif
