@@ -235,6 +235,28 @@ namespace avmshell
         return type;
     }
 
+    bool PosixSocket::GetBlocking()
+    {
+        return _blocking;
+    }
+    
+    void PosixSocket::SetBlocking(bool is_blocking)
+    {
+        int flags = fcntl(_socket, F_SETFL, 0);
+        if(flags < 0) {
+            printf( "Could not access blocking status = %i\n", flags );
+            return;
+        }
+        
+        flags = is_blocking ? (flags&~O_NONBLOCK) : (flags|O_NONBLOCK);
+        int status = fcntl(_socket, F_SETFL, flags);
+        if(status != 0) {
+            printf( "Could not change blocking status = %i\n", status );
+        }
+        _blocking = is_blocking;
+    }
+    
+
     bool PosixSocket::GetReuseAddress()
     {
         int on;
@@ -273,6 +295,48 @@ namespace avmshell
         setsockopt(_socket, SOL_SOCKET, SO_BROADCAST, &on, sizeof(on));
     }
 
+    int PosixSocket::GetReceiveTimeout()
+    {
+        struct timeval tv;
+        socklen_t len = sizeof(tv);
+        int status = getsockopt(_socket, SOL_SOCKET, SO_RCVTIMEO, &tv, &len);
+        if(status == 0)
+        {
+            return (int)tv.tv_sec;
+        }
+
+        return 0;
+    }
+
+    void PosixSocket::SetReceiveTimeout(int sec)
+    {
+        struct timeval tv;
+        tv.tv_sec  = sec;
+        tv.tv_usec = 0;
+        setsockopt(_socket, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+    }
+
+    int PosixSocket::GetSendTimeout()
+    {
+        struct timeval tv;
+        socklen_t len = sizeof(tv);
+        int status = getsockopt(_socket, SOL_SOCKET, SO_SNDTIMEO, &tv, &len);
+        if(status == 0)
+        {
+            return (int)tv.tv_sec;
+        }
+
+        return 0;
+    }
+    
+    void PosixSocket::SetSendTimeout(int sec)
+    {
+        struct timeval tv;
+        tv.tv_sec  = sec;
+        tv.tv_usec = 0;
+        setsockopt(_socket, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv));
+    }
+
     void PosixSocket::SetNoSigPipe()
     {
 #ifdef AVMPLUS_MAC
@@ -283,7 +347,7 @@ namespace avmshell
 #endif
     }
 
-    int PosixSocket::isReadable()
+    int PosixSocket::isReadable(int sec)
     {
         if(!IsValid()) {
             return -1;
@@ -295,7 +359,8 @@ namespace avmshell
         
         FD_ZERO(&fds);
         FD_SET(_socket,&fds);
-        tv.tv_sec = tv.tv_usec = 0;
+        tv.tv_sec  = sec;
+        tv.tv_usec = 0;
         
         status = select(_socket+1, &fds, NULL, NULL, &tv);
         
@@ -306,7 +371,7 @@ namespace avmshell
         return FD_ISSET(_socket,&fds) ? 1 : 0;
     }
     
-    int PosixSocket::isWritable()
+    int PosixSocket::isWritable(int sec)
     {
         if(!IsValid()) {
             return -1;
@@ -318,7 +383,8 @@ namespace avmshell
         
         FD_ZERO(&fds);
         FD_SET(_socket,&fds);
-        tv.tv_sec = tv.tv_usec = 0;
+        tv.tv_sec  = sec;
+        tv.tv_usec = 0;
 
         status = select(_socket+1, NULL, &fds, NULL, &tv);
 
@@ -329,7 +395,7 @@ namespace avmshell
         return FD_ISSET(_socket,&fds) ? 1 : 0;
     }
     
-    int PosixSocket::isExceptional()
+    int PosixSocket::isExceptional(int sec)
     {
         if(!IsValid()) {
             return -1;
@@ -341,7 +407,8 @@ namespace avmshell
         
         FD_ZERO(&fds);
         FD_SET(_socket,&fds);
-        tv.tv_sec = tv.tv_usec = 0;
+        tv.tv_sec  = sec;
+        tv.tv_usec = 0;
         
         status = select(_socket+1, NULL, NULL, &fds, &tv);
 

@@ -51,13 +51,15 @@ namespace avmshell
         {
             // Create the default socket.
             _socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+            _blocking = true;
         }
         explicit PosixSocket(int family, int socktype, int protocol)
         {
             // Create the custom socket.
             _socket = socket(family, socktype, protocol);
+            _blocking = true;
         }
-        explicit PosixSocket(int socket): _socket(socket) {}
+        explicit PosixSocket(int socket): _socket(socket) { _blocking = true; }
         virtual ~PosixSocket() { Shutdown(); }
 
         bool Bind(const char* host, const int port);
@@ -74,6 +76,9 @@ namespace avmshell
 
         int GetDescriptor();
         int GetType();
+
+        bool GetBlocking();
+        void SetBlocking(bool is_blocking);
         
         bool GetReuseAddress();
         void SetReuseAddress(bool reuse_address);
@@ -81,13 +86,19 @@ namespace avmshell
         bool GetBroadcast();
         void SetBroadcast(bool broadcast);
 
+        int GetReceiveTimeout();
+        void SetReceiveTimeout(int sec);
+
+        int GetSendTimeout();
+        void SetSendTimeout(int sec);
+        
         void SetNoSigPipe();
 
         bool IsValid() const { return _socket != -1; }
 
-        int isReadable();
-        int isWritable();
-        int isExceptional();
+        int isReadable(int sec);
+        int isWritable(int sec);
+        int isExceptional(int sec);
 
         static bool Setup();
         static int getLastError();
@@ -96,6 +107,7 @@ namespace avmshell
         
     private:
         int _socket;
+        bool _blocking;
     };
 }
 

@@ -82,6 +82,10 @@ namespace avmshell
 
         // Get the value of the SO_TYPE socket option.
         virtual int GetType() = 0;
+
+        // Get/Set the socket blocking mode
+        virtual bool GetBlocking() = 0;
+        virtual void SetBlocking(bool is_blocking) = 0;
         
         // Get/Set the value of the SO_REUSEADDR socket option.
         virtual bool GetReuseAddress() = 0;
@@ -91,13 +95,21 @@ namespace avmshell
         virtual bool GetBroadcast() = 0;
         virtual void SetBroadcast(bool broadcast) = 0;
 
+        // Get/Set the value of the SO_RCVTIMEO socket option.
+        virtual int GetReceiveTimeout() = 0;
+        virtual void SetReceiveTimeout(int sec) = 0;
+
+        // Get/Set the value of the SO_SNDTIMEO socket option.
+        virtual int GetSendTimeout() = 0;
+        virtual void SetSendTimeout(int sec) = 0;
+
         virtual void SetNoSigPipe() = 0;
 
         virtual bool IsValid() const = 0;
 
-        virtual int isReadable() = 0;
-        virtual int isWritable() = 0;
-        virtual int isExceptional() = 0;
+        virtual int isReadable(int sec) = 0;
+        virtual int isWritable(int sec) = 0;
+        virtual int isExceptional(int sec) = 0;
 
         static bool Setup();
         static int getLastError();

@@ -281,7 +281,7 @@ namespace avmshell
         */
     }
 
-    int WinSocket::isReadable()
+    int WinSocket::isReadable(int sec)
     {
         if(!IsValid()) {
             return -1;
@@ -293,7 +293,8 @@ namespace avmshell
         
         FD_ZERO(&fds);
         FD_SET(_socket,&fds);
-        tv.tv_sec = tv.tv_usec = 0;
+        tv.tv_sec  = sec;
+        tv.tv_usec = 0;
         
         status = select(_socket+1, &fds, NULL, NULL, &tv);
         
@@ -304,7 +305,7 @@ namespace avmshell
         return FD_ISSET(_socket,&fds) ? 1 : 0;
     }
     
-    int WinSocket::isWritable()
+    int WinSocket::isWritable(int sec)
     {
         if(!IsValid()) {
             return -1;
@@ -316,7 +317,8 @@ namespace avmshell
         
         FD_ZERO(&fds);
         FD_SET(_socket,&fds);
-        tv.tv_sec = tv.tv_usec = 0;
+        tv.tv_sec  = sec;
+        tv.tv_usec = 0;
 
         status = select(_socket+1, NULL, &fds, NULL, &tv);
 
@@ -327,7 +329,7 @@ namespace avmshell
         return FD_ISSET(_socket,&fds) ? 1 : 0;
     }
     
-    int WinSocket::isExceptional()
+    int WinSocket::isExceptional(int sec)
     {
         if(!IsValid()) {
             return -1;
@@ -339,7 +341,8 @@ namespace avmshell
         
         FD_ZERO(&fds);
         FD_SET(_socket,&fds);
-        tv.tv_sec = tv.tv_usec = 0;
+        tv.tv_sec  = sec;
+        tv.tv_usec = 0;
         
         status = select(_socket+1, NULL, NULL, &fds, &tv);
 

@@ -81,13 +81,19 @@ namespace avmshell
         bool GetBroadcast();
         void SetBroadcast(bool broadcast);
 
+        int GetReceiveTimeout();
+        void SetReceiveTimeout(int sec);
+
+        int GetSendTimeout();
+        void SetSendTimeout(int sec);
+
         void SetNoSigPipe();
 
         bool IsValid() const { return _socket != INVALID_SOCKET; }
 
-        int isReadable();
-        int isWritable();
-        int isExceptional();
+        int isReadable(int sec);
+        int isWritable(int sec);
+        int isExceptional(int sec);
 
         static bool Setup();
         static int getLastError();
