@@ -231,6 +231,23 @@ namespace avmshell
         return val;
     }
 
+    bool WinSocket::GetBlocking()
+    {
+        return _blocking;
+    }
+    
+    void WinSocket::SetBlocking(bool is_blocking)
+    {
+        unsigned long flags = is_blocking ? 0 : 1;
+        
+        int status = ioctlsocket(_socket, FIONBIO, &flags);
+        if(status != 0) {
+            printf( "Could not change blocking status = %i\n", status );
+        }
+        
+        _blocking = is_blocking;
+    }
+
     bool WinSocket::GetReuseAddress()
     {
         int val;
@@ -265,6 +282,46 @@ namespace avmshell
         int val = broadcast ? 1 : 0;
         int len = sizeof(val);
         setsockopt(_socket, SOL_SOCKET, SO_BROADCAST, (char*)&val, len);
+    }
+
+    int WinSocket::GetReceiveTimeout()
+    {
+        int timeout;
+        int len = sizeof(timeout);
+        int status = getsockopt(_socket, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeout, &len);
+        if(status == 0)
+        {
+            return (int)timeout/1000;
+        }
+
+        return 0;
+    }
+
+    void WinSocket::SetReceiveTimeout(int sec)
+    {
+        int timeout = sec * 1000;
+        int len = sizeof(int);
+        setsockopt(_socket, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeout, len);
+    }
+
+    int WinSocket::GetSendTimeout()
+    {
+        int timeout;
+        int len = sizeof(timeout);
+        int status = getsockopt(_socket, SOL_SOCKET, SO_SNDTIMEO, (char*)&timeout, &len);
+        if(status == 0)
+        {
+            return (int)timeout/1000;
+        }
+
+        return 0;
+    }
+    
+    void WinSocket::SetSendTimeout(int sec)
+    {
+        int timeout = sec * 1000;
+        int len = sizeof(int);
+        setsockopt(_socket, SOL_SOCKET, SO_SNDTIMEO, (char*)&timeout, len);
     }
 
     void WinSocket::SetNoSigPipe()

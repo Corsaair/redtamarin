@@ -51,13 +51,15 @@ namespace avmshell
         {
             // Create the default socket.
             _socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+            _blocking = true;
         }
         explicit WinSocket(int family, int socktype, int protocol)
         {
             // Create the custom socket.
             _socket = socket(family, socktype, protocol);
+            _blocking = true;
         }
-        explicit WinSocket(int socket) { _socket = (SOCKET)socket; }
+        explicit WinSocket(int socket) { _socket = (SOCKET)socket; _blocking = true; }
         virtual ~WinSocket() { Shutdown(); }
 
         bool Bind(const char* host, const int port);
@@ -74,6 +76,9 @@ namespace avmshell
 
         int GetDescriptor();
         int GetType();
+        
+        bool GetBlocking();
+        void SetBlocking(bool is_blocking);
         
         bool GetReuseAddress();
         void SetReuseAddress(bool reuse_address);
@@ -102,6 +107,7 @@ namespace avmshell
         
     private:
         SOCKET _socket;
+        bool _blocking;
     };
 }
 
