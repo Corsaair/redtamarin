@@ -121,6 +121,43 @@ int VMPI_gethostname(char *name, int namelen);
   #define ENOSYS           EPERM
 #endif /* !ENOSYS */
 
+
+#if !defined(EWOULDBLOCK)
+  #define EWOULDBLOCK        WSAEWOULDBLOCK
+#endif /* !EWOULDBLOCK */
+
+#if !defined(EINPROGRESS)
+  #define EINPROGRESS        WSAEINPROGRESS
+#endif /* !EINPROGRESS */
+
+#if !defined(EALREADY)
+  #define EALREADY        WSAEALREADY
+#endif /* !EALREADY */
+
+#if !defined(EDESTADDRREQ)
+  #define EDESTADDRREQ          WSAEDESTADDRREQ
+#endif /* !EDESTADDRREQ */
+
+#if !defined(EMSGSIZE)
+  #define EMSGSIZE          WSAEMSGSIZE
+#endif /* !EMSGSIZE */
+
+#if !defined(EPROTOTYPE)
+  #define EPROTOTYPE          WSAEPROTOTYPE
+#endif /* !EPROTOTYPE */
+
+#if !defined(ENOPROTOOPT)
+  #define ENOPROTOOPT          WSAENOPROTOOPT
+#endif /* !ENOPROTOOPT */
+
+#if !defined(EADDRINUSE)
+  #define EADDRINUSE          WSAEADDRINUSE
+#endif /* !EADDRINUSE */
+
+#if !defined(EADDRNOTAVAIL)
+  #define EADDRNOTAVAIL          WSAEADDRNOTAVAIL
+#endif /* !EADDRNOTAVAIL */
+
 #if !defined(ENETDOWN)
   #define ENETDOWN         WSAENETDOWN
 #endif /* !ENETDOWN */
@@ -168,6 +205,20 @@ int VMPI_gethostname(char *name, int namelen);
 #if !defined(ECONNREFUSED)
   #define ECONNREFUSED     WSAECONNREFUSED
 #endif /* !ECONNREFUSED */
+
+#if !defined(ELOOP)
+  #define ELOOP          WSAELOOP
+#endif /* !ELOOP */
+
+#if !defined(EHOSTDOWN)
+  #define EHOSTDOWN          WSAEHOSTDOWN
+#endif /* !EHOSTDOWN */
+
+#if !defined(EHOSTUNREACH)
+  #define EHOSTUNREACH          WSAEHOSTUNREACH
+#endif /* !EHOSTUNREACH */
+
+
 
 #if !defined(SHUT_RD)
   #define SHUT_RD          SD_RECEIVE
