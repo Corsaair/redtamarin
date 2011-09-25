@@ -82,6 +82,8 @@ namespace avmshell
         virtual Socket* createCustomSocket(int family, int socktype, int protocol);
         virtual Socket* createSocketFrom(int sd);
         virtual void destroySocket(Socket* socket);
+        virtual bool isSocketSupported();
+        virtual const char *getSocketVersion();
         virtual int getLastSocketError();
         virtual int getMaxSelectDescriptor();
 
@@ -145,38 +147,26 @@ namespace avmshell
     Socket* WinPlatform::createCustomSocket(int family, int socktype, int protocol)
     {
         return new WinSocket(family, socktype, protocol);
-        /*
-        if( WinSocket::Setup() )
-        {
-            return new WinSocket(family, socktype, protocol);
-        }
-        else
-        {
-            AvmLog("Failed to create custom socket.\n");
-            return NULL;
-        }
-        */
     }
     
     Socket* WinPlatform::createSocketFrom(int sd)
     {
         return new WinSocket(sd);
-        /*
-        if( WinSocket::Setup() )
-        {
-            return new WinSocket(sd);
-        }
-        else
-        {
-            AvmLog("Failed to create socket from descriptor.\n");
-            return NULL;
-        }
-        */
     }
     
     void WinPlatform::destroySocket(Socket* socket)
     {
         delete socket;
+    }
+
+    bool WinPlatform::isSocketSupported()
+    {
+        return WinSocket::isSupported();
+    }
+
+    const char *WinPlatform::getSocketVersion()
+    {
+        return WinSocket::getSocketVersion();
     }
 
     int WinPlatform::getLastSocketError()
@@ -188,6 +178,7 @@ namespace avmshell
     {
         return WinSocket::getMaxSelectDescriptor();
     }
+
 
     int WinPlatform::logMessage(const char* message)
     {
