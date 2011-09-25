@@ -62,61 +62,31 @@ namespace avmshell
     Socket* PosixPartialPlatform::createSocket()
     {
         return mmfx_new( PosixSocket() );
-
-        /*
-        if( PosixSocket::Setup() )
-        {
-            return mmfx_new( PosixSocket() );
-            //return new PosixSocket();
-        }
-        else
-        {
-            printf("Failed to create default socket.\n");
-            return NULL;
-        }
-        */
     }
 
     Socket* PosixPartialPlatform::createCustomSocket(int family, int socktype, int protocol)
     {
         return mmfx_new( PosixSocket(family, socktype, protocol) );
-        
-        /*
-        if( PosixSocket::Setup() )
-        {
-            return mmfx_new( PosixSocket(family, socktype, protocol) );
-            //return new PosixSocket(family, socktype, protocol);
-        }
-        else
-        {
-            printf("Failed to create custom socket.\n");
-            return NULL;
-        }
-        */
     }
     
     Socket* PosixPartialPlatform::createSocketFrom(int sd)
     {
         return mmfx_new( PosixSocket(sd) );
-        
-        /*
-        if( PosixSocket::Setup() )
-        {
-            return mmfx_new( PosixSocket(sd) );
-            //return new PosixSocket(sd);
-        }
-        else
-        {
-            printf("Failed to create socket from descriptor.\n");
-            return NULL;
-        }
-        */
     }
     
     void PosixPartialPlatform::destroySocket(Socket* socket)
     {
         mmfx_delete( socket );
-        //delete socket;
+    }
+
+    bool PosixPartialPlatform::isSocketSupported()
+    {
+        return PosixSocket::isSupported();
+    }
+
+    const char *PosixPartialPlatform::getSocketVersion()
+    {
+        return PosixSocket::getSocketVersion();
     }
 
     int PosixPartialPlatform::getLastSocketError()
