@@ -58,6 +58,8 @@ namespace avmshell
         virtual Socket* createCustomSocket(int family, int socktype, int protocol);
         virtual Socket* createSocketFrom(int sd);
         virtual void destroySocket(Socket* socket);
+        virtual bool isSocketSupported();
+        virtual const char *getSocketVersion();
         virtual int getLastSocketError();
         virtual int getMaxSelectDescriptor();
 
