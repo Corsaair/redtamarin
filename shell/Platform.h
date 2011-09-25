@@ -114,6 +114,10 @@ namespace avmshell
         */
         virtual void destroySocket(Socket* socket) = 0;
 
+        virtual bool isSocketSupported() = 0;
+
+        virtual const char *getSocketVersion() = 0;
+
         virtual int getLastSocketError() = 0;
 
         virtual int getMaxSelectDescriptor() = 0;
