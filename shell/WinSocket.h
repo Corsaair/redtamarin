@@ -101,11 +101,16 @@ namespace avmshell
         int isExceptional(int sec);
 
         static bool Setup();
+        static bool isSupported();
+        static const char *getSocketVersion();
         static int getLastError();
         static int getMaxSelectDescriptor();
 
         
     private:
+        static bool _available;
+        static const char *_version;
+        
         SOCKET _socket;
         bool _blocking;
     };

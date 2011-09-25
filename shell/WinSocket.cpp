@@ -300,7 +300,7 @@ namespace avmshell
     void WinSocket::SetReceiveTimeout(int sec)
     {
         int timeout = sec * 1000;
-        int len = sizeof(int);
+        int len = sizeof(timeout);
         setsockopt(_socket, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeout, len);
     }
 
@@ -320,7 +320,7 @@ namespace avmshell
     void WinSocket::SetSendTimeout(int sec)
     {
         int timeout = sec * 1000;
-        int len = sizeof(int);
+        int len = sizeof(timeout);
         setsockopt(_socket, SOL_SOCKET, SO_SNDTIMEO, (char*)&timeout, len);
     }
 
@@ -410,17 +410,19 @@ namespace avmshell
         return FD_ISSET(_socket,&fds) ? 1 : 0;
     }
 
-
+    bool WinSocket::_available = false;
 
     bool WinSocket::Setup()
     {
+        /*
         //initialize Winsock32
         WSADATA winsock_data;
         WORD version_requested;
         int err;
         
         //version_requested = MAKEWORD(1, 1); //Winsock 1.1
-        version_requested = MAKEWORD(2, 0); //Winsock 2.0
+        //version_requested = MAKEWORD(2, 0); //Winsock 2.0
+        version_requested = MAKEWORD(2, 2); //Winsock 2.2
         err = WSAStartup(version_requested, &winsock_data);
         
         if(err != 0) {
@@ -428,6 +430,58 @@ namespace avmshell
         }
         
         return err == 0;
+        */
+        
+        bool available = false;
+        WSADATA winsock_data;
+        
+        /* note:
+           Here we initialize Winsock trying the highest version first
+           then falling back to older versions until we get one which works
+        */
+        if( WSAStartup(MAKEWORD(2,2), &winsock_data) == 0 ) {
+            //printf( "Winsock 2.2\n" );
+            WinSocket::_version = "Winsock 2.2";
+            available = true;
+        }
+        else if( WSAStartup(MAKEWORD(2,1), &winsock_data) == 0 ) {
+            //printf( "Winsock 2.1\n" );
+            WinSocket::_version = "Winsock 2.1";
+            available = true;
+        }
+        else if( WSAStartup(MAKEWORD(2,0), &winsock_data) == 0 ) {
+            //printf( "Winsock 2.0\n" );
+            WinSocket::_version = "Winsock 2.0";
+            available = true;
+        }
+        else if( WSAStartup(MAKEWORD(1,1), &winsock_data) == 0 ) {
+            //printf( "Winsock 1.1\n" );
+            WinSocket::_version = "Winsock 1.1";
+            available = true;
+        }
+        else if( WSAStartup(MAKEWORD(1,0), &winsock_data) == 0 ) {
+            //printf( "Winsock 1.0\n" );
+            WinSocket::_version = "Winsock 1.0";
+            available = true;
+        }
+        else {
+            printf( "WSAStartup failed, no winsock available.\n" );
+        }
+        
+        WinSocket::_available = available;
+        return available;
+    }
+
+    bool WinSocket::isSupported()
+    {
+        return WinSocket::_available;
+    }
+
+    const char *WinSocket::_version = "Winsock";
+
+    const char *WinSocket::getSocketVersion()
+    {
+        return WinSocket::_version;
     }
 
     int WinSocket::getLastError()
