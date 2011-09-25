@@ -112,6 +112,8 @@ namespace avmshell
         virtual int isExceptional(int sec) = 0;
 
         static bool Setup();
+        static bool isSupported();
+        static const char *getSocketVersion();
         static int getLastError();
         static int getMaxSelectDescriptor();
         
