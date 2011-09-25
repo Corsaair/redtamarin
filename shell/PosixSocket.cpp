@@ -420,10 +420,24 @@ namespace avmshell
     }
 
 
+    bool PosixSocket::_available = true;
+
     bool PosixSocket::Setup()
     {
         //nothing to do on POSIX
         return true;
+    }
+
+    bool PosixSocket::isSupported()
+    {
+        return PosixSocket::_available;
+    }
+
+    const char *PosixSocket::_version = "Berkeley sockets";
+
+    const char *PosixSocket::getSocketVersion()
+    {
+        return PosixSocket::_version;
     }
 
     int PosixSocket::getLastError()
