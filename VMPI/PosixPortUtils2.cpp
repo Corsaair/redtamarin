@@ -44,6 +44,9 @@
     #include <CoreServices/CoreServices.h>
 #endif //AVMPLUS_MAC
 
+//for termios, ttystate, tcgetattr, ICANON, WMIN, TCSANOW, tcsetattr in C.stdio
+#include <termios.h>
+
 // ---- utilities ----
 
 char *VMPI_int2char(int n)
@@ -138,6 +141,49 @@ void VMPI_getUserName(char *username)
 
 // ---- C.unistd ---- END
 
+// ---- C.stdio ---- 
+
+void VMPI_con_stream_mode(int state)
+{
+    struct termios ttystate;
+ 
+    //get the terminal state
+    tcgetattr(STDIN_FILENO, &ttystate);
+ 
+    if (state==NONBLOCKING_ENABLE)
+    {
+        //turn off canonical mode
+        ttystate.c_lflag &= ~ICANON;
+        //minimum of number input read.
+        ttystate.c_cc[VMIN] = 1;
+    }
+    else if (state==NONBLOCKING_DISABLE)
+    {
+        //turn on canonical mode
+        ttystate.c_lflag |= ICANON;
+    }
+    //set the terminal attributes.
+    tcsetattr(STDIN_FILENO, TCSANOW, &ttystate);
+}
+
+void VMPI_con_trans_mode(int state)
+{
+    (void)state; //does nothing under POSIX
+}
+
+int VMPI_kbhit()
+{
+    struct timeval tv;
+    fd_set fds;
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+    FD_ZERO(&fds);
+    FD_SET(STDIN_FILENO, &fds); //STDIN_FILENO is 0
+    select(STDIN_FILENO+1, &fds, NULL, NULL, &tv);
+    return FD_ISSET(STDIN_FILENO, &fds);
+}
+
+// ---- C.stdio ---- END
 
 // ---- C.socket ---- 
 
