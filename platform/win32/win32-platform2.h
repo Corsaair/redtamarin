@@ -243,6 +243,16 @@ int VMPI_gethostname(char *name, int namelen);
 
 
 
+#if !defined(O_TEXT)
+  #define O_TEXT          _O_TEXT
+#endif /* !O_TEXT */
+
+#if !defined(O_BINARY)
+  #define O_BINARY       _O_BINARY
+#endif /* !O_BINARY */
+
+
+
 #if !defined(S_IFMT)
   #define S_IFMT    _S_IFMT    /* 0xF000 file type mask */
 #endif
