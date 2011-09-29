@@ -113,289 +113,301 @@ const uint32_t abcclass_avmplus_System = 14;
 const uint32_t abcclass_avmplus_OperatingSystem = 15;
 const uint32_t abcclass_avmplus_FileSystem = 16;
 const uint32_t abcclass_avmplus_Socket = 17;
-const uint32_t abcclass_flash_utils_IExternalizable = 18;
-const uint32_t abcclass_flash_utils_CompressionAlgorithm = 19;
-const uint32_t abcclass_flash_utils_Endian = 20;
-const uint32_t abcclass_avmplus_JObject = 21;
-const uint32_t abcclass_avmplus_profiles_TamarinProfile = 22;
-const uint32_t abcclass_avmplus_profiles_RedTamarinProfile = 23;
-const uint32_t abcclass_avmplus_profiles_FlashPlayerProfile = 24;
-const uint32_t abcclass_avmplus_profiles_AIRProfile = 25;
-const uint32_t abcclass_avmplus_profiles_DesktopProfile = 26;
-const uint32_t abcclass_avmplus_profiles_MobileDeviceProfile = 27;
-const uint32_t abcclass_avmplus_profiles_TVProfile = 28;
-const uint32_t abcclass_avmplus_profiles_ExtendedDesktopProfile = 29;
-const uint32_t abcclass_avmplus_profiles_ExtendedTVProfile = 30;
+const uint32_t abcclass_avmplus_StandardStream = 18;
+const uint32_t abcclass_flash_utils_IExternalizable = 19;
+const uint32_t abcclass_flash_utils_CompressionAlgorithm = 20;
+const uint32_t abcclass_flash_utils_Endian = 21;
+const uint32_t abcclass_avmplus_JObject = 22;
+const uint32_t abcclass_avmplus_profiles_TamarinProfile = 23;
+const uint32_t abcclass_avmplus_profiles_RedTamarinProfile = 24;
+const uint32_t abcclass_avmplus_StandardStreamOut = 25;
+const uint32_t abcclass_avmplus_StandardStreamErr = 26;
+const uint32_t abcclass_avmplus_StandardStreamIn = 27;
+const uint32_t abcclass_avmplus_profiles_FlashPlayerProfile = 28;
+const uint32_t abcclass_avmplus_profiles_AIRProfile = 29;
+const uint32_t abcclass_avmplus_profiles_DesktopProfile = 30;
+const uint32_t abcclass_avmplus_profiles_MobileDeviceProfile = 31;
+const uint32_t abcclass_avmplus_profiles_TVProfile = 32;
+const uint32_t abcclass_avmplus_profiles_ExtendedDesktopProfile = 33;
+const uint32_t abcclass_avmplus_profiles_ExtendedTVProfile = 34;
 
 /* methods */
-const uint32_t avmplus_Domain_currentDomain_get = 18;
-const uint32_t avmplus_Domain_MIN_DOMAIN_MEMORY_LENGTH_get = 19;
-const uint32_t avmplus_Domain_private_init = 20;
-const uint32_t avmplus_Domain_loadBytes = 22;
-const uint32_t avmplus_Domain_getClass = 23;
-const uint32_t avmplus_Domain_domainMemory_get = 25;
-const uint32_t avmplus_Domain_domainMemory_set = 26;
-const uint32_t native_script_function_flash_sampler_getMasterString = 28;
-const uint32_t native_script_function_flash_sampler_getSavedThis = 29;
-const uint32_t native_script_function_flash_sampler_getLexicalScopes = 30;
-const uint32_t native_script_function_flash_sampler_isGetterSetter = 31;
-const uint32_t native_script_function_flash_sampler__getInvocationCount = 32;
-const uint32_t native_script_function_flash_sampler_getSampleCount = 36;
-const uint32_t native_script_function_flash_sampler_getSamples = 37;
-const uint32_t native_script_function_flash_sampler_getMemberNames = 38;
-const uint32_t native_script_function_flash_sampler_getSize = 39;
-const uint32_t native_script_function_flash_sampler__setSamplerCallback = 40;
-const uint32_t native_script_function_flash_sampler_sampleInternalAllocs = 43;
-const uint32_t native_script_function_flash_sampler_pauseSampling = 44;
-const uint32_t native_script_function_flash_sampler_stopSampling = 45;
-const uint32_t native_script_function_flash_sampler_startSampling = 46;
-const uint32_t native_script_function_flash_sampler_clearSamples = 47;
-const uint32_t flash_sampler_NewObjectSample_object_get = 54;
-const uint32_t flash_sampler_NewObjectSample_size_get = 55;
-const uint32_t flash_trace_Trace_setLevel = 61;
-const uint32_t flash_trace_Trace_getLevel = 62;
-const uint32_t flash_trace_Trace_setListener = 63;
-const uint32_t flash_trace_Trace_getListener = 64;
-const uint32_t flash_utils_Dictionary_private_init = 68;
-const uint32_t C_stdlib___stdlib_EXIT_SUCCESS_get = 79;
-const uint32_t C_stdlib___stdlib_EXIT_FAILURE_get = 80;
-const uint32_t C_stdlib___stdlib_abort = 81;
-const uint32_t C_stdlib___stdlib_exit = 82;
-const uint32_t C_stdlib___stdlib_getenv = 83;
-const uint32_t C_stdlib___stdlib_setenv = 84;
-const uint32_t C_stdlib___stdlib_unsetenv = 85;
-const uint32_t C_stdlib___stdlib_realpath = 86;
-const uint32_t C_stdlib___stdlib___system = 87;
-const uint32_t C_unistd___unistd_F_OK_get = 102;
-const uint32_t C_unistd___unistd_X_OK_get = 103;
-const uint32_t C_unistd___unistd_W_OK_get = 104;
-const uint32_t C_unistd___unistd_R_OK_get = 105;
-const uint32_t C_unistd___unistd_S_IFMT_get = 106;
-const uint32_t C_unistd___unistd_S_IFIFO_get = 107;
-const uint32_t C_unistd___unistd_S_IFCHR_get = 108;
-const uint32_t C_unistd___unistd_S_IFDIR_get = 109;
-const uint32_t C_unistd___unistd_S_IFBLK_get = 110;
-const uint32_t C_unistd___unistd_S_IFREG_get = 111;
-const uint32_t C_unistd___unistd_S_IFLNK_get = 112;
-const uint32_t C_unistd___unistd_S_IFSOCK_get = 113;
-const uint32_t C_unistd___unistd_S_IRWXU_get = 114;
-const uint32_t C_unistd___unistd_S_IRUSR_get = 115;
-const uint32_t C_unistd___unistd_S_IWUSR_get = 116;
-const uint32_t C_unistd___unistd_S_IXUSR_get = 117;
-const uint32_t C_unistd___unistd_S_IRWXG_get = 118;
-const uint32_t C_unistd___unistd_S_IRGRP_get = 119;
-const uint32_t C_unistd___unistd_S_IWGRP_get = 120;
-const uint32_t C_unistd___unistd_S_IXGRP_get = 121;
-const uint32_t C_unistd___unistd_S_IRWXO_get = 122;
-const uint32_t C_unistd___unistd_S_IROTH_get = 123;
-const uint32_t C_unistd___unistd_S_IWOTH_get = 124;
-const uint32_t C_unistd___unistd_S_IXOTH_get = 125;
-const uint32_t C_unistd___unistd_S_IREAD_get = 126;
-const uint32_t C_unistd___unistd_S_IWRITE_get = 127;
-const uint32_t C_unistd___unistd_S_IEXEC_get = 128;
-const uint32_t C_unistd___unistd_access = 129;
-const uint32_t C_unistd___unistd_chdir = 130;
-const uint32_t C_unistd___unistd_chmod = 131;
-const uint32_t C_unistd___unistd_getcwd = 132;
-const uint32_t C_unistd___unistd_gethostname = 133;
-const uint32_t C_unistd___unistd_getlogin = 134;
-const uint32_t C_unistd___unistd_getpid = 135;
-const uint32_t C_unistd___unistd_mkdir = 136;
-const uint32_t C_unistd___unistd_rmdir = 137;
-const uint32_t C_unistd___unistd_sleep = 138;
-const uint32_t C_unistd___unistd_unlink = 139;
-const uint32_t C_string___string_strerror = 147;
-const uint32_t C_string___string_strlen = 148;
-const uint32_t C_errno___errno_EDOM_get = 156;
-const uint32_t C_errno___errno_EILSEQ_get = 157;
-const uint32_t C_errno___errno_ERANGE_get = 158;
-const uint32_t C_errno___errno_EPERM_get = 159;
-const uint32_t C_errno___errno_ENOENT_get = 160;
-const uint32_t C_errno___errno_ESRCH_get = 161;
-const uint32_t C_errno___errno_EINTR_get = 162;
-const uint32_t C_errno___errno_EIO_get = 163;
-const uint32_t C_errno___errno_ENXIO_get = 164;
-const uint32_t C_errno___errno_E2BIG_get = 165;
-const uint32_t C_errno___errno_ENOEXEC_get = 166;
-const uint32_t C_errno___errno_EBADF_get = 167;
-const uint32_t C_errno___errno_ECHILD_get = 168;
-const uint32_t C_errno___errno_EAGAIN_get = 169;
-const uint32_t C_errno___errno_ENOMEM_get = 170;
-const uint32_t C_errno___errno_EACCES_get = 171;
-const uint32_t C_errno___errno_EFAULT_get = 172;
-const uint32_t C_errno___errno_EBUSY_get = 173;
-const uint32_t C_errno___errno_EEXIST_get = 174;
-const uint32_t C_errno___errno_EXDEV_get = 175;
-const uint32_t C_errno___errno_ENODEV_get = 176;
-const uint32_t C_errno___errno_ENOTDIR_get = 177;
-const uint32_t C_errno___errno_EISDIR_get = 178;
-const uint32_t C_errno___errno_EINVAL_get = 179;
-const uint32_t C_errno___errno_ENFILE_get = 180;
-const uint32_t C_errno___errno_EMFILE_get = 181;
-const uint32_t C_errno___errno_ENOTTY_get = 182;
-const uint32_t C_errno___errno_EFBIG_get = 183;
-const uint32_t C_errno___errno_ENOSPC_get = 184;
-const uint32_t C_errno___errno_ESPIPE_get = 185;
-const uint32_t C_errno___errno_EROFS_get = 186;
-const uint32_t C_errno___errno_EMLINK_get = 187;
-const uint32_t C_errno___errno_EPIPE_get = 188;
-const uint32_t C_errno___errno_EDEADLK_get = 189;
-const uint32_t C_errno___errno_ENAMETOOLONG_get = 190;
-const uint32_t C_errno___errno_ENOLCK_get = 191;
-const uint32_t C_errno___errno_ENOSYS_get = 192;
-const uint32_t C_errno___errno_ENOTEMPTY_get = 193;
-const uint32_t C_errno___errno_EWOULDBLOCK_get = 194;
-const uint32_t C_errno___errno_EINPROGRESS_get = 195;
-const uint32_t C_errno___errno_EALREADY_get = 196;
-const uint32_t C_errno___errno_EDESTADDRREQ_get = 197;
-const uint32_t C_errno___errno_EMSGSIZE_get = 198;
-const uint32_t C_errno___errno_EPROTOTYPE_get = 199;
-const uint32_t C_errno___errno_ENOPROTOOPT_get = 200;
-const uint32_t C_errno___errno_EADDRINUSE_get = 201;
-const uint32_t C_errno___errno_EADDRNOTAVAIL_get = 202;
-const uint32_t C_errno___errno_ENETDOWN_get = 203;
-const uint32_t C_errno___errno_ENETUNREACH_get = 204;
-const uint32_t C_errno___errno_ENETRESET_get = 205;
-const uint32_t C_errno___errno_ECONNABORTED_get = 206;
-const uint32_t C_errno___errno_ECONNRESET_get = 207;
-const uint32_t C_errno___errno_ENOBUFS_get = 208;
-const uint32_t C_errno___errno_EISCONN_get = 209;
-const uint32_t C_errno___errno_ENOTCONN_get = 210;
-const uint32_t C_errno___errno_ESHUTDOWN_get = 211;
-const uint32_t C_errno___errno_ETOOMANYREFS_get = 212;
-const uint32_t C_errno___errno_ETIMEDOUT_get = 213;
-const uint32_t C_errno___errno_ECONNREFUSED_get = 214;
-const uint32_t C_errno___errno_ELOOP_get = 215;
-const uint32_t C_errno___errno_EHOSTDOWN_get = 216;
-const uint32_t C_errno___errno_EHOSTUNREACH_get = 217;
-const uint32_t C_errno___errno_GetErrno = 218;
-const uint32_t C_errno___errno_SetErrno = 219;
-const uint32_t C_stdio___stdio_FILENAME_MAX_get = 225;
-const uint32_t C_stdio___stdio_PATH_MAX_get = 226;
-const uint32_t C_stdio___stdio_remove = 227;
-const uint32_t C_stdio___stdio_rename = 228;
-const uint32_t C_socket___socket_SOCK_RAW_get = 236;
-const uint32_t C_socket___socket_SOCK_STREAM_get = 237;
-const uint32_t C_socket___socket_SOCK_DGRAM_get = 238;
-const uint32_t C_socket___socket_SO_ACCEPTCONN_get = 239;
-const uint32_t C_socket___socket_SO_BROADCAST_get = 240;
-const uint32_t C_socket___socket_SO_DONTROUTE_get = 241;
-const uint32_t C_socket___socket_SO_KEEPALIVE_get = 242;
-const uint32_t C_socket___socket_SO_OOBINLINE_get = 243;
-const uint32_t C_socket___socket_SO_RCVBUF_get = 244;
-const uint32_t C_socket___socket_SO_RCVTIMEO_get = 245;
-const uint32_t C_socket___socket_SO_REUSEADDR_get = 246;
-const uint32_t C_socket___socket_SO_SNDBUF_get = 247;
-const uint32_t C_socket___socket_SO_SNDTIMEO_get = 248;
-const uint32_t C_socket___socket_SO_TYPE_get = 249;
-const uint32_t C_socket___socket_MSG_CTRUNC_get = 250;
-const uint32_t C_socket___socket_MSG_DONTROUTE_get = 251;
-const uint32_t C_socket___socket_MSG_OOB_get = 252;
-const uint32_t C_socket___socket_MSG_PEEK_get = 253;
-const uint32_t C_socket___socket_MSG_TRUNC_get = 254;
-const uint32_t C_socket___socket_MSG_WAITALL_get = 255;
-const uint32_t C_socket___socket_MSG_DONTWAIT_get = 256;
-const uint32_t C_socket___socket_AF_INET_get = 257;
-const uint32_t C_socket___socket_AF_INET6_get = 258;
-const uint32_t C_socket___socket_AF_UNSPEC_get = 259;
-const uint32_t C_socket___socket_SHUT_RD_get = 260;
-const uint32_t C_socket___socket_SHUT_RDWR_get = 261;
-const uint32_t C_socket___socket_SHUT_WR_get = 262;
-const uint32_t C_socket___socket_IPPROTO_IP_get = 263;
-const uint32_t C_socket___socket_IPPROTO_IPV6_get = 264;
-const uint32_t C_socket___socket_IPPROTO_ICMP_get = 265;
-const uint32_t C_socket___socket_IPPROTO_RAW_get = 266;
-const uint32_t C_socket___socket_IPPROTO_TCP_get = 267;
-const uint32_t C_socket___socket_IPPROTO_UDP_get = 268;
-const uint32_t C_socket___socket_SOMAXCONN_get = 269;
-const uint32_t C_socket___socket___gethostbyaddr = 270;
-const uint32_t C_socket___socket___gethostbyname = 271;
-const uint32_t C_socket___socket___getpeername = 272;
-const uint32_t C_socket___socket___getsockname = 273;
-const uint32_t avmplus_System_private_getArgv = 350;
-const uint32_t avmplus_System_private_getStartupDirectory = 351;
-const uint32_t avmplus_System_apiVersion_get = 352;
-const uint32_t avmplus_System_programFilename_get = 357;
-const uint32_t avmplus_System_swfVersion_get = 360;
-const uint32_t avmplus_System_totalMemory_get = 361;
-const uint32_t avmplus_System_freeMemory_get = 362;
-const uint32_t avmplus_System_privateMemory_get = 363;
-const uint32_t avmplus_System_eval = 366;
-const uint32_t avmplus_System_private_popenRead = 369;
-const uint32_t avmplus_System_getAvmplusVersion = 371;
-const uint32_t avmplus_System_getFeatures = 373;
-const uint32_t avmplus_System_getRunmode = 374;
-const uint32_t avmplus_System_getTimer = 375;
-const uint32_t avmplus_System_readLine = 376;
-const uint32_t avmplus_System_trace = 377;
-const uint32_t avmplus_System_write = 378;
-const uint32_t avmplus_System_stdinLength_get = 380;
-const uint32_t avmplus_System_stdinRead = 382;
-const uint32_t avmplus_System_stdinReadAll = 383;
-const uint32_t avmplus_System_stdoutWrite = 384;
-const uint32_t avmplus_System_debugger = 385;
-const uint32_t avmplus_System_isDebugger = 386;
-const uint32_t avmplus_System_forceFullCollection = 387;
-const uint32_t avmplus_System_queueCollection = 388;
-const uint32_t avmplus_System_disposeXML = 389;
-const uint32_t avmplus_OperatingSystem_private_getName = 393;
-const uint32_t avmplus_OperatingSystem_private_getNodeName = 394;
-const uint32_t avmplus_OperatingSystem_private_getRelease = 395;
-const uint32_t avmplus_OperatingSystem_private_getVersion = 396;
-const uint32_t avmplus_OperatingSystem_private_getMachine = 397;
-const uint32_t avmplus_OperatingSystem_private_getVendorVersion = 398;
-const uint32_t avmplus_OperatingSystem_private_getSystemLocale = 412;
-const uint32_t avmplus_FileSystem_private__getLogicalDrives = 442;
-const uint32_t avmplus_FileSystem_read = 449;
-const uint32_t avmplus_FileSystem_write = 450;
-const uint32_t avmplus_FileSystem_readByteArray = 451;
-const uint32_t avmplus_FileSystem_writeByteArray = 452;
-const uint32_t avmplus_FileSystem_getFileMode = 453;
-const uint32_t avmplus_FileSystem_getFileSize = 454;
-const uint32_t avmplus_FileSystem_getLastModifiedTime = 456;
-const uint32_t avmplus_FileSystem_isRegularFile = 464;
-const uint32_t avmplus_FileSystem_private__isAttributeHidden = 465;
-const uint32_t avmplus_FileSystem_isDirectory = 467;
-const uint32_t avmplus_FileSystem_listFiles = 480;
-const uint32_t avmplus_FileSystem_getFreeDiskSpace = 489;
-const uint32_t avmplus_FileSystem_getTotalDiskSpace = 490;
-const uint32_t avmplus_Socket_isSupported = 495;
-const uint32_t avmplus_Socket_version_get = 497;
-const uint32_t avmplus_Socket_lastError_get = 498;
-const uint32_t avmplus_Socket_maxConcurrentConnection_get = 501;
-const uint32_t avmplus_Socket_private__type_get = 521;
-const uint32_t avmplus_Socket_private__getBuffer = 522;
-const uint32_t avmplus_Socket_private__setNoSigPipe = 523;
-const uint32_t avmplus_Socket_private__isValid = 524;
-const uint32_t avmplus_Socket_private__isReadable = 525;
-const uint32_t avmplus_Socket_private__isWritable = 526;
-const uint32_t avmplus_Socket_private__customSocket = 527;
-const uint32_t avmplus_Socket_private__connect = 528;
-const uint32_t avmplus_Socket_private__close = 529;
-const uint32_t avmplus_Socket_private__send = 530;
-const uint32_t avmplus_Socket_private__sendTo = 531;
-const uint32_t avmplus_Socket_private__receive = 532;
-const uint32_t avmplus_Socket_private__receiveFrom = 533;
-const uint32_t avmplus_Socket_private__bind = 534;
-const uint32_t avmplus_Socket_private__listen = 535;
-const uint32_t avmplus_Socket_private__accept = 536;
-const uint32_t avmplus_Socket_descriptor_get = 544;
-const uint32_t avmplus_Socket_blocking_get = 553;
-const uint32_t avmplus_Socket_blocking_set = 554;
-const uint32_t avmplus_Socket_reuseAddress_get = 555;
-const uint32_t avmplus_Socket_reuseAddress_set = 556;
-const uint32_t avmplus_Socket_broadcast_get = 557;
-const uint32_t avmplus_Socket_broadcast_set = 558;
-const uint32_t avmplus_Socket_receiveTimeout_get = 559;
-const uint32_t avmplus_Socket_receiveTimeout_set = 560;
-const uint32_t avmplus_Socket_sendTimeout_get = 561;
-const uint32_t avmplus_Socket_sendTimeout_set = 562;
-const uint32_t avmplus_JObject_create = 599;
-const uint32_t avmplus_JObject_createArray = 600;
-const uint32_t avmplus_JObject_toArray = 601;
-const uint32_t avmplus_JObject_constructorSignature = 602;
-const uint32_t avmplus_JObject_methodSignature = 603;
-const uint32_t avmplus_JObject_fieldSignature = 604;
+const uint32_t avmplus_Domain_currentDomain_get = 17;
+const uint32_t avmplus_Domain_MIN_DOMAIN_MEMORY_LENGTH_get = 18;
+const uint32_t avmplus_Domain_private_init = 19;
+const uint32_t avmplus_Domain_loadBytes = 21;
+const uint32_t avmplus_Domain_getClass = 22;
+const uint32_t avmplus_Domain_domainMemory_get = 24;
+const uint32_t avmplus_Domain_domainMemory_set = 25;
+const uint32_t native_script_function_flash_sampler_getMasterString = 27;
+const uint32_t native_script_function_flash_sampler_getSavedThis = 28;
+const uint32_t native_script_function_flash_sampler_getLexicalScopes = 29;
+const uint32_t native_script_function_flash_sampler_isGetterSetter = 30;
+const uint32_t native_script_function_flash_sampler__getInvocationCount = 31;
+const uint32_t native_script_function_flash_sampler_getSampleCount = 35;
+const uint32_t native_script_function_flash_sampler_getSamples = 36;
+const uint32_t native_script_function_flash_sampler_getMemberNames = 37;
+const uint32_t native_script_function_flash_sampler_getSize = 38;
+const uint32_t native_script_function_flash_sampler__setSamplerCallback = 39;
+const uint32_t native_script_function_flash_sampler_sampleInternalAllocs = 42;
+const uint32_t native_script_function_flash_sampler_pauseSampling = 43;
+const uint32_t native_script_function_flash_sampler_stopSampling = 44;
+const uint32_t native_script_function_flash_sampler_startSampling = 45;
+const uint32_t native_script_function_flash_sampler_clearSamples = 46;
+const uint32_t flash_sampler_NewObjectSample_object_get = 53;
+const uint32_t flash_sampler_NewObjectSample_size_get = 54;
+const uint32_t flash_trace_Trace_setLevel = 60;
+const uint32_t flash_trace_Trace_getLevel = 61;
+const uint32_t flash_trace_Trace_setListener = 62;
+const uint32_t flash_trace_Trace_getListener = 63;
+const uint32_t flash_utils_Dictionary_private_init = 67;
+const uint32_t C_stdlib___stdlib_EXIT_SUCCESS_get = 78;
+const uint32_t C_stdlib___stdlib_EXIT_FAILURE_get = 79;
+const uint32_t C_stdlib___stdlib_abort = 80;
+const uint32_t C_stdlib___stdlib_exit = 81;
+const uint32_t C_stdlib___stdlib_getenv = 82;
+const uint32_t C_stdlib___stdlib_setenv = 83;
+const uint32_t C_stdlib___stdlib_unsetenv = 84;
+const uint32_t C_stdlib___stdlib_realpath = 85;
+const uint32_t C_stdlib___stdlib___system = 86;
+const uint32_t C_unistd___unistd_F_OK_get = 101;
+const uint32_t C_unistd___unistd_X_OK_get = 102;
+const uint32_t C_unistd___unistd_W_OK_get = 103;
+const uint32_t C_unistd___unistd_R_OK_get = 104;
+const uint32_t C_unistd___unistd_S_IFMT_get = 105;
+const uint32_t C_unistd___unistd_S_IFIFO_get = 106;
+const uint32_t C_unistd___unistd_S_IFCHR_get = 107;
+const uint32_t C_unistd___unistd_S_IFDIR_get = 108;
+const uint32_t C_unistd___unistd_S_IFBLK_get = 109;
+const uint32_t C_unistd___unistd_S_IFREG_get = 110;
+const uint32_t C_unistd___unistd_S_IFLNK_get = 111;
+const uint32_t C_unistd___unistd_S_IFSOCK_get = 112;
+const uint32_t C_unistd___unistd_S_IRWXU_get = 113;
+const uint32_t C_unistd___unistd_S_IRUSR_get = 114;
+const uint32_t C_unistd___unistd_S_IWUSR_get = 115;
+const uint32_t C_unistd___unistd_S_IXUSR_get = 116;
+const uint32_t C_unistd___unistd_S_IRWXG_get = 117;
+const uint32_t C_unistd___unistd_S_IRGRP_get = 118;
+const uint32_t C_unistd___unistd_S_IWGRP_get = 119;
+const uint32_t C_unistd___unistd_S_IXGRP_get = 120;
+const uint32_t C_unistd___unistd_S_IRWXO_get = 121;
+const uint32_t C_unistd___unistd_S_IROTH_get = 122;
+const uint32_t C_unistd___unistd_S_IWOTH_get = 123;
+const uint32_t C_unistd___unistd_S_IXOTH_get = 124;
+const uint32_t C_unistd___unistd_S_IREAD_get = 125;
+const uint32_t C_unistd___unistd_S_IWRITE_get = 126;
+const uint32_t C_unistd___unistd_S_IEXEC_get = 127;
+const uint32_t C_unistd___unistd_access = 128;
+const uint32_t C_unistd___unistd_chdir = 129;
+const uint32_t C_unistd___unistd_chmod = 130;
+const uint32_t C_unistd___unistd_getcwd = 131;
+const uint32_t C_unistd___unistd_gethostname = 132;
+const uint32_t C_unistd___unistd_getlogin = 133;
+const uint32_t C_unistd___unistd_getpid = 134;
+const uint32_t C_unistd___unistd_mkdir = 135;
+const uint32_t C_unistd___unistd_rmdir = 136;
+const uint32_t C_unistd___unistd_sleep = 137;
+const uint32_t C_unistd___unistd_unlink = 138;
+const uint32_t C_string___string_strerror = 146;
+const uint32_t C_string___string_strlen = 147;
+const uint32_t C_errno___errno_EDOM_get = 155;
+const uint32_t C_errno___errno_EILSEQ_get = 156;
+const uint32_t C_errno___errno_ERANGE_get = 157;
+const uint32_t C_errno___errno_EPERM_get = 158;
+const uint32_t C_errno___errno_ENOENT_get = 159;
+const uint32_t C_errno___errno_ESRCH_get = 160;
+const uint32_t C_errno___errno_EINTR_get = 161;
+const uint32_t C_errno___errno_EIO_get = 162;
+const uint32_t C_errno___errno_ENXIO_get = 163;
+const uint32_t C_errno___errno_E2BIG_get = 164;
+const uint32_t C_errno___errno_ENOEXEC_get = 165;
+const uint32_t C_errno___errno_EBADF_get = 166;
+const uint32_t C_errno___errno_ECHILD_get = 167;
+const uint32_t C_errno___errno_EAGAIN_get = 168;
+const uint32_t C_errno___errno_ENOMEM_get = 169;
+const uint32_t C_errno___errno_EACCES_get = 170;
+const uint32_t C_errno___errno_EFAULT_get = 171;
+const uint32_t C_errno___errno_EBUSY_get = 172;
+const uint32_t C_errno___errno_EEXIST_get = 173;
+const uint32_t C_errno___errno_EXDEV_get = 174;
+const uint32_t C_errno___errno_ENODEV_get = 175;
+const uint32_t C_errno___errno_ENOTDIR_get = 176;
+const uint32_t C_errno___errno_EISDIR_get = 177;
+const uint32_t C_errno___errno_EINVAL_get = 178;
+const uint32_t C_errno___errno_ENFILE_get = 179;
+const uint32_t C_errno___errno_EMFILE_get = 180;
+const uint32_t C_errno___errno_ENOTTY_get = 181;
+const uint32_t C_errno___errno_EFBIG_get = 182;
+const uint32_t C_errno___errno_ENOSPC_get = 183;
+const uint32_t C_errno___errno_ESPIPE_get = 184;
+const uint32_t C_errno___errno_EROFS_get = 185;
+const uint32_t C_errno___errno_EMLINK_get = 186;
+const uint32_t C_errno___errno_EPIPE_get = 187;
+const uint32_t C_errno___errno_EDEADLK_get = 188;
+const uint32_t C_errno___errno_ENAMETOOLONG_get = 189;
+const uint32_t C_errno___errno_ENOLCK_get = 190;
+const uint32_t C_errno___errno_ENOSYS_get = 191;
+const uint32_t C_errno___errno_ENOTEMPTY_get = 192;
+const uint32_t C_errno___errno_EWOULDBLOCK_get = 193;
+const uint32_t C_errno___errno_EINPROGRESS_get = 194;
+const uint32_t C_errno___errno_EALREADY_get = 195;
+const uint32_t C_errno___errno_EDESTADDRREQ_get = 196;
+const uint32_t C_errno___errno_EMSGSIZE_get = 197;
+const uint32_t C_errno___errno_EPROTOTYPE_get = 198;
+const uint32_t C_errno___errno_ENOPROTOOPT_get = 199;
+const uint32_t C_errno___errno_EADDRINUSE_get = 200;
+const uint32_t C_errno___errno_EADDRNOTAVAIL_get = 201;
+const uint32_t C_errno___errno_ENETDOWN_get = 202;
+const uint32_t C_errno___errno_ENETUNREACH_get = 203;
+const uint32_t C_errno___errno_ENETRESET_get = 204;
+const uint32_t C_errno___errno_ECONNABORTED_get = 205;
+const uint32_t C_errno___errno_ECONNRESET_get = 206;
+const uint32_t C_errno___errno_ENOBUFS_get = 207;
+const uint32_t C_errno___errno_EISCONN_get = 208;
+const uint32_t C_errno___errno_ENOTCONN_get = 209;
+const uint32_t C_errno___errno_ESHUTDOWN_get = 210;
+const uint32_t C_errno___errno_ETOOMANYREFS_get = 211;
+const uint32_t C_errno___errno_ETIMEDOUT_get = 212;
+const uint32_t C_errno___errno_ECONNREFUSED_get = 213;
+const uint32_t C_errno___errno_ELOOP_get = 214;
+const uint32_t C_errno___errno_EHOSTDOWN_get = 215;
+const uint32_t C_errno___errno_EHOSTUNREACH_get = 216;
+const uint32_t C_errno___errno_GetErrno = 217;
+const uint32_t C_errno___errno_SetErrno = 218;
+const uint32_t C_stdio___stdio_FILENAME_MAX_get = 227;
+const uint32_t C_stdio___stdio_PATH_MAX_get = 228;
+const uint32_t C_stdio___stdio_NONBLOCKING_DISABLE_get = 229;
+const uint32_t C_stdio___stdio_NONBLOCKING_ENABLE_get = 230;
+const uint32_t C_stdio___stdio_O_TEXT_get = 231;
+const uint32_t C_stdio___stdio_O_BINARY_get = 232;
+const uint32_t C_stdio___stdio_remove = 233;
+const uint32_t C_stdio___stdio_rename = 234;
+const uint32_t C_stdio___stdio_con_stream_mode = 235;
+const uint32_t C_stdio___stdio_con_trans_mode = 236;
+const uint32_t C_stdio___stdio_kbhit = 237;
+const uint32_t C_socket___socket_SOCK_RAW_get = 245;
+const uint32_t C_socket___socket_SOCK_STREAM_get = 246;
+const uint32_t C_socket___socket_SOCK_DGRAM_get = 247;
+const uint32_t C_socket___socket_SO_ACCEPTCONN_get = 248;
+const uint32_t C_socket___socket_SO_BROADCAST_get = 249;
+const uint32_t C_socket___socket_SO_DONTROUTE_get = 250;
+const uint32_t C_socket___socket_SO_KEEPALIVE_get = 251;
+const uint32_t C_socket___socket_SO_OOBINLINE_get = 252;
+const uint32_t C_socket___socket_SO_RCVBUF_get = 253;
+const uint32_t C_socket___socket_SO_RCVTIMEO_get = 254;
+const uint32_t C_socket___socket_SO_REUSEADDR_get = 255;
+const uint32_t C_socket___socket_SO_SNDBUF_get = 256;
+const uint32_t C_socket___socket_SO_SNDTIMEO_get = 257;
+const uint32_t C_socket___socket_SO_TYPE_get = 258;
+const uint32_t C_socket___socket_MSG_CTRUNC_get = 259;
+const uint32_t C_socket___socket_MSG_DONTROUTE_get = 260;
+const uint32_t C_socket___socket_MSG_OOB_get = 261;
+const uint32_t C_socket___socket_MSG_PEEK_get = 262;
+const uint32_t C_socket___socket_MSG_TRUNC_get = 263;
+const uint32_t C_socket___socket_MSG_WAITALL_get = 264;
+const uint32_t C_socket___socket_MSG_DONTWAIT_get = 265;
+const uint32_t C_socket___socket_AF_INET_get = 266;
+const uint32_t C_socket___socket_AF_INET6_get = 267;
+const uint32_t C_socket___socket_AF_UNSPEC_get = 268;
+const uint32_t C_socket___socket_SHUT_RD_get = 269;
+const uint32_t C_socket___socket_SHUT_RDWR_get = 270;
+const uint32_t C_socket___socket_SHUT_WR_get = 271;
+const uint32_t C_socket___socket_IPPROTO_IP_get = 272;
+const uint32_t C_socket___socket_IPPROTO_IPV6_get = 273;
+const uint32_t C_socket___socket_IPPROTO_ICMP_get = 274;
+const uint32_t C_socket___socket_IPPROTO_RAW_get = 275;
+const uint32_t C_socket___socket_IPPROTO_TCP_get = 276;
+const uint32_t C_socket___socket_IPPROTO_UDP_get = 277;
+const uint32_t C_socket___socket_SOMAXCONN_get = 278;
+const uint32_t C_socket___socket___gethostbyaddr = 279;
+const uint32_t C_socket___socket___gethostbyname = 280;
+const uint32_t C_socket___socket___getpeername = 281;
+const uint32_t C_socket___socket___getsockname = 282;
+const uint32_t avmplus_System_private_getArgv = 359;
+const uint32_t avmplus_System_private_getStartupDirectory = 360;
+const uint32_t avmplus_System_apiVersion_get = 361;
+const uint32_t avmplus_System_programFilename_get = 366;
+const uint32_t avmplus_System_swfVersion_get = 369;
+const uint32_t avmplus_System_totalMemory_get = 370;
+const uint32_t avmplus_System_freeMemory_get = 371;
+const uint32_t avmplus_System_privateMemory_get = 372;
+const uint32_t avmplus_System_eval = 375;
+const uint32_t avmplus_System_private_popenRead = 378;
+const uint32_t avmplus_System_getAvmplusVersion = 380;
+const uint32_t avmplus_System_getFeatures = 382;
+const uint32_t avmplus_System_getRunmode = 383;
+const uint32_t avmplus_System_getTimer = 384;
+const uint32_t avmplus_System_readLine = 385;
+const uint32_t avmplus_System_trace = 386;
+const uint32_t avmplus_System_write = 387;
+const uint32_t avmplus_System_hack_sys_getStdinLength = 389;
+const uint32_t avmplus_System_hack_sys_stdinRead = 390;
+const uint32_t avmplus_System_hack_sys_stdinReadAll = 391;
+const uint32_t avmplus_System_hack_sys_stdoutWrite = 392;
+const uint32_t avmplus_System_hack_sys_stderrWrite = 393;
+const uint32_t avmplus_System_debugger = 394;
+const uint32_t avmplus_System_isDebugger = 395;
+const uint32_t avmplus_System_forceFullCollection = 396;
+const uint32_t avmplus_System_queueCollection = 397;
+const uint32_t avmplus_System_disposeXML = 398;
+const uint32_t avmplus_OperatingSystem_private_getName = 402;
+const uint32_t avmplus_OperatingSystem_private_getNodeName = 403;
+const uint32_t avmplus_OperatingSystem_private_getRelease = 404;
+const uint32_t avmplus_OperatingSystem_private_getVersion = 405;
+const uint32_t avmplus_OperatingSystem_private_getMachine = 406;
+const uint32_t avmplus_OperatingSystem_private_getVendorVersion = 407;
+const uint32_t avmplus_OperatingSystem_private_getSystemLocale = 421;
+const uint32_t avmplus_FileSystem_private__getLogicalDrives = 451;
+const uint32_t avmplus_FileSystem_read = 458;
+const uint32_t avmplus_FileSystem_write = 459;
+const uint32_t avmplus_FileSystem_readByteArray = 460;
+const uint32_t avmplus_FileSystem_writeByteArray = 461;
+const uint32_t avmplus_FileSystem_getFileMode = 462;
+const uint32_t avmplus_FileSystem_getFileSize = 463;
+const uint32_t avmplus_FileSystem_getLastModifiedTime = 465;
+const uint32_t avmplus_FileSystem_isRegularFile = 473;
+const uint32_t avmplus_FileSystem_private__isAttributeHidden = 474;
+const uint32_t avmplus_FileSystem_isDirectory = 476;
+const uint32_t avmplus_FileSystem_listFiles = 489;
+const uint32_t avmplus_FileSystem_getFreeDiskSpace = 498;
+const uint32_t avmplus_FileSystem_getTotalDiskSpace = 499;
+const uint32_t avmplus_Socket_isSupported = 504;
+const uint32_t avmplus_Socket_version_get = 506;
+const uint32_t avmplus_Socket_lastError_get = 507;
+const uint32_t avmplus_Socket_maxConcurrentConnection_get = 510;
+const uint32_t avmplus_Socket_private__type_get = 530;
+const uint32_t avmplus_Socket_private__getBuffer = 531;
+const uint32_t avmplus_Socket_private__setNoSigPipe = 532;
+const uint32_t avmplus_Socket_private__isValid = 533;
+const uint32_t avmplus_Socket_private__isReadable = 534;
+const uint32_t avmplus_Socket_private__isWritable = 535;
+const uint32_t avmplus_Socket_private__customSocket = 536;
+const uint32_t avmplus_Socket_private__connect = 537;
+const uint32_t avmplus_Socket_private__close = 538;
+const uint32_t avmplus_Socket_private__send = 539;
+const uint32_t avmplus_Socket_private__sendTo = 540;
+const uint32_t avmplus_Socket_private__receive = 541;
+const uint32_t avmplus_Socket_private__receiveFrom = 542;
+const uint32_t avmplus_Socket_private__bind = 543;
+const uint32_t avmplus_Socket_private__listen = 544;
+const uint32_t avmplus_Socket_private__accept = 545;
+const uint32_t avmplus_Socket_descriptor_get = 553;
+const uint32_t avmplus_Socket_blocking_get = 562;
+const uint32_t avmplus_Socket_blocking_set = 563;
+const uint32_t avmplus_Socket_reuseAddress_get = 564;
+const uint32_t avmplus_Socket_reuseAddress_set = 565;
+const uint32_t avmplus_Socket_broadcast_get = 566;
+const uint32_t avmplus_Socket_broadcast_set = 567;
+const uint32_t avmplus_Socket_receiveTimeout_get = 568;
+const uint32_t avmplus_Socket_receiveTimeout_set = 569;
+const uint32_t avmplus_Socket_sendTimeout_get = 570;
+const uint32_t avmplus_Socket_sendTimeout_set = 571;
+const uint32_t avmplus_JObject_create = 616;
+const uint32_t avmplus_JObject_createArray = 617;
+const uint32_t avmplus_JObject_toArray = 618;
+const uint32_t avmplus_JObject_constructorSignature = 619;
+const uint32_t avmplus_JObject_methodSignature = 620;
+const uint32_t avmplus_JObject_fieldSignature = 621;
 
 extern AvmBox avmplus_Domain_currentDomain_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_Domain_MIN_DOMAIN_MEMORY_LENGTH_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -541,8 +553,15 @@ extern AvmBox C_errno___errno_GetErrno_thunk(AvmMethodEnv env, uint32_t argc, Av
 extern AvmBox C_errno___errno_SetErrno_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_stdio___stdio_FILENAME_MAX_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_stdio___stdio_PATH_MAX_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdio___stdio_NONBLOCKING_DISABLE_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdio___stdio_NONBLOCKING_ENABLE_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdio___stdio_O_TEXT_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdio___stdio_O_BINARY_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_stdio___stdio_remove_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_stdio___stdio_rename_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdio___stdio_con_stream_mode_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdio___stdio_con_trans_mode_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox C_stdio___stdio_kbhit_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_socket___socket_SOCK_RAW_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_socket___socket_SOCK_STREAM_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox C_socket___socket_SOCK_DGRAM_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -598,10 +617,11 @@ extern AvmBox avmplus_System_getTimer_thunk(AvmMethodEnv env, uint32_t argc, Avm
 extern AvmBox avmplus_System_readLine_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_System_trace_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_System_write_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-extern double avmplus_System_stdinLength_get_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-extern AvmBox avmplus_System_stdinRead_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-extern AvmBox avmplus_System_stdinReadAll_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-extern AvmBox avmplus_System_stdoutWrite_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern double avmplus_System_hack_sys_getStdinLength_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_System_hack_sys_stdinRead_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_System_hack_sys_stdinReadAll_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_System_hack_sys_stdoutWrite_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
+extern AvmBox avmplus_System_hack_sys_stderrWrite_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_System_debugger_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_System_isDebugger_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 extern AvmBox avmplus_System_forceFullCollection_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -679,8 +699,8 @@ extern AvmBox shell_toplevel_func_v2a_oo_thunk(AvmMethodEnv env, uint32_t argc, 
 
 extern double shell_toplevel_d2d_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_System_freeMemory_get_thunk  shell_toplevel_d2d_o_thunk
+#define avmplus_System_hack_sys_getStdinLength_thunk  shell_toplevel_d2d_o_thunk
 #define avmplus_System_privateMemory_get_thunk  shell_toplevel_d2d_o_thunk
-#define avmplus_System_stdinLength_get_thunk  shell_toplevel_d2d_o_thunk
 #define avmplus_System_totalMemory_get_thunk  shell_toplevel_d2d_o_thunk
 #define flash_sampler_NewObjectSample_size_get_thunk  shell_toplevel_d2d_o_thunk
 
@@ -700,7 +720,7 @@ extern AvmBox shell_toplevel_u2a_os_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 #define C_string___string_strlen_thunk  shell_toplevel_u2a_os_thunk
 
 extern AvmBox shell_toplevel_a2a_ou_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
-#define avmplus_System_stdinRead_thunk  shell_toplevel_a2a_ou_thunk
+#define avmplus_System_hack_sys_stdinRead_thunk  shell_toplevel_a2a_ou_thunk
 
 extern AvmBox shell_toplevel_a2a_oo_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define avmplus_JObject_toArray_thunk  shell_toplevel_a2a_oo_thunk
@@ -859,7 +879,12 @@ extern AvmBox shell_toplevel_i2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox
 #define C_socket___socket_SO_SNDTIMEO_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_socket___socket_SO_TYPE_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_stdio___stdio_FILENAME_MAX_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_stdio___stdio_NONBLOCKING_DISABLE_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_stdio___stdio_NONBLOCKING_ENABLE_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_stdio___stdio_O_BINARY_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_stdio___stdio_O_TEXT_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_stdio___stdio_PATH_MAX_get_thunk  shell_toplevel_i2a_o_thunk
+#define C_stdio___stdio_kbhit_thunk  shell_toplevel_i2a_o_thunk
 #define C_stdlib___stdlib_EXIT_FAILURE_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_stdlib___stdlib_EXIT_SUCCESS_get_thunk  shell_toplevel_i2a_o_thunk
 #define C_unistd___unistd_F_OK_get_thunk  shell_toplevel_i2a_o_thunk
@@ -947,8 +972,8 @@ extern AvmBox shell_toplevel_a2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox
 #define avmplus_Domain_domainMemory_get_thunk  shell_toplevel_a2a_o_thunk
 #define avmplus_Socket_private__accept_thunk  shell_toplevel_a2a_o_thunk
 #define avmplus_Socket_private__getBuffer_thunk  shell_toplevel_a2a_o_thunk
+#define avmplus_System_hack_sys_stdinReadAll_thunk  shell_toplevel_a2a_o_thunk
 #define avmplus_System_private_getArgv_thunk  shell_toplevel_a2a_o_thunk
-#define avmplus_System_stdinReadAll_thunk  shell_toplevel_a2a_o_thunk
 #define flash_sampler_NewObjectSample_object_get_thunk  shell_toplevel_a2a_o_thunk
 #define flash_trace_Trace_getListener_thunk  shell_toplevel_a2a_o_thunk
 
@@ -1008,7 +1033,8 @@ extern AvmBox shell_toplevel_v2a_oo_thunk(AvmMethodEnv env, uint32_t argc, AvmBo
 #define avmplus_Domain_domainMemory_set_thunk  shell_toplevel_v2a_oo_thunk
 #define avmplus_Domain_private_init_thunk  shell_toplevel_v2a_oo_thunk
 #define avmplus_System_disposeXML_thunk  shell_toplevel_v2a_oo_thunk
-#define avmplus_System_stdoutWrite_thunk  shell_toplevel_v2a_oo_thunk
+#define avmplus_System_hack_sys_stderrWrite_thunk  shell_toplevel_v2a_oo_thunk
+#define avmplus_System_hack_sys_stdoutWrite_thunk  shell_toplevel_v2a_oo_thunk
 #define avmplus_System_trace_thunk  shell_toplevel_v2a_oo_thunk
 
 extern AvmBox shell_toplevel_v2a_ou_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
@@ -1035,6 +1061,8 @@ extern AvmBox shell_toplevel_b2a_o_thunk(AvmMethodEnv env, uint32_t argc, AvmBox
 
 extern AvmBox shell_toplevel_v2a_oi_thunk(AvmMethodEnv env, uint32_t argc, AvmBox* argv);
 #define C_errno___errno_SetErrno_thunk  shell_toplevel_v2a_oi_thunk
+#define C_stdio___stdio_con_stream_mode_thunk  shell_toplevel_v2a_oi_thunk
+#define C_stdio___stdio_con_trans_mode_thunk  shell_toplevel_v2a_oi_thunk
 #define avmplus_Socket_receiveTimeout_set_thunk  shell_toplevel_v2a_oi_thunk
 #define avmplus_Socket_sendTimeout_set_thunk  shell_toplevel_v2a_oi_thunk
 
@@ -1414,6 +1442,12 @@ public:
     REALLY_INLINE void set_private__profile(AvmObject newVal) { m_private__profile = newVal; }
     REALLY_INLINE ArrayObject* get_argv() const { return m_argv; }
     REALLY_INLINE AvmString get_startupDirectory() const { return m_startupDirectory; }
+    REALLY_INLINE AvmObject get_stdout() const { return m_stdout; }
+    REALLY_INLINE void set_stdout(AvmObject newVal) { m_stdout = newVal; }
+    REALLY_INLINE AvmObject get_stderr() const { return m_stderr; }
+    REALLY_INLINE void set_stderr(AvmObject newVal) { m_stderr = newVal; }
+    REALLY_INLINE AvmObject get_stdin() const { return m_stdin; }
+    REALLY_INLINE void set_stdin(AvmObject newVal) { m_stdin = newVal; }
     REALLY_INLINE AvmString get_private__shell() const { return m_private__shell; }
     REALLY_INLINE void set_private__shell(AvmString newVal) { m_private__shell = newVal; }
 private:
@@ -1421,6 +1455,9 @@ private:
     DRCWB(AvmObject) m_private__profile;
     DRCWB(ArrayObject*) m_argv;
     DRCWB(AvmString) m_startupDirectory;
+    DRCWB(AvmObject) m_stdout;
+    DRCWB(AvmObject) m_stderr;
+    DRCWB(AvmObject) m_stdin;
     DRCWB(AvmString) m_private__shell;
 public:
     REALLY_INLINE void gcTracePrivateProperties(MMgc::GC* gc)
@@ -1429,6 +1466,9 @@ public:
         gc->TraceLocation(&m_private__profile);
         gc->TraceLocation(&m_argv);
         gc->TraceLocation(&m_startupDirectory);
+        gc->TraceLocation(&m_stdout);
+        gc->TraceLocation(&m_stderr);
+        gc->TraceLocation(&m_stdin);
         gc->TraceLocation(&m_private__shell);
     }
 };
@@ -1442,6 +1482,12 @@ public:
         REALLY_INLINE void set_private__profile(AvmObject newVal) { m_slots_SystemClass.set_private__profile(newVal); } \
         REALLY_INLINE ArrayObject* get_argv() const { return m_slots_SystemClass.get_argv(); } \
         REALLY_INLINE AvmString get_startupDirectory() const { return m_slots_SystemClass.get_startupDirectory(); } \
+        REALLY_INLINE AvmObject get_stdout() const { return m_slots_SystemClass.get_stdout(); } \
+        REALLY_INLINE void set_stdout(AvmObject newVal) { m_slots_SystemClass.set_stdout(newVal); } \
+        REALLY_INLINE AvmObject get_stderr() const { return m_slots_SystemClass.get_stderr(); } \
+        REALLY_INLINE void set_stderr(AvmObject newVal) { m_slots_SystemClass.set_stderr(newVal); } \
+        REALLY_INLINE AvmObject get_stdin() const { return m_slots_SystemClass.get_stdin(); } \
+        REALLY_INLINE void set_stdin(AvmObject newVal) { m_slots_SystemClass.set_stdin(newVal); } \
         REALLY_INLINE AvmString get_private__shell() const { return m_slots_SystemClass.get_private__shell(); } \
         REALLY_INLINE void set_private__shell(AvmString newVal) { m_slots_SystemClass.set_private__shell(newVal); } \
     private: \
