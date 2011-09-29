@@ -84,6 +84,15 @@ extern void VMPI_getUserName(char *username);
 // ---- C.unistd ---- END
 
 
+// ---- C.stdio ---- 
+
+extern void VMPI_con_stream_mode(int state);
+extern void VMPI_con_trans_mode(int state);
+extern int VMPI_kbhit();
+
+// ---- C.stdio ---- 
+
+
 // ---- C.socket ---- 
 
 extern struct hostent *VMPI_gethostbyaddr(const char *addr);
