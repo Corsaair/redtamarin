@@ -689,7 +689,7 @@ namespace avmshell
            with previous avmshell logic you would have to write
            ./program -- -a -b -c test.txt
 
-           thanks bu no thanks, I hate the "--", I don't want the "--", bye bye the "--"
+           thanks but no thanks, I hate the "--", I don't want the "--", bye bye the "--"
         */
 
 #ifdef AVMSHELL_PROJECTOR_SUPPORT
