@@ -92,6 +92,8 @@
 //for setlocale, used with VMPI_getLocale
 #include <locale.h>
 
+
+
 //C.string
 #define VMPI_strerror    ::strerror
 
@@ -110,6 +112,26 @@
 #define VMPI_rename      ::rename
 #define VMPI_popen       ::popen  //not defined in C.stdio, used by SystemClass::popenRead
 #define VMPI_pclose      ::pclose //not defined in C.stdio, used by SystemClass::popenRead
+
+
+#if !defined(NONBLOCKING_DISABLE)
+  #define NONBLOCKING_DISABLE          0
+#endif /* !NONBLOCKING_DISABLE */
+
+#if !defined(NONBLOCKING_ENABLE)
+  #define NONBLOCKING_ENABLE           1
+#endif /* !NONBLOCKING_ENABLE */
+
+
+
+#if !defined(O_TEXT)
+  #define O_TEXT          0x4000
+#endif /* !O_TEXT */
+
+#if !defined(O_BINARY)
+  #define O_BINARY        0x8000
+#endif /* !O_BINARY */
+
 
 
 //avmplus.Socket
