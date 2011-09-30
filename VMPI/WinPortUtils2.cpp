@@ -928,6 +928,44 @@ int VMPI_gethostname(char *name, int namelen)
 // ---- C.unistd ---- END
 
 
+// ---- C.stdio ---- 
+
+void VMPI_con_stream_mode(int state)
+{
+    DWORD mode;
+    HANDLE hstdin;
+    
+    hstdin  = GetStdHandle(STD_INPUT_HANDLE);
+    GetConsoleMode( hstdin,  &mode );
+    
+    if (state==NONBLOCKING_ENABLE)
+    {
+        mode &= ~(ENABLE_LINE_INPUT | ENABLE_ECHO_INPUT);
+        SetConsoleMode( hstdin , mode );
+    }
+    else if (state==NONBLOCKING_DISABLE)
+    {
+        mode |= ENABLE_LINE_INPUT | ENABLE_ECHO_INPUT;
+        SetConsoleMode( hstdin , mode );
+    }
+    
+    FlushConsoleInputBuffer( hstdin );
+}
+
+void VMPI_con_trans_mode(int state)
+{
+    _setmode( _fileno( stdin ), state );
+    _setmode( _fileno( stdout ), state );
+}
+
+int VMPI_kbhit()
+{
+    return _kbhit();
+}
+
+// ---- C.stdio ---- END
+
+
 // ---- C.socket ---- 
 
 struct hostent *VMPI_gethostbyaddr(const char *addr)
