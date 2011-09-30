@@ -53,8 +53,14 @@
 ////for const in C.unistd, for _S_IREAD etc.
 #include <sys/stat.h>
 
-//for _access, _unlink
+//for _access, _unlink, _setmode
 #include <io.h>
+
+//for _O_BINARY, _O_TEXT
+#include <fcntl.h>
+
+//for _kbhit
+#include <conio.h>
 
 //for _chdir, _getcwd, _rmdir, 
 #include <direct.h>
@@ -110,6 +116,15 @@ int VMPI_gethostname(char *name, int namelen);
 #define VMPI_popen     _popen             //_wpopen //not defined in C.stdio, used by SystemClass::popenRead
 #define VMPI_pclose    _pclose                      //not defined in C.stdio, used by SystemClass::popenRead
 
+
+
+#if !defined(NONBLOCKING_DISABLE)
+  #define NONBLOCKING_DISABLE          0
+#endif /* !NONBLOCKING_DISABLE */
+
+#if !defined(NONBLOCKING_ENABLE)
+  #define NONBLOCKING_ENABLE           1
+#endif /* !NONBLOCKING_ENABLE */
 
 
 
