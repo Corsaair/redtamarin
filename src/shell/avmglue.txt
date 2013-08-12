@@ -1,0 +1,64 @@
+
+   from the builtins
+
+
+   see also /src/core/IDataInput.as
+   flash.utils::IDataInput
+   flash.utils::IDataInput2
+   
+   see also /src/core/IDataOutput.as
+   flash.utils::IDataOutput
+   flash.utils::IDataOutput2
+   
+   see also /src/core/ByteArray.as
+   flash.utils::CompressionAlgorithm
+   flash.utils::ByteArray
+   
+   see also /src/core/Proxy.as
+   flash.utils::flash_proxy
+   flash.utils::Proxy
+   
+   see also /src/core/flash_net_classes.as
+   flash.net::registerClassAlias()
+   flash.net::getClassByAlias()
+   
+   see also /src/core/Dictionary.as
+   flash.utils::Dictionary
+   
+   see also /src/core/IDynamicPropertyOutput.as
+   flash.net::IDynamicPropertyOutput
+   
+   see also /src/core/IDynamicPropertyWriter.as
+   flash.net::IDynamicPropertyWriter
+
+   see also /src/core/DynamicPropertyOutput.as
+   flash.net::DynamicPropertyOutput
+
+   see also /src/core/ObjectInput.as
+   flash.utils::ObjectInput
+   
+   see also /src/core/ObjectOutput.as
+   flash.utils::ObjectOutput
+   
+   see also /src/core/IExternalizable.as
+   flash.utils::IExternalizable
+
+   see also /src/core/ObjectEncoding.as
+   flash.net::ObjectEncoding
+   
+   see also /src/core/concurrent.as
+   flash.concurrent::Mutex
+   flash.concurrent::Condition
+   avm2.intrinsics.memory::mfence()
+   avm2.intrinsics.memory::casi32()
+
+   see also /src/core/PromiseChannel.as
+   (none)
+
+
+   see also /src/core/flash_errors_classes.as
+   flash.errors::IOError
+   flash.errors::EOFError
+   flash.errors::MemoryError
+   flash.errors::IllegalOperationError
+   
