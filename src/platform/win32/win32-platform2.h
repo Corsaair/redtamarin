@@ -1,45 +1,22 @@
 /* -*- Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil; tab-width: 4 -*- */
 /* vi: set ts=4 sw=4 expandtab: (add to ~/.vimrc: set modeline modelines=5) */
-/* -*- tab-width: 4 -*- */
-/* ***** BEGIN LICENSE BLOCK *****
- * Version: MPL 1.1/GPL 2.0/LGPL 2.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
- * License.
- *
- * The Original Code is [Open Source Virtual Machine.].
- *
- * The Initial Developer of the Original Code is
- * Adobe System Incorporated.
- * Portions created by the Initial Developer are Copyright (C) 1993-2006
- * the Initial Developer. All Rights Reserved.
- *
- * Contributor(s):
- *   Zwetan Kjukov <zwetan@gmail.com>.
- *
- * Alternatively, the contents of this file may be used under the terms of
- * either the GNU General Public License Version 2 or later (the "GPL"), or
- * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
- * in which case the provisions of the GPL or the LGPL are applicable instead
- * of those above. If you wish to allow use of your version of this file only
- * under the terms of either the GPL or the LGPL, and not to allow others to
- * use your version of this file under the terms of the MPL, indicate your
- * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
- * the provisions above, a recipient may use your version of this file under
- * the terms of any one of the MPL, the GPL or the LGPL.
- *
- * ***** END LICENSE BLOCK ***** */
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 #ifndef __avmplus_win32_platform2__
 #define __avmplus_win32_platform2__
+
+// ==== BEFORE ==== 
+/* for special case that need to be defined first */
+
+//we need to define FD_SETSIZE before the winsock.h include
+#ifndef FD_SETSIZE
+#define FD_SETSIZE      4096
+#endif /* FD_SETSIZE */ 
+
+
+// ==== HEADERS ==== 
 
 //for const MAX_PATH in C.stdlib
 //#include <limits.h> //already included in win32-platform.h
@@ -65,11 +42,6 @@
 //for _chdir, _getcwd, _rmdir, 
 #include <direct.h>
 
-//we need to define FD_SETSIZE before the winsock.h include
-#ifndef FD_SETSIZE
-#define FD_SETSIZE      4096
-#endif /* FD_SETSIZE */ 
-
 //for socket, gethostname, gethostbyaddr
 //Winsock 1.1, in WinSocket::Setup() use MAKEWORD(1, 1)
 //#include <winsock.h>
@@ -88,6 +60,206 @@
 
 //for _getpid
 #include <process.h>
+
+
+// ==== ISO C / ANSI C ==== 
+
+// ---- C.assert ---- 
+
+// ---- C.assert ---- END
+
+
+// ---- C.ctype ---- 
+
+// ---- C.ctype ---- END
+
+
+// ---- C.errno ---- 
+
+// ---- C.errno ---- END
+
+
+// ---- C.float ---- 
+
+// ---- C.float ---- END
+
+
+// ---- C.limits ---- 
+
+// ---- C.limits ---- END
+
+
+// ---- C.locale ---- 
+
+// ---- C.locale ---- END
+
+
+// ---- C.math ---- 
+
+// ---- C.math ---- END
+
+
+// ---- C.setjmp ---- 
+
+// ---- C.setjmp ---- END
+
+
+// ---- C.signal ---- 
+
+// ---- C.signal ---- END
+
+
+// ---- C.stdarg ---- 
+
+// ---- C.stdarg ---- END
+
+
+// ---- C.stddef ---- 
+
+// ---- C.stddef ---- END
+
+
+// ---- C.stdio ---- 
+
+// ---- C.stdio ---- END
+
+
+// ---- C.stdlib ---- 
+
+// ---- C.stdlib ---- END
+
+
+// ---- C.string ---- 
+
+// ---- C.string ---- END
+
+
+// ---- C.time ---- 
+
+// ---- C.time ---- END
+
+
+
+
+// ==== POSIX ==== 
+
+// ---- C.conio ---- 
+
+// ---- C.conio ---- END
+
+
+// ---- C.cpio ---- 
+
+// ---- C.cpio ---- END
+
+
+// ---- C.dirent ---- 
+
+// ---- C.dirent ---- END
+
+
+// ---- C.fcntl ---- 
+
+// ---- C.fcntl ---- END
+
+
+// ---- C.grp ---- 
+
+// ---- C.grp ---- END
+
+
+// ---- C.netdb ---- 
+
+// ---- C.netdb ---- END
+
+
+// ---- C.pthread ---- 
+
+// ---- C.pthread ---- END
+
+
+// ---- C.pwd ---- 
+
+// ---- C.pwd ---- END
+
+
+// ---- C.spawn ---- 
+
+// ---- C.spawn ---- END
+
+
+// ---- C.sys.ipc ---- 
+
+// ---- C.sys.ipc ---- END
+
+
+// ---- C.sys.mman ---- 
+
+// ---- C.sys.mman ---- END
+
+
+// ---- C.sys.msg ---- 
+
+// ---- C.sys.msg ---- END
+
+
+// ---- C.sys.sem ---- 
+
+// ---- C.sys.sem ---- END
+
+
+// ---- C.sys.socket ---- 
+
+// ---- C.sys.socket ---- END
+
+
+// ---- C.sys.stat ---- 
+
+// ---- C.sys.stat ---- END
+
+
+// ---- C.sys.time ---- 
+
+// ---- C.sys.time ---- END
+
+
+// ---- C.sys.types ---- 
+
+// ---- C.sys.types ---- END
+
+
+// ---- C.sys.utsname ---- 
+
+// ---- C.sys.utsname ---- END
+
+
+// ---- C.sys.wait ---- 
+
+// ---- C.sys.wait ---- END
+
+
+// ---- C.tar ---- 
+
+// ---- C.tar ---- END
+
+
+// ---- C.termios ---- 
+
+// ---- C.termios ---- END
+
+
+// ---- C.unistd ---- 
+
+// ---- C.unistd ---- END
+
+
+// ---- C.utime ---- 
+
+// ---- C.utime ---- END
+
+
+
+// ==== MISC ==== 
 
 //C.string
 #define VMPI_strerror    ::strerror
@@ -483,5 +655,68 @@ typedef int socklen_t;
 
 //const char *inet_ntop(int af, const void *restrict src, char *restrict dst, socklen_t size);
 extern const char* VMPI_inet_ntop(int af, const void* src, char* dst, int cnt);
+
+
+
+
+
+//for C.sys.wait
+
+//see http://docs.huihoo.com/doxygen/postgresql/include_2port_2win32_8h_source.html
+//see http://www.postgresql.org/message-id/200701220452.l0M4qtf04022@momjian.us
+/*
+ *  Signal stuff
+ *
+ *  For WIN32, there is no wait() call so there are no wait() macros
+ *  to interpret the return value of system().  Instead, system()
+ *  return values < 0x100 are used for exit() termination, and higher
+ *  values are used to indicated non-exit() termination, which is
+ *  similar to a unix-style signal exit (think SIGSEGV ==
+ *  STATUS_ACCESS_VIOLATION).  Return values are broken up into groups:
+ *
+ *  http://msdn2.microsoft.com/en-gb/library/aa489609.aspx
+ *
+ *      NT_SUCCESS          0 - 0x3FFFFFFF
+ *      NT_INFORMATION      0x40000000 - 0x7FFFFFFF
+ *      NT_WARNING          0x80000000 - 0xBFFFFFFF
+ *      NT_ERROR            0xC0000000 - 0xFFFFFFFF
+ *
+ *  Effectively, we don't care on the severity of the return value from
+ *  system(), we just need to know if it was because of exit() or generated
+ *  by the system, and it seems values >= 0x100 are system-generated.
+ *  See this URL for a list of WIN32 STATUS_* values:
+ *
+ *      Wine (URL used in our error messages) -
+ *          http://source.winehq.org/source/include/ntstatus.h
+ *      Descriptions - http://www.comp.nus.edu.sg/~wuyongzh/my_doc/ntstatus.txt
+ *      MS SDK - http://www.nologs.com/ntstatus.html
+ *
+ *  It seems the exception lists are in both ntstatus.h and winnt.h, but
+ *  ntstatus.h has a more comprehensive list, and it only contains
+ *  exception values, rather than winnt, which contains lots of other
+ *  things:
+ *
+ *      http://www.microsoft.com/msj/0197/exception/exception.aspx
+ *
+ *      The ExceptionCode parameter is the number that the operating system
+ *      assigned to the exception. You can see a list of various exception codes
+ *      in WINNT.H by searching for #defines that start with "STATUS_". For
+ *      example, the code for the all-too-familiar STATUS_ACCESS_VIOLATION is
+ *      0xC0000005. A more complete set of exception codes can be found in
+ *      NTSTATUS.H from the Windows NT DDK.
+ *
+ *  Some day we might want to print descriptions for the most common
+ *  exceptions, rather than printing an include file name.  We could use
+ *  RtlNtStatusToDosError() and pass to FormatMessage(), which can print
+ *  the text of error values, but MinGW does not support
+ *  RtlNtStatusToDosError().
+ */
+#define WEXITSTATUS(w)  ((int) ((w) & 0x40000000))
+#define WIFEXITED(w)    ((w) & 0x40000000) == 0)
+#define WIFSIGNALED(w)  ((w) & 0x40000000) != 0)
+#define WTERMSIG(w)     (w) // or ((w) & 0x3FFFFFFF)
+
+//see https://gitorious.org/git-win32/mainline/source/9ae6b7513158e0b1523766c9ad4a1ad286a96e2c:win32/git-compat-win32.h#L222
+
 
 #endif // __avmplus_win32_platform2__
