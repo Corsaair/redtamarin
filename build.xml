@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  documentation and usage here
+  https://code.google.com/p/redtamarin/wiki/Build
+ -->
+
+ <project name="redtamarin-build" default="main" basedir=".">
+
+	<!-- All Tasks -->
+    <import file="build/tasks/define-pre-tasks.xml" />
+    <import file="build/tasks/define-post-tasks.xml" />
+
+    <target name="flag">
+    <echo>
+        █                                                                       
+   █████              █    ██                █     █              ██      █     
+   ██ ██     █       ██ ███████   ██  █              █  █     ██                
+█ ██   ██  █████  █████ ███████  ██████   █  ████  ██████ █  ████ ██   ████     
+ ███   █  ██  ██ ██ ███    █    ██  ███  █████  █  █   ██ ████    █ ████  ██    
+ ███████ ███████ █   ██    █    ██   ██ ██ ███  ████   ██  ██     █  ██    █    
+  ████   ████    █   ██    █    ██   ██ ██  █   ████   ██  ██     █  ██ █  ██   
+  ██ ███  ████ █ ██████    ██   ███████ ██  █ █ ██ ██████   █     █  ██    ██   
+   █  ██   ████   █████ █  ██    ████ █  █  █   ██  ███ █   █   █ █        ██   
+     █
+    </echo>
+    </target>
+
+    <target name="clean">
+    </target>
+
+    <target name="define-constants">
+    	
+        <if>
+            <available file="build/user.properties" type="file"/>
+        <then>
+            <property file="build/user.properties"/>
+        </then>
+        <else>
+            <property file="build/common.properties"/>
+        </else>
+        </if>
+
+        <property file="build/compile.properties"/>
+
+       <!-- FLEX_HOME -->
+        <condition property="FLEX_HOME" value="${FLEX_HOME_MAC}">
+            <os family="mac"/>
+        </condition>
+
+        <condition property="FLEX_HOME" value="${FLEX_HOME_NIX}">
+            <os family="unix"/>
+        </condition>
+        
+        <condition property="FLEX_HOME" value="${FLEX_HOME_WIN}">
+            <os family="windows" />
+        </condition>
+
+        <!-- <available file="${FLEX_HOME}" type="dir" property="local.found.flex" /> -->
+        <if>
+            <not>
+            <available file="${FLEX_HOME}" type="dir"/>
+            </not>
+            <then>
+                <property name="local.found.flex" value="false"/>
+            </then>
+            <else>
+                <property name="local.found.flex" value="true"/>
+            </else>
+        </if>
+
+
+
+        <!-- ASC1 -->
+        <available file="${ASC1}" type="file" property="local.found.asc1" />
+
+        <if>
+            <equals arg1="${local.found.asc1}" arg2="true"/>
+        <then>
+            <echo message="found ASC1"/>
+        </then>
+        <else>
+            <fail message="ASC1 not found in ${ASC1}"/>
+        </else>
+        </if>
+
+        <!-- ASC2 -->
+        <available file="${ASC2}" type="file" property="local.found.asc2" />
+
+         <if>
+            <equals arg1="${local.found.asc2}" arg2="true"/>
+        <then>
+            <echo message="found ASC2"/>
+        </then>
+        <else>
+            <fail message="ASC2 not found in ${ASC2}"/>
+        </else>
+        </if>
+
+
+
+        <!-- AVMSHELL -->
+        <condition property="AVMSHELL" value="${AVMSHELL_MAC}">
+            <os family="mac"/>
+        </condition>
+
+        <condition property="AVMSHELL" value="${AVMSHELL_NIX}">
+            <os family="unix"/>
+        </condition>
+        
+        <condition property="AVMSHELL" value="${AVMSHELL_WIN}">
+            <os family="windows" />
+        </condition>
+
+        <!-- TARGET -->
+        <condition property="TARGET" value="${TARGET_MAC}">
+            <os family="mac"/>
+        </condition>
+
+        <condition property="TARGET" value="${TARGET_NIX}">
+            <os family="unix"/>
+        </condition>
+        
+        <condition property="TARGET" value="${TARGET_WIN}">
+            <os family="windows" />
+        </condition>
+
+        <!-- TARGET_D -->
+        <condition property="TARGET_D" value="${TARGET_D_MAC}">
+            <os family="mac"/>
+        </condition>
+
+        <condition property="TARGET_D" value="${TARGET_D_NIX}">
+            <os family="unix"/>
+        </condition>
+        
+        <condition property="TARGET_D" value="${TARGET_D_WIN}">
+            <os family="windows" />
+        </condition>
+
+        <!-- TARGET_DD -->
+        <condition property="TARGET_DD" value="${TARGET_DD_MAC}">
+            <os family="mac"/>
+        </condition>
+
+        <condition property="TARGET_DD" value="${TARGET_DD_NIX}">
+            <os family="unix"/>
+        </condition>
+        
+        <condition property="TARGET_DD" value="${TARGET_DD_WIN}">
+            <os family="windows" />
+        </condition>
+
+        <!-- TARGET_OS -->
+        <condition property="TARGET_OS" value="${TARGET_OS_MAC}">
+            <os family="mac"/>
+        </condition>
+
+        <condition property="TARGET_OS" value="${TARGET_OS_NIX}">
+            <os family="unix"/>
+        </condition>
+        
+        <condition property="TARGET_OS" value="${TARGET_OS_WIN}">
+            <os family="windows" />
+        </condition>
+
+        <!-- AVMSHELL_EXE -->
+        <condition property="AVMSHELL_EXE" value="${AVMSHELL_EXE_MAC}">
+            <os family="mac"/>
+        </condition>
+
+        <condition property="AVMSHELL_EXE" value="${AVMSHELL_EXE_NIX}">
+            <os family="unix"/>
+        </condition>
+        
+        <condition property="AVMSHELL_EXE" value="${AVMSHELL_EXE_WIN}">
+            <os family="windows" />
+        </condition>
+
+        <!-- SDK_OS -->
+        <condition property="SDK_OS" value="${SDK_OS_MAC}">
+            <os family="mac"/>
+        </condition>
+
+        <condition property="SDK_OS" value="${SDK_OS_NIX}">
+            <os family="unix"/>
+        </condition>
+        
+        <condition property="SDK_OS" value="${SDK_OS_WIN}">
+            <os family="windows" />
+        </condition>
+
+
+    </target>
+
+    <target name="before" depends="task-define-pre-tasks,define-constants,task-define-post-tasks">
+    </target>
+
+    <target name="check">
+
+        <if>
+            <not>
+            <available file="${tapp.release}" type="dir"/>
+            </not>
+            <then>
+                <mkdir dir="${app.release}"/>
+            </then>
+        </if>
+
+        <if>
+            <not>
+            <available file="${tapp.deploy}" type="dir"/>
+            </not>
+            <then>
+                <mkdir dir="${app.deploy}"/>
+            </then>
+        </if>
+
+        <!-- to build the abc files we need to use an empty api-versions.as -->
+        <!--
+        <if>
+            <available file="src/as3/api-versions.as" type="file"/>
+            <then>
+                <delete file="src/as3/api-versions.as"/>
+            </then>
+        </if>
+
+        <if>
+            <not>
+            <available file="src/as3/api-versions.as" type="file"/>
+            </not>
+            <then>
+                <copy file="build/tpl/api-versions.as" tofile="src/as3/api-versions.as"/>
+            </then>
+        </if>
+        -->
+
+        <!-- to build the SDK you need to build EVERYTHING -->
+        <if>
+            <and>
+            <equals arg1="${build.sdk}" arg2="true"/>
+            <equals arg1="${build.32bit}" arg2="false"/>
+            </and>
+            <then>
+                <fail message="to build the SDK you need to build.32bit = true"/>
+            </then>
+        </if>
+
+        <if>
+            <and>
+            <equals arg1="${build.sdk}" arg2="true"/>
+            <equals arg1="${build.64bit}" arg2="false"/>
+            </and>
+            <then>
+                <fail message="to build the SDK you need to build.64bit = true"/>
+            </then>
+        </if>
+
+        <if>
+            <and>
+            <equals arg1="${build.sdk}" arg2="true"/>
+            <equals arg1="${build.release}" arg2="false"/>
+            </and>
+            <then>
+                <fail message="to build the SDK you need to build.release = true"/>
+            </then>
+        </if>
+
+        <if>
+            <and>
+            <equals arg1="${build.sdk}" arg2="true"/>
+            <equals arg1="${build.debug}" arg2="false"/>
+            </and>
+            <then>
+                <fail message="to build the SDK you need to build.debug = true"/>
+            </then>
+        </if>
+
+        <if>
+            <and>
+            <equals arg1="${build.sdk}" arg2="true"/>
+            <equals arg1="${build.debugger}" arg2="false"/>
+            </and>
+            <then>
+                <fail message="to build the SDK you need to build.debugger = true"/>
+            </then>
+        </if>
+
+        <!-- <if>
+            <and>
+            <equals arg1="${build.sdk}" arg2="true"/>
+            <equals arg1="${build.components}" arg2="false"/>
+            </and>
+            <then>
+                <fail message="to build the SDK you need to build.components = true"/>
+            </then>
+        </if>
+
+        <if>
+            <and>
+            <equals arg1="${build.sdk}" arg2="true"/>
+            <equals arg1="${build.documentation}" arg2="false"/>
+            </and>
+            <then>
+                <fail message="to build the SDK you need to build.documentation = true"/>
+            </then>
+        </if> -->
+
+        <if>
+            <and>
+            <equals arg1="${build.documentation}" arg2="true"/>
+            <equals arg1="${local.found.flex}" arg2="false"/>
+            </and>
+            <then>
+                <fail message="to generate the documentation we need a Flex SDK"/>
+            </then>
+        </if>
+
+    </target>
+
+    <target name="tag">
+
+    	<property file="build/version.properties" prefix="previous." />
+    	
+        <if>
+            <equals arg1="${previous.version.build}" arg2="999" />
+        <then>
+            <propertyfile file="build/version.properties">
+                <entry key="version.build" type="int" value="0" pattern="000"/>
+            </propertyfile>
+            <script language="javascript">
+            numeric = Number( project.getProperty("previous.version.serie") );
+            letter  = String( project.getProperty("previous.version.cycle") );
+            if( letter == "Z" )
+            {
+                letter = "A";
+                numeric++;
+            }
+            else
+            {
+                letter = String.fromCharCode( letter.charCodeAt(0)+1 );
+            }
+            project.setNewProperty("current.serie", numeric);
+            project.setNewProperty("current.cycle", letter);
+            </script>
+            <propertyfile file="build/version.properties">
+                <entry key="version.serie" type="int" value="${current.serie}"/>
+                <entry key="version.cycle" type="string" value="${current.cycle}"/>
+            </propertyfile>
+        </then>
+        <else>
+            <propertyfile file="build/version.properties">
+                <entry key="version.build" type="int" operation="+" default="0" pattern="000"/>
+            </propertyfile>
+        </else>
+        </if>
+
+        <!-- remove comments -->
+        <replaceregexp file="build/version.properties" match="#.*" replace="" />
+        <!-- remove blank lines -->
+        <replaceregexp file="build/version.properties" match="(\r?\n)\s*\r?\n" flags="g" replace="\1" />
+        
+        <property file="build/version.properties" prefix="app." />
+        <property name="app.version.tag" value="${app.version.serie}${app.version.cycle}${app.version.build}" />
+        <property name="app.version.number" value="${app.version.major}.${app.version.minor}.${app.version.build}" />
+        
+        <propertyfile file="build/tmp.properties">
+            <entry key="version.buildclean" type="int" operation="=" value="${app.version.build}"/>
+        </propertyfile>
+        <property file="build/tmp.properties" prefix="app." />
+        
+        <property name="app.version.numberclean" value="${app.version.major}.${app.version.minor}.${app.version.buildclean}" />
+        <property name="app.version.shortnumberclean" value="${app.version.major}.${app.version.minor}" />
+        <delete file="build/tmp.properties"/>
+
+    </target>
+
+    <target name="main" depends="clean,before,check,tag,compile,after">
+    </target>
+
+    <target name="after">
+        <echo message="${build.separator}"/>
+        <echo message="build ${app.desc} done"/>
+        <echo message="${build.separator}"/>
+    </target>
+
+
+    <target name="header">
+        <echo message="Build version [${app.version.shortnumberclean}] tag [${app.version.tag}]"/>
+
+        <property name="app.desc" value="${app.name}-${app.version.shortnumberclean}-${app.label}[${app.version.tag}]" />
+        <property name="doc.footer" value="${app.name} v${app.version.shortnumberclean} ${app.label} [${app.version.tag}]" />
+        
+
+        <if>
+            <equals arg1="${build.showoptions}" arg2="true"/>
+        <then>
+            <echo message="options:"/>
+            <echo message="      Flex SDK = ${FLEX_HOME}"/>
+            <echo message="           ASC = ${ASC1}"/>
+            <echo message="          ASC2 = ${ASC2}"/>
+            <echo message="        TARGET = ${TARGET}"/>
+            <echo message="      TARGET_D = ${TARGET_D}"/>
+            <echo message="     TARGET_DD = ${TARGET_DD}"/>
+            <echo message="     TARGET_OS = ${TARGET_OS}"/>
+            <echo message="        SDK_OS = ${SDK_OS}"/>
+            <echo message="      AVMSHELL = ${AVMSHELL}"/>
+            <echo message="  AVMSHELL_EXE = ${AVMSHELL_EXE}"/>
+            <echo message=""/>
+
+            <echo message="building:"/>
+            <echo message="           DESC = ${app.desc}"/>
+            <echo message="       ----------"/>
+            <echo message="       binaries = ${build.binaries}"/>
+            <echo message="          32bit = ${build.32bit}"/>
+            <echo message="          64bit = ${build.64bit}"/>
+            <echo message="        release = ${build.release}"/>
+            <echo message="          debug = ${build.debug}"/>
+            <echo message="       debugger = ${build.debugger}"/>
+            <echo message="       ----------"/>
+            <echo message="               |_ cleanGenerated = ${build.cleanGenerated}"/>
+            <echo message="               |_ runTestToCheckBuild = ${build.runTestToCheckBuild}"/>
+            
+            <echo message="  documentation = ${build.documentation}"/>
+            <echo message="       ----------"/>
+            <echo message="               |_ cleanDocumentation = ${build.cleanDocumentation}"/>
+            <echo message="               |_ cleanSWCForDoc = ${build.cleanSWCForDoc}"/>
+            
+            <echo message="     components = ${build.components}"/>
+            <echo message="       ----------"/>
+            <echo message="               |_ no options"/>
+
+            <echo message="            SDK = ${build.sdk}"/>
+            <echo message="       ----------"/>
+            <echo message="               |_ cleanBeforeDeploy = ${build.cleanBeforeDeploy}"/>
+            <echo message="               |_ bundleSDK = ${build.bundleSDK}"/>
+            <echo message="               |_ tagSDK = ${build.tagSDK} [${app.version.tag}]"/>
+            <echo message="               |_ mergeRuntimesInSDK = ${build.mergeRuntimesInSDK}"/>
+            <echo message=""/>
+        </then>
+        </if>
+        <echo message="${build.separator}"/>
+    </target>
+
+    <target name="compile" depends="flag,header">
+
+        <if>
+            <equals arg1="${build.binaries}" arg2="true"/>
+        <then>
+            <antcall target="compile-binaries-task"/>
+        </then>
+        </if>
+
+        <if>
+            <equals arg1="${build.components}" arg2="true"/>
+        <then>
+            <antcall target="compile-components-task"/>
+        </then>
+        </if>
+
+        <if>
+            <equals arg1="${build.documentation}" arg2="true"/>
+        <then>
+            <antcall target="compile-documentation-task"/>
+        </then>
+        </if>
+        
+        <if>
+            <equals arg1="${build.sdk}" arg2="true"/>
+        <then>
+            <antcall target="compile-sdk-task"/>
+        </then>
+        </if>
+
+        <!-- <if>
+            <and>
+            <equals arg1="${build.sdk}" arg2="true"/>
+            <equals arg1="${build.bundleSDK}" arg2="true"/>
+            </and>
+        <then>
+            <antcall target="compile-sdk-task"/>
+        </then>
+        <else>
+            <antcall target="compile-binaries-task"/>
+            <antcall target="compile-sdk-task"/>
+        </else>
+        </if> -->
+
+    </target>
+
+    <target name="configure-binaries-build">
+        <!-- Configure: shared commandline parameters -->
+        <var name="commandline" value="../../src/configure.py" />
+
+        <!-- desc -->
+        <if>
+            <equals arg1="${build.options.desc.enabled}" arg2="true"/>
+        <then>
+            <var name="commandline" value="${commandline} ${build.options.desc.flag}${app.desc}" />
+        </then>
+        </if>
+
+        <!-- eval -->
+        <if>
+            <equals arg1="${build.options.eval.enabled}" arg2="true"/>
+        <then>
+            <var name="commandline" value="${commandline} ${build.options.eval.flag}" />
+        </then>
+        </if>
+
+        <!-- float -->
+        <if>
+            <equals arg1="${build.options.float.enabled}" arg2="true"/>
+        <then>
+            <var name="commandline" value="${commandline} ${build.options.float.flag}" />
+        </then>
+        </if>
+
+        <!-- swf12 -->
+        <if>
+            <equals arg1="${build.options.swf12.enabled}" arg2="true"/>
+        <then>
+            <var name="commandline" value="${commandline} ${build.options.swf12.flag}" />
+        </then>
+        </if>
+
+        <!-- swf13 -->
+        <if>
+            <equals arg1="${build.options.swf13.enabled}" arg2="true"/>
+        <then>
+            <var name="commandline" value="${commandline} ${build.options.swf13.flag}" />
+        </then>
+        </if>
+
+        <!-- swf14 -->
+        <if>
+            <equals arg1="${build.options.swf14.enabled}" arg2="true"/>
+        <then>
+            <var name="commandline" value="${commandline} ${build.options.swf14.flag}" />
+        </then>
+        </if>
+
+        <!-- swf15 -->
+        <if>
+            <equals arg1="${build.options.swf15.enabled}" arg2="true"/>
+        <then>
+            <var name="commandline" value="${commandline} ${build.options.swf15.flag}" />
+        </then>
+        </if>
+
+        <!-- swf16 -->
+        <if>
+            <equals arg1="${build.options.swf16.enabled}" arg2="true"/>
+        <then>
+            <var name="commandline" value="${commandline} ${build.options.swf16.flag}" />
+        </then>
+        </if>
+
+        <!-- swf17 -->
+        <if>
+            <equals arg1="${build.options.swf17.enabled}" arg2="true"/>
+        <then>
+            <var name="commandline" value="${commandline} ${build.options.swf17.flag}" />
+        </then>
+        </if>
+
+        <!-- swf18 -->
+        <if>
+            <equals arg1="${build.options.swf18.enabled}" arg2="true"/>
+        <then>
+            <var name="commandline" value="${commandline} ${build.options.swf18.flag}" />
+        </then>
+        </if>
+
+        <!-- swf19 -->
+        <if>
+            <equals arg1="${build.options.swf19.enabled}" arg2="true"/>
+        <then>
+            <var name="commandline" value="${commandline} ${build.options.swf19.flag}" />
+        </then>
+        </if>
+
+        <!-- swf20 -->
+        <if>
+            <equals arg1="${build.options.swf20.enabled}" arg2="true"/>
+        <then>
+            <var name="commandline" value="${commandline} ${build.options.swf20.flag}" />
+        </then>
+        </if>
+
+        <!-- swf21 -->
+        <if>
+            <equals arg1="${build.options.swf21.enabled}" arg2="true"/>
+        <then>
+            <var name="commandline" value="${commandline} ${build.options.swf21.flag}" />
+        </then>
+        </if>
+
+
+        <if>
+            <equals arg1="${build.showoptions}" arg2="true"/>
+        <then>
+            <echo message="shared flags:"/>
+            <!-- <echo message="${commandline}"/> -->
+            <for list="${commandline}" delimiter=" " param = "flag">
+                <sequential>
+                <echo message = "@{flag}"/>
+                </sequential>
+            </for>
+
+        </then>
+        </if>
+        <echo message="${build.separator}"/>
+        
+
+    </target>
+
+    <target name="compile-binaries-task" depends="configure-binaries-build">
+        <!-- 32BIT -->
+        <if>
+            <and>
+            <equals arg1="${build.32bit}" arg2="true"/>
+            <equals arg1="${build.release}" arg2="true"/>
+            </and>
+        <then>
+            <ant antfile="build/targets/release32.xml" target="compile-release32" inheritAll="true" />
+            <echo message="${build.separator}"/>
+        </then>
+        </if>
+        
+        <if>
+            <and>
+            <equals arg1="${build.32bit}" arg2="true"/>
+            <equals arg1="${build.debug}" arg2="true"/>
+            </and>
+        <then>
+            <ant antfile="build/targets/debug32.xml" target="compile-debug32" inheritAll="true" />
+            <echo message="${build.separator}"/>
+        </then>
+        </if>
+
+        <if>
+            <and>
+            <equals arg1="${build.32bit}" arg2="true"/>
+            <equals arg1="${build.debugger}" arg2="true"/>
+            </and>
+        <then>
+            <ant antfile="build/targets/debugger32.xml" target="compile-debugger32" inheritAll="true" />
+            <echo message="${build.separator}"/>
+        </then>
+        </if>
+
+        <!-- 64BIT -->
+        <if>
+            <and>
+            <equals arg1="${build.64bit}" arg2="true"/>
+            <equals arg1="${build.release}" arg2="true"/>
+            </and>
+        <then>
+            <ant antfile="build/targets/release64.xml" target="compile-release64" inheritAll="true" />
+            <echo message="${build.separator}"/>
+        </then>
+        </if>
+        
+        <if>
+            <and>
+            <equals arg1="${build.64bit}" arg2="true"/>
+            <equals arg1="${build.debug}" arg2="true"/>
+            </and>
+        <then>
+            <ant antfile="build/targets/debug64.xml" target="compile-debug64" inheritAll="true" />
+            <echo message="${build.separator}"/>
+        </then>
+        </if>
+
+        <if>
+            <and>
+            <equals arg1="${build.64bit}" arg2="true"/>
+            <equals arg1="${build.debugger}" arg2="true"/>
+            </and>
+        <then>
+            <ant antfile="build/targets/debugger64.xml" target="compile-debugger64" inheritAll="true" />
+            <echo message="${build.separator}"/>
+        </then>
+        </if>
+    </target>
+
+    <target name="compile-components-task">
+        <if>
+            <equals arg1="${build.components}" arg2="true"/>
+        <then>
+            <ant antfile="build/targets/components.xml" target="compile-components" inheritAll="true" />
+            <echo message="${build.separator}"/>
+        </then>
+        </if>
+    </target>
+
+    <target name="compile-documentation-task">
+        <if>
+            <equals arg1="${build.documentation}" arg2="true"/>
+        <then>
+            <ant antfile="build/targets/documentation.xml" target="compile-documentation" inheritAll="true" />
+            <echo message="${build.separator}"/>
+        </then>
+        </if>
+    </target>
+
+    <target name="compile-sdk-task">
+        <if>
+            <and>
+            <equals arg1="${build.sdk}" arg2="true"/>
+            <equals arg1="${build.debugger}" arg2="true"/>
+            </and>
+        <then>
+            <ant antfile="build/targets/sdk.xml" target="compile-sdk" inheritAll="true" />
+            <echo message="${build.separator}"/>
+        </then>
+        </if>
+    </target>
+
+
+
+</project>
