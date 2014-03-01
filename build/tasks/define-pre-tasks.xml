@@ -1,0 +1,23 @@
+<project>
+    
+    <target name="task-define-pre-tasks">
+        
+        <!-- Define ant-contrib tasks -->
+        <taskdef resource="net/sf/antcontrib/antlib.xml">
+            <classpath >
+                <fileset dir="build/ant/" includes="ant-contrib-1.0b3.jar"/>
+            </classpath>
+        </taskdef>
+        <echo message="ant-contrib tasks defined" />
+        
+        <taskdef name="ftp" classname="org.apache.tools.ant.taskdefs.optional.net.FTP">
+            <classpath >
+                <fileset dir="build/ant/" includes="commons-net-3.1.jar"/>
+                <fileset dir="build/ant/" includes="ant-commons-net.jar"/>
+            </classpath>
+        </taskdef>
+        <echo message="ftp task defined" />
+        
+    </target>
+    
+</project>

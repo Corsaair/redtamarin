@@ -1,0 +1,24 @@
+<project>
+    
+    <target name="task-define-post-tasks">
+        
+        <!-- Define flex tasks -->
+        <!--
+        <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+        <echo message="FlexTasks defined" />
+    	-->
+
+        <if>
+            <equals arg1="${local.found.flex}" arg2="true"/>
+        <then>
+            <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+            <echo message="FlexTasks defined" />
+        </then>
+        <else>
+            <echo message="FlexTasks not defined" />
+        </else>
+        </if>
+        
+    </target>
+    
+</project>
