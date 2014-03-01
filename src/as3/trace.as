@@ -6,9 +6,10 @@
 
 package
 {
-	import shell.*;
+	import shell.Program;
 
     // nonstandard Flash Player extensions
+
     /**
      * Displays expressions, or writes to log files, while debugging.
      * 
@@ -19,23 +20,36 @@ package
      * For example, if the argument is a Boolean value the trace function invokes <code>Boolean.toString()</code>
      * and displays the return value.
      * </p>
-     * 
+     *
      * @example
-     * The following example show how the <code>trace()</code> method can be used to print a simple string.
+     * The following example uses the class <code>TraceExample</code> to show
+     * how the <code>trace()</code> method can be used to print a simple string.
      * Generally, the message will be printed to a "Debug" console.
+     * <listing>
+     * package
+     * {
+     *      import flash.display.Sprite;
      * 
-     * <listing version="3.0">
-     * trace( "Hello World" );
+     *      public class TraceExample extends Sprite
+     *      {
+     *          public function TraceExample()
+     *          {
+     *              trace( "Hello World" );
+     *          }
+     *      }
+     * }
      * </listing>
      * 
-     * @param ... One or more (comma separated) expressions to evaluate.
-     *            For multiple expressions, a space is inserted between each expression in the output.
+     * @param arguments One or more (comma separated) expressions to evaluate.
+     *                  For multiple expressions, a space is inserted between each expression in the output.
      * 
-     * @langversion ActionScript 3.0
-	 * @playerversion RT 0.3
+     * @playerversion Flash 9
+     * @playerversion AIR 1.0
+     * @langversion 3.0
      */
     public function trace( ...arguments ):void
     {
         Program.trace( arguments );
+        //Program.trace.apply( null, arguments );
     }
 }

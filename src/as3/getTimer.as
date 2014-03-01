@@ -6,10 +6,12 @@
 
 package
 {
-	import shell.*;
+	//disabled to avoid incompatibility with flash.utils.getTimer()
+	
+	/*import shell.*;
 
     public function getTimer():uint
     {
         return Program.getTimer();
-    }
+    }*/
 }
