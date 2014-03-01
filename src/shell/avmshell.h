@@ -139,7 +139,7 @@ namespace avmshell
     public:
         ShellSettings();
 
-        char* programFilename;          // name of the executable, or NULL
+        //char* programFilename;          // name of the executable, or NULL
         char** filenames;               // non-terminated array of file names, never NULL
         int numfiles;                   // number of entries in 'filenames'
         bool do_selftest;

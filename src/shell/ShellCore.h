@@ -38,6 +38,7 @@ namespace avmshell
     public:
         ShellCoreSettings();
 
+        char* programFilename;          // name of the executable, or NULL
         char** arguments;               // non-terminated array of argument values, never NULL
         int numargs;                    // number of entries in 'arguments'
         bool nodebugger;
@@ -103,6 +104,7 @@ namespace avmshell
     class ShellCore : public avmplus::AvmCore
     {
         friend class ProgramClass;
+        friend class RuntimeClass;
         friend class avmplus::DomainObject;
         friend class avmplus::ST_avmplus_vector_accessors::ST_avmplus_vector_accessors;
         friend class avmplus::ST_mmgc_dependent::ST_mmgc_dependent;
@@ -134,6 +136,8 @@ namespace avmshell
 
         int evaluateScriptBuffer(avmplus::ScriptBuffer& buffer, bool enter_debugger_on_launch);
 
+        //void raiseExternalInterrupt();
+
 
 #ifdef VMCFG_EVAL
         /**
@@ -144,6 +148,7 @@ namespace avmshell
          * Requires: MMGC_ENTER and MMGC_GCENTER(gc) on the stack.
          */
         void evaluateString(avmplus::String* input, bool record_time=false);
+        avmplus::Stringp evaluateStringToOutput(avmplus::String* input, bool record_time);
 #endif
 
 #ifdef AVMSHELL_PROJECTOR_SUPPORT
@@ -247,6 +252,8 @@ namespace avmshell
         }
 
         GCRef<avmplus::ScriptObject> constructWorkerObject() const;
+
+        GCRef<avmplus::shell_toplevelClassManifest> getShellClasses() { return shellClasses; }
         
     private:
         GC_DATA_BEGIN(ShellToplevel)

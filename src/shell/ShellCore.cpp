@@ -15,7 +15,8 @@ namespace avmshell
     const int kScriptGracePeriod = 5;
 
     ShellCoreSettings::ShellCoreSettings()
-        : arguments(NULL)
+        : programFilename(NULL)
+        , arguments(NULL)
         , numargs(-1)
         , nodebugger(false)
         , astrace_console(0)
@@ -283,6 +284,48 @@ namespace avmshell
         END_TRY
     }
 
+    avmplus::Stringp ShellCore::evaluateStringToOutput(avmplus::String* input, bool record_time)
+    {
+        setStackLimit();
+        StringBuffer sb(this);
+
+        TRY(this, avmplus::kCatchAction_ReportAsError)
+        {
+            // Always Latin-1 here
+            input = input->appendLatin1("\0", 1);
+            double then = 0, now = 0;
+            if (record_time)
+                then = VMPI_getDate();
+            avmplus::ApiVersion apiVersion = this->getApiVersionFromCallStack();
+            avmplus::Atom result = handleActionSource(input, /*filename*/NULL, shell_toplevel, /*ninit*/NULL, user_codeContext, apiVersion);
+            if (record_time)
+                now = VMPI_getDate();
+            if (result != avmplus::undefinedAtom)
+                sb << string(result) << "\n";
+            if (record_time)
+                sb << "Elapsed time: " << (now - then)/1000 << "s\n";
+        }
+        CATCH(avmplus::Exception *exception)
+        {
+#ifdef DEBUGGER
+            if (!(exception->flags & avmplus::Exception::SEEN_BY_DEBUGGER))
+            {
+                sb << string(exception->atom) << "\n";
+            }
+            if (exception->getStackTrace()) {
+                sb << exception->getStackTrace()->format(this) << '\n';
+            }
+#else
+            sb << string(exception->atom) << "\n";
+#endif
+        }
+        END_CATCH
+        END_TRY
+
+        Stringp s = sb.toString();
+        return s;
+    }
+
 #endif // VMCFG_EVAL
 
 #ifdef AVMSHELL_PROJECTOR_SUPPORT
@@ -406,6 +449,7 @@ namespace avmshell
 
             ProgramClass::user_argc = settings.numargs;
             ProgramClass::user_argv = settings.arguments;
+            ProgramClass::exec_name = settings.programFilename;
 
 #ifdef DEBUGGER
             initBuiltinPool((avmplus::Debugger::TraceLevel)settings.astrace_console);
@@ -516,6 +560,11 @@ namespace avmshell
         return handleArbitraryExecutableContent(false, buffer, "<ByteArray buffer>");
     }
 
+    /*void ShellCore::raiseExternalInterrupt()
+    {
+        raiseInterrupt( ExternalInterrupt );
+    }*/
+
 
     int ShellCore::handleArbitraryExecutableContent(bool do_testSWFHasAS3, avmplus::ScriptBuffer& code, const char * filename)
     {
@@ -611,12 +660,23 @@ namespace avmshell
             END_CATCH
             END_TRY
 
-
+            /* note:
+               abnormal program termination
+               eg. exception/error occured
+            */
+            //printf( "handleArbitraryExecutableContent - exitcode not zero \n" );
+            //programClass->exitCallback();
             return exitCode;
         }
         END_CATCH
         END_TRY
 
+        /* note:
+           normal program termination
+           eg. return from main()
+        */ 
+        //printf( "handleArbitraryExecutableContent - exitcode zero \n" );
+        programClass->exitCallback();
         return 0;
     }
 

@@ -6,7 +6,8 @@ PROGRAMS += shell
 shell_INCLUDES += $(AVM_INCLUDES)
 
 shell_BASENAME = avmshell
-shell_INCLUDES += -I$(srcdir) -I$(topsrcdir)/extensions -I$(topsrcdir)/api/shell -I$(topsrcdir)/api/clib
+shell_INCLUDES += -I$(srcdir) -I$(topsrcdir)/extensions
+shell_INCLUDES += -I$(topsrcdir)/api/shell -I$(topsrcdir)/api/clib -I$(topsrcdir)/api/glue
 shell_DEFINES = -DAVMPLUS_SHELL
 shell_STATIC_LIBRARIES = lzma zlib avmplus MMgc vmbase
 ifeq (1,$(ENABLE_AOT))
@@ -36,12 +37,30 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../extensions/SelftestExec.cpp \
   $(curdir)/ShellWorkerGlue.cpp \
   $(curdir)/ShellWorkerDomainGlue.cpp \
+  $(curdir)/../api/clib/CAssertClass.cpp \
+  $(curdir)/../api/clib/CTypeClass.cpp \
   $(curdir)/../api/clib/CErrnoClass.cpp \
-  $(curdir)/../api/clib/CStdlibClass.cpp \
-  $(curdir)/../api/clib/CUnistdClass.cpp \
-  $(curdir)/../api/clib/CStringClass.cpp \
+  $(curdir)/../api/clib/CLimitsClass.cpp \
+  $(curdir)/../api/clib/CLocaleClass.cpp \
+  $(curdir)/../api/clib/CSignalClass.cpp \
   $(curdir)/../api/clib/CStdioClass.cpp \
-  $(curdir)/../api/clib/CSocketClass.cpp \
+  $(curdir)/../api/clib/CStdlibClass.cpp \
+  $(curdir)/../api/clib/CStringClass.cpp \
+  $(curdir)/../api/clib/CTimeClass.cpp \
+  $(curdir)/../api/clib/CConioClass.cpp \
+  $(curdir)/../api/clib/CFcntlClass.cpp \
+  $(curdir)/../api/clib/CNetdbClass.cpp \
+  $(curdir)/../api/clib/CNetinetInClass.cpp \
+  $(curdir)/../api/clib/CSpawnClass.cpp \
+  $(curdir)/../api/clib/CSysSocketClass.cpp \
+  $(curdir)/../api/clib/CSysStatClass.cpp \
+  $(curdir)/../api/clib/CSysWaitClass.cpp \
+  $(curdir)/../api/clib/CUnistdClass.cpp \
+  $(curdir)/../api/shell/RuntimeClass.cpp \
+  $(curdir)/../api/shell/DiagnosticsClass.cpp \
+  $(curdir)/../api/shell/HardwareInformationClass.cpp \
+  $(curdir)/../api/shell/OperatingSystemClass.cpp \
+  $(curdir)/../api/glue/SystemClass.cpp \
   $(NULL)
 
 ifeq (windows,$(TARGET_OS))

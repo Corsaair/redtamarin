@@ -10,7 +10,8 @@
 
 namespace avmshell
 {
-    
+    using namespace avmplus;
+
     /**
      * A simple class that has some native methods.
      * Included as an example for writers of native methods,
@@ -18,11 +19,12 @@ namespace avmshell
      */
     class GC_AS3_EXACT(ProgramClass, avmplus::ClassClosure)
     {
+        uint64_t initialPerfTime;
         uint64_t initialTime;
 
-        ProgramClass(avmplus::VTable* cvtable);
+        ProgramClass(VTable* cvtable);
     public:
-        REALLY_INLINE static ProgramClass* create(MMgc::GC* gc, avmplus::VTable* cvtable)
+        REALLY_INLINE static ProgramClass* create(MMgc::GC* gc, VTable* cvtable)
         {
             return new (gc, MMgc::kExact, cvtable->getExtraSize()) ProgramClass(cvtable);
         }
@@ -34,94 +36,47 @@ namespace avmshell
         static char **user_argv;
         static char *exec_name;
 
-        avmplus::ArrayObject * getArgv();
-        avmplus::ArrayObject * getEnviron();
+        GCMember<FunctionObject> GC_POINTER(exit_callback);
 
-        avmplus::Stringp popenRead(avmplus::Stringp command);
+        ArrayObject * _getArgv();
+        ArrayObject * _getEnviron();
+        Stringp _getProgramFilename();
 
-        int32_t get_apiVersion();
+        void _setExitListener(FunctionObject* f);
 
-        avmplus::Stringp get_programFilename();
+        Stringp _popenRead(Stringp command);
 
-        int32_t get_swfVersion();
+        //_findShell()
 
+        //argv
+        //filename
+        //startupDirectory
+        
         double get_totalMemory();
-
         double get_freeMemory();
-
         double get_privateMemory();
 
-        /**
-         * Implementation of System.eval
-         * AS usage: System.eval(source_code);
-         * Evaluates AS3 source code at runtime.
-         */
-        void eval(avmplus::Stringp source);
+        //environ
+        //pid
+        //shell
+        //workingDirectory
 
-        /**
-         * Implementation of System.exec
-         * AS usage: exitCode = System.exec("command");
-         * Executes the specified command line and returns
-         * the status code
-         */
-        int exec(avmplus::Stringp command);
+        void abort();
+        int exec(Stringp command);
+        //open()
 
-        /**
-         * Implementation of System.exit
-         * AS usage: System.exit(status);
-         * Exits the VM with OS exit code specified by  status.
-         */
         void exit(int status);
+        void exitCallback(); //C++ side only
 
-        /**
-         * Implementation of System.getAvmplusVersion
-         * AS usage: System.getAvmplusVersion();
-         * Returns the current version of AVM+ in the form
-         * "1.0 d100"
-         */
-        avmplus::Stringp getAvmplusVersion();
-
-        /**
-         * Implementation of System.getFeatures
-         * AS usage: System.getFeatures();
-         * Returns the compiled in features of AVM+
-         */
-        avmplus::Stringp getFeatures();
-
-        /**
-         * Implementation of System.getRunmode
-         * AS usage: System.getRunmode();
-         * Returns the current runmode
-         */
-        avmplus::Stringp getRunmode();
-
-        /**
-         * @name ActionScript Extensions
-         * ActionScript extensions to ECMAScript
-         */
-        /*@{*/
+        void sleep(int ms);
         double getNanosecondTimer();
         unsigned getTimer();
-        /*@}*/
 
-        avmplus::Stringp readLine();
+        Stringp readLine();
+        void write(Stringp s);
+        //writeLine()
+        void trace(ArrayObject* a);
 
-        /**
-         * Implementation of System.sleep.
-         */
-        void sleep(int ms);
-
-        void trace(avmplus::ArrayObject* a);
-
-        void write(avmplus::Stringp s);
-
-        /**
-         * @name Debugging Extensions
-         */
-        /*@{*/
-        void debugger();
-        bool isDebugger();
-        /*@}*/
         
         // Initiate a garbage collection; future versions will not return before completed.
         void forceFullCollection();
@@ -130,29 +85,8 @@ namespace avmshell
         void queueCollection();
 
         void pauseForGCIfCollectionImminent(double imminence);
-        
-        void disposeXML(avmplus::XMLObject *xmlObject);
+        void disposeXML(XMLObject *xmlObject);
 
-        // function exists solely to test ScriptObject::isGlobalObject
-        bool isGlobal(avmplus::Atom o);
-        
-        // Support for VM tests that depend on representation of numeric atoms.
-        // These are provided solely for testing purposes, as the semantics of an AS3 program
-        // should not depend on the word size of the platform nor the internal encoding of atoms.
-
-        // Return true if running on a 64-bit platform.
-        bool is64bit();
-
-        // Return true if the argument is an atom with tag kIntptrType.
-        bool isIntptr(avmplus::Atom a);
-
-        // Return argument value as a kIntptrType atom if the argument is a numeric
-        // value that can be so represented, else return the argument unchanged.
-        avmplus::Atom canonicalizeNumber(avmplus::Atom a);
-
-        // DEOPT: Diagnostic scaffolding.
-        void deopt(int32_t k);
-        void runInSafepoint(avmplus::FunctionObject* closure);
 
         GC_NO_DATA(ProgramClass)
 

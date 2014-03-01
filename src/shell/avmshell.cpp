@@ -25,7 +25,7 @@ namespace avmshell
 
     ShellSettings::ShellSettings()
         : ShellCoreSettings()
-        , programFilename(NULL)
+        //, programFilename(NULL)
         , filenames(NULL)
         , numfiles(-1)
         , do_selftest(false)

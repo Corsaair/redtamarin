@@ -10,8 +10,8 @@
 
 namespace avmshell
 {
-    ProgramClass::ProgramClass(avmplus::VTable *cvtable)
-        : avmplus::ClassClosure(cvtable)
+    ProgramClass::ProgramClass(VTable *cvtable)
+        : ClassClosure(cvtable)
     {
         ShellCore* core = (ShellCore*)this->core();
         if (core->programClass == NULL) {
@@ -23,16 +23,14 @@ namespace avmshell
         // initialTime: support for getTimer
         // todo note this is currently routed to the performance counter
         // for benchmark purposes.
-        #ifdef PERFORMANCE_GETTIMER
-        initialTime = VMPI_getPerformanceCounter();
-        #else
+        initialPerfTime = VMPI_getPerformanceCounter();
         initialTime = VMPI_getTime();
-        #endif // PERFORMANCE_GETTIMER
-
     }
 
     ProgramClass::~ProgramClass()
     {
+        exit_callback = 0;
+        initialPerfTime = 0;
         initialTime = 0;
     }
 
@@ -41,31 +39,31 @@ namespace avmshell
     char *ProgramClass::exec_name;
     extern "C" char **environ;
 
-    avmplus::ArrayObject * ProgramClass::getArgv()
+    ArrayObject * ProgramClass::_getArgv()
     {
-        // get VTable for avmplus.System
-        avmplus::Toplevel *toplevel = this->toplevel();
-        avmplus::AvmCore *core = this->core();
+        Toplevel *toplevel = this->toplevel();
+        AvmCore *core = this->core();
 
-        avmplus::ArrayObject *array = toplevel->arrayClass()->newArray();
-        for(int i=0; i<user_argc;i++)
+        ArrayObject *array = toplevel->arrayClass()->newArray();
+        for( int i=0; i<user_argc; i++ )
+        {
             array->setUintProperty(i, core->newStringUTF8(user_argv[i])->atom());
-
+        }
+        
         return array;
     }
     
-    avmplus::ArrayObject * ProgramClass::getEnviron()
+    ArrayObject * ProgramClass::_getEnviron()
     {
-        // get VTable for avmplus.System
-        avmplus::Toplevel *toplevel = this->toplevel();
-        avmplus::AvmCore *core = this->core();
+        Toplevel *toplevel = this->toplevel();
+        AvmCore *core = this->core();
 
-        avmplus::ArrayObject *array = toplevel->arrayClass()->newArray();
+        ArrayObject *array = toplevel->arrayClass()->newArray();
         char **cur = environ;
         int i = 0;
-        while(*cur)
+        while( *cur )
         {
-                array->setUintProperty(i, core->newStringUTF8(*cur)->atom());
+            array->setUintProperty(i, core->newStringUTF8(*cur)->atom());
             i++;
             cur++;
         }
@@ -73,20 +71,43 @@ namespace avmshell
         return array;
     }
 
-    avmplus::Stringp ProgramClass::popenRead(avmplus::Stringp command)
+    Stringp ProgramClass::_getProgramFilename()
     {
-        if (!command) {
+        return core()->newStringUTF8( exec_name );
+    }
+
+    void ProgramClass::_setExitListener(FunctionObject* f)
+    {
+        AvmCore *core = this->core();
+
+        // Listeners MUST be functions or null
+        if ( core->isNullOrUndefined(f->atom()) )
+        {
+            f = 0;
+        }
+        else if (!AvmCore::istype(f->atom(), core->traits.function_itraits))
+        {
+            toplevel()->argumentErrorClass()->throwError( kInvalidArgumentError, core->toErrorString("Function"));
+        }
+
+        exit_callback = f;
+    }
+
+    Stringp ProgramClass::_popenRead(Stringp command)
+    {
+        if( !command )
+        {
             toplevel()->throwArgumentError(kNullArgumentError, "command");
         }
 
-        avmplus::StUTF8String commandUTF8(command);
+        StUTF8String commandUTF8(command);
         FILE *read_fp;
         char buffer[BUFSIZ + 1];
         int chars_read;
 
         VMPI_memset(buffer, '\0', sizeof(buffer));
         read_fp = VMPI_popen(commandUTF8.c_str(), "r");
-        avmplus::Stringp output = core()->newStringUTF8( "" );
+        Stringp output = core()->newStringUTF8( "" );
         
         if (read_fp != NULL) {
             chars_read = fread(buffer, sizeof(char), BUFSIZ, read_fp);
@@ -103,25 +124,6 @@ namespace avmshell
         }
         
         return NULL;
-    }
-
-    int32_t ProgramClass::get_apiVersion()
-    {
-        ShellCore* core = (ShellCore*)this->core();
-        return core->defaultAPIVersion;
-    }
-
-    avmplus::Stringp ProgramClass::get_programFilename()
-    {
-        return core()->newStringUTF8( exec_name );
-    }
-
-    int32_t ProgramClass::get_swfVersion()
-    {
-        ShellCore* core = (ShellCore*)this->core();
-        avmplus::BugCompatibility::Version v = core->getDefaultBugCompatibilityVersion();
-        AvmAssert(v >= 0 && v < avmplus::BugCompatibility::VersionCount);
-        return avmplus::BugCompatibility::kNames[v];
     }
 
     double ProgramClass::get_totalMemory()
@@ -142,105 +144,103 @@ namespace avmshell
         return double(AVMPI_getPrivateResidentPageCount() * VMPI_getVMPageSize());
     }
 
-    void ProgramClass::eval(avmplus::Stringp source)
+    void ProgramClass::abort()
     {
-        if (!source) {
-            toplevel()->throwArgumentError(kNullArgumentError, "source");
+        if( core()->getIsolate()->getAggregate()->isPrimordial(core()->getIsolate()->getDesc()) )
+        {
+            //exitCallback();
+            //Platform::GetInstance()->exit( status );
+            
+            //MMgc::GCHeap::GetGCHeap()->Abort();
+            //MMgc::GCHeap::GetGCHeap()->SignalImminentAbort();
+            
+            //ShellCore* score = (ShellCore*)this->core();
+            //score->raiseExternalInterrupt();
+            
+            Platform::GetInstance()->exit( 1 );
         }
-        
-        #ifdef VMCFG_EVAL
-        ShellCore* core = (ShellCore*)this->core();
-        core->evaluateString( source, false );
-        #endif // VMCFG_EVAL
-    }
+        else
+        {
+            GCRef<ClassClosure> workerClass = toplevel()->workerClass();
+            static_cast<ShellWorkerClass*>((ClassClosure*)workerClass)->getCurrentWorker()->terminate();
+        }
+    }   
 
-    int ProgramClass::exec(avmplus::Stringp command)
+    int ProgramClass::exec(Stringp command)
     {
-        if (!command) {
+        if( !command )
+        {
             toplevel()->throwArgumentError(kNullArgumentError, "command");
         }
+
         #ifdef UNDER_CE
         AvmAssert(0);
         return 0;
         #else
-        avmplus::StUTF8String commandUTF8(command);
-        return system(commandUTF8.c_str());
+        StUTF8String commandUTF8(command);
+        return system( commandUTF8.c_str() );
         #endif
     }
 
     void ProgramClass::exit(int status)
     {
-        if (core()->getIsolate()->getAggregate()->isPrimordial(core()->getIsolate()->getDesc())) {
-            Platform::GetInstance()->exit(status);
-        } else {
-            GCRef<avmplus::ClassClosure> workerClass = toplevel()->workerClass();
-            static_cast<ShellWorkerClass*>((avmplus::ClassClosure*)workerClass)->getCurrentWorker()->terminate();
-        }
-    }
-
-    avmplus::Stringp ProgramClass::getAvmplusVersion()
-    {
-        return core()->newConstantStringLatin1(AVMPLUS_VERSION_USER " " AVMPLUS_BUILD_CODE);
-    }
-
-    avmplus::Stringp ProgramClass::getFeatures()
-    {
-        return core()->newConstantStringLatin1(avmfeatures);
-    }
-
-    avmplus::Stringp ProgramClass::getRunmode()
-    {
-        ShellCore* core = (ShellCore*)this->core();
-        if (core->config.runmode == avmplus::RM_mixed)
-            return core->newConstantStringLatin1("mixed");
-        if (core->config.runmode == avmplus::RM_jit_all)
+        if( core()->getIsolate()->getAggregate()->isPrimordial(core()->getIsolate()->getDesc()) )
         {
-            if (core->config.jitordie)
-                return core->newConstantStringLatin1("jitordie");
-            return core->newConstantStringLatin1("jit");
+            exitCallback();
+            Platform::GetInstance()->exit( status );
         }
-        if (core->config.runmode == avmplus::RM_interp_all)
-            return core->newConstantStringLatin1("interp");
-        return core->newConstantStringLatin1("unknown");
+        else
+        {
+            GCRef<ClassClosure> workerClass = toplevel()->workerClass();
+            static_cast<ShellWorkerClass*>((ClassClosure*)workerClass)->getCurrentWorker()->terminate();
+        }
+    }
+
+    void ProgramClass::exitCallback()
+    {
+        if( exit_callback )
+        {
+            Atom argv[] = { nullObjectAtom };
+            int argc = 0;
+            
+            exit_callback->call(argc, argv);
+        }
     }
 
     double ProgramClass::getNanosecondTimer()
     {
-        return ((VMPI_getPerformanceCounter() - initialTime) * 1e9)
+        return ((VMPI_getPerformanceCounter() - initialPerfTime) * 1e9)
             / VMPI_getPerformanceFrequency();
     }
     
     unsigned ProgramClass::getTimer()
     {
-#ifdef PERFORMANCE_GETTIMER
-        double time = ((double) (VMPI_getPerformanceCounter() - initialTime) * 1000.0 /
-                       (double)VMPI_getPerformanceFrequency());
-        return (uint32_t)time;
-#else
         return (uint32_t)(VMPI_getTime() - initialTime);
-#endif /* PERFORMANCE_GETTIMER */
-
     }
 
-    avmplus::Stringp ProgramClass::readLine()
+    Stringp ProgramClass::readLine()
     {
-        avmplus::AvmCore* core = this->core();
-        avmplus::Stringp s = core->kEmptyString;
+        AvmCore* core = this->core();
+        Stringp s = core->kEmptyString;
         wchar wc[64];
         int i=0;
-        for (int c = getchar(); c != '\n' && c != EOF; c = getchar())
+        for( int c = getchar(); c != '\n' && c != EOF; c = getchar() )
         {
             wc[i++] = (wchar)c;
-            if (i == 63) {
+            if( i == 63 )
+            {
                 wc[i] = 0;
                 s = s->append16(wc);
                 i = 0;
             }
         }
-        if (i > 0) {
+
+        if( i > 0 )
+        {
             wc[i] = 0;
             s = s->append16(wc);
         }
+
         return s;
     }
 
@@ -248,30 +248,39 @@ namespace avmshell
     {
         // Or do we try to make the all the isolate threads sleep? In a safepoint? and interruptibly?
         if (ms < 0) 
+        {
             ms = 0;
+        }
+
         vmbase::VMThread::sleep(ms);
     }
 
-    void ProgramClass::trace(avmplus::ArrayObject* a)
+    void ProgramClass::trace(ArrayObject* a)
     {
-        if (!a)
-            toplevel()->throwArgumentError(kNullArgumentError, "array");
-        avmplus::AvmCore* core = this->core();
-        avmplus::PrintWriter& console = core->console;
-        for (int i=0, n = a->getLength(); i < n; i++)
+        if( !a )
         {
-            if (i > 0)
+            toplevel()->throwArgumentError(kNullArgumentError, "array");
+        }
+        
+        AvmCore* core = this->core();
+        PrintWriter& console = core->console;
+        for( int i=0, n = a->getLength(); i < n; i++ )
+        {
+            if( i > 0 )
+            {
                 console << ' ';
-            avmplus::StringIndexer s(core->string(a->getUintProperty(i)));
-            for (int j = 0; j < s->length(); j++)
+            }
+            
+            StringIndexer s(core->string(a->getUintProperty(i)));
+            for( int j = 0; j < s->length(); j++ )
             {
                 wchar c = s[j];
                 // '\r' gets converted into '\n'
                 // '\n' is left alone
                 // '\r\n' is left alone
-                if (c == '\r')
+                if( c == '\r' )
                 {
-                    if (((j+1) < s->length()) && s[j+1] == '\n')
+                    if( ((j+1) < s->length()) && s[j+1] == '\n' )
                     {
                         console << '\r';
                         j++;
@@ -285,33 +294,20 @@ namespace avmshell
                 }
             }
         }
+
         console << '\n';
     }
 
-    void ProgramClass::write(avmplus::Stringp s)
+    void ProgramClass::write(Stringp s)
     {
-        if (!s)
+        if( !s )
+        {
             toplevel()->throwArgumentError(kNullArgumentError, "string");
+        }
+        
         core()->console << s;
     }
- 
-    void ProgramClass::debugger()
-    {
-        #ifdef DEBUGGER
-        if (core()->debugger())
-            core()->debugger()->enterDebugger();
-        #endif
-    }
-
-    bool ProgramClass::isDebugger()
-    {
-        #ifdef DEBUGGER
-        return core()->debugger() != NULL;
-        #else
-        return false;
-        #endif
-    }
-
+    
     void ProgramClass::forceFullCollection()
     {
         core()->GetGC()->Collect();
@@ -329,75 +325,13 @@ namespace avmshell
         core()->GetGC()->Collect(imminence);
     }
 
-    void ProgramClass::disposeXML(avmplus::XMLObject *xmlObject)
+    void ProgramClass::disposeXML(XMLObject *xmlObject)
     {
-        if(xmlObject)
+        if( xmlObject )
+        {
             xmlObject->dispose();
-    }
-
-    bool ProgramClass::isGlobal(avmplus::Atom o)
-    {
-        return avmplus::AvmCore::isObject(o) ? avmplus::AvmCore::atomToScriptObject(o)->isGlobalObject() : false;
-    }
-
-    bool ProgramClass::is64bit()
-    {
-        #ifdef AVMPLUS_64BIT
-            return true;
-        #else
-            return false;
-        #endif
-    }
-
-    bool ProgramClass::isIntptr(avmplus::Atom a)
-    {
-        return atomKind(a) == avmplus::AtomConstants::kIntptrType;
-    }
-
-    avmplus::Atom ProgramClass::canonicalizeNumber(avmplus::Atom a)
-    {
-        if (atomKind(a) == avmplus::AtomConstants::kDoubleType) {
-            double val = *((double*)atomPtr(a));
-            intptr_t intval = intptr_t(val);
-            if (double(intval) == val && !(val == 0 && avmplus::MathUtils::isNegZero(val))) {
-                // Atom is double representing an integer value that will fit in intptr_t.
-                if (avmplus::atomIsValidIntptrValue(intval)) {
-                    // The intptr_t value will also fit in kIntptrType atom, with tag.
-                    return avmplus::atomFromIntptrValue(intval);
-                }
-            }
         }
-        return a;
     }
 
-    // Debug scaffolding for deoptimization.
-    // Deoptimize method invoked in frame K levels above our caller.
-    // Throws if no such frame exists, but is silently ignored if
-    // the method is not currently compiled.
-
-    void ProgramClass::deopt(int32_t k)
-    {
-#ifdef VMCFG_HALFMOON
-        using avmplus::Deoptimizer;
-        if (!Deoptimizer::deoptAncestor(core(), k))
-            toplevel()->throwArgumentError(kNullArgumentError, "frame number");
-#endif
-        (void)k;
-    }
-
-    void ProgramClass::runInSafepoint(avmplus::FunctionObject* code)
-    {
-        class Task: public vmbase::SafepointTask {
-            avmplus::FunctionObject* m_code;
-        public:
-            Task(avmplus::FunctionObject* code): m_code(code) {}
-            void run() {
-                avmplus::Atom argv[] = {avmplus::nullObjectAtom};
-                m_code->call(0, argv);
-            }
-        };
-        Task task(code);
-        core()->getIsolate()->getAggregate()->safepointManager()->requestSafepointTask(task);
-    }
 
 }

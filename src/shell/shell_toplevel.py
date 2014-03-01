@@ -37,21 +37,11 @@ asc = javacmd+" macromedia.asc.embedding.ScriptCompiler "
 print("ASC="+classpath)
 print("Building shell_toplevel...")
 
-configs = " ".join(sys.argv[1:])
+configs  = " ".join(sys.argv[1:])
+configs += " -config AVMGLUE::REDTAMARIN=true"
 
-classes  = ""
-#classes  = " ../core/api-versions.as"
+classes = " shell_toplevel.as"
 
-# shell toplevel begin
-
-# redtamarin API
-classes += " redtamarin.as"
-
-# avmglue API
-classes += " avmglue.as"
-
-classes += " shell_toplevel.as"
-# shell toplevel end
 
 if warn_notwriteable('../generated/shell_toplevel.abc'):
     sys.exit(0) # exit 0 so build will continue
