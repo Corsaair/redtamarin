@@ -7,7 +7,7 @@
 
 package
 {
-    include "api-versions.as"
+    include "api-versions.as";
 
     /*
     AS3 implementation constraint:

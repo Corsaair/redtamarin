@@ -7,7 +7,7 @@
 package flash.utils
 {
 
-include "api-versions.as"
+include "api-versions.as";
 
 /**
  * The CompressionAlgorithm class defines string constants for the names of compress and uncompress options. These constants
@@ -658,7 +658,6 @@ public class ByteArray implements IDataInput2, IDataOutput2
      */
     public native function readObject():*;
 
-    [API(CONFIG::FP_10_0)]
     /**
      * Compresses the byte array using the deflate compression algorithm.
      * The entire byte array is compressed.
@@ -686,6 +685,7 @@ public class ByteArray implements IDataInput2, IDataOutput2
      *
      * @playerversion Lite 4
      */
+    [API(CONFIG::FP_10_0)]
     public function deflate():void
     {
         _compress("deflate");
@@ -765,7 +765,6 @@ public class ByteArray implements IDataInput2, IDataOutput2
         _compress(algorithm);
     }
 
-    [API(CONFIG::FP_10_0)]
     /**
      * Decompresses the byte array using the deflate compression algorithm.
      * The byte array must have been compressed using the same algorithm.
@@ -794,6 +793,7 @@ public class ByteArray implements IDataInput2, IDataOutput2
      * @keyword ByteArray, ByteArray.uncompress, uncompress
      *
      */
+    [API(CONFIG::FP_10_0)]
     public function inflate():void
     {
         _uncompress("deflate");
@@ -966,7 +966,6 @@ public class ByteArray implements IDataInput2, IDataOutput2
     public native function get endian():String;
     public native function set endian(type:String):void;
     
-    [API(CONFIG::FP_10_0)]
     /**
      * Clears the contents of the byte array and resets the <code>length</code>
      * and <code>position</code> properties to 0. Calling this method explicitly
@@ -978,6 +977,7 @@ public class ByteArray implements IDataInput2, IDataOutput2
      *
      * @playerversion Lite 4
      */
+    [API(CONFIG::FP_10_0)]
     public native function clear():void;
 
     // Note: clients are free to replace with method returning non-string

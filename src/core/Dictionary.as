@@ -20,10 +20,10 @@ package flash.utils
  * var obj = new Object();
  * var key:Object = new Object();
  * key.toString = function() { return "key" }
- *
+ * 
  * dict[key] = "Letters";
  * obj["key"] = "Letters";
- *
+ * 
  * dict[key] == "Letters"; // true
  * obj["key"] == "Letters"; // true
  * obj[key] == "Letters"; // true because key == "key" is true b/c key.toString == "key"
