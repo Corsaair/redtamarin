@@ -1,56 +1,41 @@
 /* -*- c-basic-offset: 4; indent-tabs-mode: nil; tab-width: 4 -*- */
 /* vi: set ts=4 sw=4 expandtab: (add to ~/.vimrc: set modeline modelines=5) */
-/* ***** BEGIN LICENSE BLOCK *****
- * Version: MPL 1.1/GPL 2.0/LGPL 2.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
- * License.
- *
- * The Original Code is [clib - C more or less standard Libraries].
- *
- * The Initial Developer of the Original Code is
- * Zwetan Kjukov <zwetan@gmail.com>.
- * Portions created by the Initial Developer are Copyright (C) 2010
- * the Initial Developer. All Rights Reserved.
- *
- * Contributor(s):
- *   
- *
- * Alternatively, the contents of this file may be used under the terms of
- * either the GNU General Public License Version 2 or later (the "GPL"), or
- * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
- * in which case the provisions of the GPL or the LGPL are applicable instead
- * of those above. If you wish to allow use of your version of this file only
- * under the terms of either the GPL or the LGPL, and not to allow others to
- * use your version of this file under the terms of the MPL, indicate your
- * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
- * the provisions above, a recipient may use your version of this file under
- * the terms of any one of the MPL, the GPL or the LGPL.
- *
- * ***** END LICENSE BLOCK ***** */
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 package C.stdio
 {
-    
-    /**
-     * Input and Output operations on streams and files.
-     * @internal
-     * 
-     * @langversion 3.0
-     * @playerversion AVM 0.3
-     */
+    import C.errno.*;
+    import C.string.*;
+    import flash.utils.ByteArray;
+
+    /** @internal */
     [native(cls="::avmshell::CStdioClass", methods="auto", construct="none")]
     [Inspectable(environment="none")]
     internal class __stdio
     {
+        public native static function get BUFSIZ():int;
+        public native static function get _IOFBF():int;
+        public native static function get _IOLBF():int;
+        public native static function get _IONBF():int;
+        public native static function get SEEK_CUR():int;
+        public native static function get SEEK_END():int;
+        public native static function get SEEK_SET():int;
+        public native static function get FILENAME_MAX():int;
+        public native static function get FOPEN_MAX():int;
+        public native static function get TMP_MAX():int;
+        public native static function get EOF():int;
+
+        public native static function get stdin():FILE;
+        public native static function get stdout():FILE;
+        public native static function get stderr():FILE;
+
+        public native static function _getc_unlocked( stream:FILE ):int;
+        public native static function _getchar_unlocked():int;
+
+
+
         //public native static function get FILENAME_MAX():int;
         /* note:
            PATH_MAX is normaly defined in <limits.h>
@@ -61,58 +46,1292 @@ package C.stdio
         public native static function get NONBLOCKING_DISABLE():int;
         public native static function get NONBLOCKING_ENABLE():int;
 
-        public native static function get O_TEXT():int;
-        public native static function get O_BINARY():int;
+        //public native static function get O_TEXT():int;
+        //public native static function get O_BINARY():int;
         
         public native static function remove( filename:String ):int;                 //int remove ( const char * filename );
-        public native static function rename( oldname:String, newname:String ):int;  //int rename ( const char * oldname, const char * newname );
+        //public native static function rename( oldname:String, newname:String ):int;  //int rename ( const char * oldname, const char * newname );
         public native static function con_stream_mode( state:int ):void;             //void con_stream_mode( int state );
         public native static function con_trans_mode( state:int ):void;              //void setmode( int state );
-        public native static function kbhit():int;                                   //int kbhit( void );
+        //public native static function kbhit():int;                                   //int kbhit( void );
     }
-
-    /** Maximum size in bytes of the longest filename string that the implementation guarantees can be opened.
-     * @productversion redtamarin 0.3
-     * @since 0.3.0
-     */
-    [native("::avmshell::CStdioClass::get_FILENAME_MAX")]
-    public native function get FILENAME_MAX():int;
-    
-    /** Maximum number of bytes in a pathname.
-     * @productversion redtamarin 0.3
-     * @since 0.3.0
-     */
-    public const PATH_MAX:int     = __stdio.PATH_MAX;
-
-
-    /** Disable the non-blocking console mode.
-     * @productversion redtamarin 0.3
-     * @since 0.3.2
-     */
-    public const NONBLOCKING_DISABLE:int   = __stdio.NONBLOCKING_DISABLE;
-
-    /** Enable the non-blocking console mode.
-     * @productversion redtamarin 0.3
-     * @since 0.3.2
-     */
-    public const NONBLOCKING_ENABLE:int    = __stdio.NONBLOCKING_ENABLE;
-
-
-    /** To put console in text mode.
-     * @productversion redtamarin 0.3
-     * @since 0.3.2
-     */
-    public const O_TEXT:int                = __stdio.O_TEXT;
-
-    /** To put console in binary mode.
-     * @productversion redtamarin 0.3
-     * @since 0.3.2
-     */
-    public const O_BINARY:int              = __stdio.O_BINARY;
 
 
     /**
+     * Size of <code>&lt;stdio.h&gt;</code> buffers.
+     * 
+     * <p>
+     * This shall expand to a positive value.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    public const BUFSIZ:int = __stdio.BUFSIZ;
+
+    /**
+     * Input/output fully buffered.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    public const _IOFBF:int = __stdio._IOFBF;
+
+    /**
+     * Input/output line buffered.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    public const _IOLBF:int = __stdio._IOLBF;
+
+    /**
+     * Input/output unbuffered.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    public const _IONBF:int = __stdio._IONBF;
+
+    /**
+     * Seek relative to current position.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */    
+    public const SEEK_CUR:int = __stdio.SEEK_CUR;
+
+    /**
+     * Seek relative to end-of-file.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */    
+    public const SEEK_END:int = __stdio.SEEK_END;
+
+    /**
+     * Seek relative to start-of-file.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */    
+    public const SEEK_SET:int = __stdio.SEEK_SET;
+
+    /**
+     * Maximum size in bytes of the longest pathname that the implementation guarantees can be opened.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    public const FILENAME_MAX:int = __stdio.FILENAME_MAX;
+
+    /**
+     * Number of streams which the implementation guarantees can be open simultaneously. 
+     * 
+     * <p>
+     * The value is at least eight.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */    
+    public const FOPEN_MAX:int = __stdio.FOPEN_MAX;
+
+    /**
+     * Minimum number of unique filenames generated by <code>tmpnam()</code>.
+     * Maximum number of times an application can call <code>tmpnam()</code> reliably.
+     * 
+     * <p>
+     * The value of <code>TMP_MAX</code> is at least 25.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */    
+    public const TMP_MAX:int = __stdio.TMP_MAX;
+
+    /**
+     * End-of-file return value.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */    
+    public const EOF:int = __stdio.EOF;
+
+
+    /**
+     * Standard input stream.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    public const stdin:FILE = __stdio.stdin;
+
+    /**
+     * Standard output stream.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    public const stdout:FILE = __stdio.stdout;
+
+    /**
+     * Standard error output stream.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    public const stderr:FILE = __stdio.stderr;
+
+
+    
+    /**
+     * Clear indicators on a stream.
+     * 
+     * <p>
+     * The <code>clearerr()</code> function shall clear the end-of-file and error indicators for the stream
+     * to which <code>stream</code> points.
+     * </p>
+     * 
+     * <p>
+     * The <code>clearerr()</code> function shall not change the setting of <code>errno</code> if <code>stream</code> is valid.
+     * </p>
+     * 
+     * @example Usage
+     * <listing>
+     * import C.stdio.&#42;;
+     * 
+     * /&#42; Each FILE that you use to read and write data from and to a file contains flags
+     * that the system sets when certain events occur.
+     * If you get an error, it sets the error flag;
+     * if you reach the end of the file during a read, it sets the EOF flag.
+     * Pretty simple really.
+     * &#42;/
+     * 
+     * // let's try to open a file that does not exists for "writing"
+     * var fp:FILE = fopen( "I_dont_exists.txt", "w" );
+     * 
+     * if( ferror( fp ) )
+     * {
+     *     trace( "an error occured" );
+     * }
+     * 
+     * /&#42; Once the flags are set for a particular stream,
+     * they stay that way until you call clearerr() to clear them.
+     * &#42;/
+     * clearerr( fp );
+     * 
+     * if( ferror( fp ) )
+     * {
+     *     trace( "we can still see the error flag" );
+     * }
+     * else
+     * {
+     *     trace( "we don't see the error flag anymore" );
+     * }
+     * 
+     * // close it
+     * fclose( fp );
+     * 
+     * </listing>
+     * 
+     * @param stream The pointer to a <code>FILE</code>.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see FILE
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/clearerr.html
+     */
+    [native("::avmshell::CStdioClass::clearerr")]
+    public native function clearerr( stream:FILE ):void;
+
+    /**
+     * Close a stream.
+     * 
+     * <p>
+     * The <code>fclose()</code> function shall cause the stream pointed to by <code>stream</code> to be flushed
+     * and the associated file to be closed.
+     * Any unwritten buffered data for the stream shall be written to the file;
+     * any unread buffered data shall be discarded.
+     * </p>
+     * 
+     * <p>
+     * Whether or not the call succeeds, the stream shall be disassociated from the file and any buffer set
+     * by the <code>setbuf()</code> or <code>setvbuf()</code> function shall be disassociated from the stream.
+     * If the associated buffer was automatically allocated, it shall be deallocated.
+     * </p>
+     * 
+     * @example Usage
+     * <listing>
+     * import C.errno.&#42;;
+     * import C.stdio.&#42;;
+     * 
+     * //open a file reference
+     * var file:FILE = fopen( "hello_world.txt", "r" );
+     * 
+     * //do stuff with the file reference
+     * 
+     * /&#42; When you open a file,
+     * the system sets aside some resources to maintain information about that open file.
+     * Usually it can only open so many files at once.
+     * In any case, the Right Thing to do is to close your files when you're done using them
+     * so that the system resources are freed.
+     * &#42;/
+     * fclose( fp );
+     * 
+     * </listing>
+     * 
+     * @param stream The pointer to a <code>FILE</code>.
+     * @return Upon successful completion, <code>fclose()</code> shall return <code>0</code>;
+     * otherwise, it shall return <code>EOF</code> and set <code>errno</code> to indicate the error.
+     * 
+     * @throws C.errno.CError <b>EAGAIN</b> The <code>O_NONBLOCK</code> flag is set for the file descriptor underlying stream and the thread would be delayed in the write operation.
+     * @throws C.errno.CError <b>EBADF</b> The file descriptor underlying stream is not valid.
+     * @throws C.errno.CError <b>EFBIG</b> An attempt was made to write a file that exceeds the maximum file size.
+     * @throws C.errno.CError <b>EFBIG</b> An attempt was made to write a file that exceeds the file size limit of the process.
+     * @throws C.errno.CError <b>EFBIG</b> The file is a regular file and an attempt was made to write at or beyond the offset maximum associated with the corresponding stream.
+     * @throws C.errno.CError <b>EINTR</b> The <code>fclose()</code> function was interrupted by a signal.
+     * @throws C.errno.CError <b>EIO</b> The process is a member of a background process group attempting to write to its controlling terminal,
+     * <code>TOSTOP</code> is set, the calling thread is not blocking <code>SIGTTOU</code>, the process is not ignoring <code>SIGTTOU</code>,
+     * and the process group of the process is orphaned. This error may also be returned under implementation-defined conditions.
+     * @throws C.errno.CError <b>ENOMEM</b> The underlying stream was created by <code>open_memstream()</code> or <code>open_wmemstream()</code> and insufficient memory is available.
+     * @throws C.errno.CError <b>ENOSPC</b> There was no free space remaining on the device containing the file or in the buffer used by the <code>fmemopen()</code> function.
+     * @throws C.errno.CError <b>EPIPE</b> An attempt is made to write to a pipe or FIFO that is not open for reading by any process. A <code>SIGPIPE</code> signal shall also be sent to the thread.
+     * @throws C.errno.CError <b>ENXIO</b> A request was made of a nonexistent device, or the request was outside the capabilities of the device.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see FILE
+     * @see C.stdio#EOF
+     * @see C.errno#EAGAIN
+     * @see C.errno#EBADF
+     * @see C.errno#EFBIG
+     * @see C.errno#EINTR
+     * @see C.errno#EIO
+     * @see C.errno#ENOMEM
+     * @see C.errno#ENOSPC
+     * @see C.errno#EPIPE
+     * @see C.errno#ENXIO
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fclose.html
+     * @see http://beej.us/guide/bgc/output/html/multipage/fclose.html
+     */
+    [native("::avmshell::CStdioClass::fclose")]
+    public native function fclose( stream:FILE ):int;
+
+    /**
+     * Associate a stream with a file descriptor.
+     *
+     * <p>
+     * TODO
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fdopen.html
+     */
+    [native("::avmshell::CStdioClass::fdopen")]
+    public native function fdopen( fildes:int, mode:String ):FILE;
+
+    /**
+     * Test end-of-file indicator on a stream.
+     *
+     * <p>
+     * TODO
+     * </p>
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/feof.html
+     */
+    [native("::avmshell::CStdioClass::feof")]
+    public native function feof( stream:FILE ):int;
+
+    /**
+     * Test error indicator on a stream.
+     * 
+     * <p>
+     * TODO
+     * </p>
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/ferror.html
+     */
+    [native("::avmshell::CStdioClass::ferror")]
+    public native function ferror( stream:FILE ):int;
+
+    /**
+     * Flush a stream.
+     * 
+     * <p>
+     * TODO
+     * </p>
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fflush.html
+     */
+    [native("::avmshell::CStdioClass::fflush")]
+    public native function fflush( stream:FILE ):int;
+
+    /**
+     * Get a byte from a stream.
+     *
+     * <p>
+     * If the end-of-file indicator for the input stream pointed to by stream is not set and a next byte is present,
+     * the <code>fgetc()</code> function shall obtain the next byte, from the input stream pointed to by stream,
+     * and advance the associated file position indicator for the stream (if defined).
+     * </p>
+     *
+     * <p>
+     * Since <code>fgetc()</code> operates on bytes, reading a character consisting of multiple bytes (or "a multi-byte character") may require multiple calls to <code>fgetc()</code>.
+     * </p>
+     *
+     * <p>
+     * The <code>fgetc()</code> function may mark the last data access timestamp of the file associated with stream for update.
+     * The last data access timestamp shall be marked for update by the first successful execution of <code>fgetc()</code>,
+     * <code>fgets()</code>, <code>fread()</code>, <code>fscanf()</code>, <code>getc()</code>, <code>getchar()</code>,
+     * <code>getdelim()</code>, <code>getline()</code>, <code>gets()</code>, or <code>scanf()</code> using stream
+     * that returns data not supplied by a prior call to <code>ungetc()</code>.
+     * </p>
+     *
+     * @example Usage
+     * <listing>
+     * import C.stdio.&#42;;
+     * 
+     * // we open a file for "reading"
+     * var file:FILE = fopen( "hello_world.txt", "r" );
+     * 
+     * // where to save the byte read
+     * var c:int;
+     * 
+     * // as long as we don't reach EOF (-1)
+     * while( c != EOF )
+     * {
+     *     // get 1 byte from the file
+     *     c = fgetc( file );
+     * 
+     *     // we need to convert the char code to a string
+     *     trace( c + " - " + String.fromCharCode( c ) );
+     * }
+     * 
+     * trace( "reached EOF" );
+     * 
+     * // we close the file
+     * fclose( file );
+     * 
+     * </listing>
+     * 
+     * @param stream The pointer to a <code>FILE</code>.
+     * @return Upon successful completion, <code>fgetc()</code> shall return the next byte from the input stream pointed to by <code>stream</code>.
+     * If the end-of-file indicator for the stream is set, or if the stream is at end-of-file, the end-of-file indicator for the stream shall be set and <code>fgetc()</code> shall return <code>EOF</code>.
+     * If a read error occurs, the error indicator for the stream shall be set, <code>fgetc()</code> shall return <code>EOF</code>, and shall set <code>errno</code> to indicate the error.
+     * 
+     * @throws C.errno.CError <b>EAGAIN</b> The <code>O_NONBLOCK</code> flag is set for the file descriptor underlying stream and the thread would be delayed in the <code>fgetc()</code> operation.
+     * @throws C.errno.CError <b>EBADF</b> The file descriptor underlying stream is not a valid file descriptor open for reading.
+     * @throws C.errno.CError <b>EINTR</b> The read operation was terminated due to the receipt of a signal, and no data was transferred.
+     * @throws C.errno.CError <b>EIO</b> A physical I/O error has occurred, or the process is in a background process group attempting to read
+     * from its controlling terminal, and either the calling thread is blocking <code>SIGTTIN</code> or the process is ignoring <code>SIGTTIN</code>
+     * or the process group of the process is orphaned. This error may also be generated for implementation-defined reasons.
+     * @throws C.errno.CError <b>EOVERFLOW</b> The file is a regular file and an attempt was made to read at or beyond the offset maximum associated with the corresponding stream.
+     * @throws C.errno.CError <b>ENOMEM</b> Insufficient storage space is available.
+     * @throws C.errno.CError <b>ENXIO</b> A request was made of a nonexistent device, or the request was outside the capabilities of the device.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see FILE
+     * @see C.stdio#getc()
+     * @see C.stdio#getchar()
+     * @see C.errno#EAGAIN
+     * @see C.errno#EBADF
+     * @see C.errno#EINTR
+     * @see C.errno#EIO
+     * @see C.errno#EOVERFLOW
+     * @see C.errno#ENOMEM
+     * @see C.errno#ENXIO
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fgetc.html
+     * @see http://beej.us/guide/bgc/output/html/multipage/getc.html
+     */
+    [native("::avmshell::CStdioClass::fgetc")]
+    public native function fgetc( stream:FILE ):int;
+
+    /**
+     * Get current file position information.
+     * 
+     * <p>
+     * The <code>fgetpos()</code> function shall store the current values of the parse state (if any) and file position indicator
+     * for the stream pointed to by <code>stream</code> in the object pointed to by <code>pos</code>.
+     * </p>
+     * 
+     * <p>
+     * The value stored contains unspecified information usable by <code>fsetpos()</code> for repositioning the stream
+     * to its position at the time of the call to <code>fgetpos()</code>.
+     * </p>
+     * 
+     * <p>
+     * The <code>fgetpos()</code> function shall not change the setting of <code>errno</code> if successful.
+     * </p>
+     * 
+     * @example Usage
+     * <listing>
+     * import C.stdio.&#42;;
+     * 
+     * var str:String = "";
+     * var pos:fpos_t = new fpos_t();
+     * 
+     * var fp:FILE = fopen( "hello_world.txt", "r" );
+     * 
+     * // read a line (100bytes) from the file
+     * str += fgets( 100, fp );
+     * 
+     * // save the position
+     * fgetpos( fp, pos );
+     * 
+     * // read another line (100bytes) from the file
+     * str += fgets( 100, fp );
+     * 
+     * // now restore the position to where we saved
+     * fsetpos( fp, pos );
+     * 
+     * // close it
+     * fclose( fp );
+     * 
+     * </listing>
+     * 
+     * @param stream The pointer to a <code>FILE</code>.
+     * @param pos The pointer to a <code>fpos_t</code>.
+     * @return Upon successful completion, <code>fgetpos()</code> shall return <code>0</code>;
+     * otherwise, it shall return a non-zero value and set <code>errno</code> to indicate the error.
+     * 
+     * @throws C.errno.CError <b>EBADF</b> The file descriptor underlying stream is not valid.
+     * @throws C.errno.CError <b>EOVERFLOW</b> The current value of the file position cannot be represented correctly in an object of type <code>fpos_t</code>.
+     * @throws C.errno.CError <b>ESPIPE</b> The file descriptor underlying stream is associated with a pipe, FIFO, or socket.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see C.stdio#fsetpos()
+     * @see FILE
+     * @see fpos_t
+     * @see C.errno#EBADF
+     * @see C.errno#EOVERFLOW
+     * @see C.errno#ESPIPE
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fgetpos.html
+     * @see http://beej.us/guide/bgc/output/html/multipage/fgetpos.html
+     */
+    [native("::avmshell::CStdioClass::fgetpos")]
+    public native function fgetpos( stream:FILE, pos:fpos_t ):int;
+
+    /**
+     * Get a string from a stream.
+     *
+     * <p>
+     * The <code>fgets()</code> function shall read bytes from stream until <code>n-1</code> bytes are read,
+     * or a <code>&lt;newline±&gt;</code> is read, or an end-of-file condition is encountered.
+     * </p>
+     *
+     * <p>
+     * The <code>fgets()</code> function may mark the last data access timestamp of the file associated with stream for update.
+     * The last data access timestamp shall be marked for update by the first successful execution of <code>fgetc()</code>,
+     * <code>fgets()</code>, <code>fread()</code>, <code>fscanf()</code>, <code>getc()</code>, <code>getchar()</code>,
+     * <code>getdelim()</code>, <code>getline()</code>, <code>gets()</code>, or <code>scanf()</code> using stream
+     * that returns data not supplied by a prior call to <code>ungetc()</code>.
+     * </p>
+     * 
+     * @example Usage
+     * <listing>
+     * import C.errno.&#42;;
+     * import C.stdio.&#42;;
+     * 
+     * // open the file for "reading"
+     * var fp:FILE = fopen( "hello_world.txt", "r" );
+     * 
+     * // read a line (100bytes) from the file
+     * var read:String = fgets( 100, fp );
+     * 
+     * // if null a read error had occured
+     * if( !read )
+     * {
+     *     trace( new CError( errno ) );
+     * }
+     * else
+     * {
+     *     trace( "we read [" + read + "] from the file" );
+     * }
+     * 
+     * // close it
+     * fclose( fp );
+     * 
+     * </listing>
+     * 
+     * @param n The number of bytes to read.
+     * @param stream The pointer to a <code>FILE</code>.
+     * @return Upon successful completion, <code>fgets()</code> shall return a String.
+     * If the stream is at end-of-file, the end-of-file indicator for the stream shall be set and <code>fgets()</code> shall return <code>null</code>.
+     * If a read error occurs, the error indicator for the stream shall be set, <code>fgets()</code> shall return <code>null</code>, and shall set <code>errno</code> to indicate the error.
+     * 
+     * @throws C.errno.CError <b>EAGAIN</b> The <code>O_NONBLOCK</code> flag is set for the file descriptor underlying stream and the thread would be delayed in the <code>fgets()</code> operation.
+     * @throws C.errno.CError <b>EBADF</b> The file descriptor underlying stream is not a valid file descriptor open for reading.
+     * @throws C.errno.CError <b>EINTR</b> The read operation was terminated due to the receipt of a signal, and no data was transferred.
+     * @throws C.errno.CError <b>EIO</b> A physical I/O error has occurred, or the process is in a background process group attempting to read
+     * from its controlling terminal, and either the calling thread is blocking <code>SIGTTIN</code> or the process is ignoring <code>SIGTTIN</code>
+     * or the process group of the process is orphaned. This error may also be generated for implementation-defined reasons.
+     * @throws C.errno.CError <b>EOVERFLOW</b> The file is a regular file and an attempt was made to read at or beyond the offset maximum associated with the corresponding stream.
+     * @throws C.errno.CError <b>ENOMEM</b> Insufficient storage space is available.
+     * @throws C.errno.CError <b>ENXIO</b> A request was made of a nonexistent device, or the request was outside the capabilities of the device.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see FILE
+     * @see C.errno#EAGAIN
+     * @see C.errno#EBADF
+     * @see C.errno#EINTR
+     * @see C.errno#EIO
+     * @see C.errno#EOVERFLOW
+     * @see C.errno#ENOMEM
+     * @see C.errno#ENXIO
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fgets.html
+     * @see http://beej.us/guide/bgc/output/html/multipage/gets.html
+     */
+    [native("::avmshell::CStdioClass::fgets")]
+    public native function fgets( n:int, stream:FILE ):String;
+
+    /**
+     * Map a stream pointer to a file descriptor.
+     *
+     * <p>
+     * The <code>fileno()</code> function shall return the integer file descriptor associated with the stream pointed to by <code>stream</code>.
+     * </p>
+     *
+     * @example Usage
+     * <listing>
+     * import C.stdio.&#42;;
+     * 
+     * // let open a file
+     * var file:FILE = fopen( "hello_world.txt", "r" );
+     * 
+     * // we map a file stream to a file descriptor
+     * var fd:int = fileno( file );
+     * 
+     * // we can then trace its descriptor number
+     * trace( "fileno = " + fd );
+     * 
+     * </listing>
+     * 
+     * @param stream The pointer to a <code>FILE</code>.
+     * @return Upon successful completion, <code>fileno()</code> shall return the integer value of the file descriptor associated with stream.
+     * Otherwise, the value <code>-1</code> shall be returned and <code>errno</code> set to indicate the error.
+     * 
+     * @throws C.errno.CError <b>EBADF</b> The stream argument is not a valid stream, or the stream is not associated with a file.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see FILE
+     * @see C.errno#EBADF
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fileno.html
+     */
+    [native("::avmshell::CStdioClass::fileno")]
+    public native function fileno( stream:FILE ):int;
+
+    /**
+     * lock file stream.
+     *
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     */
+    [native("::avmshell::CStdioClass::flockfile")]
+    public native function flockfile( file:FILE ):void;
+
+    /**
+     * Open a stream.
+     *
+     * <p>
+     * The <code>fopen()</code> function shall open the file whose pathname is the string pointed to by <code>pathname</code>,
+     * and associates a stream with it.
+     * </p>
+     * 
+     * <p>
+     * The <code>mode</code> argument points to a string.
+     * If the string is one of the following, the file shall be opened in the indicated mode.
+     * Otherwise, the behavior is undefined.
+     * </p>
+     *
+     * <table class="innertable">
+     * <th><tr><td><b>mode</b></td><td><b>description</b></td></tr></th>
+     * <tr><td><b>r</b></td><td>Open file for reading.</td></tr>
+     * <tr><td><b>rb</b></td><td>Open binary file for reading.</td></tr>
+     * <tr><td><b>w</b></td><td>Truncate to zero length or create file for writing.</td></tr>
+     * <tr><td><b>wb</b></td><td>Truncate to zero length or create binary file for writing.</td></tr>
+     * <tr><td><b>a</b></td><td>Append; open or create file for writing at end-of-file.</td></tr>
+     * <tr><td><b>ab</b></td><td>Append; open or create binary file for writing at end-of-file.</td></tr>
+     * <tr><td><b>r+</b></td><td>Open file for update (reading and writing).</td></tr>
+     * <tr><td><b>rb+</b></td><td>Open binary file for update (reading and writing).</td></tr>
+     * <tr><td><b>r+b</b></td><td>Open binary file for update (reading and writing).</td></tr>
+     * <tr><td><b>w+</b></td><td>Truncate to zero length or create file for update.</td></tr>
+     * <tr><td><b>wb+</b></td><td>Truncate to zero length or create binary file for update.</td></tr>
+     * <tr><td><b>w+b</b></td><td>Truncate to zero length or create binary file for update.</td></tr>
+     * <tr><td><b>a+</b></td><td>Append; open or create file for update, writing at end-of-file.</td></tr>
+     * <tr><td><b>ab+</b></td><td>Append; open or create binary file for update, writing at end-of-file.</td></tr>
+     * <tr><td><b>a+b</b></td><td>Append; open or create binary file for update, writing at end-of-file.</td></tr>
+     * </table>
+     * 
+     * <p>
+     * The file descriptor associated with the opened stream shall be allocated and opened as if by a call to <code>open()</code>
+     * with the following flags
+     * </p>
+     * 
+     * <table class="innertable">
+     * <th><tr><td><b>fopen() Mode</b></td><td><b>open() Flags</b></td></tr></th>
+     * <tr><td><b>r</b> or <b>rb</b></td><td><code>O_RDONLY</code></td></tr>
+     * <tr><td><b>w</b> or <b>wb</b></td><td><code>O_WRONLY | O_CREAT | O_TRUNC</code></td></tr>
+     * <tr><td><b>a</b> or <b>ab</b></td><td><code>O_WRONLY | O_CREAT | O_APPEND</code></td></tr>
+     * <tr><td><b>r+</b> or <b>rb+</b> or <b>r+b</b></td><td><code>O_RDWR</code></td></tr>
+     * <tr><td><b>w+</b> or <b>wb+</b> or <b>w+b</b></td><td><code>O_RDWR | O_CREAT | O_TRUNC</code></td></tr>
+     * <tr><td><b>a+</b> or <b>ab+</b> or <b>a+b</b></td><td><code>O_RDWR | O_CREAT | O_APPEND</code></td></tr>
+     * </table>
+     * 
+     * @example Usage
+     * <listing>
+     * import C.stdio.&#42;;
+     * 
+     * // open a file for "writing"
+     * // if the file does not already exists the file is created
+     * var file:FILE = fopen( "hello_world.txt", "w" );
+     * 
+     * // if not null the stream was succesfully opened
+     * if( file  )
+     * {
+     *     trace( "succesfully opened stream from file" );
+     * }
+     * 
+     * // and then we close it
+     * fclose( file );
+     * 
+     * </listing>
+     * 
+     * @param pathname The pathname of the file to be opened.
+     * @param mode The opening mode.
+     * @return Upon successful completion, <code>fopen()</code> shall return a pointer to the object controlling the stream.
+     * Otherwise, a null pointer shall be returned, and <code>errno</code> shall be set to indicate the error.
+     * 
+     * @throws C.errno.CError <b>EACCES</b> Search permission is denied on a component of the path prefix,
+     * or the file exists and the permissions specified by mode are denied, or the file does not exist and write permission
+     * is denied for the parent directory of the file to be created.
+     * @throws C.errno.CError <b>EINTR</b> A signal was caught during <code>fopen()</code>.
+     * @throws C.errno.CError <b>EISDIR</b> The named file is a directory and mode requires write access.
+     * @throws C.errno.CError <b>ELOOP</b> A loop exists in symbolic links encountered during resolution of the path argument.
+     * @throws C.errno.CError <b>EMFILE</b> All file descriptors available to the process are currently open.
+     * @throws C.errno.CError <b>EMFILE</b> <code>STREAM_MAX</code> streams are currently open in the calling process.
+     * @throws C.errno.CError <b>ENAMETOOLONG</b> The length of a pathname exceeds <code>PATH_MAX</code>,
+     * or pathname resolution of a symbolic link produced an intermediate result with a length that exceeds <code>PATH_MAX</code>.
+     * @throws C.errno.CError <b>ENFILE</b> The maximum allowable number of files is currently open in the system.
+     * @throws C.errno.CError <b>ENOENT</b> The mode string begins with 'r' and a component of pathname does not name an existing file,
+     * or mode begins with 'w' or 'a' and a component of the path prefix of pathname does not name an existing file,
+     * or pathname is an empty string.
+     * @throws C.errno.CError <b>ENOENT</b> or <b>ENOTDIR</b> The pathname argument contains at least one <code>non-&lt;slash&gt;</code> character and
+     * ends with one or more trailing <code>&lt;slash&gt;</code> characters. If pathname names an existing file, an <code>ENOENT</code> error shall not occur.
+     * @throws C.errno.CError <b>ENOSPC</b> The directory or file system that would contain the new file cannot be expanded,
+     * the file does not exist, and the file was to be created.
+     * @throws C.errno.CError <b>ENOTDIR</b> A component of the path prefix names an existing file that is neither a directory nor a symbolic link
+     * to a directory, or the pathname argument contains at least one <code>non-&lt;slash&gt;</code> character and ends with one
+     * or more trailing <code>&lt;slash&gt;</code> characters and the last pathname component names an existing file that is neither a directory nor a symbolic link to a directory.
+     * @throws C.errno.CError <b>ENXIO</b> The named file is a character special or block special file, and the device associated with this special file does not exist.
+     * @throws C.errno.CError <b>EOVERFLOW</b> The named file is a regular file and the size of the file cannot be represented correctly in an object of type <code>off_t</code>.
+     * @throws C.errno.CError <b>EROFS</b> The named file resides on a read-only file system and mode requires write access.
+     * @throws C.errno.CError <b>EINVAL</b> The value of the mode argument is not valid.
+     * @throws C.errno.CError <b>ELOOP</b> More than <code>SYMLOOP_MAX</code> symbolic links were encountered during resolution of the path argument.
+     * @throws C.errno.CError <b>EMFILE</b> <code>FOPEN_MAX</code> streams are currently open in the calling process.
+     * @throws C.errno.CError <b>ENAMETOOLONG</b> The length of a component of a pathname is longer than <code>NAME_MAX</code>.
+     * @throws C.errno.CError <b>ENOMEM</b> Insufficient storage space is available.
+     * @throws C.errno.CError <b>ETXTBSY</b> The file is a pure procedure (shared text) file that is being executed and mode requires write access.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see FILE
+     * @see C.fcntl#open()
+     * @see C.errno#EACCES
+     * @see C.errno#EINTR
+     * @see C.errno#EISDIR
+     * @see C.errno#ELOOP
+     * @see C.errno#EMFILE
+     * @see C.errno#ENAMETOOLONG
+     * @see C.errno#ENFILE
+     * @see C.errno#ENOENT
+     * @see C.errno#ENOSPC
+     * @see C.errno#ENOTDIR
+     * @see C.errno#ENXIO
+     * @see C.errno#EOVERFLOW
+     * @see C.errno#EROFS
+     * @see C.errno#EINVAL
+     * @see C.errno#ETXTBSY
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fopen.html
+     */
+    [native("::avmshell::CStdioClass::fopen")]
+    public native function fopen( pathname:String, mode:String ):FILE;
+
+    /**
+     * Put a byte on a stream.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fputc.html
+     */
+    [native("::avmshell::CStdioClass::fputc")]
+    public native function fputc( c:int, stream:FILE ):int;
+
+    /**
+     * Put a string on a stream.
+     *
+     * <p>
+     * The <code>fputs()</code> function shall write the null-terminated string pointed to by <code>s</code> to the stream pointed to by <code>stream</code>.
+     * The terminating null byte shall not be written.
+     * </p>
+     *
+     * @example Usage
+     * <listing>
+     * import C.errno.&#42;;
+     * import C.stdio.&#42;;
+     * 
+     * // open a file for "writing"
+     * var file:FILE = fopen( "hello_world.txt", "w" );
+     * 
+     * // write a string to it
+     * var bytes:int = fputs( "hello world", file );
+     * 
+     * // if bytes is bigger than zero we could write some bytes to the file
+     * if( bytes &lt; 0 )
+     * {
+     *     trace( bytes + " bytes written to the file" );
+     * }
+     * else
+     * {
+     *     trace( "could not write to the file" );
+     *     trace( new CError( errno ) );
+     * }
+     * 
+     * // close it
+     * fclose( file );
+     * 
+     * </listing>
+     *
+     * @param s The string to write.
+     * @param stream The pointer to a <code>FILE</code>.
+     * @return Upon successful completion, <code>fputs()</code> shall return a non-negative number.
+     * Otherwise, it shall return <code>EOF</code>, set an error indicator for the stream, and set <code>errno</code> to indicate the error.
+     * 
+     * @throws C.errno.CError EAGAIN
+     * @throws C.errno.CError EBADF
+     * @throws C.errno.CError EFBIG
+     * @throws C.errno.CError etc.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see FILE
+     * @see C.errno#EAGAIN
+     * @see C.errno#EBADF
+     * @see C.errno#EFBIG
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fputs.html
+     */
+    [native("::avmshell::CStdioClass::fputs")]
+    public native function fputs( s:String, stream:FILE ):int;
+
+    /**
+     * Binary input.
+     *
+     * <p>
+     * The <code>fread()</code> function shall read into the bytearray pointed to by <code>bytes</code>
+     * up to <code>nitems</code> elements from the stream pointed to by <code>stream</code>.
+     * </p>
+     *
+     * <p>
+     * For each object, calls shall be made to the <code>fgetc()</code> function and the results stored,
+     * in the order read, in a bytearray of bytes exactly overlaying the object.
+     * The file position indicator for the stream (if defined) shall be advanced by the number of bytes successfully read.
+     * If an error occurs, the resulting value of the file position indicator for the stream is unspecified.
+     * If a partial element is read, its value is unspecified.
+     * </p>
+     *
+     * <p>
+     * The <code>fread()</code> function may mark the last data access timestamp of the file associated with stream for update.
+     * The last data access timestamp shall be marked for update by the first successful execution of <code>fgetc()</code>,
+     * <code>fgets()</code>, <code>fread()</code>, <code>fscanf()</code>, <code>getc()</code>, <code>getchar()</code>,
+     * <code>getdelim()</code>, <code>getline()</code>, <code>gets()</code>, or <code>scanf()</code> using stream
+     * that returns data not supplied by a prior call to <code>ungetc()</code>.
+     * </p>
+     * 
+     * <p>
+     * <b>note:</b>
+     * A <code>ByteArray</code> can not handle more than <b>4GB</b> (4294967296 bytes) or <code>uint.MAX_VALUE</code>.
+     * </p>
+     *
+     * @example Usage
+     * <listing>
+     * import C.errno.&#42;;
+     * import C.stdio.&#42;;
+     * import flash.utils.ByteArray;
+     * 
+     * // to save the data received
+     * var data:ByteArray = new ByteArray();
+     * 
+     * // we open the file in binary mode "rb"
+     * var fp:FILE = fopen( "myfile.bin", "rb" );
+     * 
+     * // before reading the file, the position is zero
+     * trace( "before = " + ftell( fp ) );
+     * 
+     * // we read 12 bytes from the file and save them in the bytearray
+     * var hasread:int = fread( data, 12, fp );
+     * 
+     * // after reading 12 bytes from the file, the position is 12
+     * trace( " after = " + ftell( fp ) );
+     * 
+     * // we do know we have read 12 bytes
+     * trace( "hasread = " + hasread );
+     * 
+     * // we are alos sure that 12 bytes have been saved
+     * trace( "length = " + data.length );
+     * 
+     * // let's read all those saved bytes one by one
+     * var byte:uint;
+     * var str:String;
+     * while( data.position &lt; data.length )
+     * {
+     *     byte = data.readUnsignedByte();
+     *     str  = byte.toString( 16 );
+     *     trace( str.length == 1 ? "0"+str: str );
+     * }
+     * 
+     * // don't forget to close the file
+     * fclose( fp );
+     * 
+     * </listing>
+     * 
+     * @param bytes The <code>ByteArray</code> where to write the data.
+     * @param nitems The number of elements, each one with a size of one byte.
+     * @param stream The pointer to a <code>FILE</code>.
+     * @return Upon successful completion, <code>fread()</code> shall return the number of elements successfully read
+     * which is less than <code>nitems</code> only if a read error or end-of-file is encountered.
+     * If <code>nitems</code> is <code>0</code>, <code>fread()</code> shall return <code>0</code>
+     * and the contents of the bytearray and the state of the stream remain unchanged.
+     * Otherwise, if a read error occurs, the error indicator for the stream shall be set, and <code>errno</code> shall be set to indicate the error.
+     * 
+     * @throws C.errno.CError EAGAIN
+     * @throws C.errno.CError EBADF
+     * @throws C.errno.CError EINTR
+     * @throws C.errno.CError EIO
+     * @throws C.errno.CError EOVERFLOW
+     * @throws C.errno.CError ENOMEM
+     * @throws C.errno.CError ENXIO
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see flash.utils.ByteArray
+     * @see FILE
+     * @see C.errno#EAGAIN
+     * @see C.errno#EBADF
+     * @see C.errno#EINTR
+     * @see C.errno#EIO
+     * @see C.errno#EOVERFLOW
+     * @see C.errno#ENOMEM
+     * @see C.errno#ENXIO
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fread.html
+     */
+    [native("::avmshell::CStdioClass::fread")]
+    public native function fread( bytes:ByteArray, nitems:int, stream:FILE ):int;
+
+    /**
+     * Open a stream.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/freopen.html
+     */
+    [native("::avmshell::CStdioClass::freopen")]
+    public native function freopen( pathname:String, mode:String, stream:FILE ):FILE;
+
+    //fscanf() - not supported
+    
+    /**
+     * Reposition a file-position indicator in a stream.
+     * 
+     * <p>
+     * The <code>fseek()</code> function shall set the file-position indicator for the stream pointed to by <code>stream</code>.
+     * If a read or write error occurs, the error indicator for the stream shall be set and <code>fseek()</code> fails.
+     * </p>
+     * 
+     * <p>
+     * The new position, measured in bytes from the beginning of the file, shall be obtained by adding offset to the position specified
+     * by <code>whence</code>. The specified point is the beginning of the file for <code>SEEK_SET</code>,
+     * the current value of the file-position indicator for <code>SEEK_CUR</code>, or end-of-file for <code>SEEK_END</code>.
+     * </p>
+     * 
+     * <p>
+     * A successful call to <code>fseek()</code> shall clear the end-of-file indicator for the stream and undo any effects of
+     * <code>ungetc()</code> and <code>ungetwc()</code> on the same stream.
+     * After an <code>fseek()</code> call, the next operation on an update stream may be either input or output.
+     * </p>
+     * 
+     * <p>
+     * If the most recent operation, other than <code>ftell()</code>, on a given stream is <code>fflush()</code>,
+     * the file offset in the underlying open file description shall be adjusted to reflect the location specified by <code>fseek()</code>.
+     * </p>
+     * 
+     * <p>
+     * The <code>fseek()</code> function shall allow the file-position indicator to be set beyond the end of existing data in the file.
+     * If data is later written at this point, subsequent reads of data in the gap shall return bytes with the value <code>0</code>
+     * until data is actually written into the gap.
+     * </p>
+     * 
+     * <p>
+     * If the stream is writable and buffered data had not been written to the underlying file, <code>fseek()</code> shall cause
+     * the unwritten data to be written to the file and shall mark the last data modification and last file status change timestamps
+     * of the file for update.
+     * </p>
+     * 
+     * @example Usage
+     * <listing>
+     * import C.stdio.&#42;;
+     * 
+     * // we open the file in binary mode "rb"
+     * // by default a file is a position zero
+     * var fp:FILE = fopen( "myfile.bin", "rb" );
+     * 
+     * // to save the file size
+     * var filesize:Number;
+     * 
+     * // we seek till the end
+     * fseek( fp , 0 , SEEK_END );
+     * 
+     * // we record the position
+     * filesize = ftell( fp );
+     * 
+     * // we reset the position to zero
+     * rewind( fp );
+     * 
+     * // now we know the file size in bytes
+     * trace( "myfile.bin = " + filesize + " bytes" );
+     * 
+     * // don't forget to close the file
+     * fclose( fp );
+     * 
+     * </listing>
+     * 
+     * @param stream The pointer to a <code>FILE</code>.
+     * @param offset The number of bytes to seek from the given <code>whence</code> position.
+     * @param whence The position where to starts. Can be <code>SEEK_SET</code> (beginning), <code>SEEK_CUR</code> (current) or <code>SEEK_END</code> (end).
+     * @return The <code>fseek()</code> function shall return <code>0</code> if it succeed.
+     * Otherwise, it shall return <code>-1</code> and set <code>errno</code> to indicate the error.
+     * 
+     * @throws C.errno.CError EAGAIN
+     * @throws C.errno.CError EBADF
+     * @throws C.errno.CError EFBIG
+     * @throws C.errno.CError EINTR
+     * @throws C.errno.CError EINVAL
+     * @throws C.errno.CError EIO
+     * @throws C.errno.CError ENOSPC
+     * @throws C.errno.CError EOVERFLOW
+     * @throws C.errno.CError EPIPE
+     * @throws C.errno.CError ESPIPE
+     * @throws C.errno.CError ENXIO
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see FILE
+     * @see C.stdio#SEEK_SET
+     * @see C.stdio#SEEK_CUR
+     * @see C.stdio#SEEK_END
+     * @see C.errno#EAGAIN
+     * @see C.errno#EBADF
+     * @see C.errno#EFBIG
+     * @see C.errno#EINTR
+     * @see C.errno#EINVAL
+     * @see C.errno#EIO
+     * @see C.errno#ENOSPC
+     * @see C.errno#EOVERFLOW
+     * @see C.errno#EPIPE
+     * @see C.errno#ESPIPE
+     * @see C.errno#ENXIO
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fseek.html
+     * @see http://beej.us/guide/bgc/output/html/multipage/fseek.html
+     */
+    [native("::avmshell::CStdioClass::fseek")]
+    public native function fseek( stream:FILE, offset:Number, whence:int ):int;
+
+    //fseeko() - not supported
+    
+    /**
+     * Set current file position.
+     *
+     * <p>
+     * The <code>fsetpos()</code> function shall set the file position and state indicators for the stream pointed
+     * to by <code>stream</code> according to the value of the object pointed to by <code>pos</code>,
+     * which the application shall ensure is a value obtained from an earlier call to <code>fgetpos()</code> on the same stream.
+     * </p>
+     *
+     * <p>
+     * If a read or write error occurs, the error indicator for the stream shall be set and <code>fsetpos()</code> fails.
+     * </p>
+     *
+     * <p>
+     * A successful call to the <code>fsetpos()</code> function shall clear the end-of-file indicator for the stream
+     * and undo any effects of <code>ungetc()</code> on the same stream.
+     * After an <code>fsetpos()</code> call, the next operation on an update stream may be either input or output.
+     * </p>
+     * 
+     * @param stream The pointer to a <code>FILE</code>.
+     * @param pos The pointer to a <code>fpos_t</code>.
+     * @return The <code>fsetpos()</code> function shall return <code>0</code> if it succeeds;
+     * otherwise, it shall return a non-zero value and set <code>errno</code> to indicate the error.
+     * 
+     * @throws C.errno.CError EAGAIN
+     * @throws C.errno.CError EBADF
+     * @throws C.errno.CError EFBIG
+     * @throws C.errno.CError etc.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see C.stdio#fgetpos()
+     * @see FILE
+     * @see fpos_t
+     * @see C.errno#EAGAIN
+     * @see C.errno#EBADF
+     * @see C.errno#EFBIG
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fsetpos.html
+     * @see http://beej.us/guide/bgc/output/html/multipage/fgetpos.html
+     */
+    [native("::avmshell::CStdioClass::fsetpos")]
+    public native function fsetpos( stream:FILE, pos:fpos_t ):int;
+
+    /**
+     * Return a file offset in a stream.
+     *
+     * <p>
+     * The <code>ftell()</code> function shall obtain the current value of the file-position indicator
+     * for the stream pointed to by <code>stream</code>.
+     * </p>
+     * 
+     * <p>
+     * The <code>ftell()</code> function shall not change the setting of <code>errno</code> if successful.
+     * </p>
+     * 
+     * @param stream The pointer to a <code>FILE</code>.
+     * @return Upon successful completion, <code>ftell()</code> shall return the current value of the
+     * file-position indicator for the stream measured in bytes from the beginning of the file.
+     * Otherwise, <code>ftell()</code> shall return <code>-1</code>, and set <code>errno</code> to indicate the error.
+     * 
+     * @throws C.errno.CError EBADF
+     * @throws C.errno.CError EOVERFLOW
+     * @throws C.errno.CError ESPIPE
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see FILE
+     * @see C.errno#EBADF
+     * @see C.errno#EOVERFLOW
+     * @see C.errno#ESPIPE
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/ftell.html
+     */
+    [native("::avmshell::CStdioClass::ftell")]
+    public native function ftell( stream:FILE ):Number;
+
+    //ftello() - not supported
+    
+    /**
+     * try to lock file stream.
+     *
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     */
+    [native("::avmshell::CStdioClass::ftrylockfile")]
+    public native function ftrylockfile( file:FILE ):int;
+
+    /**
+     * unlock file stream.
+     *
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     */
+    [native("::avmshell::CStdioClass::funlockfile")]
+    public native function funlockfile( file:FILE ):void;
+
+    /**
+     * Binary output.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fwrite.html
+     */
+    [native("::avmshell::CStdioClass::fwrite")]
+    public native function fwrite( bytes:ByteArray, nitems:int, stream:FILE ):int;
+
+    /**
+     * Get a byte from a stream.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/getc.html
+     */
+    [native("::avmshell::CStdioClass::getc")]
+    public native function getc( stream:FILE ):int;
+
+    /**
+     * Get a byte from a stdin stream.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/getchar.html
+     */
+    [native("::avmshell::CStdioClass::getchar")]
+    public native function getchar():int;
+
+    /**
+     * Get a byte from a stream with explicit client locking.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/getc.html
+     */
+    public function getc_unlocked( stream:FILE ):int
+    {
+        return __stdio._getc_unlocked( stream );
+    }
+
+    /**
+     * Get a byte from a stdin stream with explicit client locking.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/getchar.html
+     */
+    public function getchar_unlocked():int
+    {
+        return __stdio._getchar_unlocked();
+    }
+    
+
+    //getdelim() - not supported
+    //getline() - not supported
+    
+    //OB - Obsolescent, may be removed in a future version.
+    //not implemented on purpose
+    //see http://www.gidnetwork.com/b-56.html Things to Avoid in C/C++ -- gets()
+    /**
+     * Get a string from a stdin stream.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/gets.html
+     */
+    //[native("::avmshell::CStdioClass::gets")]
+    //public native function gets():String;
+    
+    //open_memstream() - not supported
+
+    //CX - Extension to ISO C standard.
+    /**
+     * Close a pipe stream to or from a process.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/pclose.html
+     */
+    [native("::avmshell::CStdioClass::pclose")]
+    public native function pclose( stream:FILE ):int;
+
+    /**
+     * Write error messages to standard error.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/perror.html
+     */
+    [native("::avmshell::CStdioClass::perror")]
+    public native function perror( s:String = "" ):void;
+
+    //CX - Extension to ISO C standard.
+    /**
+     * Initiate pipe streams to or from a process.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/popen.html
+     */
+    [native("::avmshell::CStdioClass::popen")]
+    public native function popen( command:String, mode:String ):FILE;
+
+    //printf() - not supported
+    
+    /**
+     * Put a byte on a stream.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/putc.html
+     */
+    //[native("::avmshell::CStdioClass::putc")]
+    //public native function putc( c:int, stream:FILE ):int;
+
+    /**
+     * Put a byte on a stdout stream.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/clearerr.html
+     */
+    //[native("::avmshell::CStdioClass::putchar")]
+    //public native function putchar( c:int ):int;
+
+    //putc_unlocked() - not supported
+    //putchar_unlocked() - not supported
+
+    /**
+     * Put a string on standard output.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/puts.html
+     */
+    //[native("::avmshell::CStdioClass::puts")]
+    //public native function puts( s:String ):int;
+
+    /**
      * Remove a file.
+     *
      * 
      * <p><b>note:</b></p>
      * <p>
@@ -120,25 +1339,237 @@ package C.stdio
      * you should instead use <code>rmdir()</code> in <code>C.unistd</code>
      * </p>
      * 
-     * @productversion redtamarin 0.3
-     * @since 0.3.0
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/remove.html
      */
+    //[native("::avmshell::CStdioClass::remove")]
+    //public native function remove( path:String ):int;
     public function remove( filename:String ):int
     {
         return __stdio.remove( filename );
     }
-    
+
     /**
      * Rename a file.
+     *
+     * <p>
+     * The <code>rename()</code> function shall change the name of a file.
+     * </p>
      * 
-     * @productversion redtamarin 0.3
-     * @since 0.3.0
+     * <p>
+     * If the <code>rename()</code> function fails for any reason other than <code>EIO</code>,
+     * any file named by <code>newname</code> shall be unaffected.
+     * </p>
+     *
+     * @example usage
+     * <listing>
+     * import C.errno.&#42;;
+     * import C.stdio2.&#42;;
+     * 
+     * var result:int = rename2( "/test/heelo.txt", "/test/world.txt" );
+     * 
+     * if( result &lt; 0 )
+     * {
+     *     trace( new CError( errno ) );
+     * }
+     * </listing>
+     * 
+     * @param oldname The pathname of the file to be renamed.
+     * @param newname The new pathname of the file.
+     * @return Upon successful completion, the <code>rename()</code> function shall return <code>0</code>.
+     * Otherwise, it shall return <code>-1</code>, <code>errno</code> shall be set to indicate the error,
+     * and neither the file named by <code>oldname</code> nor the file named by <code>newname</code> shall be changed or created.
+     * 
+     * @throws C.errno.CError EACCES
+     * @throws C.errno.CError EBUSY
+     * @throws C.errno.CError EEXIST or ENOTEMPTY
+     * @throws C.errno.CError EINVAL
+     * @throws C.errno.CError EIO
+     * @throws C.errno.CError etc.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see C.errno#EACCES
+     * @see C.errno#EBUSY
+     * @see C.errno#EEXIST
+     * @see C.errno#ENOTEMPTY
+     * @see C.errno#EINVAL
+     * @see C.errno#EIO
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/rename.html
      */
-    public function rename( oldname:String, newname:String ):int
+    [native("::avmshell::CStdioClass::rename")]
+    public native function rename( oldname:String, newname:String ):int;
+
+    //renameat() - not supported
+
+    /**
+     * Reset the file position indicator in a stream.
+     * 
+     * <p> The call </p>
+     * <pre>
+     * rewind( stream );
+     * </pre>
+     * <p> shall be equivalent to </p>
+     * <pre>
+     * fseek( stream, 0, SEEK_SET );
+     * </pre>
+     * <p> except that <code>rewind()</code> shall also clear the error indicator. </p>
+     * 
+     * <p>
+     * Since <code>rewind()</code> does not return a value, an application wishing to detect errors should clear <code>errno</code>,
+     * then call <code>rewind()</code>, and if <code>errno</code> is non-zero, assume an error has occurred.
+     * </p>
+     * 
+     * @param stream The pointer to a <code>FILE</code>.
+     * 
+     * @throws C.errno.CError EAGAIN
+     * @throws C.errno.CError EBADF
+     * @throws C.errno.CError EFBIG
+     * @throws C.errno.CError EINTR
+     * @throws C.errno.CError EIO
+     * @throws C.errno.CError ENOSPC
+     * @throws C.errno.CError EOVERFLOW
+     * @throws C.errno.CError EPIPE
+     * @throws C.errno.CError ESPIPE
+     * @throws C.errno.CError ENXIO
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see FILE
+     * @see C.stdio#fseek()
+     * @see C.errno#EAGAIN
+     * @see C.errno#EBADF
+     * @see C.errno#EFBIG
+     * @see C.errno#EINTR
+     * @see C.errno#EIO
+     * @see C.errno#ENOSPC
+     * @see C.errno#EOVERFLOW
+     * @see C.errno#EPIPE
+     * @see C.errno#ESPIPE
+     * @see C.errno#ENXIO
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/rewind.html
+     */
+    [native("::avmshell::CStdioClass::rewind")]
+    public native function rewind( stream:FILE ):void;
+
+    //scanf() - not supported
+    //setbuf() - not supported
+
+    /**
+     * Assign buffering to a stream.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/setvbuf.html
+     */
+    //[native("::avmshell::CStdioClass::setvbuf")]
+    //public native function setvbuf( stream:FILE, type:int, size:int ):int;
+
+    //snprintf() - not supported
+    //sprintf() - not supported
+    //sscanf() - not supported
+    //tempnam() - not supported
+    
+    /**
+     * Create a temporary file.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/tmpfile.html
+     */
+    //[native("::avmshell::CStdioClass::tmpfile")]
+    //public native function tmpfile():FILE;
+
+    //OB - Obsolescent, may be removed in a future version.
+    /**
+     * Create a name for a temporary file.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/tmpnam.html
+     */
+    //[native("::avmshell::CStdioClass::tmpnam")]
+    //public native function tmpnam():String;
+
+    /**
+     * Push byte back into input stream.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/ungetc.html
+     */
+    //[native("::avmshell::CStdioClass::ungetc")]
+    //public native function ungetc( c:int, stream:FILE ):int;
+
+    //vdprintf() - not supported
+    //vfscanf() - not supported
+    //vprintf() - not supported
+    //vscanf() - not supported
+    //vsnprintf() - not supported
+    //vsprintf() - not supported
+    //vsscanf() - not supported
+
+
+    /**
+     * A structure containing information about a file.
+     *
+     * <p>
+     * <b>FILE</b> is a type suitable for storing information for a file stream.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native(cls="::avmshell::CFILEClass", instance="::avmshell::CFILEObject", methods="auto")]
+    public class FILE
     {
-        return __stdio.rename( oldname, newname );
+
+        /** @private */
+        /*[cppcall]
+        public function dummyTestRead():void
+        {
+            trace( "dummyTestRead() called from C++" );
+        }*/
+
+        /** @private */
+        /*[cppcall]
+        public function dummyTestWrite():void
+        {
+            trace( "dummyTestWrite() called from C++" );
+        }*/
+
     }
 
+    /**
+     * A non-array type containing all information needed to specify uniquely every position within a file.
+     *
+     * <p>
+     * <b>fpos_t</b> is a type suitable for storing any position in a file.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native(cls="::avmshell::Cfpos_tClass", instance="::avmshell::Cfpos_tObject", methods="auto")]
+    public class fpos_t
+    {
+
+    }
+
+
+
+
+    
+
+    //NONSTANDARD - RedTamarin Extension to ISO C standard.
     /**
      * Change the console stream mode to blocking or non-blocking.
      * 
@@ -150,6 +1581,7 @@ package C.stdio
         return __stdio.con_stream_mode( state );
     }
 
+    //NONSTANDARD - RedTamarin Extension to ISO C standard.
     /**
      * Change the console translation mode to binary or text.
      * 
@@ -161,15 +1593,20 @@ package C.stdio
         return __stdio.con_trans_mode( state );
     }
 
-    /**
+    //NONSTANDARD - RedTamarin Extension to ISO C standard.
+    /*
      * Checks the console for keyboard input.
      * 
      * @productversion redtamarin 0.3
      * @since 0.3.2
      */
-    public function kbhit():int
+    /*public function kbhit():int
     {
         return __stdio.kbhit();
-    }
-    
+    }*/
+
+
+
+
+
 }

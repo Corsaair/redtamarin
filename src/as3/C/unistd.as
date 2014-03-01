@@ -7,13 +7,7 @@
 package C.unistd
 {
     
-    /**
-     * POSIX operating system API
-     * @internal
-     * 
-     * @langversion 3.0
-     * @playerversion AVM 0.3
-     */
+    /** @internal */
     [native(cls="::avmshell::CUnistdClass", methods="auto", construct="none")]
     [Inspectable(environment="none")]
     internal class __unistd
@@ -23,238 +17,514 @@ package C.unistd
         public native static function get W_OK():int;
         public native static function get R_OK():int;
 
-        /* note:
-           all those are also normaly defined in <sys/stat.h>
-           moved here because of chmod()
-        */
-        public native static function get S_IFMT():int;
-        public native static function get S_IFIFO():int;
-        public native static function get S_IFCHR():int;
-        public native static function get S_IFDIR():int;
-        public native static function get S_IFBLK():int;
-        public native static function get S_IFREG():int;
-        public native static function get S_IFLNK():int;
-        public native static function get S_IFSOCK():int;
-
-        public native static function get S_IRWXU():int;
-        public native static function get S_IRUSR():int;
-        public native static function get S_IWUSR():int;
-        public native static function get S_IXUSR():int;
-        
-        public native static function get S_IRWXG():int;
-        public native static function get S_IRGRP():int;
-        public native static function get S_IWGRP():int;
-        public native static function get S_IXGRP():int;
-        
-        public native static function get S_IRWXO():int;
-        public native static function get S_IROTH():int;
-        public native static function get S_IWOTH():int;
-        public native static function get S_IXOTH():int;
-
-        public native static function get S_IREAD():int;
-        public native static function get S_IWRITE():int;
-        public native static function get S_IEXEC():int;
-
-
-        public native static function access( path:String, mode:int ):int;  //int access(const char *path, int mode);
-        public native static function chdir( path:String ):int;             //int chdir(const char *path);
-        public native static function chmod( path:String, mode:int ):int;   //int chmod(const char *path, mode_t mode);
         public native static function getcwd():String;                      //char *getcwd(char *buf, size_t size);
         public native static function gethostname():String;                 //int gethostname(char *name, size_t namelen);
         public native static function getlogin():String;                    //char *getlogin(void);
         public native static function getpid():int;                         //pid_t getpid(void);
-
-        /* note:
-           mkdir() is normaly defined in <sys/stat.h> and can define file permission
-           eg. int mkdir(const char *path, mode_t mode);
-           1. to be in sync with _mkdir() WIN32 which can not define file permission
-              we don't allow it in the API, we use those default permissions:
-              S_IRWXU = Read, write, execute/search by owner.
-              S_IRWXG = Read, write, execute/search by group.
-              S_IRWXO = Read, write, execute/search by others.
-           2. because unistd define rmdir(), we moved the function here
-              instead of having C.sys.stat::mkdir() as it seems cleaner
-        */
-        public native static function mkdir( path:String ):int;            //int mkdir(const char *path);
         public native static function rmdir( path:String ):int;            //int rmdir(const char *path);
         public native static function sleep( milliseconds:uint ):void;     //unsigned sleep(unsigned seconds);
         public native static function unlink( path:String ):int;           //int unlink(const char *path);
     }
 
-    /** Check for existence.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+    /**
+     * Test for existence of file.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
     public const F_OK:int = __unistd.F_OK;
 
-    /** Check for execute permission.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+    /**
+     * Test for execute (search) permission.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
     public const X_OK:int = __unistd.X_OK;
 
-    /** Check for write permission.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+    /**
+     * Test for write permission.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
     public const W_OK:int = __unistd.W_OK;
 
-    /** Check for read permission.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+    /**
+     * Test for read permission.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
     public const R_OK:int = __unistd.R_OK;
 
-    /** Type of file mask.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IFMT:int   = __unistd.S_IFMT;
-    
-    /** Named pipe (fifo).
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IFIFO:int  = __unistd.S_IFIFO;
-    
-    /** Character special (device).
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IFCHR:int  = __unistd.S_IFCHR;
-    
-    /** Directory.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IFDIR:int  = __unistd.S_IFDIR;
-    
-    /** Block special (device).
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IFBLK:int  = __unistd.S_IFBLK;
-    
-    /** Regular file.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IFREG:int  = __unistd.S_IFREG;
-    
-    /** Symbolic link.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IFLNK:int  = __unistd.S_IFLNK;
-    
-    /** Socket.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IFSOCK:int = __unistd.S_IFSOCK;
 
-    /** Read/Write/Execute mask for owner.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+    /**
+     * File number of <code>stdin</code>; <code>0</code>.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
-    public const S_IRWXU:int = __unistd.S_IRWXU;
-    /** Read permission for owner.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IRUSR:int = __unistd.S_IRUSR;
-    /** Write permission for owner.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IWUSR:int = __unistd.S_IWUSR;
-    /** Execute permission for owner.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IXUSR:int = __unistd.S_IXUSR;
+    public const STDIN_FILENO:int = 0;
 
-    /** Read/Write/Execute mask for group.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+    /**
+     * File number of <code>stdout</code>; <code>1</code>.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
-    public const S_IRWXG:int = __unistd.S_IRWXG;
-    /** Read permission for group.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IRGRP:int = __unistd.S_IRGRP;
-    /** Write permission for group.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IWGRP:int = __unistd.S_IWGRP;
-    /** Execute permission for group.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IXGRP:int = __unistd.S_IXGRP;
+    public const STDOUT_FILENO:int = 1;
 
-    /** Read/Write/Execute mask for other.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+    /**
+     * File number of <code>stderr</code>; <code>2</code>.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
-    public const S_IRWXO:int = __unistd.S_IRWXO;
-    /** Read permission for other.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IROTH:int = __unistd.S_IROTH;
-    /** Write permission for other.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IWOTH:int = __unistd.S_IWOTH;
-    /** Execute permission for other.
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IXOTH:int = __unistd.S_IXOTH;
+    public const STDERR_FILENO:int = 2;
 
-    /** Read permission for all (backward compatability).
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IREAD:int  = __unistd.S_IREAD;
-    /** Write permission for all (backward compatability).
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IWRITE:int = __unistd.S_IWRITE;
-    /** Execute permission for all (backward compatability).
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public const S_IEXEC:int  = __unistd.R_OK;
+
+
+
 
 
     /**
-     * Determine accessibility of a file.
+     * Determine accessibility of a file relative to directory file descriptor.
      * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+     * <p>
+     * The <code>access()</code> function shall check the file named by the pathname pointed
+     * to by the <code>path</code> argument for accessibility according to the bit pattern
+     * contained in <code>mode</code>, using the real user ID in place of the effective user ID
+     * and the real group ID in place of the effective group ID.
+     * </p>
+     * 
+     * <p>
+     * The value of <code>mode</code> is either the bitwise-inclusive <code>OR</code> of the
+     * access permissions to be checked (<code>R_OK</code>, <code>W_OK</code>, <code>X_OK</code>)
+     * or the existence test (<code>F_OK</code>).
+     * </p>
+     *
+     * <p>
+     * If any access permissions are checked, each shall be checked individually,
+     * as described in XBD <a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_04">File Access Permissions</a>,
+     * except that where that description refers to execute permission for a process
+     * with appropriate privileges, an implementation may indicate success for <code>X_OK</code>
+     * even if execute permission is not granted to any user.
+     * </p>
+     * 
+     * @example Usage
+     * <listing>
+     * import C.errno.&#42;;
+     * import C.unistd.&#42;;
+     * 
+     * var pathname:String = "/tmp/myfile";
+     * 
+     * // tests whether a file named myfile exists in the /tmp directory
+     * var result:int = access( pathname, F_OK );
+     * 
+     * if( result == 0 )
+     * {
+     *     trace( "file exists" );
+     * }
+     * else
+     * {
+     *     trace( "file does not exists" );
+     *     trace( errno );
+     * }
+     * 
+     * </listing>
+     * 
+     * @param path The pathname to check.
+     * @param mode the bit pattern access permissions.
+     * @return Upon successful completion, these functions shall return <code>0</code>.
+     * Otherwise, these functions shall return <code>-1</code> and set <code>errno</code> to indicate the error.
+     * 
+     * @throws C.errno.CError <b>EACCES</b> Permission bits of the file mode do not permit the requested access, or search permission is denied on a component of the path prefix.
+     * @throws C.errno.CError <b>ELOOP</b> A loop exists in symbolic links encountered during resolution of the path argument.
+     * @throws C.errno.CError <b>ENAMETOOLONG</b> The length of a component of a pathname is longer than <code>{NAME_MAX}</code>.
+     * @throws C.errno.CError <b>ENOENT</b> A component of <code>path</code> does not name an existing file or <code>path</code> is an empty string.
+     * @throws C.errno.CError <b>ENOTDIR</b> A component of the <code>path</code> prefix names an existing file that is neither a directory nor a symbolic link to a directory, or the <code>path</code> argument contains at least one non-&lt;slash&gt; character and ends with one or more trailing &lt;slash&gt; characters and the last pathname component names an existing file that is neither a directory nor a symbolic link to a directory.
+     * @throws C.errno.CError <b>EROFS</b> Write access is requested for a file on a read-only file system.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     * 
+     * @see C.errno#EACCES
+     * @see C.errno#ELOOP
+     * @see C.errno#ENAMETOOLONG
+     * @see C.errno#ENOENT
+     * @see C.errno#ENOTDIR
+     * @see C.errno#EROFS
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/access.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_04 File Access Permissions
      */
-    public function access( path:String, mode:int ):int
-    {
-        return __unistd.access( path, mode );
-    }
-    
+    [native("::avmshell::CUnistdClass::access")]
+    public native function access( path:String, mode:int ):int;
+
     /**
      * Change working directory.
+     *
+     * <p>
+     * The <code>chdir()</code> function shall cause the directory named by the pathname
+     * pointed to by the <code>path</code> argument to become the current working directory;
+     * that is, the starting point for path searches for pathnames not beginning with '/'.
+     * </p>
+     *
+     * @example Usage
+     * <listing>
+     * import C.errno.&#42;;
+     * import C.unistd.&#42;;
      * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+     * var directory:String = "/tmp";
+     * 
+     * // makes the value pointed to by directory, the current working directory
+     * var result:int = chdir( directory );
+     * 
+     * if( result == 0 )
+     * {
+     *     trace( "successfully changed directory" );
+     * }
+     * else
+     * {
+     *     trace( "could not change directory" );
+     *     trace( errno );
+     * }
+     * 
+     * </listing>
+     *
+     * @param path The pathname to change directory to.
+     * @return Upon successful completion, <code>0</code> shall be returned.
+     * Otherwise, <code>-1</code> shall be returned, the current working directory
+     * shall remain unchanged, and <code>errno</code> shall be set to indicate the error.
+     * 
+     * @throws C.errno.CError <b>EACCES</b> Search permission is denied for any component of the pathname.
+     * @throws C.errno.CError <b>ELOOP</b> A loop exists in symbolic links encountered during resolution of the <code>path</code> argument.
+     * @throws C.errno.CError <b>ENAMETOOLONG</b> The length of a component of a pathname is longer than <code>{NAME_MAX}</code>.
+     * @throws C.errno.CError <b>ENOENT</b> A component of <code>path</code> does not name an existing directory or <code>path</code> is an empty string.
+     * @throws C.errno.CError <b>ENOTDIR</b> A component of the pathname names an existing file that is neither a directory nor a symbolic link to a directory.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see C.errno#EACCES
+     * @see C.errno#ELOOP
+     * @see C.errno#ENAMETOOLONG
+     * @see C.errno#ENOENT
+     * @see C.errno#ENOTDIR
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/chdir.html
      */
-    public function chdir( path:String ):int
-    {
-        return __unistd.chdir( path );
-    }
+    [native("::avmshell::CUnistdClass::chdir")]
+    public native function chdir( path:String ):int;
     
+    /**
+     * Close a file descriptor.
+     *
+     * <p>
+     * The <code>close()</code> function shall deallocate the file descriptor indicated
+     * by <code>fildes</code>. To deallocate means to make the file descriptor available
+     * for return by subsequent calls to <code>open()</code> or other functions that allocate
+     * file descriptors. All outstanding record locks owned by the process on the file
+     * associated with the file descriptor shall be removed (that is, unlocked).
+     * </p>
+     *
+     * <p>
+     * If <code>close()</code> is interrupted by a signal that is to be caught,
+     * it shall return <code>-1</code> with <code>errno</code> set to <code>EINTR</code>
+     * and the state of <code>fildes</code> is unspecified.
+     * If an I/O error occurred while reading from or writing to the file system during
+     * <code>close()</code>, it may return <code>-1</code> with <code>errno</code> set to
+     * <code>EIO</code>; if this error is returned, the state of <code>fildes</code> is unspecified.
+     * </p>
+     *
+     * <p>
+     * When all file descriptors associated with a pipe or FIFO special file are closed,
+     * any data remaining in the pipe or FIFO shall be discarded.
+     * </p>
+     *
+     * <p>
+     * When all file descriptors associated with an open file description have been closed,
+     * the open file description shall be freed.
+     * </p>
+     *
+     * <p>
+     * If the link count of the file is <code>0</code>, when all file descriptors associated
+     * with the file are closed, the space occupied by the file shall be freed
+     * and the file shall no longer be accessible.
+     * </p>
+     *
+     * @example Usage
+     * <listing>
+     * import C.errno.&#42;;
+     * import C.stdlib.&#42;;
+     * import C.stdio.&#42;;
+     * import C.unistd.&#42;;
+     * 
+     * const LOCKFILE:String = "/etc/ptmp";
+     *
+     * // obtain a file descriptor
+     * var pfd:int = open( LOCKFILE, O_WRONLY | O_CREAT | O_EXCL, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+     * 
+     * // attempt to associate that file descriptor with a stream
+     * var fpfd:FILE = fdopen( pfd, "w" );
+     * 
+     * if( fpfd == null )
+     * {
+     *     // close a file descriptor after the unsuccessful attempt
+     *     close( pfd );
+     *     
+     *     // delete the file
+     *     unlink( LOCKFILE );
+     *     
+     *     exit( 1 );
+     * }
+     * 
+     * </listing>
+     * 
+     * @param fildes The file descriptor.
+     * @return Upon successful completion, <code>0</code> shall be returned;
+     * otherwise, <code>-1</code> shall be returned and <code>errno</code> set to indicate the error.
+     * 
+     * @throws C.errno.CError <b>EBADF</b> The <code>fildes</code> argument is not a open file descriptor.
+     * @throws C.errno.CError <b>EINTR</b> The <code>close()</code> function was interrupted by a signal.
+     * @throws C.errno.CError <b>EIO</b> An I/O error occurred while reading from or writing to the file system.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see C.errno#EBADF
+     * @see C.errno#EINTR
+     * @see C.errno#EIO
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/close.html
+     */
+    [native("::avmshell::CUnistdClass::close")]
+    public native function close( fildes:int ):int;
+
+    /**
+     * Duplicate an open file descriptor.
+     *
+     * <p>
+     * The <code>dup()</code> function provides an alternative interface to the service
+     * provided by <code>fcntl()</code> using the <code>F_DUPFD</code> command.
+     * </p>
+     *
+     * <p>
+     * The call <code>dup(fildes)</code> shall be equivalent to:
+     * <pre>
+     * fcntl( fildes, F_DUPFD, 0 );
+     * </pre>
+     * </p>
+     *
+     * @example Usage
+     * <listing>
+     * import C.errno.&#42;;
+     * import C.unistd.&#42;;
+     *
+     * // re-assign standard output to go to the file referencec by outcopy
+     * var outcopy:int = dup( STDOUT_FILENO );
+     * 
+     * </listing>
+     * 
+     * @param fildes The file descriptor to duplicate.
+     * @return Upon successful completion a non-negative integer, namely the file descriptor,
+     * shall be returned; otherwise, <code>-1</code> shall be returned and <code>errno</code> set to indicate the error.
+     *
+     * @throws C.errno.CError <b>EBADF</b> The <code>fildes</code> argument is not a valid open file descriptor.
+     * @throws C.errno.CError <b>EMFILE</b> All file descriptors available to the process are currently open.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see C.errno#EBADF
+     * @see C.errno#EMFILE
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/dup.html
+     */
+    [native("::avmshell::CUnistdClass::dup")]
+    public native function dup( fildes:int ):int;
+
+    /**
+     * Duplicate an open file descriptor.
+     *
+     * <p>
+     * The <code>dup2()</code> function shall cause the file descriptor <code>fildes2</code>
+     * to refer to the same open file description as the file descriptor <code>fildes</code>
+     * and to share any locks, and shall return <code>fildes2</code>.
+     * </p>
+     * 
+     * <p>
+     * If <code>fildes2</code> is already a valid open file descriptor,
+     * it shall be closed first, unless <code>fildes</code> is equal to <code>fildes2</code>
+     * in which case <code>dup2()</code> shall return <code>fildes2</code> without closing it.
+     * </p>
+     * 
+     * <p>
+     * If the close operation fails to close <code>fildes2</code>,
+     * <code>dup2()</code> shall return <code>-1</code> without changing the open
+     * file description to which <code>fildes2</code> refers.
+     * </p>
+     * 
+     * <p>
+     * If <code>fildes</code> is not a valid file descriptor,
+     * <code>dup2()</code> shall return <code>-1</code> and shall not close <code>fildes2</code>.
+     * </p>
+     * 
+     * <p>
+     * If <code>fildes2</code> is less than <code>0</code> or greater than or equal to <code>{OPEN_MAX}</code>,
+     * <code>dup2()</code> shall return <code>-1</code> with <code>errno</code> set to <code>EBADF</code>.
+     * </p>
+     *
+     * @example Usage
+     * <listing>
+     * import C.errno.&#42;;
+     * import C.unistd.&#42;;
+     *
+     * // redirect messages from stderr to stdout
+     * var outcopy:int = dup2( STDOUT_FILENO, STDERR_FILENO );
+     * 
+     * </listing>
+     *
+     * @example Redirect to a file
+     * <listing>
+     * import C.errno.&#42;;
+     * import C.stdlib.&#42;;
+     * import C.unistd.&#42;;
+     * 
+     * // we open a file
+     * var myfile:int = open( "myfile.txt", O_APPEND | O_WRONLY );
+     * 
+     * // we redirect the standard output to file
+     * var result:int = dup2( myfile, STDOUT_FILENO );
+     * 
+     * // now standard out has been redirected, we can write to the file
+     * trace( "This will print in myfile.txt" );
+     * 
+     * </listing>
+     * 
+     * @param fildes The source file descriptor.
+     * @param fildes2 The destination file descriptor.
+     * @return Upon successful completion a non-negative integer, namely the file descriptor,
+     * shall be returned; otherwise, <code>-1</code> shall be returned and <code>errno</code> set to indicate the error.
+     *
+     * @throws C.errno.CError <b>EBADF</b> The <code>fildes</code> argument is not a valid open file descriptor or the argument <code>fildes2</code> is negative or greater than or equal to <code>{OPEN_MAX}</code>.
+     * @throws C.errno.CError <b>EINTR</b> The <code>dup2()</code> function was interrupted by a signal.
+     * @throws C.errno.CError <b>EIO</b> An I/O error occurred while attempting to close <code>fildes2</code>.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see C.errno#EBADF
+     * @see C.errno#EINTR
+     * @see C.errno#EIO
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/dup2.html
+     */
+    [native("::avmshell::CUnistdClass::dup2")]
+    public native function dup2( fildes:int, fildes2:int ):int;
+
+    /* note:
+
+        e = envp, array of pointers to environment settings, is passed to the new process.
+
+        l = Command-line arguments are passed individually to _exec function.
+            Typically used when the number of parameters to the new process is known in advance.
+        
+        p = PATH environment variable is used to find the file to execute.
+
+        v = argv, array of pointers to command-line arguments, is passed to _exec.
+            Typically used when the number of parameters to the new process is variable.
+    
+    */
+
+    /**
+     * Execute a file.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CUnistdClass::execl")]
+    public native function execl( path:String, ...args ):int;
+
+    /**
+     * Execute a file.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CUnistdClass::execle")]
+    public native function execle( path:String, ...args ):int;
+
+    /**
+     * Execute a file.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CUnistdClass::execlp")]
+    public native function execlp( file:String, ...args ):int;
+
+    /**
+     * Execute a file.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CUnistdClass::execv")]
+    public native function execv( path:String, argv:Array ):int;
+
+    /**
+     * Execute a file.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CUnistdClass::execve")]
+    public native function execve( path:String, argv:Array, envp:Array ):int;
+
+    /**
+     * Execute a file.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CUnistdClass::execvp")]
+    public native function execvp( file:String, argv:Array ):int;
+
+    /**
+     * Synchronize changes to a file.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CUnistdClass::fsync")]
+    public native function fsync( fildes:int ):int;
+
+    /**
+     * Truncate a file to a specified length.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CUnistdClass::ftruncate")]
+    public native function ftruncate( fildes:int, length:uint ):int;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Change mode of a file.
      * 
@@ -369,56 +639,4 @@ package C.unistd
         return __unistd.unlink( path );
     }
 
-    /**
-     * Test 123.
-     * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public var test123:Boolean = true;
-
-    /**
-     * Test 456.
-     * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public var test456:String = "hello world";
-
-    /**
-     * Interface Test 123.
-     * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public interface ISomething
-    {
-        function test1():void;
-        function test2( a:String ):Boolean;
-        function get a():Boolean;
-        function set a( value:Boolean ):void;
-    }
-
-    /**
-     * Class Test 123.
-     * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    public class HelloSomething
-    {
-        public function HelloSomething()
-        {
-
-        }
-
-        public var test123:Boolean = false;
-
-        public const ABCD:String = "ABCD";
-
-        public function testThere():void
-        {
-
-        }
-    }
 }
