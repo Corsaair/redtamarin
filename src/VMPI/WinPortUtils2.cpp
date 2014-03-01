@@ -1,50 +1,436 @@
 /* -*- Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil; tab-width: 4 -*- */
 /* vi: set ts=4 sw=4 expandtab: (add to ~/.vimrc: set modeline modelines=5) */
-/* ***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1/GPL 2.0/LGPL 2.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is [Open Source Virtual Machine.].
-*
-* The Initial Developer of the Original Code is
-* Adobe System Incorporated.
-* Portions created by the Initial Developer are Copyright (C) 1993-2006
-* the Initial Developer. All Rights Reserved.
-*
-* Contributor(s):
-*   Zwetan Kjukov <zwetan@gmail.com>.
-*
-* Alternatively, the contents of this file may be used under the terms of
-* either the GNU General Public License Version 2 or later (the "GPL"), or
-* the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
-* in which case the provisions of the GPL or the LGPL are applicable instead
-* of those above. If you wish to allow use of your version of this file only
-* under the terms of either the GPL or the LGPL, and not to allow others to
-* use your version of this file under the terms of the MPL, indicate your
-* decision by deleting the provisions above and replace them with the notice
-* and other provisions required by the GPL or the LGPL. If you do not delete
-* the provisions above, a recipient may use your version of this file under
-* the terms of any one of the MPL, the GPL or the LGPL.
-*
-* ***** END LICENSE BLOCK ***** */
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 #include "avmplus.h"
 
-//for C.errno
+// ==== BEFORE ==== 
+/* for special case that need to be defined first */
+
+
+// ==== HEADERS ==== 
+
 //#include <errno.h> //already included in win32-platform2.h
 
+// ==== ISO C / ANSI C ==== 
+
+// ---- C.assert ---- 
+
+// ---- C.assert ---- END
 
 
-// ---- utilities ---- 
+// ---- C.ctype ---- 
+
+// ---- C.ctype ---- END
+
+
+// ---- C.errno ---- 
+void VMPI_set_errno(int value)
+{
+    errno = value;
+}
+
+int VMPI_get_errno()
+{
+    return errno;
+}
+// ---- C.errno ---- END
+
+
+// ---- C.float ---- 
+
+// ---- C.float ---- END
+
+
+// ---- C.limits ---- 
+
+// ---- C.limits ---- END
+
+
+// ---- C.locale ---- 
+
+// ---- C.locale ---- END
+
+
+// ---- C.math ---- 
+
+// ---- C.math ---- END
+
+
+// ---- C.setjmp ---- 
+
+// ---- C.setjmp ---- END
+
+
+// ---- C.signal ---- 
+int VMPI_kill(int pid, int sig)
+{
+    (void)pid;
+    (void)sig;
+    
+    errno = ENOSYS;
+    return -1;
+}
+// ---- C.signal ---- END
+
+
+// ---- C.stdarg ---- 
+
+// ---- C.stdarg ---- END
+
+
+// ---- C.stddef ---- 
+
+// ---- C.stddef ---- END
+
+
+// ---- C.stdio ---- 
+
+// ---- C.stdio ---- END
+
+
+// ---- C.stdlib ---- 
+int VMPI_putenv(const char *name)
+{
+    return _putenv( name );
+}
+
+char *VMPI_realpath(char const *path)
+{
+    /* note:
+       if the path does not exists the path will still resolve
+       and does not set errno to ENOENT "No such file or directory"
+    */
+    char* full = NULL;
+    char* result = NULL;
+    
+    if( VMPI_access(path, F_OK) ) {
+        errno = ENOENT;
+        return NULL;
+    }
+    
+    //char *_fullpath( char *absPath, const char *relPath, size_t maxLength );
+    result = _fullpath( full, path, PATH_MAX );
+    //and from this point 'full' is fuxored and 'result' is all good
+    
+    if( result != NULL ) {
+        return result;
+    }
+    
+    return NULL; 
+}
+
+int VMPI_setenv(const char *name, const char *value, int overwrite)
+{
+    if(!overwrite)
+    {
+        //VMPI_log("getenv = [");
+        //VMPI_log(VMPI_getenv(name));
+        //VMPI_log("]\n");
+        if(NULL != VMPI_getenv(name))
+        {
+            return 0;
+        }
+    }
+
+    return setenv_with_putenv(name, value);
+}
+
+int VMPI_system(const char *command)
+{
+    #ifdef UNDER_CE
+        AvmAssert(0);
+        return 0;
+    #else
+        return system( command );
+    #endif
+}
+
+int VMPI_unsetenv(const char *name)
+{
+    return setenv_with_putenv(name, "");
+}
+// ---- C.stdlib ---- END
+
+
+// ---- C.string ---- 
+
+// ---- C.string ---- END
+
+
+// ---- C.time ---- 
+
+// ---- C.time ---- END
+
+
+
+
+// ==== POSIX ==== 
+
+// ---- C.conio ---- 
+void VMPI_canonical(bool status)
+{
+    DWORD mode;
+    HANDLE hConIn = GetStdHandle( STD_INPUT_HANDLE );
+    GetConsoleMode( hConIn, &mode );
+    mode = status ? (mode | ENABLE_LINE_INPUT) : (mode & ~(ENABLE_LINE_INPUT));
+    SetConsoleMode( hConIn , mode );
+    FlushConsoleInputBuffer( hConIn );
+}
+
+void VMPI_echo(bool status)
+{
+    DWORD mode;
+    HANDLE hConIn = GetStdHandle( STD_INPUT_HANDLE );
+    GetConsoleMode( hConIn, &mode );
+    mode = status ? (mode | ENABLE_ECHO_INPUT) : (mode & ~(ENABLE_ECHO_INPUT));
+    SetConsoleMode( hConIn, mode );
+}
+
+int VMPI_kbhit()
+{
+    return _kbhit();
+}
+// ---- C.conio ---- END
+
+
+// ---- C.cpio ---- 
+
+// ---- C.cpio ---- END
+
+
+// ---- C.dirent ---- 
+
+// ---- C.dirent ---- END
+
+
+// ---- C.fcntl ---- 
+
+// ---- C.fcntl ---- END
+
+
+// ---- C.grp ---- 
+
+// ---- C.grp ---- END
+
+
+// ---- C.netdb ---- 
+
+// ---- C.netdb ---- END
+
+
+// ---- C.pthread ---- 
+
+// ---- C.pthread ---- END
+
+
+// ---- C.pwd ---- 
+
+// ---- C.pwd ---- END
+
+
+// ---- C.spawn ---- 
+int VMPI_spawn(int *pid, const char *path, char *const argv[], char *const envp[])
+{
+    /* note:
+       see http://msdn.microsoft.com/en-us/library/zb9ehy71.aspx
+       _spawnvpe() return the pid, not the status
+     */
+    //return posix_spawn( pid, path, NULL, NULL, argv, envp );
+    (void)pid;
+    int mode = _P_NOWAIT;
+    return _spawnvpe( mode, path, argv, envp );
+}
+
+int VMPI_spawnp(int *pid, const char *file, char *const argv[], char *const envp[])
+{
+    //return posix_spawnp( (pid_t *)pid, file, NULL, NULL, argv, envp );
+    (void)pid;
+    int mode = _P_NOWAIT;
+    return _spawnve( mode, file, argv, envp );
+}
+// ---- C.spawn ---- END
+
+
+// ---- C.sys.ipc ---- 
+
+// ---- C.sys.ipc ---- END
+
+
+// ---- C.sys.mman ---- 
+
+// ---- C.sys.mman ---- END
+
+
+// ---- C.sys.msg ---- 
+
+// ---- C.sys.msg ---- END
+
+
+// ---- C.sys.sem ---- 
+
+// ---- C.sys.sem ---- END
+
+
+// ---- C.sys.socket ---- 
+
+// ---- C.sys.socket ---- END
+
+
+// ---- C.sys.stat ---- 
+
+// ---- C.sys.stat ---- END
+
+
+// ---- C.sys.time ---- 
+
+// ---- C.sys.time ---- END
+
+
+// ---- C.sys.types ---- 
+
+// ---- C.sys.types ---- END
+
+
+// ---- C.sys.utsname ---- 
+
+// ---- C.sys.utsname ---- END
+
+
+// ---- C.sys.wait ---- 
+#define WEXITSTATUS(w)  ((int) ((w) & 0x40000000))
+#define WIFEXITED(w)    ((w) & 0x40000000) == 0)
+#define WIFSIGNALED(w)  ((w) & 0x40000000) != 0)
+//#define WTERMSIG(w)     (w)
+#define WTERMSIG(w)     ((w) & 0x3FFFFFFF)
+
+int VMPI_WEXITSTATUS(int status)
+{
+    return WEXITSTATUS(status);
+}
+
+int VMPI_WIFCONTINUED(int status)
+{
+    return status;
+}
+
+int VMPI_WIFEXITED(int status)
+{
+    return WIFEXITED(status);
+}
+
+int VMPI_WIFSIGNALED(int status)
+{
+    return WIFSIGNALED(status);
+}
+
+int VMPI_WIFSTOPPED(int status)
+{
+    return status;
+}
+
+int VMPI_WSTOPSIG(int status)
+{
+    return status;
+}
+
+int VMPI_WTERMSIG(int status)
+{
+    return WTERMSIG(status);
+}
+
+int VMPI_wait(int *stat_loc)
+{
+    (void)stat_loc;
+
+    errno = ENOSYS;
+    return -1;
+}
+
+int VMPI_waitid(int idtype, int id, siginfo_t *infop, int options)
+{
+    (void)idtype;
+    (void)id;
+    (void)infop;
+    (void)options;
+
+    errno = ENOSYS;
+    return -1;
+}
+
+int VMPI_waitpid(int pid, int *stat_loc, int options)
+{
+    (void)options;
+
+    return _cwait( *stat_loc, pid, WAIT_CHILD );
+}
+// ---- C.sys.wait ---- END
+
+
+// ---- C.tar ---- 
+
+// ---- C.tar ---- END
+
+
+// ---- C.termios ---- 
+
+// ---- C.termios ---- END
+
+
+// ---- C.unistd ---- 
+int VMPI_chmod(const char *path, int mode)
+{
+    return _chmod(path, (mode_t)mode);
+}
+
+int VMPI_mkdir(const char *path)
+{
+    return _mkdir(path);
+}
+
+void VMPI_sleep(int milliseconds)
+{
+    Sleep(milliseconds);
+}
+// ---- C.unistd ---- END
+
+
+// ---- C.utime ---- 
+
+// ---- C.utime ---- END
+
+
+
+
+// ==== RNL ==== 
+
+// ---- shell.HardwareInformation ---- 
+size_t VMPI_SystemMemorySize()
+{
+    size_t result_size = 0L;
+
+    MEMORYSTATUSEX status;
+    status.dwLength = sizeof(status);
+    GlobalMemoryStatusEx( &status );
+    result_size = (size_t)status.ullTotalPhys;
+
+    return result_size;
+}
+// ---- shell.HardwareInformation ---- END
+
+// ---- shell.OperatingSystem ---- 
+
+// ---- shell.OperatingSystem ---- END
+
+
+
+// ==== AVMGLUE ==== 
+
+
+
+// ==== MISC ==== 
 
 /*
 * Utility function that convert Windows errror to errno
@@ -382,11 +768,6 @@ char *VMPI_getLocale()
     //get the Environment's default locale
     return setlocale( LC_ALL, "" );
 }
-
-// ---- utilities ---- END
-
-
-// ---- POSIX compatibility layer ---- 
 
 DIR *opendir(const char *name)
 {
@@ -837,77 +1218,6 @@ const char* VMPI_inet_ntop(int af, const void* src, char* dst, int cnt)
     return dst;
 }
 
-// ---- POSIX compatibility layer ---- END
-
-
-// ---- C.stdlib ---- 
-
-int VMPI_setenv(const char *name, const char *value, int overwrite)
-{
-    if(!overwrite)
-    {
-        //VMPI_log("getenv = [");
-        //VMPI_log(VMPI_getenv(name));
-        //VMPI_log("]\n");
-        if(NULL != VMPI_getenv(name))
-        {
-            return 0;
-        }
-    }
-
-    return setenv_with_putenv(name, value);
-}
-
-int VMPI_unsetenv(const char *name)
-{
-    return setenv_with_putenv(name, "");
-}
-
-char *VMPI_realpath(char const *path)
-{
-    /* note:
-       if the path does not exists the path will still resolve
-       and does not set errno to ENOENT "No such file or directory"
-    */
-    char* full = NULL;
-    char* result = NULL;
-    
-    if( VMPI_access(path, F_OK) ) {
-        errno = ENOENT;
-        return NULL;
-    }
-    
-    //char *_fullpath( char *absPath, const char *relPath, size_t maxLength );
-    result = _fullpath( full, path, PATH_MAX );
-    //and from this point 'full' is fuxored and 'result' is all good
-    
-    if( result != NULL ) {
-        return result;
-    }
-    
-    return NULL; 
-}
-
-// ---- C.stdlib ---- END
-
-
-// ---- C.unistd ---- 
-
-int VMPI_chmod(const char *path, int mode)
-{
-    return _chmod(path, (mode_t)mode);
-}
-
-int VMPI_mkdir(const char *path)
-{
-    return _mkdir(path);
-}
-
-void VMPI_sleep(int milliseconds)
-{
-    Sleep(milliseconds);
-}
-
 void VMPI_getUserName(char *username)
 {
     DWORD bufsize = 256;
@@ -924,11 +1234,6 @@ int VMPI_gethostname(char *name, int namelen)
     
     return result;
 }
-
-// ---- C.unistd ---- END
-
-
-// ---- C.stdio ---- 
 
 void VMPI_con_stream_mode(int state)
 {
@@ -958,16 +1263,6 @@ void VMPI_con_trans_mode(int state)
     _setmode( _fileno( stdout ), state );
 }
 
-int VMPI_kbhit()
-{
-    return _kbhit();
-}
-
-// ---- C.stdio ---- END
-
-
-// ---- C.socket ---- 
-
 struct hostent *VMPI_gethostbyaddr(const char *addr)
 {
     struct in_addr data_addr = { 0 };
@@ -980,11 +1275,6 @@ struct hostent *VMPI_gethostbyaddr(const char *addr)
     return NULL;
 }
 
-
-// ---- C.socket ---- END
-
-// ---- avmplus.System ---- 
-
 double VMPI_getStdinFileLength()
 {
     int stdinHandle = _fileno(stdin);
@@ -992,11 +1282,6 @@ double VMPI_getStdinFileLength()
     _fstat(stdinHandle, &stats);
     return stats.st_size;
 }
-
-// ---- avmplus.System ---- END
-
-
-// ---- avmplus.OperatingSystem ---- 
 
 //OperatingSystem.getName()
 void VMPI_getOperatingSystemName(char *name)
@@ -1095,11 +1380,6 @@ void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix)
     *bugfix = (int)osver.wServicePackMajor; //yeah we can consider a service pack as a bugfix!!
 }
 
-// ---- avmplus.OperatingSystem ---- END
-
-
-// ---- avmplus.FileSystem ---- 
-
 int VMPI_getLogicalDrives()
 {
     DWORD drives = GetLogicalDrives();
@@ -1176,8 +1456,4 @@ double VMPI_getTotalDiskSpace(const char *path)
     }
     return static_cast<double>(total.QuadPart);
 }
-
-// ---- avmplus.FileSystem ---- END
-
-
 
