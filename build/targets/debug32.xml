@@ -1,0 +1,108 @@
+<project name="redtamarin-compile-debug32">
+
+	<target name="before">
+
+		<if>
+			<and>
+			<equals arg1="${build.cleanGenerated}" arg2="true"/>
+			<available file="${target.debug32.path}" type="dir"/>
+			</and>
+			<then>
+				<delete dir="${target.debug32.path}"/>
+			</then>
+		</if>
+
+		<!-- create objdir compilation folder if not found -->
+		<if>
+			<not>
+			<available file="${target.debug32.path}" type="dir"/>
+			</not>
+			<then>
+				<mkdir dir="${target.debug32.path}"/>
+			</then>
+		</if>
+
+		<!-- make file flags -->
+    	<var name="flags" value="--target=i386-${TARGET_OS}" />
+    	<var name="flags" value="${flags} --enable-debug" />
+    	
+
+        <if>
+            <equals arg1="${build.showoptions}" arg2="true"/>
+        <then>
+            <echo message="debug32 flags:"/>
+            <!-- <echo message="${commandline}"/> -->
+            <for list="${flags}" delimiter=" " param = "flag">
+                <sequential>
+                <echo message = "@{flag}"/>
+                </sequential>
+            </for>
+
+        </then>
+        </if>
+        <var name="commandline" value="${commandline} ${flags}" />
+
+		<!-- generate make file if not found -->
+		<if>
+			<not>
+			<available file="${target.debug32.path}/Makefile" type="file"/>
+		</not>
+			<then>
+		        <exec executable="python" dir="${target.debug32.path}" failonerror="true">
+		            <arg line="${commandline}"/>
+		        </exec>
+			</then>
+		</if>
+
+	</target>
+
+	<target name="compile-debug32" depends="before,compile,after">
+	</target>
+
+	<target name="compile">
+       	
+       	<if>
+            <equals arg1="${build.cleanGenerated}" arg2="true"/>
+        <then>
+
+			<delete>
+				<fileset dir="${basedir}/src/generated" includes="**/*.h"/>
+				<fileset dir="${basedir}/src/generated" includes="**/*.hh"/>
+				<fileset dir="${basedir}/src/generated" includes="**/*.cpp"/>
+			</delete>
+
+			<exec executable="make" dir="${target.debug32.path}" failonerror="true">
+				<env key="ASC" value="${basedir}/${ASC1}"/>
+				<env key="AVM" value="${basedir}/${AVMSHELL_EXE}"/>
+				<env key="AVMSHELL_TOOL" value="${basedir}/${AVMSHELL_EXE}"/>
+			</exec>
+
+        </then>
+        <else>
+        	<exec executable="make" dir="${target.debug32.path}" failonerror="true" />
+        </else>
+        </if>
+
+	</target>
+
+	<target name="after">
+
+		<!-- create output folder if not found -->
+		<if>
+			<not>
+			<available file="${app.release}/${TARGET_OS}/${target.debug32.output}" type="dir"/>
+			</not>
+			<then>
+				<mkdir dir="${app.release}/${TARGET_OS}/${target.debug32.output}"/>
+			</then>
+		</if>
+
+		<!-- move and rename avmshell -->
+		<copy file="${target.debug32.path}/shell/${AVMSHELL}" tofile="${app.release}/${TARGET_OS}/${target.debug32.output}/${TARGET_D}"/>
+
+		<!-- executable bit -->
+		<chmod file="${app.release}/${TARGET_OS}/${target.debug32.output}/${TARGET_D}" perm="+x"/>
+
+	</target>
+
+</project>

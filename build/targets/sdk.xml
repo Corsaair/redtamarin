@@ -1,0 +1,135 @@
+<project name="redtamarin-compile-sdk">
+
+	<target name="before">
+
+		<!-- SDK properties -->
+		<if>
+			<equals arg1="${build.tagSDK}" arg2="true"/>
+			<then>
+				<property name="sdk.name" value="${app.name}-${app.version.shortnumberclean}-${app.version.tag}"/>
+			</then>
+			<else>
+				<property name="sdk.name" value="${app.name}-${app.version.shortnumberclean}"/>
+			</else>
+		</if>
+		
+		<property name="sdk.path" value="${basedir}/${app.deploy}/${sdk.name}"/>
+
+		<!-- create root directory -->
+		<if>
+			<equals arg1="${build.cleanBeforeDeploy}" arg2="true"/>
+			<then>
+				<delete dir="${app.deploy}"/>
+			</then>
+		</if>
+
+		<if>
+			<not>
+			<available file="${sdk.path}" type="dir"/>
+			</not>
+			<then>
+				<mkdir dir="${sdk.path}"/>
+			</then>
+		</if>
+
+	</target>
+
+	<target name="compile-sdk" depends="before,compile,after">
+	</target>
+
+	<target name="compile" depends="sdk-runtimes">
+       	
+	</target>
+
+	<target name="sdk-runtimes">
+
+		<if>
+			<available file="${sdk.path}/runtimes/redshell/32" type="dir"/>
+			<then>
+				<delete dir="${sdk.path}/runtimes/redshell/32"/>
+			</then>
+		</if>
+		<if>
+			<not>
+			<available file="${sdk.path}/runtimes/redshell/32" type="dir"/>
+			</not>
+			<then>
+				<mkdir dir="${sdk.path}/runtimes/redshell/32"/>
+			</then>
+		</if>
+
+		<if>
+			<available file="${sdk.path}/runtimes/redshell/64" type="dir"/>
+			<then>
+				<delete dir="${sdk.path}/runtimes/redshell/64"/>
+			</then>
+		</if>       	
+		<if>
+			<not>
+			<available file="${sdk.path}/runtimes/redshell/64" type="dir"/>
+			</not>
+			<then>
+				<mkdir dir="${sdk.path}/runtimes/redshell/64"/>
+			</then>
+		</if>
+
+		<if>
+			<equals arg1="${build.mergeRuntimesInSDK}" arg2="true"/>
+			<then>
+				<mkdir dir="${sdk.path}/runtimes/redshell/32/${SDK_OS_MAC}"/>
+				<mkdir dir="${sdk.path}/runtimes/redshell/32/${SDK_OS_NIX}"/>
+				<mkdir dir="${sdk.path}/runtimes/redshell/32/${SDK_OS_WIN}"/>
+				<mkdir dir="${sdk.path}/runtimes/redshell/64/${SDK_OS_MAC}"/>
+				<mkdir dir="${sdk.path}/runtimes/redshell/64/${SDK_OS_NIX}"/>
+				<mkdir dir="${sdk.path}/runtimes/redshell/64/${SDK_OS_WIN}"/>
+			</then>
+			<else>
+				<mkdir dir="${sdk.path}/runtimes/redshell/32/${SDK_OS}"/>
+				<mkdir dir="${sdk.path}/runtimes/redshell/64/${SDK_OS}"/>
+			</else>
+		</if>
+
+		<if>
+			<equals arg1="${build.mergeRuntimesInSDK}" arg2="true"/>
+			<then>
+				<copy file="${app.release}/${TARGET_OS_MAC}/${target.release32.output}/${TARGET_MAC}" tofile="${sdk.path}/runtimes/redshell/32/${SDK_OS_MAC}/${TARGET_MAC}"/>
+				<copy file="${app.release}/${TARGET_OS_MAC}/${target.debug32.output}/${TARGET_D_MAC}" tofile="${sdk.path}/runtimes/redshell/32/${SDK_OS_MAC}/${TARGET_D_MAC}"/>
+				<copy file="${app.release}/${TARGET_OS_MAC}/${target.debugger32.output}/${TARGET_DD_MAC}" tofile="${sdk.path}/runtimes/redshell/32/${SDK_OS_MAC}/${TARGET_DD_MAC}"/>
+				<copy file="${app.release}/${TARGET_OS_MAC}/${target.release64.output}/${TARGET_MAC}" tofile="${sdk.path}/runtimes/redshell/64/${SDK_OS_MAC}/${TARGET_MAC}"/>
+				<copy file="${app.release}/${TARGET_OS_MAC}/${target.debug64.output}/${TARGET_D_MAC}" tofile="${sdk.path}/runtimes/redshell/64/${SDK_OS_MAC}/${TARGET_D_MAC}"/>
+				<copy file="${app.release}/${TARGET_OS_MAC}/${target.debugger64.output}/${TARGET_DD_MAC}" tofile="${sdk.path}/runtimes/redshell/64/${SDK_OS_MAC}/${TARGET_DD_MAC}"/>
+
+				<copy file="${app.release}/${TARGET_OS_NIX}/${target.release32.output}/${TARGET_NIX}" tofile="${sdk.path}/runtimes/redshell/32/${SDK_OS_NIX}/${TARGET_NIX}"/>
+				<copy file="${app.release}/${TARGET_OS_NIX}/${target.debug32.output}/${TARGET_D_NIX}" tofile="${sdk.path}/runtimes/redshell/32/${SDK_OS_NIX}/${TARGET_D_NIX}"/>
+				<copy file="${app.release}/${TARGET_OS_NIX}/${target.debugger32.output}/${TARGET_DD_NIX}" tofile="${sdk.path}/runtimes/redshell/32/${SDK_OS_NIX}/${TARGET_DD_NIX}"/>
+				<copy file="${app.release}/${TARGET_OS_NIX}/${target.release64.output}/${TARGET_NIX}" tofile="${sdk.path}/runtimes/redshell/64/${SDK_OS_NIX}/${TARGET_NIX}"/>
+				<copy file="${app.release}/${TARGET_OS_NIX}/${target.debug64.output}/${TARGET_D_NIX}" tofile="${sdk.path}/runtimes/redshell/64/${SDK_OS_NIX}/${TARGET_D_NIX}"/>
+				<copy file="${app.release}/${TARGET_OS_NIX}/${target.debugger64.output}/${TARGET_DD_NIX}" tofile="${sdk.path}/runtimes/redshell/64/${SDK_OS_NIX}/${TARGET_DD}"/>
+
+				<copy file="${app.release}/${TARGET_OS_WIN}/${target.release32.output}/${TARGET_WIN}" tofile="${sdk.path}/runtimes/redshell/32/${SDK_OS_WIN}/${TARGET}_WIN"/>
+				<copy file="${app.release}/${TARGET_OS_WIN}/${target.debug32.output}/${TARGET_D_WIN}" tofile="${sdk.path}/runtimes/redshell/32/${SDK_OS_WIN}/${TARGET_D_WIN}"/>
+				<copy file="${app.release}/${TARGET_OS_WIN}/${target.debugger32.output}/${TARGET_DD_WIN}" tofile="${sdk.path}/runtimes/redshell/32/${SDK_OS_WIN}/${TARGET_DD_WIN}"/>
+				<copy file="${app.release}/${TARGET_OS_WIN}/${target.release64.output}/${TARGET_WIN}" tofile="${sdk.path}/runtimes/redshell/64/${SDK_OS_WIN}/${TARGET_WIN}"/>
+				<copy file="${app.release}/${TARGET_OS_WIN}/${target.debug64.output}/${TARGET_D_WIN}" tofile="${sdk.path}/runtimes/redshell/64/${SDK_OS_WIN}/${TARGET_D_WIN}"/>
+				<copy file="${app.release}/${TARGET_OS_WIN}/${target.debugger64.output}/${TARGET_DD_WIN}" tofile="${sdk.path}/runtimes/redshell/64/${SDK_OS_WIN}/${TARGET_DD_WIN}"/>
+			</then>
+			<else>
+				<copy file="${app.release}/${TARGET_OS}/${target.release32.output}/${TARGET}" tofile="${sdk.path}/runtimes/redshell/32/${SDK_OS}/${TARGET}"/>
+				<copy file="${app.release}/${TARGET_OS}/${target.debug32.output}/${TARGET_D}" tofile="${sdk.path}/runtimes/redshell/32/${SDK_OS}/${TARGET_D}"/>
+				<copy file="${app.release}/${TARGET_OS}/${target.debugger32.output}/${TARGET_DD}" tofile="${sdk.path}/runtimes/redshell/32/${SDK_OS}/${TARGET_DD}"/>
+
+				<copy file="${app.release}/${TARGET_OS}/${target.release64.output}/${TARGET}" tofile="${sdk.path}/runtimes/redshell/64/${SDK_OS}/${TARGET}"/>
+				<copy file="${app.release}/${TARGET_OS}/${target.debug64.output}/${TARGET_D}" tofile="${sdk.path}/runtimes/redshell/64/${SDK_OS}/${TARGET_D}"/>
+				<copy file="${app.release}/${TARGET_OS}/${target.debugger64.output}/${TARGET_DD}" tofile="${sdk.path}/runtimes/redshell/64/${SDK_OS}/${TARGET_DD}"/>
+			</else>
+		</if>
+
+	</target>
+
+
+
+	<target name="after">
+
+	</target>
+
+</project>

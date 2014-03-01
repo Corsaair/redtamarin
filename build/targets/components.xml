@@ -1,0 +1,66 @@
+<project name="redtamarin-compile-components">
+
+	<target name="before">
+
+		<if>
+			<equals arg1="${build.cleanComponents}" arg2="true"/>
+			<then>
+				<delete dir="${app.release}/components"/>
+			</then>
+		</if>
+
+		<if>
+			<not>
+			<available file="${app.release}/components" type="dir"/>
+			</not>
+			<then>
+				<mkdir dir="${app.release}/components"/>
+			</then>
+		</if>
+
+	</target>
+
+	<target name="compile-components" depends="before,compile-swc,compile-abc,after">
+	</target>
+
+	<target name="compile-swc">
+        
+
+        <compc
+            output="${app.release}/components/redtamarin.swc"
+        >
+            <load-config>build/comp/flex-config.xml</load-config>
+			<define name="CONFIG::debug" value="false"/>
+			<define name="CONFIG::release" value="true"/>
+			<define name="CONFIG::VMCFG_FLOAT" value="false" />
+			<define name="AVMGLUE::REDTAMARIN" value="true" />
+            <strict>false</strict>
+            <optimize>true</optimize>
+            <warnings>false</warnings>
+            <verbose-stacktraces>true</verbose-stacktraces>
+            <compute-digest>false</compute-digest>
+            
+            <include-sources dir="build/doc" includes="Sprite.as" />
+            
+            <include-sources dir="src/core" includes="builtin.as, Math.as, Error.as, flash_errors_classes.as, Date.as, RegExp.as, JSON.as, XML.as, IDataInput.as, IDataOutput.as, ByteArray.as, Proxy.as, flash_net_classes.as, Dictionary.as, IDynamicPropertyOutput.as, IDynamicPropertyWriter.as, DynamicPropertyOutput.as, ObjectInput.as, ObjectOutput.as, IExternalizable.as, ObjectEncoding.as, concurrent.as, PromiseChannel.as" />
+
+            <include-sources dir="src" includes="redtamarin.as" />
+
+        </compc>
+        
+	</target>
+
+	<target name="compile-abc">
+
+        <echo message="merging ABC"/>
+        <exec executable="${basedir}/src/redtamarin.py" dir="${basedir}/src" failonerror="true">
+            <env key="ASC" value="${basedir}/${ASC1}"/>
+        </exec>
+        
+        <move file="${basedir}/src/redtamarin.abc" todir="${app.release}/components/"/>
+	</target>
+
+	<target name="after">
+	</target>
+
+</project>

@@ -1,0 +1,301 @@
+<project name="redtamarin-compile-sdk">
+
+	<target name="before">
+
+		<if>
+			<equals arg1="${build.cleanDocumentation}" arg2="true"/>
+			<then>
+				<delete dir="${app.release}/documentation"/>
+			</then>
+		</if>
+
+		<if>
+			<not>
+			<available file="${app.release}/documentation" type="dir"/>
+			</not>
+			<then>
+				<mkdir dir="${app.release}/documentation"/>
+			</then>
+		</if>
+
+		<!--
+			asdoc ALWAYS need api-versions.as
+		 -->
+        <if>
+            <available file="src/as3/api-versions.as" type="file"/>
+            <then>
+                <delete file="src/as3/api-versions.as"/>
+            </then>
+        </if>
+
+        <if>
+            <not>
+            <available file="src/as3/api-versions.as" type="file"/>
+            </not>
+            <then>
+                <copy file="src/core/api-versions.as" tofile="src/as3/api-versions.as"/>
+            </then>
+        </if>
+
+	</target>
+
+	<target name="compile-documentation" depends="before,compile,after">
+	</target>
+
+	<target name="compile" depends="generate-doc-all">
+	</target>
+
+	<target name="generate-doc-all">
+
+		<asdoc output="${app.release}/documentation"
+			templates-path="${basedir}/build/doc/templates/"
+			warnings="false"
+			strict="false"
+			keep-xml="false"
+			skip-xsl="false"
+			restore-builtin-classes="true"
+			failonerror="true"
+			fork="true"
+		>
+			<load-config>${basedir}/build/doc/flex-config.xml</load-config>
+			<define name="CONFIG::debug" value="false"/>
+			<define name="CONFIG::release" value="true"/>
+			<define name="CONFIG::VMCFG_FLOAT" value="false" />
+			<define name="AVMGLUE::REDTAMARIN" value="true" />
+			<define name="AVMGLUE::AIR_1_0"    value="661" />
+			<define name="AVMGLUE::FP_10_0"    value="662" />
+			<define name="AVMGLUE::AIR_1_5"    value="663" />
+			<define name="AVMGLUE::AIR_1_5_1"  value="664" />
+			<define name="AVMGLUE::FP_10_0_32" value="665" />
+			<define name="AVMGLUE::AIR_1_5_2"  value="666" />
+			<define name="AVMGLUE::FP_10_1"    value="667" />
+			<define name="AVMGLUE::AIR_2_0"    value="668" />
+			<define name="AVMGLUE::AIR_2_5"    value="669" />
+			<define name="AVMGLUE::FP_10_2"    value="670" />
+			<define name="AVMGLUE::AIR_2_6"    value="671" />
+			<define name="AVMGLUE::SWF_12"     value="672" />
+			<define name="AVMGLUE::AIR_2_7"    value="673" />
+			<define name="AVMGLUE::SWF_13"     value="674" />
+			<define name="AVMGLUE::AIR_3_0"    value="675" />
+			<define name="AVMGLUE::SWF_14"     value="676" />
+			<define name="AVMGLUE::AIR_3_1"    value="677" />
+			<define name="AVMGLUE::SWF_15"     value="678" />
+			<define name="AVMGLUE::AIR_3_2"    value="679" />
+			<define name="AVMGLUE::SWF_16"     value="680" />
+			<define name="AVMGLUE::AIR_3_3"    value="681" />
+			<define name="AVMGLUE::SWF_17"     value="682" />
+			<define name="AVMGLUE::AIR_3_4"    value="683" />
+			<define name="AVMGLUE::SWF_18"     value="684" />
+			<define name="AVMGLUE::AIR_3_5"    value="685" />
+			<define name="AVMGLUE::SWF_19"     value="686" />
+			<define name="AVMGLUE::AIR_3_6"    value="687" />
+			<define name="AVMGLUE::VM_INTERNAL" value="688" />
+
+			<!-- namespaces -->
+			<!-- see doc/templates/ASDoc_Config_Base.xml -->
+
+			<!-- we need to include the Sprite source to be able to ignore it -->
+			<doc-sources path-element="${basedir}/build/doc/Sprite.as" />
+			
+			<!-- core documentation -->
+			<doc-sources path-element="${basedir}/src/core/builtin.as" />
+			<doc-sources path-element="${basedir}/src/core/XML.as" />
+			<doc-sources path-element="${basedir}/src/core/Math.as" />
+			<doc-sources path-element="${basedir}/src/core/Error.as" />
+			<doc-sources path-element="${basedir}/src/core/flash_errors_classes.as" />
+			<doc-sources path-element="${basedir}/src/core/Date.as" />
+			<doc-sources path-element="${basedir}/src/core/RegExp.as" />
+			<doc-sources path-element="${basedir}/src/core/JSON.as" />
+
+			<doc-sources path-element="${basedir}/src/core/IDataInput.as" />
+			<doc-sources path-element="${basedir}/src/core/IDataOutput.as" />
+			<doc-sources path-element="${basedir}/src/core/ByteArray.as" />
+			<doc-sources path-element="${basedir}/src/core/Proxy.as" />
+			<doc-sources path-element="${basedir}/src/core/flash_net_classes.as" />
+			<doc-sources path-element="${basedir}/src/core/Dictionary.as" />
+			<doc-sources path-element="${basedir}/src/core/IDynamicPropertyOutput.as" />
+			<doc-sources path-element="${basedir}/src/core/IDynamicPropertyWriter.as" />
+			<doc-sources path-element="${basedir}/src/core/DynamicPropertyOutput.as" />
+			<doc-sources path-element="${basedir}/src/core/ObjectInput.as" />
+			<doc-sources path-element="${basedir}/src/core/ObjectOutput.as" />
+			<doc-sources path-element="${basedir}/src/core/IExternalizable.as" />
+			<doc-sources path-element="${basedir}/src/core/ObjectEncoding.as" />
+			<doc-sources path-element="${basedir}/src/core/concurrent.as" />
+			<doc-sources path-element="${basedir}/src/core/PromiseChannel.as" />
+
+			<!-- fast memory opcodes -->
+			<doc-sources path-element="${basedir}/src/as3/avm2/intrinsics/memory.as" />
+			
+
+
+
+			<!-- namespace -->
+			<doc-sources path-element="${basedir}/src/as3/AVM2.as" />
+
+
+
+			<!-- clib documentation -->
+			<doc-sources path-element="${basedir}/src/as3/C/ISO_C.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/assert.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/ctype.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/errno.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/limits.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/locale.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/math.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/signal.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/stdio.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/stdlib.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/string.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/time.as" />
+
+			<doc-sources path-element="${basedir}/src/as3/C/POSIX.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/conio.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/cpio.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/fcntl.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/netdb.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/netinet.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/spawn.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/sys/socket.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/sys/stat.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/sys/wait.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/unistd.as" />
+			
+
+
+			<!-- redtamarin documentation -->
+			<doc-sources path-element="${basedir}/src/as3/shell/Program.as" />
+			<doc-sources path-element="${basedir}/src/as3/shell/Runtime.as" />
+			<doc-sources path-element="${basedir}/src/as3/shell/Diagnostics.as" />
+			<doc-sources path-element="${basedir}/src/as3/shell/HardwareInformation.as" />
+			<doc-sources path-element="${basedir}/src/as3/shell/OperatingSystem.as" />
+			<doc-sources path-element="${basedir}/src/as3/shell/RunMode.as" />
+			<doc-sources path-element="${basedir}/src/as3/shell/Domain.as" />
+			<doc-sources path-element="${basedir}/src/as3/shell/FileIO.as" />
+			<doc-sources path-element="${basedir}/src/as3/shell/Environment.as" />
+			<doc-sources path-element="${basedir}/src/as3/shell/BinaryData.as" />
+			<doc-sources path-element="${basedir}/src/as3/shell/async/EventLoop.as" />
+			<doc-sources path-element="${basedir}/src/as3/shell/async/CoreEventLoop.as" />
+
+			<doc-sources path-element="${basedir}/src/as3/getClassByName.as" />
+			<doc-sources path-element="${basedir}/src/as3/print.as" />
+			<doc-sources path-element="${basedir}/src/as3/trace.as" />
+			<doc-sources path-element="${basedir}/src/as3/getTimer.as" />
+			<doc-sources path-element="${basedir}/src/as3/readLine.as" />
+			
+
+			
+			<!-- avmglue documentation -->
+			<doc-sources path-element="${basedir}/src/as3/flash/accessibility/ISearchableText.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/accessibility/ISimpleTextSelection.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/accessibility/Accessibility.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/accessibility/AccessibilityImplementation.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/accessibility/AccessibilityProperties.as" />
+
+			<doc-sources path-element="${basedir}/src/as3/flash/crypto/generateRandomBytes.as" />
+
+			<doc-sources path-element="${basedir}/src/as3/flash/data/EncryptedLocalStore.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLCollationType.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLColumnNameStyle.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLColumnSchema.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLConnection.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLIndexSchema.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLMode.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLResult.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLSchema.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLSchemaResult.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLStatement.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLTableSchema.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLTransactionLockType.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLTriggerSchema.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/data/SQLViewSchema.as" />
+
+			<doc-sources path-element="${basedir}/src/as3/flash/debugger/enterDebugger.as" />
+
+			<doc-sources path-element="${basedir}/src/as3/flash/display/IBitmapDrawable.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/IDrawCommand.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/IGraphicsData.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/IGraphicsFill.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/IGraphicsPath.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/IGraphicsStroke.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/ActionScriptVersion.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/PixelSnapping.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/PNGEncoderOptions.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/Scene.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/StageAlign.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/StageAspectRatio.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/StageDisplayState.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/StageOrientation.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/StageQuality.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/StageScaleMode.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/SWFVersion.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/TriangleCulling.as" />
+
+			<doc-sources path-element="${basedir}/src/as3/flash/errors/ScriptTimeoutError.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/errors/StackOverflowError.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/errors/InvalidSWFError.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/errors/SQLErrorOperation.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/errors/SQLError.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/errors/DRMManagerError.as" />
+
+			<doc-sources path-element="${basedir}/src/as3/flash/events/IEventDispatcher.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/events/Event.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/events/EventDispatcher.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/events/HTTPStatusEvent.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/events/TimerEvent.as" />
+
+			<doc-sources path-element="${basedir}/src/as3/flash/geom/Orientation3D.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/geom/Point.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/geom/Rectangle.as" />
+
+			<doc-sources path-element="${basedir}/src/as3/flash/net/URLRequestHeader.as" />
+
+			<doc-sources path-element="${basedir}/src/extensions/Sampler.as" />
+
+			<doc-sources path-element="${basedir}/src/as3/flash/system/Capabilities.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/system/System.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/system/WorkerState.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/system/Worker.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/system/WorkerEvent.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/system/WorkerDomain.as" />
+
+			<doc-sources path-element="${basedir}/src/extensions/Trace.as" />
+
+			<doc-sources path-element="${basedir}/src/as3/flash/utils/clearInterval.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/utils/clearTimeout.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/utils/describeType.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/utils/escapeMultiByte.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/utils/getDefinitionByName.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/utils/getQualifiedClassName.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/utils/getQualifiedSuperclassName.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/utils/getTimer.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/utils/setInterval.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/utils/setTimeout.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/utils/unescapeMultiByte.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/utils/Endian.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/utils/Timer.as" />
+
+
+
+		    <!-- things we don't want documented -->
+			<exclude-classes class="flash.display.Sprite"/>
+			
+            <window-title>${doc.window-title}</window-title>
+            <main-title>${doc.main-title}</main-title>
+            <footer><![CDATA[${doc.footer}]]></footer>
+            <package-description-file>${basedir}/build/doc/package.description.xml</package-description-file>
+		</asdoc>
+
+	</target>
+
+	<target name="after">
+        
+        <if>
+            <available file="src/as3/api-versions.as" type="file"/>
+            <then>
+                <delete file="src/as3/api-versions.as"/>
+            </then>
+        </if>
+
+	</target>
+
+</project>
