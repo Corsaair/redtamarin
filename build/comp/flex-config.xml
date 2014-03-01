@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<flex-config>
+   <compiler>
+      <as3>true</as3>
+      <es>false</es>
+   </compiler>
+</flex-config>
+
