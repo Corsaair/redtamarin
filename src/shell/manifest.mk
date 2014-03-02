@@ -48,6 +48,7 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../api/clib/CStringClass.cpp \
   $(curdir)/../api/clib/CTimeClass.cpp \
   $(curdir)/../api/clib/CConioClass.cpp \
+  $(curdir)/../api/clib/CDirentClass.cpp \
   $(curdir)/../api/clib/CFcntlClass.cpp \
   $(curdir)/../api/clib/CNetdbClass.cpp \
   $(curdir)/../api/clib/CNetinetInClass.cpp \

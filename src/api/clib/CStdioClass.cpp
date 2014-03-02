@@ -80,7 +80,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -91,7 +92,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -102,20 +104,20 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
         
-        if (!mode) {
+        if( !mode )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "mode");
         }
 
         StUTF8String modeUTF8(mode);
-
         FILE *f = VMPI_fdopen( fildes, modeUTF8.c_str() );
-
-        ShellToplevel* shelltop = (ShellToplevel*)self->toplevel();
-        CFILEClass *fc = shelltop->getShellClasses()->get_FILEClass();
-        CFILEObject *fo = fc->constructObject();
 
         if( f )
         {
+            ShellToplevel* shelltop = (ShellToplevel*)self->toplevel();
+            CFILEClass *fc = shelltop->getShellClasses()->get_FILEClass();
+            CFILEObject *fo = fc->constructObject();
+
             fo->write( f );
             return fo;
         }
@@ -127,7 +129,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -138,7 +141,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -149,7 +153,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -160,7 +165,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -171,18 +177,18 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
-        if (!pos) {
+        if( !pos )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "pos");
         }
 
         fpos_t newpos;
-        int result;
-
-        result = VMPI_fgetpos( stream->read(), &newpos );
+        int result = VMPI_fgetpos( stream->read(), &newpos );
         pos->write( newpos );
 
         return result;
@@ -192,11 +198,13 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!n) {
+        if( !n )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "n");
         }
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -216,7 +224,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -227,7 +236,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!file) {
+        if( !file )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "file");
         }
 
@@ -239,25 +249,26 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!pathname) {
+        if( !pathname )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "pathname");
         }
         
-        if (!mode) {
+        if( !mode )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "mode");
         }
 
         StUTF8String pathnameUTF8(pathname);
         StUTF8String modeUTF8(mode);
-
         FILE *f = VMPI_fopen( pathnameUTF8.c_str(), modeUTF8.c_str() );
-
-        ShellToplevel* shelltop = (ShellToplevel*)self->toplevel();
-        CFILEClass *fc = shelltop->getShellClasses()->get_FILEClass();
-        CFILEObject *fo = fc->constructObject();
 
         if( f )
         {
+            ShellToplevel* shelltop = (ShellToplevel*)self->toplevel();
+            CFILEClass *fc = shelltop->getShellClasses()->get_FILEClass();
+            CFILEObject *fo = fc->constructObject();
+
             fo->write( f );
             return fo;
         }
@@ -269,7 +280,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
         
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -280,16 +292,17 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!s) {
+        if( !s )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "s");
         }
         
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
         StUTF8String sUTF8(s);
-
         return VMPI_fputs( sUTF8.c_str(), stream->read() );
     }
 
@@ -297,15 +310,18 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!bytes) {
+        if( !bytes )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "bytes");
         }
         
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
         
-        if( nitems <= 0 ) {
+        if( nitems <= 0 )
+        {
             return 0;
         }
 
@@ -337,29 +353,31 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!pathname) {
+        if( !pathname )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "pathname");
         }
         
-        if (!mode) {
+        if( !mode )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "mode");
         }
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
         StUTF8String pathnameUTF8(pathname);
         StUTF8String modeUTF8(mode);
-
         FILE *f = VMPI_freopen( pathnameUTF8.c_str(), modeUTF8.c_str(), stream->read() );
-
-        ShellToplevel* shelltop = (ShellToplevel*)self->toplevel();
-        CFILEClass *fc = shelltop->getShellClasses()->get_FILEClass();
-        CFILEObject *fo = fc->constructObject();
 
         if( f )
         {
+            ShellToplevel* shelltop = (ShellToplevel*)self->toplevel();
+            CFILEClass *fc = shelltop->getShellClasses()->get_FILEClass();
+            CFILEObject *fo = fc->constructObject();
+
             fo->write( f );
             return fo;
         }
@@ -371,7 +389,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -382,27 +401,26 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
-        if (!pos) {
+        if( !pos )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "pos");
         }
 
         fpos_t oldpos = pos->read();
-        int result;
-
-        result = VMPI_fsetpos( stream->read(), &oldpos );
-
-        return result;
+        return VMPI_fsetpos( stream->read(), &oldpos );
     }
 
     /*static*/ double CStdioClass::ftell(ScriptObject* self, CFILEObject* stream)
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -413,7 +431,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!file) {
+        if( !file )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "file");
         }
 
@@ -424,7 +443,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!file) {
+        if( !file )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "file");
         }
 
@@ -435,15 +455,18 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!bytes) {
+        if( !bytes )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "bytes");
         }
         
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
         
-        if( nitems <= 0 ) {
+        if( nitems <= 0 )
+        {
             return 0;
         }
 
@@ -456,14 +479,16 @@ namespace avmshell
             toplevel->throwRangeError(kOutOfRangeError, errormsg);
         }
 
-        if( byteslen <= 0 ) {
+        if( byteslen <= 0 )
+        {
             //the bytearray is empty
             return 0;
         }
 
         uint32_t available = byteslen - bytes->GetByteArray().GetPosition();
 
-        if( available == 0 ) {
+        if( available == 0 )
+        {
             //the bytearray position is at the end
             return 0;
         }
@@ -494,7 +519,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -508,7 +534,8 @@ namespace avmshell
 
     int CStdioClass::_getc_unlocked(CFILEObject* stream)
     {
-        if (!stream) {
+        if( !stream )
+        {
             toplevel()->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -524,7 +551,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!stream) {
+        if( !stream )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "stream");
         }
 
@@ -536,7 +564,8 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
         
-        if (!s) {
+        if( !s )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "s");
         }
 
@@ -548,25 +577,26 @@ namespace avmshell
     {
         Toplevel* toplevel = self->toplevel();
 
-        if (!command) {
+        if( !command )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "command");
         }
 
-        if (!mode) {
+        if( !mode )
+        {
             toplevel->throwArgumentError(kNullArgumentError, "mode");
         }
 
         StUTF8String commandUTF8(command);
         StUTF8String modeUTF8(mode);
-
         FILE* f = VMPI_popen( commandUTF8.c_str(), modeUTF8.c_str() );
-
-        ShellToplevel* shelltop = (ShellToplevel*)self->toplevel();
-        CFILEClass *fc = shelltop->getShellClasses()->get_FILEClass();
-        CFILEObject *fo = fc->constructObject();
 
         if( f )
         {
+            ShellToplevel* shelltop = (ShellToplevel*)self->toplevel();
+            CFILEClass *fc = shelltop->getShellClasses()->get_FILEClass();
+            CFILEObject *fo = fc->constructObject();
+            
             fo->write( f );
             return fo;
         }

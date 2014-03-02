@@ -70,7 +70,7 @@ include "as3/C/time.as";
 include "as3/C/POSIX.as";
 include "as3/C/conio.as";
 include "as3/C/cpio.as";
-//C.dirent
+include "as3/C/dirent.as";
 include "as3/C/fcntl.as";
 //C.grp
 include "as3/C/netdb.as";

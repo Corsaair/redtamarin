@@ -151,6 +151,7 @@
 			<doc-sources path-element="${basedir}/src/as3/C/POSIX.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/conio.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/cpio.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/dirent.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/fcntl.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/netdb.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/netinet.as" />

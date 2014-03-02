@@ -28,7 +28,7 @@
 
 #include "CConioClass.h" // ---- C.conio ---- 
 // ---- C.cpio ---- 
-// ---- C.dirent ---- 
+#include "CDirentClass.h" // ---- C.dirent ---- 
 #include "CFcntlClass.h" // ---- C.fcntl ---- 
 // ---- C.grp ---- 
 #include "CNetdbClass.h" // ---- C.netdb ---- 

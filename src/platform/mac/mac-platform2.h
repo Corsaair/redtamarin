@@ -54,8 +54,7 @@
 //for statvfs(), in avmplus.FileSystem
 #include <sys/statvfs.h>
 
-//for opendir(), readdir(), closedir(), DIR, etc., in avmplus.FileSystem
-#include <dirent.h>
+
 
 //for C.locale, setlocale, used with VMPI_getLocale
 #include <locale.h>
@@ -310,7 +309,10 @@
 
 
 // ---- C.dirent ---- 
-
+#include <dirent.h>
+#define VMPI_closedir       ::closedir
+#define VMPI_opendir        ::opendir
+#define VMPI_readdir        ::readdir
 // ---- C.dirent ---- END
 
 

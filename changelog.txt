@@ -1,3 +1,6 @@
+* 0.4.0 Akihabara (from tag 1S540)
+- added C.dirent basic closedir, opendir, readdir
+
 * 0.4.0 Akihabara (from tag 1R000)
 - BRAND NEW REFACTOR NO BACKWARD COMPATIBILITY
 - updated to latest tamarin-redux tips 5571cf86fc68
