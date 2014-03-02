@@ -1,5 +1,8 @@
 * 0.4.0 Akihabara (from tag 1S540)
 - added C.dirent basic closedir, opendir, readdir
+- added more dirent: dirfd, fdopendir, rewinddir, seekdir, telldir
+- added in fcntl: creat and open
+- MAC OS X does not have fdopendir so we implmented it
 
 * 0.4.0 Akihabara (from tag 1R000)
 - BRAND NEW REFACTOR NO BACKWARD COMPATIBILITY
