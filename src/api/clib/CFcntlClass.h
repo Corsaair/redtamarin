@@ -29,6 +29,10 @@ namespace avmshell
         
         int get_O_TEXT();
         int get_O_BINARY();
+
+
+        static int creat(ScriptObject* self, Stringp path, int mode);
+        static int open(ScriptObject* self, Stringp path, int oflag, int mode);
         
         DECLARE_SLOTS_CFcntlClass;
     };

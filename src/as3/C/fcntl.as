@@ -131,4 +131,24 @@ package C.fcntl
      */
     public const O_BINARY:int = __fcntl.O_BINARY;
 
+
+
+    /**
+     * Create a new file or rewrite an existing one.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CFcntlClass::creat")]
+    public native function creat( path:String, mode:int ):int;
+
+    /**
+     * Open file relative to directory file descriptor.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CFcntlClass::open")]
+    public native function open( path:String, oflag:int, mode:int = 0 ):int;
+
 }

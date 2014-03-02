@@ -34,4 +34,31 @@ namespace avmshell
     int CFcntlClass::get_O_TEXT() { return O_TEXT; }
     int CFcntlClass::get_O_BINARY() { return O_BINARY; }
 
+
+    /*static*/ int CFcntlClass::creat(ScriptObject* self, Stringp path, int mode)
+    {
+        Toplevel* toplevel = self->toplevel();
+
+        if( !path )
+        {
+            toplevel->throwArgumentError(kNullArgumentError, "path");
+        }
+        
+        StUTF8String pathUTF8(path);
+        return VMPI_creat( pathUTF8.c_str(), mode );
+    }
+
+    /*static*/ int CFcntlClass::open(ScriptObject* self, Stringp path, int oflag, int mode)
+    {
+        Toplevel* toplevel = self->toplevel();
+
+        if( !path )
+        {
+            toplevel->throwArgumentError(kNullArgumentError, "path");
+        }
+        
+        StUTF8String pathUTF8(path);
+        return VMPI_open( pathUTF8.c_str(), oflag, mode );
+    }
+
 }
