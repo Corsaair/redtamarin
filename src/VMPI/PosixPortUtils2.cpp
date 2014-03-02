@@ -244,7 +244,38 @@ int VMPI_kbhit()
 
 
 // ---- C.dirent ---- 
+DIR *VMPI_fdopendir(int fd)
+{
+/* note:
+   Macintosh does not define fdopendir()
+   Linux does
+*/
+#ifdef AVMPLUS_MAC
+    char fullpath[MAXPATHLEN];
+    DIR *d;
 
+    if(fcntl(fd, F_GETPATH, fullpath) < 0)
+    {
+        //perror("fcntl");
+        //fprintf(stderr, "tup error: Unable to convert file descriptor back to pathname in fdopendir() compat library.\n");
+        //fcntl() set the errno
+        if( errno == 0 ) { errno = EBADF; }
+        return NULL;
+    }
+
+    if(close(fd) < 0)
+    {
+        //perror("close(fd) in tup's OSX fdopendir() wrapper:");
+        //close() set the errno
+        return NULL;
+    }
+
+    d = opendir(fullpath);
+    return d;
+#else
+    return fdopendir(fd);
+#endif
+}
 // ---- C.dirent ---- END
 
 

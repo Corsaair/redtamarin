@@ -17,6 +17,24 @@ package C.dirent
     public native function closedir( dirp:DIR ):int;
 
     /**
+     * Extract the file descriptor used by a DIR stream.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CDirentClass::dirfd")]
+    public native function dirfd( dirp:DIR ):int;
+
+    /**
+     * Open directory associated with name.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CDirentClass::fdopendir")]
+    public native function fdopendir( fd:int ):DIR;
+
+    /**
      * Open directory associated with name.
      * 
      * @langversion 3.0
@@ -24,7 +42,6 @@ package C.dirent
      */
     [native("::avmshell::CDirentClass::opendir")]
     public native function opendir( dirname:String ):DIR;
-
 
     /**
      * Read a directory.
@@ -34,6 +51,36 @@ package C.dirent
      */
     [native("::avmshell::CDirentClass::readdir")]
     public native function readdir( dirp:DIR ):dirent;
+
+    /**
+     * Reset the position of a directory stream to the beginning of a directory.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CDirentClass::rewinddir")]
+    public native function rewinddir( dirp:DIR ):void;
+
+    /**
+     * Set the position of a directory stream.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CDirentClass::seekdir")]
+    public native function seekdir( dirp:DIR, loc:Number ):void;
+
+    /**
+     * Current location of a named directory stream.
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    [native("::avmshell::CDirentClass::telldir")]
+    public native function telldir( dirp:DIR ):Number;
+
+
+
 
     /**
      * A type representing a directory stream.

@@ -18,8 +18,13 @@ namespace avmshell
         ~CDirentClass();
         
         static int closedir(ScriptObject* self, CDIRObject* dirp);
+        static int dirfd(ScriptObject* self, CDIRObject* dirp);
+        static CDIRObject* fdopendir(ScriptObject* self, int fd);
         static CDIRObject* opendir(ScriptObject* self, Stringp dirname);
         static CdirentObject* readdir(ScriptObject* self, CDIRObject* dirp);
+        static void rewinddir(ScriptObject* self, CDIRObject* dirp);
+        static void seekdir(ScriptObject* self, CDIRObject* dirp, double loc);
+        static double telldir(ScriptObject* self, CDIRObject* dirp);
         
         //DECLARE_SLOTS_CDirentClass;
     };

@@ -33,6 +33,35 @@ namespace avmshell
         return VMPI_closedir( dirp->read() );
     }
 
+    /*static*/ int CDirentClass::dirfd(ScriptObject* self, CDIRObject* dirp)
+    {
+        Toplevel* toplevel = self->toplevel();
+
+        if( !dirp )
+        {
+            toplevel->throwArgumentError(kNullArgumentError, "dirp");
+        }
+
+        return VMPI_dirfd( dirp->read() );
+    }
+
+    /*static*/ CDIRObject* CDirentClass::fdopendir(ScriptObject* self, int fd)
+    {
+        DIR *dir = VMPI_fdopendir( fd );
+
+        if( dir )
+        {
+            ShellToplevel* shelltop = (ShellToplevel*)self->toplevel();
+            CDIRClass *dirc = shelltop->getShellClasses()->get_DIRClass();
+            CDIRObject *diro = dirc->constructObject();
+
+            diro->write( dir );
+            return diro;
+        }
+        
+        return NULL;
+    }
+
     /*static*/ CDIRObject* CDirentClass::opendir(ScriptObject* self, Stringp dirname)
     {
         Toplevel* toplevel = self->toplevel();
@@ -87,6 +116,44 @@ namespace avmshell
 
         return NULL;
     }
+
+    /*static*/ void CDirentClass::rewinddir(ScriptObject* self, CDIRObject* dirp)
+    {
+        Toplevel* toplevel = self->toplevel();
+
+        if( !dirp )
+        {
+            toplevel->throwArgumentError(kNullArgumentError, "dirp");
+        }
+
+        VMPI_rewinddir( dirp->read() );
+    }
+
+    /*static*/ void CDirentClass::seekdir(ScriptObject* self, CDIRObject* dirp, double loc)
+    {
+        Toplevel* toplevel = self->toplevel();
+
+        if( !dirp )
+        {
+            toplevel->throwArgumentError(kNullArgumentError, "dirp");
+        }
+
+        VMPI_seekdir( dirp->read(), loc );
+    }
+
+    /*static*/ double CDirentClass::telldir(ScriptObject* self, CDIRObject* dirp)
+    {
+        Toplevel* toplevel = self->toplevel();
+
+        if( !dirp )
+        {
+            toplevel->throwArgumentError(kNullArgumentError, "dirp");
+        }
+
+        return (double)VMPI_telldir( dirp->read() );
+    }
+
+
 
 
 

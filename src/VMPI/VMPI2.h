@@ -121,7 +121,7 @@ extern int VMPI_kbhit();
 
 
 // ---- C.dirent ---- 
-
+extern DIR *VMPI_fdopendir(int fd);
 // ---- C.dirent ---- END
 
 

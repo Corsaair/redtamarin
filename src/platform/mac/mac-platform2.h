@@ -311,8 +311,13 @@
 // ---- C.dirent ---- 
 #include <dirent.h>
 #define VMPI_closedir       ::closedir
+#define VMPI_dirfd          ::dirfd
+//extern DIR *VMPI_fdopendir(int fd); //already defined in VMPI2.h
 #define VMPI_opendir        ::opendir
 #define VMPI_readdir        ::readdir
+#define VMPI_rewinddir      ::rewinddir
+#define VMPI_seekdir        ::seekdir
+#define VMPI_telldir        ::telldir
 // ---- C.dirent ---- END
 
 
