@@ -3,6 +3,7 @@
 - added more dirent: dirfd, fdopendir, rewinddir, seekdir, telldir
 - added in fcntl: creat and open
 - MAC OS X does not have fdopendir so we implmented it
+- added non-standard function getdirentries() impl. in AS3
 
 * 0.4.0 Akihabara (from tag 1R000)
 - BRAND NEW REFACTOR NO BACKWARD COMPATIBILITY
