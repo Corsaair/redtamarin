@@ -182,8 +182,6 @@ package C.stdio
      * @playerversion AVM 0.4
      */
     public const stderr:FILE = __stdio.stderr;
-
-
     
     /**
      * Clear indicators on a stream.
@@ -1362,7 +1360,7 @@ package C.stdio
      * If the <code>rename()</code> function fails for any reason other than <code>EIO</code>,
      * any file named by <code>newname</code> shall be unaffected.
      * </p>
-     *
+     * 
      * @example usage
      * <listing>
      * import C.errno.&#42;;
