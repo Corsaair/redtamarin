@@ -1415,6 +1415,18 @@ else if( window.attachEvent ) // Microsoft
 									<xsl:when test="@name='AVM'">
 										<xsl:text>RedTamarin </xsl:text>
 									</xsl:when>
+									<xsl:when test="@name='POSIX'">
+										<xsl:text>POSIX (Linux/Mac only) </xsl:text>
+									</xsl:when>
+									<xsl:when test="@name='WIN'">
+										<xsl:text>Windows only </xsl:text>
+									</xsl:when>
+									<xsl:when test="@name='MAC'">
+										<xsl:text>Macintosh only </xsl:text>
+									</xsl:when>
+									<xsl:when test="@name='NIX'">
+										<xsl:text>Linux only </xsl:text>
+									</xsl:when>
 								</xsl:choose>
 								<xsl:text> </xsl:text>
 								<xsl:value-of select="translate(translate(@version,'+',''),',','.')"/>

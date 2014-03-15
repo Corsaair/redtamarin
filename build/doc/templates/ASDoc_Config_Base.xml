@@ -55,7 +55,7 @@
     <namespace hide="true">mx_internal</namespace>
     <namespace hide="false" summaryDisplay="protected">flash_proxy</namespace>
     <namespace hide="false" summaryDisplay="protected">object_proxy</namespace>
-    <namespace hide="false">mx_inner</namespace>
+    <namespace hide="true">mx_inner</namespace>
     <namespace hide="false" summaryDisplay="public">flash10</namespace>
   </namespaces>
 <!--
