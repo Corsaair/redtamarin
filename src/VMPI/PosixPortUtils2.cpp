@@ -280,7 +280,38 @@ DIR *VMPI_fdopendir(int fd)
 
 
 // ---- C.fcntl ---- 
+int VMPI_fcntl(int fildes, int cmd, int arg)
+{
+    if( arg > -1 )
+    {
+        return fcntl( fildes, cmd, arg );
+    }
+    else
+    {
+        return fcntl( fildes, cmd );
+    }
+}
 
+int VMPI_openat(int fd, const char *path, int oflag, int mode)
+{
+#ifdef AVMPLUS_MAC
+    (void)fd;
+    (void)path;
+    (void)oflag;
+    (void)mode;
+    errno = ENOSYS;
+    return -1;
+#else
+    if( mode > -1 )
+    {
+        return openat( fd, path, oflag, mode );
+    }
+    else
+    {
+        return openat( fd, path, oflag );
+    }
+#endif
+}
 // ---- C.fcntl ---- END
 
 

@@ -207,7 +207,24 @@ int VMPI_kbhit()
 
 
 // ---- C.fcntl ---- 
+int VMPI_fcntl(int fildes, int cmd, int arg)
+{
+    (void)fildes;
+    (void)cmd;
+    (void)arg;
+    errno = ENOSYS;
+    return -1;
+}
 
+int VMPI_openat(int fd, const char *path, int oflag, int mode)
+{
+    (void)fd;
+    (void)path;
+    (void)oflag;
+    (void)mode;
+    errno = ENOSYS;
+    return -1;
+}
 // ---- C.fcntl ---- END
 
 

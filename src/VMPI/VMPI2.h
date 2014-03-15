@@ -126,7 +126,8 @@ extern DIR *VMPI_fdopendir(int fd);
 
 
 // ---- C.fcntl ---- 
-
+extern int VMPI_fcntl(int fildes, int cmd, int arg);
+extern int VMPI_openat(int fd, const char *path, int oflag, int mode);
 // ---- C.fcntl ---- END
 
 
