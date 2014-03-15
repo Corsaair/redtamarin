@@ -51,11 +51,7 @@
 #include <sys/ioctl.h>
 //for FIONREAD
 #include <sys/ioctl.h>
-//for fcntl()
-#include <fcntl.h>
-#ifndef FIONREAD
-  #include <sys/filio.h> /* Solaris 2 puts it here */
-#endif
+
 
 //for uname(), in avmplus.OperatingSystem
 #include <sys/utsname.h>
@@ -170,7 +166,69 @@
 
 
 // ---- C.fcntl ---- 
+//for fcntl()
+#include <fcntl.h>
+#define VMPI_creat        ::creat
+#define VMPI_open         ::open
 
+//solaris compat
+#ifndef FIONREAD
+  #include <sys/filio.h> /* Solaris 2 puts it here */
+#endif
+
+//macintosh compat
+#ifndef O_SHLOCK
+# define O_SHLOCK 0x0000
+#endif
+
+#ifndef O_EXLOCK
+# define O_EXLOCK 0x0000
+#endif
+
+//windows compat
+#ifndef O_TEXT
+# define O_TEXT 0x0000
+#endif
+
+#ifndef O_BINARY
+# define O_BINARY 0x0000
+#endif
+
+#ifndef O_WTEXT
+# define O_WTEXT 0x0000
+#endif
+
+#ifndef O_U16TEXT
+# define O_U16TEXT 0x0000
+#endif
+
+#ifndef O_U8TEXT
+# define O_U8TEXT 0x0000
+#endif
+
+#ifndef O_RAW
+# define O_RAW 0x0000
+#endif
+
+#ifndef O_NOINHERIT
+# define O_NOINHERIT 0x0000
+#endif
+
+#ifndef O_TEMPORARY
+# define O_TEMPORARY 0x0000
+#endif
+
+#ifndef O_SHORT_LIVED
+# define O_SHORT_LIVED 0x0000
+#endif
+
+#ifndef O_SEQUENTIAL
+# define O_SEQUENTIAL 0x0000
+#endif
+
+#ifndef O_RANDOM
+# define O_RANDOM 0x0000
+#endif
 // ---- C.fcntl ---- END
 
 

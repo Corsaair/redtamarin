@@ -327,13 +327,67 @@
 #define VMPI_creat        ::creat
 #define VMPI_open         ::open
 
-#if !defined(O_TEXT)
-  #define O_TEXT          0x0000
-#endif /* !O_TEXT */
+//posix compat
+#ifndef O_EXEC
+# define O_EXEC O_RDONLY
+#endif
 
-#if !defined(O_BINARY)
-  #define O_BINARY        0x0000
-#endif /* !O_BINARY */
+#ifndef O_SEARCH
+# define O_SEARCH O_RDONLY
+#endif
+
+#ifndef O_TTY_INIT
+# define O_TTY_INIT 0x0000
+#endif
+
+#ifndef O_RSYNC
+# define O_RSYNC O_SYNC
+#endif
+
+//windows compat
+#ifndef O_TEXT
+# define O_TEXT 0x0000
+#endif
+
+#ifndef O_BINARY
+# define O_BINARY 0x0000
+#endif
+
+#ifndef O_WTEXT
+# define O_WTEXT 0x0000
+#endif
+
+#ifndef O_U16TEXT
+# define O_U16TEXT 0x0000
+#endif
+
+#ifndef O_U8TEXT
+# define O_U8TEXT 0x0000
+#endif
+
+#ifndef O_RAW
+# define O_RAW 0x0000
+#endif
+
+#ifndef O_NOINHERIT
+# define O_NOINHERIT 0x0000
+#endif
+
+#ifndef O_TEMPORARY
+# define O_TEMPORARY 0x0000
+#endif
+
+#ifndef O_SHORT_LIVED
+# define O_SHORT_LIVED 0x0000
+#endif
+
+#ifndef O_SEQUENTIAL
+# define O_SEQUENTIAL 0x0000
+#endif
+
+#ifndef O_RANDOM
+# define O_RANDOM 0x0000
+#endif
 // ---- C.fcntl ---- END
 
 

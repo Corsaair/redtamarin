@@ -33,9 +33,6 @@
 //for _access, _unlink, _setmode
 #include <io.h>
 
-//for _O_BINARY, _O_TEXT
-#include <fcntl.h>
-
 //for _kbhit
 #include <conio.h>
 
@@ -159,7 +156,72 @@
 
 
 // ---- C.fcntl ---- 
+//for fcntl()
+#include <fcntl.h>
+#define VMPI_creat        ::_creat
+#define VMPI_open         ::_open
 
+//posix compat
+#ifndef O_ACCMODE
+# define O_ACCMODE O_RDONLY | O_WRONLY | O_RDWR
+#endif
+
+#ifndef O_CLOEXEC
+# define O_CLOEXEC 0x0000
+#endif
+
+#ifndef O_DIRECTORY
+# define O_DIRECTORY 0x0000
+#endif
+
+#ifndef O_NOFOLLOW
+# define O_NOFOLLOW 0x0000
+#endif
+
+#ifndef O_NONBLOCK
+# define O_NONBLOCK 0x0000
+#endif
+
+#ifndef O_NOCTTY
+# define O_NOCTTY 0x0000
+#endif
+
+#ifndef O_SYNC
+# define O_SYNC 0x0000
+#endif
+
+#ifndef O_RSYNC
+# define O_RSYNC 0x0000
+#endif
+
+#ifndef O_ASYNC
+# define O_ASYNC 0x0000
+#endif
+
+#ifndef O_FSYNC
+# define O_FSYNC 0x0000
+#endif
+
+#ifndef O_EXEC
+# define O_EXEC 0x0000
+#endif
+
+#ifndef O_SEARCH
+# define O_SEARCH 0x0000
+#endif
+
+#ifndef O_TTY_INIT
+# define O_TTY_INIT 0x0000
+#endif
+
+//macintosh compat
+#ifndef O_SHLOCK
+# define O_SHLOCK 0x0000
+#endif
+
+#ifndef O_EXLOCK
+# define O_EXLOCK 0x0000
+#endif
 // ---- C.fcntl ---- END
 
 
