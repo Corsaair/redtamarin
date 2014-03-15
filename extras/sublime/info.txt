@@ -1,0 +1,14 @@
+
+We use Sublime Text 2 on Windows / Mac OS X / Linux
+with
+  package control
+  https://sublime.wbond.net/
+
+  DocBlockr package
+  https://github.com/spadgos/sublime-jsdocs
+
+in ~/Library/Application Support/Sublime Text 2/Packages/DocBlockr
+
+edit actionscript.sublime-completions
+
+or overwrite with the provided file in this folder

@@ -1,0 +1,30 @@
+{
+  "scope": "source.actionscript comment.block",
+  "completions": [
+    { "trigger": "@copy",                "contents": "@copy ${1:[reference]}" },
+    { "trigger": "@default",             "contents": "@default ${1:[value]}" },
+    { "trigger": "@eventType",           "contents": "@eventType ${1:[package.class.CONSTANT]}" },
+    { "trigger": "@example",             "contents": "@example ${1:[exampleText]}" },
+    { "trigger": "@example-listing",     "contents": "@example ${1:[exampleText]}\n* <listing>\n* ${2:[code]}\n* </listing>" },
+    { "trigger": "@exampleText",         "contents": "@exampleText ${1:[string]}" },
+    { "trigger": "@inheritDoc",          "contents": "@inheritDoc" },
+    { "trigger": "@langversion",         "contents": "@langversion 3.0" },
+    { "trigger": "@playerversion",       "contents": "@playerversion ${1:[runtime]} ${2:[version]}" },
+    { "trigger": "@playerversion-flash", "contents": "@playerversion Flash 9" },
+    { "trigger": "@playerversion-AIR",   "contents": "@playerversion AIR 1.0" },
+    { "trigger": "@playerversion-AVM",   "contents": "@playerversion AVM 0.4" },
+    { "trigger": "@playerversion-POSIX", "contents": "@playerversion POSIX +" },
+    { "trigger": "@playerversion-WIN",   "contents": "@playerversion WIN +" },
+    { "trigger": "@playerversion-MAC",   "contents": "@playerversion MAC +" },
+    { "trigger": "@playerversion-NIX",   "contents": "@playerversion NIX +" },
+    { "trigger": "@internal",            "contents": "@internal ${1:[text]}" },
+    { "trigger": "code",                 "contents": "<code>${1}</code>" },
+    { "trigger": "paragraph",            "contents": "<p>\n* ${1}\n* </p>" },
+    { "trigger": "@param",               "contents": "@param ${1:[paramName]} ${2:[description]}" },
+    { "trigger": "@private",             "contents": "@private" },
+    { "trigger": "@return",              "contents": "@return ${1:[description]}" },
+    { "trigger": "@see",                 "contents": "@see ${1:[reference]} ${2:[displayText]}" },
+    { "trigger": "@throws",              "contents": "@throws ${1:[package.class.className]} ${2:[description]}" },
+    { "trigger": "@throws-CError",       "contents": "@throws C.errno.CError ${1:[description]}" }
+  ]
+}
