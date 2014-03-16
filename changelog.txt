@@ -4,6 +4,20 @@
 - added in fcntl: creat and open
 - MAC OS X does not have fdopendir so we implmented it
 - added non-standard function getdirentries() impl. in AS3
+- refactor on fcntl, now asdoc indicate when options are compatible
+  for POSIX(mac/linux), WIN (Windows only, MAC (Macintosh only), and NIX (Linux only)
+- in fcntl, added openat() and fcntl() for POSIX (mac/linux)
+- in asdoc added WIN, MAC, NIX and POSIX as "Runtime Versions" target
+  how to use:
+  @langversion 3.0
+  @playerversion AVM 0.4
+  @playerversion POSIX +
+- oh and from now on we doublecheck our POSIX compatibility with gnulib
+  we an not compile with gnulib but at least we can correct few things
+  this and there
+- changed source and sdk path to use "macintosh" and not "darwin" or "osx"
+- added new folder "extras"
+- added extra for DocBlockr package used with Sublime Text
 
 * 0.4.0 Akihabara (from tag 1R000)
 - BRAND NEW REFACTOR NO BACKWARD COMPATIBILITY
