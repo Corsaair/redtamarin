@@ -90,18 +90,18 @@
 		<!-- create output folder if not found -->
 		<if>
 			<not>
-			<available file="${app.release}/${TARGET_OS}/${target.release64.output}" type="dir"/>
+			<available file="${app.release}/${SDK_OS}/${target.release64.output}" type="dir"/>
 			</not>
 			<then>
-				<mkdir dir="${app.release}/${TARGET_OS}/${target.release64.output}"/>
+				<mkdir dir="${app.release}/${SDK_OS}/${target.release64.output}"/>
 			</then>
 		</if>
 
 		<!-- move and rename avmshell -->
-		<copy file="${target.release64.path}/shell/${AVMSHELL}" tofile="${app.release}/${TARGET_OS}/${target.release64.output}/${TARGET}"/>
+		<copy file="${target.release64.path}/shell/${AVMSHELL}" tofile="${app.release}/${SDK_OS}/${target.release64.output}/${TARGET}"/>
 
 		<!-- executable bit -->
-		<chmod file="${app.release}/${TARGET_OS}/${target.release64.output}/${TARGET}" perm="+x"/>
+		<chmod file="${app.release}/${SDK_OS}/${target.release64.output}/${TARGET}" perm="+x"/>
 
 	</target>
 
