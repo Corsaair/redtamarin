@@ -164,6 +164,19 @@
             <os family="windows" />
         </condition>
 
+        <!-- SDK_OS -->
+        <condition property="SDK_OS" value="${SDK_OS_MAC}">
+            <os family="mac"/>
+        </condition>
+
+        <condition property="SDK_OS" value="${SDK_OS_NIX}">
+            <os family="unix"/>
+        </condition>
+        
+        <condition property="SDK_OS" value="${SDK_OS_WIN}">
+            <os family="windows" />
+        </condition>
+
         <!-- AVMSHELL_EXE -->
         <condition property="AVMSHELL_EXE" value="${AVMSHELL_EXE_MAC}">
             <os family="mac"/>
@@ -177,18 +190,7 @@
             <os family="windows" />
         </condition>
 
-        <!-- SDK_OS -->
-        <condition property="SDK_OS" value="${SDK_OS_MAC}">
-            <os family="mac"/>
-        </condition>
 
-        <condition property="SDK_OS" value="${SDK_OS_NIX}">
-            <os family="unix"/>
-        </condition>
-        
-        <condition property="SDK_OS" value="${SDK_OS_WIN}">
-            <os family="windows" />
-        </condition>
 
 
     </target>
