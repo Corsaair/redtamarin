@@ -22,11 +22,16 @@ namespace avmshell
 
     /*static*/ void CAssertClass::_debugBreak(ScriptObject* self)
     {
+        
         //VMPI_debugBreak();
         
+        #ifdef DEBUGGER
         AvmCore *core = self->core();
         core->dumpStackTrace();
         AvmAssert(false);
+        #else
+        (void)self;
+        #endif
     }
 
 
