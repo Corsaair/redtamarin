@@ -33,6 +33,10 @@ package C.assert
      */
      public function assert( expression:* ):void
      {
+          /* NOTE:
+             just a test for now
+             we ll find a solution eventually
+           */
           if( !expression )
           {
                _debugBreak();
