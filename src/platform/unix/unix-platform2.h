@@ -79,6 +79,7 @@
 
 
 // ---- C.errno ---- 
+//#include <errno.h> //already included in unix-platform.h
 
 // ---- C.errno ---- END
 

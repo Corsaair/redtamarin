@@ -93,6 +93,194 @@
 //#include <errno.h> //already included in mac-platform.h
 //extern void VMPI_set_errno(int value); // defined in VMPI2.h
 //extern int VMPI_get_errno(); // defined in VMPI2.h
+
+//posix compat
+#ifndef ENOTBLK
+# define ENOTBLK 15
+#endif
+
+#ifndef EDEADLOCK
+# define EDEADLOCK EDEADLK
+#endif
+
+//Mac OS X define EMULTIHOP
+
+//Linux compat
+#ifndef ECHRNG
+# define ECHRNG 2001
+#endif
+
+#ifndef EL2NSYNC
+# define EL2NSYNC 2002
+#endif
+
+#ifndef EL3HLT
+# define EL3HLT 2003
+#endif
+
+#ifndef EL3RST
+# define EL3RST 2004
+#endif
+
+#ifndef ELNRNG
+# define ELNRNG 2005
+#endif
+
+#ifndef EUNATCH
+# define EUNATCH 2006
+#endif
+
+#ifndef ENOCSI
+# define ENOCSI 2007
+#endif
+
+#ifndef EL2HLT
+# define EL2HLT 2008
+#endif
+
+#ifndef EBADE
+# define EBADE 2009
+#endif
+
+#ifndef EBADR
+# define EBADR 2010
+#endif
+
+#ifndef EXFULL
+# define EXFULL 2011
+#endif
+
+#ifndef ENOANO
+# define ENOANO 2012
+#endif
+
+#ifndef EBADRQC
+# define EBADRQC 2013
+#endif
+
+#ifndef EBADSLT
+# define EBADSLT 2014
+#endif
+
+#ifndef EBFONT
+# define EBFONT 2015
+#endif
+
+#ifndef ENONET
+# define ENONET 2016
+#endif
+
+#ifndef ENOPKG
+# define ENOPKG 2017
+#endif
+
+#ifndef EADV
+# define EADV 2018
+#endif
+
+#ifndef ESRMNT
+# define ESRMNT 2019
+#endif
+
+#ifndef ECOMM
+# define ECOMM 2020
+#endif
+
+#ifndef EDOTDOT
+# define EDOTDOT 2021
+#endif
+
+#ifndef ENOTUNIQ
+# define ENOTUNIQ 2022
+#endif
+
+#ifndef EBADFD
+# define EBADFD 2023
+#endif
+
+#ifndef EREMCHG
+# define EREMCHG 2024
+#endif
+
+#ifndef ELIBACC
+# define ELIBACC 2025
+#endif
+
+#ifndef ELIBBAD
+# define ELIBBAD 2026
+#endif
+
+#ifndef ELIBSCN
+# define ELIBSCN 2027
+#endif
+
+#ifndef ELIBMAX
+# define ELIBMAX 2028
+#endif
+
+#ifndef ELIBEXEC
+# define ELIBEXEC 2029
+#endif
+
+#ifndef ERESTART
+# define ERESTART 2030
+#endif
+
+#ifndef ESTRPIPE
+# define ESTRPIPE 2031
+#endif
+
+#ifndef EUCLEAN
+# define EUCLEAN 2032
+#endif
+
+#ifndef ENOTNAM
+# define ENOTNAM 2033
+#endif
+
+#ifndef ENAVAIL
+# define ENAVAIL 2034
+#endif
+
+#ifndef EISNAM
+# define EISNAM 2035
+#endif
+
+#ifndef EREMOTEIO
+# define EREMOTEIO 2036
+#endif
+
+#ifndef ENOMEDIUM
+# define ENOMEDIUM 2037
+#endif
+
+#ifndef EMEDIUMTYPE
+# define EMEDIUMTYPE 2038
+#endif
+
+#ifndef ENOKEY
+# define ENOKEY 2039
+#endif
+
+#ifndef EKEYEXPIRED
+# define EKEYEXPIRED 2040
+#endif
+
+#ifndef EKEYREVOKED
+# define EKEYREVOKED 2041
+#endif
+
+#ifndef EKEYREJECTED
+# define EKEYREJECTED 2042
+#endif
+
+#ifndef ERFKILL
+# define ERFKILL 2043
+#endif
+
+#ifndef EHWPOISON
+# define EHWPOISON 2044
+#endif
 // ---- C.errno ---- END
 
 
