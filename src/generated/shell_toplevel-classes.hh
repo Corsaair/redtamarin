@@ -10,6 +10,27 @@
 namespace avmplus {
 
 //-----------------------------------------------------------
+// C.errno::__errno
+//-----------------------------------------------------------
+class __errnoObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmshell::CErrnoClass;
+    REALLY_INLINE explicit __errnoObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit __errnoObject(const __errnoObject&); // unimplemented
+    void operator=(const __errnoObject&); // unimplemented
+};
+
+#define avmplus___errnoObject_isExactInterlock 1
+//-----------------------------------------------------------
 // C.errno::ErrorNumber
 //-----------------------------------------------------------
 class ErrorNumberObject : public avmplus::ScriptObject
