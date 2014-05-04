@@ -657,442 +657,535 @@ const uint32_t C_errno_ErrorNumber_value_get = 349; // abc
 const uint32_t C_errno_ErrorNumber_value_set = 350; // abc
 const uint32_t C_errno_ErrorNumber_valueOf = 351; // abc
 const uint32_t C_errno_ErrorNumber_toString = 352; // abc
-const uint32_t C_limits___limits_PATH_MAX_get = 356; // native
-const uint32_t C_locale___locale_LC_ALL_get = 359; // native
-const uint32_t C_signal___signal_SIGEV_NONE_get = 362; // native
-const uint32_t C_signal___signal_SIGEV_SIGNAL_get = 363; // native
-const uint32_t C_signal___signal_SIGEV_THREAD_get = 364; // native
-const uint32_t C_stdio___stdio_BUFSIZ_get = 371; // native
-const uint32_t C_stdio___stdio__IOFBF_get = 372; // native
-const uint32_t C_stdio___stdio__IOLBF_get = 373; // native
-const uint32_t C_stdio___stdio__IONBF_get = 374; // native
-const uint32_t C_stdio___stdio_SEEK_CUR_get = 375; // native
-const uint32_t C_stdio___stdio_SEEK_END_get = 376; // native
-const uint32_t C_stdio___stdio_SEEK_SET_get = 377; // native
-const uint32_t C_stdio___stdio_FILENAME_MAX_get = 378; // native
-const uint32_t C_stdio___stdio_FOPEN_MAX_get = 379; // native
-const uint32_t C_stdio___stdio_TMP_MAX_get = 380; // native
-const uint32_t C_stdio___stdio_EOF_get = 381; // native
-const uint32_t C_stdio___stdio_stdin_get = 382; // native
-const uint32_t C_stdio___stdio_stdout_get = 383; // native
-const uint32_t C_stdio___stdio_stderr_get = 384; // native
-const uint32_t C_stdio___stdio__getc_unlocked = 385; // native
-const uint32_t C_stdio___stdio__getchar_unlocked = 386; // native
-const uint32_t C_stdio___stdio_PATH_MAX_get = 387; // native
-const uint32_t C_stdio___stdio_NONBLOCKING_DISABLE_get = 388; // native
-const uint32_t C_stdio___stdio_NONBLOCKING_ENABLE_get = 389; // native
-const uint32_t C_stdio___stdio_remove = 390; // native
-const uint32_t C_stdio___stdio_con_stream_mode = 391; // native
-const uint32_t C_stdio___stdio_con_trans_mode = 392; // native
-const uint32_t C_stdlib___stdlib_EXIT_SUCCESS_get = 399; // native
-const uint32_t C_stdlib___stdlib_EXIT_FAILURE_get = 400; // native
-const uint32_t C_stdlib___stdlib_RAND_MAX_get = 401; // native
-const uint32_t C_stdlib___stdlib_MB_CUR_MAX_get = 402; // native
-const uint32_t C_stdlib___stdlib__str2num = 403; // abc
-const uint32_t C_stdlib___stdlib__str2int = 404; // abc
-const uint32_t C_stdlib___stdlib__str2uint = 405; // abc
-const uint32_t C_stdlib_div_t_toString = 408; // abc
-const uint32_t C_stdlib_ldiv_t_toString = 411; // abc
-const uint32_t C_stdlib_lldiv_t_toString = 414; // abc
-const uint32_t C_time___time_CLOCKS_PER_SEC_get = 417; // native
-const uint32_t C_fcntl___fcntl_O_RDONLY_get = 424; // native
-const uint32_t C_fcntl___fcntl_O_WRONLY_get = 425; // native
-const uint32_t C_fcntl___fcntl_O_RDWR_get = 426; // native
-const uint32_t C_fcntl___fcntl_O_ACCMODE_get = 427; // native
-const uint32_t C_fcntl___fcntl_O_APPEND_get = 428; // native
-const uint32_t C_fcntl___fcntl_O_CREAT_get = 429; // native
-const uint32_t C_fcntl___fcntl_O_TRUNC_get = 430; // native
-const uint32_t C_fcntl___fcntl_O_EXCL_get = 431; // native
-const uint32_t C_fcntl___fcntl_O_EXEC_get = 432; // native
-const uint32_t C_fcntl___fcntl_O_CLOEXEC_get = 433; // native
-const uint32_t C_fcntl___fcntl_O_DIRECTORY_get = 434; // native
-const uint32_t C_fcntl___fcntl_O_NOFOLLOW_get = 435; // native
-const uint32_t C_fcntl___fcntl_O_NONBLOCK_get = 436; // native
-const uint32_t C_fcntl___fcntl_O_NOCTTY_get = 437; // native
-const uint32_t C_fcntl___fcntl_O_SEARCH_get = 438; // native
-const uint32_t C_fcntl___fcntl_O_TTY_INIT_get = 439; // native
-const uint32_t C_fcntl___fcntl_O_SYNC_get = 440; // native
-const uint32_t C_fcntl___fcntl_O_DSYNC_get = 441; // native
-const uint32_t C_fcntl___fcntl_O_RSYNC_get = 442; // native
-const uint32_t C_fcntl___fcntl_O_ASYNC_get = 443; // native
-const uint32_t C_fcntl___fcntl_O_FSYNC_get = 444; // native
-const uint32_t C_fcntl___fcntl_O_SHLOCK_get = 445; // native
-const uint32_t C_fcntl___fcntl_O_EXLOCK_get = 446; // native
-const uint32_t C_fcntl___fcntl_O_TEXT_get = 447; // native
-const uint32_t C_fcntl___fcntl_O_BINARY_get = 448; // native
-const uint32_t C_fcntl___fcntl_O_WTEXT_get = 449; // native
-const uint32_t C_fcntl___fcntl_O_U16TEXT_get = 450; // native
-const uint32_t C_fcntl___fcntl_O_U8TEXT_get = 451; // native
-const uint32_t C_fcntl___fcntl_O_RAW_get = 452; // native
-const uint32_t C_fcntl___fcntl_O_NOINHERIT_get = 453; // native
-const uint32_t C_fcntl___fcntl_O_TEMPORARY_get = 454; // native
-const uint32_t C_fcntl___fcntl_O_SHORT_LIVED_get = 455; // native
-const uint32_t C_fcntl___fcntl_O_SEQUENTIAL_get = 456; // native
-const uint32_t C_fcntl___fcntl_O_RANDOM_get = 457; // native
-const uint32_t C_fcntl___fcntl_F_DUPFD_get = 458; // native
-const uint32_t C_fcntl___fcntl_F_DUPFD_CLOEXEC_get = 459; // native
-const uint32_t C_fcntl___fcntl_F_GETFD_get = 460; // native
-const uint32_t C_fcntl___fcntl_F_SETFD_get = 461; // native
-const uint32_t C_fcntl___fcntl_F_GETFL_get = 462; // native
-const uint32_t C_fcntl___fcntl_F_SETFL_get = 463; // native
-const uint32_t C_fcntl___fcntl_F_GETOWN_get = 464; // native
-const uint32_t C_fcntl___fcntl_F_SETOWN_get = 465; // native
-const uint32_t C_netdb___netdb_AI_PASSIVE_get = 468; // native
-const uint32_t C_netdb___netdb_AI_CANONNAME_get = 469; // native
-const uint32_t C_netdb___netdb_AI_NUMERICHOST_get = 470; // native
-const uint32_t C_netdb___netdb_AI_NUMERICSERV_get = 471; // native
-const uint32_t C_netdb___netdb_AI_V4MAPPED_get = 472; // native
-const uint32_t C_netdb___netdb_AI_ALL_get = 473; // native
-const uint32_t C_netdb___netdb_AI_ADDRCONFIG_get = 474; // native
-const uint32_t C_netdb_hostent_toString = 477; // abc
-const uint32_t C_netdb_protoent_toString = 482; // abc
-const uint32_t C_netinet___netinet_IPPROTO_IP_get = 489; // native
-const uint32_t C_netinet___netinet_IPPROTO_IPV6_get = 490; // native
-const uint32_t C_netinet___netinet_IPPROTO_ICMP_get = 491; // native
-const uint32_t C_netinet___netinet_IPPROTO_RAW_get = 492; // native
-const uint32_t C_netinet___netinet_IPPROTO_TCP_get = 493; // native
-const uint32_t C_netinet___netinet_IPPROTO_UDP_get = 494; // native
-const uint32_t C_netinet___netinet_INADDR_ANY_get = 495; // native
-const uint32_t C_netinet___netinet_INADDR_BROADCAST_get = 496; // native
-const uint32_t C_netinet___netinet_INET_ADDRSTRLEN_get = 497; // native
-const uint32_t C_netinet___netinet_INET6_ADDRSTRLEN_get = 498; // native
-const uint32_t C_netinet___netinet_IPV6_JOIN_GROUP_get = 499; // native
-const uint32_t C_netinet___netinet_IPV6_LEAVE_GROUP_get = 500; // native
-const uint32_t C_netinet___netinet_IPV6_MULTICAST_HOPS_get = 501; // native
-const uint32_t C_netinet___netinet_IPV6_MULTICAST_IF_get = 502; // native
-const uint32_t C_netinet___netinet_IPV6_MULTICAST_LOOP_get = 503; // native
-const uint32_t C_netinet___netinet_IPV6_UNICAST_HOPS_get = 504; // native
-const uint32_t C_netinet___netinet_IPV6_V6ONLY_get = 505; // native
-const uint32_t C_spawn_pid_t_valueOf = 518; // abc
-const uint32_t C_spawn_pid_t_toString = 519; // abc
-const uint32_t C_sys_socket___socket_SOCK_DGRAM_get = 522; // native
-const uint32_t C_sys_socket___socket_SOCK_RAW_get = 523; // native
-const uint32_t C_sys_socket___socket_SOCK_SEQPACKET_get = 524; // native
-const uint32_t C_sys_socket___socket_SOCK_STREAM_get = 525; // native
-const uint32_t C_sys_socket_sockaddr_toSockaddr_storage = 530; // abc
-const uint32_t C_sys_socket_sockaddr_storage_toSockaddr = 533; // abc
-const uint32_t C_sys_stat___stat__mkdir = 538; // native
-const uint32_t C_sys_stat_status_toString = 541; // abc
-const uint32_t C_sys_wait___wait_WCONTINUED_get = 544; // native
-const uint32_t C_sys_wait___wait_WNOHANG_get = 545; // native
-const uint32_t C_sys_wait___wait_WUNTRACED_get = 546; // native
-const uint32_t C_sys_wait___wait_WEXITED_get = 547; // native
-const uint32_t C_sys_wait___wait_WNOWAIT_get = 548; // native
-const uint32_t C_sys_wait___wait_WSTOPPED_get = 549; // native
-const uint32_t C_sys_wait___wait_P_ALL_get = 550; // native
-const uint32_t C_sys_wait___wait_P_PGID_get = 551; // native
-const uint32_t C_sys_wait___wait_P_PID_get = 552; // native
-const uint32_t C_sys_wait___wait__WEXITSTATUS = 553; // native
-const uint32_t C_sys_wait___wait__WIFCONTINUED = 554; // native
-const uint32_t C_sys_wait___wait__WIFEXITED = 555; // native
-const uint32_t C_sys_wait___wait__WIFSIGNALED = 556; // native
-const uint32_t C_sys_wait___wait__WIFSTOPPED = 557; // native
-const uint32_t C_sys_wait___wait__WSTOPSIG = 558; // native
-const uint32_t C_sys_wait___wait__WTERMSIG = 559; // native
-const uint32_t C_unistd___unistd_F_OK_get = 564; // native
-const uint32_t C_unistd___unistd_X_OK_get = 565; // native
-const uint32_t C_unistd___unistd_W_OK_get = 566; // native
-const uint32_t C_unistd___unistd_R_OK_get = 567; // native
-const uint32_t C_unistd___unistd_getcwd = 568; // native
-const uint32_t C_unistd___unistd_gethostname = 569; // native
-const uint32_t C_unistd___unistd_getlogin = 570; // native
-const uint32_t C_unistd___unistd_getpid = 571; // native
-const uint32_t C_unistd___unistd_rmdir = 572; // native
-const uint32_t C_unistd___unistd_sleep = 573; // native
-const uint32_t C_unistd___unistd_unlink = 574; // native
-const uint32_t shell_Program_private__getArgv = 577; // native
-const uint32_t shell_Program_private__getEnviron = 578; // native
-const uint32_t shell_Program_private__getProgramFilename = 579; // native
-const uint32_t shell_Program_private__setExitListener = 580; // native
-const uint32_t shell_Program_private__popenRead = 581; // native
-const uint32_t shell_Program_totalMemory_get = 582; // native
-const uint32_t shell_Program_freeMemory_get = 583; // native
-const uint32_t shell_Program_privateMemory_get = 584; // native
-const uint32_t shell_Program_environ_get = 585; // abc
-const uint32_t shell_Program_pid_get = 586; // abc
-const uint32_t shell_Program_shell_get = 587; // abc
-const uint32_t shell_Program_workingDirectory_get = 588; // abc
-const uint32_t shell_Program_workingDirectory_set = 589; // abc
-const uint32_t shell_Program_AVM2_atExit = 590; // abc
-const uint32_t shell_Program_AVM2_setExitListener = 591; // abc
-const uint32_t shell_Program_AVM2_setShell = 592; // abc
-const uint32_t shell_Program_AVM2_selfCheck = 593; // abc
-const uint32_t shell_Program_abort = 594; // native
-const uint32_t shell_Program_exec = 595; // native
-const uint32_t shell_Program_exit = 596; // native
-const uint32_t shell_Program_open = 597; // abc
-const uint32_t shell_Program_sleep = 598; // native
-const uint32_t shell_Program_getNanosecondTimer = 599; // native
-const uint32_t shell_Program_getTimer = 600; // native
-const uint32_t shell_Program_readLine = 601; // native
-const uint32_t shell_Program_write = 602; // native
-const uint32_t shell_Program_writeLine = 603; // abc
-const uint32_t shell_Program_trace = 604; // native
-const uint32_t shell_Program_forceFullCollection = 605; // native
-const uint32_t shell_Program_queueCollection = 606; // native
-const uint32_t shell_Program_pauseForGCIfCollectionImminent = 607; // native
-const uint32_t shell_Program_disposeXML = 608; // native
-const uint32_t shell_Runtime_private__getAvmplusPlatform = 611; // native
-const uint32_t shell_Runtime_private__getAvmplusArchitecture = 612; // native
-const uint32_t shell_Runtime_private__getAvmplusVersion = 613; // native
-const uint32_t shell_Runtime_private__getAvmplusDescription = 614; // native
-const uint32_t shell_Runtime_private__getFeatures = 615; // native
-const uint32_t shell_Runtime_private__getRunmode = 616; // native
-const uint32_t shell_Runtime_private__getEndian = 617; // native
-const uint32_t shell_Runtime_apiVersion_get = 618; // native
-const uint32_t shell_Runtime_api_get = 619; // abc
-const uint32_t shell_Runtime_swfVersion_get = 620; // native
-const uint32_t shell_Runtime_platform_get = 621; // abc
-const uint32_t shell_Runtime_architecture_get = 622; // abc
-const uint32_t shell_Runtime_version_get = 623; // abc
-const uint32_t shell_Runtime_description_get = 624; // abc
-const uint32_t shell_Runtime_features_get = 625; // abc
-const uint32_t shell_Runtime_runmode_get = 626; // abc
-const uint32_t shell_Runtime_endian_get = 627; // abc
-const uint32_t shell_Runtime_redtamarin_get = 628; // abc
-const uint32_t shell_Runtime_loop_get = 629; // abc
-const uint32_t shell_Runtime_loop_set = 630; // abc
-const uint32_t shell_Runtime_eval = 631; // native
-const uint32_t shell_Runtime_returnEval = 632; // native
-const uint32_t shell_Runtime_is64bit = 633; // native
-const uint32_t shell_Diagnostics_private__isGlobal = 636; // native
-const uint32_t shell_Diagnostics_private__isIntptr = 637; // native
-const uint32_t shell_Diagnostics_private__canonicalizeNumber = 638; // native
-const uint32_t shell_Diagnostics_private__deopt = 639; // native
-const uint32_t shell_Diagnostics_private__runInSafepoint = 640; // native
-const uint32_t shell_Diagnostics_private__log = 641; // native
-const uint32_t shell_Diagnostics_private__initializeLogging = 642; // native
-const uint32_t shell_Diagnostics_debugger = 643; // native
-const uint32_t shell_Diagnostics_isDebugger = 644; // native
-const uint32_t shell_Diagnostics_AVM2_log = 645; // abc
-const uint32_t shell_Diagnostics_AVM2_initializeLogging = 646; // abc
-const uint32_t shell_Diagnostics_AVM2_isGlobal = 647; // abc
-const uint32_t shell_Diagnostics_AVM2_isIntptr = 648; // abc
-const uint32_t shell_Diagnostics_AVM2_canonicalizeNumber = 649; // abc
-const uint32_t shell_Diagnostics_AVM2_deopt = 650; // abc
-const uint32_t shell_Diagnostics_AVM2_runInSafepoint = 651; // abc
-const uint32_t shell_HardwareInformation_private__getProcessorCountAtBoot = 654; // native
-const uint32_t shell_HardwareInformation_private__getMemorySize = 655; // native
-const uint32_t shell_HardwareInformation_private__getMemoryUsage = 656; // native
-const uint32_t shell_HardwareInformation_private__getMemoryPeakUsage = 657; // native
-const uint32_t shell_HardwareInformation_processors_get = 658; // abc
-const uint32_t shell_HardwareInformation_memory_get = 659; // abc
-const uint32_t shell_HardwareInformation_memoryUsage_get = 660; // abc
-const uint32_t shell_HardwareInformation_memoryPeakUsage_get = 661; // abc
-const uint32_t shell_OperatingSystem_isWindowsStore = 664; // native
-const uint32_t shell_Domain_currentDomain_get = 669; // native
-const uint32_t shell_Domain_MIN_DOMAIN_MEMORY_LENGTH_get = 670; // native
-const uint32_t shell_Domain_private_init = 671; // native
-const uint32_t shell_Domain_loadBytes = 673; // native
-const uint32_t shell_Domain_getClass = 674; // native
-const uint32_t shell_Domain_load = 675; // abc
-const uint32_t shell_Domain_domainMemory_get = 676; // native
-const uint32_t shell_Domain_domainMemory_set = 677; // native
-const uint32_t shell_FileIO_exists = 679; // native
-const uint32_t shell_FileIO_read = 680; // native
-const uint32_t shell_FileIO_write = 681; // native
-const uint32_t shell_FileIO_readByteArray = 682; // native
-const uint32_t shell_FileIO_writeByteArray = 683; // native
-const uint32_t shell_Environment_private__parse = 687; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_callProperty = 688; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_deleteProperty = 689; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_getProperty = 690; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_setProperty = 691; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_hasProperty = 692; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextNameIndex = 693; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextName = 694; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextValue = 695; // abc
-const uint32_t shell_Environment_length_get = 696; // abc
-const uint32_t shell_Environment_refresh = 697; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_running_get = 701; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_running_set = 702; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_frequency_get = 703; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_frequency_set = 704; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_timers_get = 705; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_timers_set = 706; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_frame_get = 707; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_started_get = 708; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_elapsed_get = 709; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_timerPending_get = 710; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_setCallback = 711; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_handleTimers = 712; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_start = 713; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_stop = 714; // abc
-const uint32_t flash_accessibility_ISearchableText_flash_accessibility_ISearchableText_searchText_get = 717; // abc
-const uint32_t flash_accessibility_ISimpleTextSelection_flash_accessibility_ISimpleTextSelection_selectionAnchorIndex_get = 720; // abc
-const uint32_t flash_accessibility_ISimpleTextSelection_flash_accessibility_ISimpleTextSelection_selectionActiveIndex_get = 721; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accRole = 727; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accName = 728; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accValue = 729; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accState = 730; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accDefaultAction = 731; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_accDoDefaultAction = 732; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_isLabeledBy = 733; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_getChildIDArray = 734; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_accLocation = 735; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accSelection = 736; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accFocus = 737; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_accSelect = 738; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_selectionAnchorIndex = 739; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_selectionActiveIndex = 740; // abc
-const uint32_t flash_data_EncryptedLocalStore_isSupported_get = 744; // abc
-const uint32_t flash_display_Scene_name_get = 794; // abc
-const uint32_t flash_display_Scene_labels_get = 795; // abc
-const uint32_t flash_display_Scene_numFrames_get = 796; // abc
-const uint32_t flash_errors_SQLError_operation_get = 823; // abc
-const uint32_t flash_errors_SQLError_details_get = 824; // abc
-const uint32_t flash_errors_SQLError_detailID_get = 825; // abc
-const uint32_t flash_errors_SQLError_detailArguments_get = 826; // abc
-const uint32_t flash_errors_DRMManagerError_subErrorID_get = 829; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_addEventListener = 831; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_dispatchEvent = 832; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_hasEventListener = 833; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_removeEventListener = 834; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_willTrigger = 835; // abc
-const uint32_t flash_events_Event_private_ctor = 839; // abc
-const uint32_t flash_events_Event_type_get = 840; // abc
-const uint32_t flash_events_Event_bubbles_get = 841; // abc
-const uint32_t flash_events_Event_cancelable_get = 842; // abc
-const uint32_t flash_events_Event_target_get = 843; // abc
-const uint32_t flash_events_Event_currentTarget_get = 844; // abc
-const uint32_t flash_events_Event_eventPhase_get = 845; // abc
-const uint32_t flash_events_Event_formatToString = 846; // abc
-const uint32_t flash_events_Event_clone = 847; // abc
-const uint32_t flash_events_Event_isDefaultPrevented = 848; // abc
-const uint32_t flash_events_Event_preventDefault = 849; // abc
-const uint32_t flash_events_Event_stopImmediatePropagation = 850; // abc
-const uint32_t flash_events_Event_stopPropagation = 851; // abc
-const uint32_t flash_events_Event_toString = 852; // abc
-const uint32_t flash_geom_Point_interpolate = 856; // abc
-const uint32_t flash_geom_Point_distance = 857; // abc
-const uint32_t flash_geom_Point_polar = 858; // abc
-const uint32_t flash_geom_Point_length_get = 860; // abc
-const uint32_t flash_geom_Point_clone = 861; // abc
-const uint32_t flash_geom_Point_offset = 862; // abc
-const uint32_t flash_geom_Point_equals = 863; // abc
-const uint32_t flash_geom_Point_subtract = 864; // abc
-const uint32_t flash_geom_Point_add = 865; // abc
-const uint32_t flash_geom_Point_normalize = 866; // abc
-const uint32_t flash_geom_Point_toString = 867; // abc
-const uint32_t flash_geom_Rectangle_left_get = 870; // abc
-const uint32_t flash_geom_Rectangle_left_set = 871; // abc
-const uint32_t flash_geom_Rectangle_right_get = 872; // abc
-const uint32_t flash_geom_Rectangle_right_set = 873; // abc
-const uint32_t flash_geom_Rectangle_top_get = 874; // abc
-const uint32_t flash_geom_Rectangle_top_set = 875; // abc
-const uint32_t flash_geom_Rectangle_bottom_get = 876; // abc
-const uint32_t flash_geom_Rectangle_bottom_set = 877; // abc
-const uint32_t flash_geom_Rectangle_topLeft_get = 878; // abc
-const uint32_t flash_geom_Rectangle_topLeft_set = 879; // abc
-const uint32_t flash_geom_Rectangle_bottomRight_get = 880; // abc
-const uint32_t flash_geom_Rectangle_bottomRight_set = 881; // abc
-const uint32_t flash_geom_Rectangle_size_get = 882; // abc
-const uint32_t flash_geom_Rectangle_size_set = 883; // abc
-const uint32_t flash_geom_Rectangle_clone = 884; // abc
-const uint32_t flash_geom_Rectangle_isEmpty = 885; // abc
-const uint32_t flash_geom_Rectangle_setEmpty = 886; // abc
-const uint32_t flash_geom_Rectangle_inflate = 887; // abc
-const uint32_t flash_geom_Rectangle_inflatePoint = 888; // abc
-const uint32_t flash_geom_Rectangle_offset = 889; // abc
-const uint32_t flash_geom_Rectangle_offsetPoint = 890; // abc
-const uint32_t flash_geom_Rectangle_contains = 891; // abc
-const uint32_t flash_geom_Rectangle_containsPoint = 892; // abc
-const uint32_t flash_geom_Rectangle_containsRect = 893; // abc
-const uint32_t flash_geom_Rectangle_intersection = 894; // abc
-const uint32_t flash_geom_Rectangle_intersects = 895; // abc
-const uint32_t flash_geom_Rectangle_union = 896; // abc
-const uint32_t flash_geom_Rectangle_equals = 897; // abc
-const uint32_t flash_geom_Rectangle_toString = 898; // abc
-const uint32_t flash_sampler_StackFrame_toString = 902; // abc
-const uint32_t flash_system_Capabilities_playerType_get = 909; // abc
-const uint32_t flash_system_Capabilities_isDebugger_get = 910; // abc
-const uint32_t flash_system_System_setClipboard = 913; // abc
-const uint32_t flash_system_System_totalMemory_get = 914; // abc
-const uint32_t flash_system_System_totalMemoryNumber_get = 915; // abc
-const uint32_t flash_system_System_freeMemory_get = 916; // native
-const uint32_t flash_system_System_privateMemory_get = 917; // abc
-const uint32_t flash_system_System_useCodePage_get = 918; // abc
-const uint32_t flash_system_System_useCodePage_set = 919; // abc
-const uint32_t flash_system_System_vmVersion_get = 920; // abc
-const uint32_t flash_system_System_pause = 921; // abc
-const uint32_t flash_system_System_resume = 922; // abc
-const uint32_t flash_system_System_exit = 923; // abc
-const uint32_t flash_system_System_gc = 924; // abc
-const uint32_t flash_system_System_disposeXML = 925; // abc
-const uint32_t flash_system_WorkerState_code = 928; // abc
-const uint32_t flash_system_Worker_current_get = 931; // abc
-const uint32_t flash_system_Worker_pr = 932; // native
-const uint32_t flash_system_Worker_state_get = 934; // native
-const uint32_t flash_system_Worker_start = 935; // native
-const uint32_t flash_system_Worker_isParentOf = 936; // native
-const uint32_t flash_system_Worker_isPrimordial_get = 937; // native
-const uint32_t flash_system_Worker_setSharedProperty = 938; // native
-const uint32_t flash_system_Worker_getSharedProperty = 939; // native
-const uint32_t flash_system_Worker_terminate = 940; // native
-const uint32_t flash_system_WorkerEvent_currentState_get = 943; // abc
-const uint32_t flash_system_WorkerEvent_previousState_get = 944; // abc
-const uint32_t flash_system_WorkerEvent_target_get = 945; // abc
-const uint32_t flash_system_WorkerDomain_current_get = 947; // abc
-const uint32_t flash_system_WorkerDomain_createWorkerFromByteArray = 949; // abc
-const uint32_t flash_system_WorkerDomain_createWorkerFromPrimordial = 950; // abc
-const uint32_t flash_system_WorkerDomain_private_createWorkerFromByteArrayInternal = 951; // native
-const uint32_t flash_system_WorkerDomain_listWorkers = 952; // native
-const uint32_t flash_trace_Trace_setLevel = 954; // native
-const uint32_t flash_trace_Trace_getLevel = 955; // native
-const uint32_t flash_trace_Trace_setListener = 956; // native
-const uint32_t flash_trace_Trace_getListener = 957; // native
-const uint32_t shell_async_CoreEventLoop_running_get = 963; // abc
-const uint32_t shell_async_CoreEventLoop_running_set = 964; // abc
-const uint32_t shell_async_CoreEventLoop_frequency_get = 965; // abc
-const uint32_t shell_async_CoreEventLoop_frequency_set = 966; // abc
-const uint32_t shell_async_CoreEventLoop_timers_get = 967; // abc
-const uint32_t shell_async_CoreEventLoop_timers_set = 968; // abc
-const uint32_t shell_async_CoreEventLoop_frame_get = 969; // abc
-const uint32_t shell_async_CoreEventLoop_started_get = 970; // abc
-const uint32_t shell_async_CoreEventLoop_elapsed_get = 971; // abc
-const uint32_t shell_async_CoreEventLoop_private_tick = 972; // abc
-const uint32_t shell_async_CoreEventLoop_setCallback = 973; // abc
-const uint32_t shell_async_CoreEventLoop_private__loop = 974; // abc
-const uint32_t shell_async_CoreEventLoop_timerPending_get = 975; // abc
-const uint32_t shell_async_CoreEventLoop_handleTimers = 976; // abc
-const uint32_t shell_async_CoreEventLoop_start = 977; // abc
-const uint32_t shell_async_CoreEventLoop_stop = 978; // abc
-const uint32_t flash_events_EventDispatcher_private_trimHeaderValue = 980; // abc
-const uint32_t flash_events_EventDispatcher_private_ctor = 982; // abc
-const uint32_t flash_events_EventDispatcher_private_dispatchEventFunction = 983; // abc
-const uint32_t flash_events_EventDispatcher_private_dispatchHttpStatusEvent = 985; // abc
-const uint32_t flash_events_EventDispatcher_addEventListener = 986; // abc
-const uint32_t flash_events_EventDispatcher_dispatchEvent = 987; // abc
-const uint32_t flash_events_EventDispatcher_hasEventListener = 988; // abc
-const uint32_t flash_events_EventDispatcher_removeEventListener = 989; // abc
-const uint32_t flash_events_EventDispatcher_willTrigger = 990; // abc
-const uint32_t flash_events_EventDispatcher_toString = 991; // abc
-const uint32_t flash_events_HTTPStatusEvent_status_get = 994; // abc
-const uint32_t flash_events_HTTPStatusEvent_responseURL_get = 995; // abc
-const uint32_t flash_events_HTTPStatusEvent_responseURL_set = 996; // abc
-const uint32_t flash_events_HTTPStatusEvent_responseHeaders_get = 997; // abc
-const uint32_t flash_events_HTTPStatusEvent_responseHeaders_set = 998; // abc
-const uint32_t flash_events_HTTPStatusEvent_redirected_get = 999; // abc
-const uint32_t flash_events_HTTPStatusEvent_redirected_set = 1000; // abc
-const uint32_t flash_events_HTTPStatusEvent_clone = 1001; // abc
-const uint32_t flash_events_HTTPStatusEvent_toString = 1002; // abc
-const uint32_t flash_events_TimerEvent_clone = 1005; // abc
-const uint32_t flash_events_TimerEvent_toString = 1006; // abc
-const uint32_t flash_events_TimerEvent_updateAfterEvent = 1007; // abc
-const uint32_t flash_sampler_NewObjectSample_object_get = 1009; // native
-const uint32_t flash_sampler_NewObjectSample_size_get = 1010; // native
-const uint32_t flash_utils_Timer_private__timerDispatch = 1016; // abc
-const uint32_t flash_utils_Timer_private__start = 1017; // abc
-const uint32_t flash_utils_Timer_tick = 1018; // abc
-const uint32_t flash_utils_Timer_delay_get = 1019; // abc
-const uint32_t flash_utils_Timer_delay_set = 1020; // abc
-const uint32_t flash_utils_Timer_repeatCount_get = 1021; // abc
-const uint32_t flash_utils_Timer_repeatCount_set = 1022; // abc
-const uint32_t flash_utils_Timer_currentCount_get = 1023; // abc
-const uint32_t flash_utils_Timer_running_get = 1024; // abc
-const uint32_t flash_utils_Timer_reset = 1025; // abc
-const uint32_t flash_utils_Timer_start = 1026; // abc
-const uint32_t flash_utils_Timer_stop = 1027; // abc
+const uint32_t C_limits___limits_CHAR_BIT_get = 356; // native
+const uint32_t C_limits___limits_CHAR_MAX_get = 357; // native
+const uint32_t C_limits___limits_CHAR_MIN_get = 358; // native
+const uint32_t C_limits___limits_INT_MAX_get = 359; // native
+const uint32_t C_limits___limits_INT_MIN_get = 360; // native
+const uint32_t C_limits___limits_LLONG_MAX_get = 361; // native
+const uint32_t C_limits___limits_LLONG_MIN_get = 362; // native
+const uint32_t C_limits___limits_LONG_BIT_get = 363; // native
+const uint32_t C_limits___limits_LONG_MAX_get = 364; // native
+const uint32_t C_limits___limits_LONG_MIN_get = 365; // native
+const uint32_t C_limits___limits_SCHAR_MAX_get = 366; // native
+const uint32_t C_limits___limits_SCHAR_MIN_get = 367; // native
+const uint32_t C_limits___limits_SHRT_MAX_get = 368; // native
+const uint32_t C_limits___limits_SHRT_MIN_get = 369; // native
+const uint32_t C_limits___limits_UCHAR_MAX_get = 370; // native
+const uint32_t C_limits___limits_UINT_MAX_get = 371; // native
+const uint32_t C_limits___limits_ULLONG_MAX_get = 372; // native
+const uint32_t C_limits___limits_ULONG_MAX_get = 373; // native
+const uint32_t C_limits___limits_USHRT_MAX_get = 374; // native
+const uint32_t C_limits___limits_WORD_BIT_get = 375; // native
+const uint32_t C_limits___limits_ARG_MAX_get = 376; // native
+const uint32_t C_limits___limits_ATEXIT_MAX_get = 377; // native
+const uint32_t C_limits___limits_CHILD_MAX_get = 378; // native
+const uint32_t C_limits___limits_LINK_MAX_get = 379; // native
+const uint32_t C_limits___limits_MAX_CANON_get = 380; // native
+const uint32_t C_limits___limits_MAX_INPUT_get = 381; // native
+const uint32_t C_limits___limits_NAME_MAX_get = 382; // native
+const uint32_t C_limits___limits_NGROUPS_MAX_get = 383; // native
+const uint32_t C_limits___limits_OPEN_MAX_get = 384; // native
+const uint32_t C_limits___limits_PATH_MAX_get = 385; // native
+const uint32_t C_limits___limits_PIPE_BUF_get = 386; // native
+const uint32_t C_limits___limits_SSIZE_MAX_get = 387; // native
+const uint32_t C_limits___limits_STREAM_MAX_get = 388; // native
+const uint32_t C_limits___limits_TZNAME_MAX_get = 389; // native
+const uint32_t C_limits___limits_MB_LEN_MAX_get = 390; // native
+const uint32_t C_limits___limits_SIZE_MAX_get = 391; // native
+const uint32_t C_limits___limits_SYMLINK_MAX_get = 392; // native
+const uint32_t C_limits___limits_AIO_LISTIO_MAX_get = 393; // native
+const uint32_t C_limits___limits_AIO_MAX_get = 394; // native
+const uint32_t C_limits___limits_AIO_PRIO_DELTA_MAX_get = 395; // native
+const uint32_t C_limits___limits_DELAYTIMER_MAX_get = 396; // native
+const uint32_t C_limits___limits_HOST_NAME_MAX_get = 397; // native
+const uint32_t C_limits___limits_LOGIN_NAME_MAX_get = 398; // native
+const uint32_t C_limits___limits_MQ_OPEN_MAX_get = 399; // native
+const uint32_t C_limits___limits_MQ_PRIO_MAX_get = 400; // native
+const uint32_t C_limits___limits_PAGESIZE_get = 401; // native
+const uint32_t C_limits___limits_PAGE_SIZE_get = 402; // native
+const uint32_t C_limits___limits_RE_DUP_MAX_get = 403; // native
+const uint32_t C_limits___limits_RTSIG_MAX_get = 404; // native
+const uint32_t C_limits___limits_SEM_NSEMS_MAX_get = 405; // native
+const uint32_t C_limits___limits_SEM_VALUE_MAX_get = 406; // native
+const uint32_t C_limits___limits_SIGQUEUE_MAX_get = 407; // native
+const uint32_t C_limits___limits_SS_REPL_MAX_get = 408; // native
+const uint32_t C_limits___limits_SYMLOOP_MAX_get = 409; // native
+const uint32_t C_limits___limits_TIMER_MAX_get = 410; // native
+const uint32_t C_limits___limits_TRACE_EVENT_NAME_MAX_get = 411; // native
+const uint32_t C_limits___limits_TRACE_NAME_MAX_get = 412; // native
+const uint32_t C_limits___limits_TRACE_SYS_MAX_get = 413; // native
+const uint32_t C_limits___limits_TRACE_USER_EVENT_MAX_get = 414; // native
+const uint32_t C_limits___limits_TTY_NAME_MAX_get = 415; // native
+const uint32_t C_limits___limits__POSIX_ARG_MAX_get = 416; // native
+const uint32_t C_limits___limits__POSIX_CHILD_MAX_get = 417; // native
+const uint32_t C_limits___limits__POSIX_LINK_MAX_get = 418; // native
+const uint32_t C_limits___limits__POSIX_MAX_CANON_get = 419; // native
+const uint32_t C_limits___limits__POSIX_MAX_INPUT_get = 420; // native
+const uint32_t C_limits___limits__POSIX_NAME_MAX_get = 421; // native
+const uint32_t C_limits___limits__POSIX_NGROUPS_MAX_get = 422; // native
+const uint32_t C_limits___limits__POSIX_OPEN_MAX_get = 423; // native
+const uint32_t C_limits___limits__POSIX_PATH_MAX_get = 424; // native
+const uint32_t C_limits___limits__POSIX_PIPE_BUF_get = 425; // native
+const uint32_t C_limits___limits__POSIX_SSIZE_MAX_get = 426; // native
+const uint32_t C_limits___limits__POSIX_STREAM_MAX_get = 427; // native
+const uint32_t C_limits___limits__POSIX_TZNAME_MAX_get = 428; // native
+const uint32_t C_limits___limits__POSIX_SYMLINK_MAX_get = 429; // native
+const uint32_t C_limits___limits__POSIX_AIO_LISTIO_MAX_get = 430; // native
+const uint32_t C_limits___limits__POSIX_AIO_MAX_get = 431; // native
+const uint32_t C_limits___limits__POSIX_DELAYTIMER_MAX_get = 432; // native
+const uint32_t C_limits___limits__POSIX_HOST_NAME_MAX_get = 433; // native
+const uint32_t C_limits___limits__POSIX_LOGIN_NAME_MAX_get = 434; // native
+const uint32_t C_limits___limits__POSIX_MQ_OPEN_MAX_get = 435; // native
+const uint32_t C_limits___limits__POSIX_MQ_PRIO_MAX_get = 436; // native
+const uint32_t C_limits___limits__POSIX_RE_DUP_MAX_get = 437; // native
+const uint32_t C_limits___limits__POSIX_RTSIG_MAX_get = 438; // native
+const uint32_t C_limits___limits__POSIX_SEM_NSEMS_MAX_get = 439; // native
+const uint32_t C_limits___limits__POSIX_SEM_VALUE_MAX_get = 440; // native
+const uint32_t C_limits___limits__POSIX_SIGQUEUE_MAX_get = 441; // native
+const uint32_t C_limits___limits__POSIX_SS_REPL_MAX_get = 442; // native
+const uint32_t C_limits___limits__POSIX_SYMLOOP_MAX_get = 443; // native
+const uint32_t C_limits___limits__POSIX_TIMER_MAX_get = 444; // native
+const uint32_t C_limits___limits__POSIX_TRACE_EVENT_NAME_MAX_get = 445; // native
+const uint32_t C_limits___limits__POSIX_TRACE_NAME_MAX_get = 446; // native
+const uint32_t C_limits___limits__POSIX_TRACE_SYS_MAX_get = 447; // native
+const uint32_t C_limits___limits__POSIX_TRACE_USER_EVENT_MAX_get = 448; // native
+const uint32_t C_limits___limits__POSIX_TTY_NAME_MAX_get = 449; // native
+const uint32_t C_locale___locale_LC_ALL_get = 452; // native
+const uint32_t C_signal___signal_SIGEV_NONE_get = 455; // native
+const uint32_t C_signal___signal_SIGEV_SIGNAL_get = 456; // native
+const uint32_t C_signal___signal_SIGEV_THREAD_get = 457; // native
+const uint32_t C_stdio___stdio_BUFSIZ_get = 464; // native
+const uint32_t C_stdio___stdio__IOFBF_get = 465; // native
+const uint32_t C_stdio___stdio__IOLBF_get = 466; // native
+const uint32_t C_stdio___stdio__IONBF_get = 467; // native
+const uint32_t C_stdio___stdio_SEEK_CUR_get = 468; // native
+const uint32_t C_stdio___stdio_SEEK_END_get = 469; // native
+const uint32_t C_stdio___stdio_SEEK_SET_get = 470; // native
+const uint32_t C_stdio___stdio_FILENAME_MAX_get = 471; // native
+const uint32_t C_stdio___stdio_FOPEN_MAX_get = 472; // native
+const uint32_t C_stdio___stdio_TMP_MAX_get = 473; // native
+const uint32_t C_stdio___stdio_EOF_get = 474; // native
+const uint32_t C_stdio___stdio_stdin_get = 475; // native
+const uint32_t C_stdio___stdio_stdout_get = 476; // native
+const uint32_t C_stdio___stdio_stderr_get = 477; // native
+const uint32_t C_stdio___stdio__getc_unlocked = 478; // native
+const uint32_t C_stdio___stdio__getchar_unlocked = 479; // native
+const uint32_t C_stdio___stdio_PATH_MAX_get = 480; // native
+const uint32_t C_stdio___stdio_NONBLOCKING_DISABLE_get = 481; // native
+const uint32_t C_stdio___stdio_NONBLOCKING_ENABLE_get = 482; // native
+const uint32_t C_stdio___stdio_remove = 483; // native
+const uint32_t C_stdio___stdio_con_stream_mode = 484; // native
+const uint32_t C_stdio___stdio_con_trans_mode = 485; // native
+const uint32_t C_stdlib___stdlib_EXIT_SUCCESS_get = 492; // native
+const uint32_t C_stdlib___stdlib_EXIT_FAILURE_get = 493; // native
+const uint32_t C_stdlib___stdlib_RAND_MAX_get = 494; // native
+const uint32_t C_stdlib___stdlib_MB_CUR_MAX_get = 495; // native
+const uint32_t C_stdlib___stdlib__str2num = 496; // abc
+const uint32_t C_stdlib___stdlib__str2int = 497; // abc
+const uint32_t C_stdlib___stdlib__str2uint = 498; // abc
+const uint32_t C_stdlib_div_t_toString = 501; // abc
+const uint32_t C_stdlib_ldiv_t_toString = 504; // abc
+const uint32_t C_stdlib_lldiv_t_toString = 507; // abc
+const uint32_t C_time___time_CLOCKS_PER_SEC_get = 510; // native
+const uint32_t C_fcntl___fcntl_O_RDONLY_get = 517; // native
+const uint32_t C_fcntl___fcntl_O_WRONLY_get = 518; // native
+const uint32_t C_fcntl___fcntl_O_RDWR_get = 519; // native
+const uint32_t C_fcntl___fcntl_O_ACCMODE_get = 520; // native
+const uint32_t C_fcntl___fcntl_O_APPEND_get = 521; // native
+const uint32_t C_fcntl___fcntl_O_CREAT_get = 522; // native
+const uint32_t C_fcntl___fcntl_O_TRUNC_get = 523; // native
+const uint32_t C_fcntl___fcntl_O_EXCL_get = 524; // native
+const uint32_t C_fcntl___fcntl_O_EXEC_get = 525; // native
+const uint32_t C_fcntl___fcntl_O_CLOEXEC_get = 526; // native
+const uint32_t C_fcntl___fcntl_O_DIRECTORY_get = 527; // native
+const uint32_t C_fcntl___fcntl_O_NOFOLLOW_get = 528; // native
+const uint32_t C_fcntl___fcntl_O_NONBLOCK_get = 529; // native
+const uint32_t C_fcntl___fcntl_O_NOCTTY_get = 530; // native
+const uint32_t C_fcntl___fcntl_O_SEARCH_get = 531; // native
+const uint32_t C_fcntl___fcntl_O_TTY_INIT_get = 532; // native
+const uint32_t C_fcntl___fcntl_O_SYNC_get = 533; // native
+const uint32_t C_fcntl___fcntl_O_DSYNC_get = 534; // native
+const uint32_t C_fcntl___fcntl_O_RSYNC_get = 535; // native
+const uint32_t C_fcntl___fcntl_O_ASYNC_get = 536; // native
+const uint32_t C_fcntl___fcntl_O_FSYNC_get = 537; // native
+const uint32_t C_fcntl___fcntl_O_SHLOCK_get = 538; // native
+const uint32_t C_fcntl___fcntl_O_EXLOCK_get = 539; // native
+const uint32_t C_fcntl___fcntl_O_TEXT_get = 540; // native
+const uint32_t C_fcntl___fcntl_O_BINARY_get = 541; // native
+const uint32_t C_fcntl___fcntl_O_WTEXT_get = 542; // native
+const uint32_t C_fcntl___fcntl_O_U16TEXT_get = 543; // native
+const uint32_t C_fcntl___fcntl_O_U8TEXT_get = 544; // native
+const uint32_t C_fcntl___fcntl_O_RAW_get = 545; // native
+const uint32_t C_fcntl___fcntl_O_NOINHERIT_get = 546; // native
+const uint32_t C_fcntl___fcntl_O_TEMPORARY_get = 547; // native
+const uint32_t C_fcntl___fcntl_O_SHORT_LIVED_get = 548; // native
+const uint32_t C_fcntl___fcntl_O_SEQUENTIAL_get = 549; // native
+const uint32_t C_fcntl___fcntl_O_RANDOM_get = 550; // native
+const uint32_t C_fcntl___fcntl_F_DUPFD_get = 551; // native
+const uint32_t C_fcntl___fcntl_F_DUPFD_CLOEXEC_get = 552; // native
+const uint32_t C_fcntl___fcntl_F_GETFD_get = 553; // native
+const uint32_t C_fcntl___fcntl_F_SETFD_get = 554; // native
+const uint32_t C_fcntl___fcntl_F_GETFL_get = 555; // native
+const uint32_t C_fcntl___fcntl_F_SETFL_get = 556; // native
+const uint32_t C_fcntl___fcntl_F_GETOWN_get = 557; // native
+const uint32_t C_fcntl___fcntl_F_SETOWN_get = 558; // native
+const uint32_t C_netdb___netdb_AI_PASSIVE_get = 561; // native
+const uint32_t C_netdb___netdb_AI_CANONNAME_get = 562; // native
+const uint32_t C_netdb___netdb_AI_NUMERICHOST_get = 563; // native
+const uint32_t C_netdb___netdb_AI_NUMERICSERV_get = 564; // native
+const uint32_t C_netdb___netdb_AI_V4MAPPED_get = 565; // native
+const uint32_t C_netdb___netdb_AI_ALL_get = 566; // native
+const uint32_t C_netdb___netdb_AI_ADDRCONFIG_get = 567; // native
+const uint32_t C_netdb_hostent_toString = 570; // abc
+const uint32_t C_netdb_protoent_toString = 575; // abc
+const uint32_t C_netinet___netinet_IPPROTO_IP_get = 582; // native
+const uint32_t C_netinet___netinet_IPPROTO_IPV6_get = 583; // native
+const uint32_t C_netinet___netinet_IPPROTO_ICMP_get = 584; // native
+const uint32_t C_netinet___netinet_IPPROTO_RAW_get = 585; // native
+const uint32_t C_netinet___netinet_IPPROTO_TCP_get = 586; // native
+const uint32_t C_netinet___netinet_IPPROTO_UDP_get = 587; // native
+const uint32_t C_netinet___netinet_INADDR_ANY_get = 588; // native
+const uint32_t C_netinet___netinet_INADDR_BROADCAST_get = 589; // native
+const uint32_t C_netinet___netinet_INET_ADDRSTRLEN_get = 590; // native
+const uint32_t C_netinet___netinet_INET6_ADDRSTRLEN_get = 591; // native
+const uint32_t C_netinet___netinet_IPV6_JOIN_GROUP_get = 592; // native
+const uint32_t C_netinet___netinet_IPV6_LEAVE_GROUP_get = 593; // native
+const uint32_t C_netinet___netinet_IPV6_MULTICAST_HOPS_get = 594; // native
+const uint32_t C_netinet___netinet_IPV6_MULTICAST_IF_get = 595; // native
+const uint32_t C_netinet___netinet_IPV6_MULTICAST_LOOP_get = 596; // native
+const uint32_t C_netinet___netinet_IPV6_UNICAST_HOPS_get = 597; // native
+const uint32_t C_netinet___netinet_IPV6_V6ONLY_get = 598; // native
+const uint32_t C_spawn_pid_t_valueOf = 611; // abc
+const uint32_t C_spawn_pid_t_toString = 612; // abc
+const uint32_t C_sys_socket___socket_SOCK_DGRAM_get = 615; // native
+const uint32_t C_sys_socket___socket_SOCK_RAW_get = 616; // native
+const uint32_t C_sys_socket___socket_SOCK_SEQPACKET_get = 617; // native
+const uint32_t C_sys_socket___socket_SOCK_STREAM_get = 618; // native
+const uint32_t C_sys_socket_sockaddr_toSockaddr_storage = 623; // abc
+const uint32_t C_sys_socket_sockaddr_storage_toSockaddr = 626; // abc
+const uint32_t C_sys_stat___stat__mkdir = 631; // native
+const uint32_t C_sys_stat_status_toString = 634; // abc
+const uint32_t C_sys_wait___wait_WCONTINUED_get = 637; // native
+const uint32_t C_sys_wait___wait_WNOHANG_get = 638; // native
+const uint32_t C_sys_wait___wait_WUNTRACED_get = 639; // native
+const uint32_t C_sys_wait___wait_WEXITED_get = 640; // native
+const uint32_t C_sys_wait___wait_WNOWAIT_get = 641; // native
+const uint32_t C_sys_wait___wait_WSTOPPED_get = 642; // native
+const uint32_t C_sys_wait___wait_P_ALL_get = 643; // native
+const uint32_t C_sys_wait___wait_P_PGID_get = 644; // native
+const uint32_t C_sys_wait___wait_P_PID_get = 645; // native
+const uint32_t C_sys_wait___wait__WEXITSTATUS = 646; // native
+const uint32_t C_sys_wait___wait__WIFCONTINUED = 647; // native
+const uint32_t C_sys_wait___wait__WIFEXITED = 648; // native
+const uint32_t C_sys_wait___wait__WIFSIGNALED = 649; // native
+const uint32_t C_sys_wait___wait__WIFSTOPPED = 650; // native
+const uint32_t C_sys_wait___wait__WSTOPSIG = 651; // native
+const uint32_t C_sys_wait___wait__WTERMSIG = 652; // native
+const uint32_t C_unistd___unistd_F_OK_get = 657; // native
+const uint32_t C_unistd___unistd_X_OK_get = 658; // native
+const uint32_t C_unistd___unistd_W_OK_get = 659; // native
+const uint32_t C_unistd___unistd_R_OK_get = 660; // native
+const uint32_t C_unistd___unistd_getcwd = 661; // native
+const uint32_t C_unistd___unistd_gethostname = 662; // native
+const uint32_t C_unistd___unistd_getlogin = 663; // native
+const uint32_t C_unistd___unistd_getpid = 664; // native
+const uint32_t C_unistd___unistd_rmdir = 665; // native
+const uint32_t C_unistd___unistd_sleep = 666; // native
+const uint32_t C_unistd___unistd_unlink = 667; // native
+const uint32_t shell_Program_private__getArgv = 670; // native
+const uint32_t shell_Program_private__getEnviron = 671; // native
+const uint32_t shell_Program_private__getProgramFilename = 672; // native
+const uint32_t shell_Program_private__setExitListener = 673; // native
+const uint32_t shell_Program_private__popenRead = 674; // native
+const uint32_t shell_Program_totalMemory_get = 675; // native
+const uint32_t shell_Program_freeMemory_get = 676; // native
+const uint32_t shell_Program_privateMemory_get = 677; // native
+const uint32_t shell_Program_environ_get = 678; // abc
+const uint32_t shell_Program_pid_get = 679; // abc
+const uint32_t shell_Program_shell_get = 680; // abc
+const uint32_t shell_Program_workingDirectory_get = 681; // abc
+const uint32_t shell_Program_workingDirectory_set = 682; // abc
+const uint32_t shell_Program_AVM2_atExit = 683; // abc
+const uint32_t shell_Program_AVM2_setExitListener = 684; // abc
+const uint32_t shell_Program_AVM2_setShell = 685; // abc
+const uint32_t shell_Program_AVM2_selfCheck = 686; // abc
+const uint32_t shell_Program_abort = 687; // native
+const uint32_t shell_Program_exec = 688; // native
+const uint32_t shell_Program_exit = 689; // native
+const uint32_t shell_Program_open = 690; // abc
+const uint32_t shell_Program_sleep = 691; // native
+const uint32_t shell_Program_getNanosecondTimer = 692; // native
+const uint32_t shell_Program_getTimer = 693; // native
+const uint32_t shell_Program_readLine = 694; // native
+const uint32_t shell_Program_write = 695; // native
+const uint32_t shell_Program_writeLine = 696; // abc
+const uint32_t shell_Program_trace = 697; // native
+const uint32_t shell_Program_forceFullCollection = 698; // native
+const uint32_t shell_Program_queueCollection = 699; // native
+const uint32_t shell_Program_pauseForGCIfCollectionImminent = 700; // native
+const uint32_t shell_Program_disposeXML = 701; // native
+const uint32_t shell_Runtime_private__getAvmplusPlatform = 704; // native
+const uint32_t shell_Runtime_private__getAvmplusArchitecture = 705; // native
+const uint32_t shell_Runtime_private__getAvmplusVersion = 706; // native
+const uint32_t shell_Runtime_private__getAvmplusDescription = 707; // native
+const uint32_t shell_Runtime_private__getFeatures = 708; // native
+const uint32_t shell_Runtime_private__getRunmode = 709; // native
+const uint32_t shell_Runtime_private__getEndian = 710; // native
+const uint32_t shell_Runtime_apiVersion_get = 711; // native
+const uint32_t shell_Runtime_api_get = 712; // abc
+const uint32_t shell_Runtime_swfVersion_get = 713; // native
+const uint32_t shell_Runtime_platform_get = 714; // abc
+const uint32_t shell_Runtime_architecture_get = 715; // abc
+const uint32_t shell_Runtime_version_get = 716; // abc
+const uint32_t shell_Runtime_description_get = 717; // abc
+const uint32_t shell_Runtime_features_get = 718; // abc
+const uint32_t shell_Runtime_runmode_get = 719; // abc
+const uint32_t shell_Runtime_endian_get = 720; // abc
+const uint32_t shell_Runtime_redtamarin_get = 721; // abc
+const uint32_t shell_Runtime_loop_get = 722; // abc
+const uint32_t shell_Runtime_loop_set = 723; // abc
+const uint32_t shell_Runtime_eval = 724; // native
+const uint32_t shell_Runtime_returnEval = 725; // native
+const uint32_t shell_Runtime_is64bit = 726; // native
+const uint32_t shell_Diagnostics_private__isGlobal = 729; // native
+const uint32_t shell_Diagnostics_private__isIntptr = 730; // native
+const uint32_t shell_Diagnostics_private__canonicalizeNumber = 731; // native
+const uint32_t shell_Diagnostics_private__deopt = 732; // native
+const uint32_t shell_Diagnostics_private__runInSafepoint = 733; // native
+const uint32_t shell_Diagnostics_private__log = 734; // native
+const uint32_t shell_Diagnostics_private__initializeLogging = 735; // native
+const uint32_t shell_Diagnostics_debugger = 736; // native
+const uint32_t shell_Diagnostics_isDebugger = 737; // native
+const uint32_t shell_Diagnostics_AVM2_log = 738; // abc
+const uint32_t shell_Diagnostics_AVM2_initializeLogging = 739; // abc
+const uint32_t shell_Diagnostics_AVM2_isGlobal = 740; // abc
+const uint32_t shell_Diagnostics_AVM2_isIntptr = 741; // abc
+const uint32_t shell_Diagnostics_AVM2_canonicalizeNumber = 742; // abc
+const uint32_t shell_Diagnostics_AVM2_deopt = 743; // abc
+const uint32_t shell_Diagnostics_AVM2_runInSafepoint = 744; // abc
+const uint32_t shell_HardwareInformation_private__getProcessorCountAtBoot = 747; // native
+const uint32_t shell_HardwareInformation_private__getMemorySize = 748; // native
+const uint32_t shell_HardwareInformation_private__getMemoryUsage = 749; // native
+const uint32_t shell_HardwareInformation_private__getMemoryPeakUsage = 750; // native
+const uint32_t shell_HardwareInformation_processors_get = 751; // abc
+const uint32_t shell_HardwareInformation_memory_get = 752; // abc
+const uint32_t shell_HardwareInformation_memoryUsage_get = 753; // abc
+const uint32_t shell_HardwareInformation_memoryPeakUsage_get = 754; // abc
+const uint32_t shell_OperatingSystem_isWindowsStore = 757; // native
+const uint32_t shell_Domain_currentDomain_get = 762; // native
+const uint32_t shell_Domain_MIN_DOMAIN_MEMORY_LENGTH_get = 763; // native
+const uint32_t shell_Domain_private_init = 764; // native
+const uint32_t shell_Domain_loadBytes = 766; // native
+const uint32_t shell_Domain_getClass = 767; // native
+const uint32_t shell_Domain_load = 768; // abc
+const uint32_t shell_Domain_domainMemory_get = 769; // native
+const uint32_t shell_Domain_domainMemory_set = 770; // native
+const uint32_t shell_FileIO_exists = 772; // native
+const uint32_t shell_FileIO_read = 773; // native
+const uint32_t shell_FileIO_write = 774; // native
+const uint32_t shell_FileIO_readByteArray = 775; // native
+const uint32_t shell_FileIO_writeByteArray = 776; // native
+const uint32_t shell_Environment_private__parse = 780; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_callProperty = 781; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_deleteProperty = 782; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_getProperty = 783; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_setProperty = 784; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_hasProperty = 785; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextNameIndex = 786; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextName = 787; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextValue = 788; // abc
+const uint32_t shell_Environment_length_get = 789; // abc
+const uint32_t shell_Environment_refresh = 790; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_running_get = 794; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_running_set = 795; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_frequency_get = 796; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_frequency_set = 797; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_timers_get = 798; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_timers_set = 799; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_frame_get = 800; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_started_get = 801; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_elapsed_get = 802; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_timerPending_get = 803; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_setCallback = 804; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_handleTimers = 805; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_start = 806; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_stop = 807; // abc
+const uint32_t flash_accessibility_ISearchableText_flash_accessibility_ISearchableText_searchText_get = 810; // abc
+const uint32_t flash_accessibility_ISimpleTextSelection_flash_accessibility_ISimpleTextSelection_selectionAnchorIndex_get = 813; // abc
+const uint32_t flash_accessibility_ISimpleTextSelection_flash_accessibility_ISimpleTextSelection_selectionActiveIndex_get = 814; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accRole = 820; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accName = 821; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accValue = 822; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accState = 823; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accDefaultAction = 824; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_accDoDefaultAction = 825; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_isLabeledBy = 826; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_getChildIDArray = 827; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_accLocation = 828; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accSelection = 829; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accFocus = 830; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_accSelect = 831; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_selectionAnchorIndex = 832; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_selectionActiveIndex = 833; // abc
+const uint32_t flash_data_EncryptedLocalStore_isSupported_get = 837; // abc
+const uint32_t flash_display_Scene_name_get = 887; // abc
+const uint32_t flash_display_Scene_labels_get = 888; // abc
+const uint32_t flash_display_Scene_numFrames_get = 889; // abc
+const uint32_t flash_errors_SQLError_operation_get = 916; // abc
+const uint32_t flash_errors_SQLError_details_get = 917; // abc
+const uint32_t flash_errors_SQLError_detailID_get = 918; // abc
+const uint32_t flash_errors_SQLError_detailArguments_get = 919; // abc
+const uint32_t flash_errors_DRMManagerError_subErrorID_get = 922; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_addEventListener = 924; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_dispatchEvent = 925; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_hasEventListener = 926; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_removeEventListener = 927; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_willTrigger = 928; // abc
+const uint32_t flash_events_Event_private_ctor = 932; // abc
+const uint32_t flash_events_Event_type_get = 933; // abc
+const uint32_t flash_events_Event_bubbles_get = 934; // abc
+const uint32_t flash_events_Event_cancelable_get = 935; // abc
+const uint32_t flash_events_Event_target_get = 936; // abc
+const uint32_t flash_events_Event_currentTarget_get = 937; // abc
+const uint32_t flash_events_Event_eventPhase_get = 938; // abc
+const uint32_t flash_events_Event_formatToString = 939; // abc
+const uint32_t flash_events_Event_clone = 940; // abc
+const uint32_t flash_events_Event_isDefaultPrevented = 941; // abc
+const uint32_t flash_events_Event_preventDefault = 942; // abc
+const uint32_t flash_events_Event_stopImmediatePropagation = 943; // abc
+const uint32_t flash_events_Event_stopPropagation = 944; // abc
+const uint32_t flash_events_Event_toString = 945; // abc
+const uint32_t flash_geom_Point_interpolate = 949; // abc
+const uint32_t flash_geom_Point_distance = 950; // abc
+const uint32_t flash_geom_Point_polar = 951; // abc
+const uint32_t flash_geom_Point_length_get = 953; // abc
+const uint32_t flash_geom_Point_clone = 954; // abc
+const uint32_t flash_geom_Point_offset = 955; // abc
+const uint32_t flash_geom_Point_equals = 956; // abc
+const uint32_t flash_geom_Point_subtract = 957; // abc
+const uint32_t flash_geom_Point_add = 958; // abc
+const uint32_t flash_geom_Point_normalize = 959; // abc
+const uint32_t flash_geom_Point_toString = 960; // abc
+const uint32_t flash_geom_Rectangle_left_get = 963; // abc
+const uint32_t flash_geom_Rectangle_left_set = 964; // abc
+const uint32_t flash_geom_Rectangle_right_get = 965; // abc
+const uint32_t flash_geom_Rectangle_right_set = 966; // abc
+const uint32_t flash_geom_Rectangle_top_get = 967; // abc
+const uint32_t flash_geom_Rectangle_top_set = 968; // abc
+const uint32_t flash_geom_Rectangle_bottom_get = 969; // abc
+const uint32_t flash_geom_Rectangle_bottom_set = 970; // abc
+const uint32_t flash_geom_Rectangle_topLeft_get = 971; // abc
+const uint32_t flash_geom_Rectangle_topLeft_set = 972; // abc
+const uint32_t flash_geom_Rectangle_bottomRight_get = 973; // abc
+const uint32_t flash_geom_Rectangle_bottomRight_set = 974; // abc
+const uint32_t flash_geom_Rectangle_size_get = 975; // abc
+const uint32_t flash_geom_Rectangle_size_set = 976; // abc
+const uint32_t flash_geom_Rectangle_clone = 977; // abc
+const uint32_t flash_geom_Rectangle_isEmpty = 978; // abc
+const uint32_t flash_geom_Rectangle_setEmpty = 979; // abc
+const uint32_t flash_geom_Rectangle_inflate = 980; // abc
+const uint32_t flash_geom_Rectangle_inflatePoint = 981; // abc
+const uint32_t flash_geom_Rectangle_offset = 982; // abc
+const uint32_t flash_geom_Rectangle_offsetPoint = 983; // abc
+const uint32_t flash_geom_Rectangle_contains = 984; // abc
+const uint32_t flash_geom_Rectangle_containsPoint = 985; // abc
+const uint32_t flash_geom_Rectangle_containsRect = 986; // abc
+const uint32_t flash_geom_Rectangle_intersection = 987; // abc
+const uint32_t flash_geom_Rectangle_intersects = 988; // abc
+const uint32_t flash_geom_Rectangle_union = 989; // abc
+const uint32_t flash_geom_Rectangle_equals = 990; // abc
+const uint32_t flash_geom_Rectangle_toString = 991; // abc
+const uint32_t flash_sampler_StackFrame_toString = 995; // abc
+const uint32_t flash_system_Capabilities_playerType_get = 1002; // abc
+const uint32_t flash_system_Capabilities_isDebugger_get = 1003; // abc
+const uint32_t flash_system_System_setClipboard = 1006; // abc
+const uint32_t flash_system_System_totalMemory_get = 1007; // abc
+const uint32_t flash_system_System_totalMemoryNumber_get = 1008; // abc
+const uint32_t flash_system_System_freeMemory_get = 1009; // native
+const uint32_t flash_system_System_privateMemory_get = 1010; // abc
+const uint32_t flash_system_System_useCodePage_get = 1011; // abc
+const uint32_t flash_system_System_useCodePage_set = 1012; // abc
+const uint32_t flash_system_System_vmVersion_get = 1013; // abc
+const uint32_t flash_system_System_pause = 1014; // abc
+const uint32_t flash_system_System_resume = 1015; // abc
+const uint32_t flash_system_System_exit = 1016; // abc
+const uint32_t flash_system_System_gc = 1017; // abc
+const uint32_t flash_system_System_disposeXML = 1018; // abc
+const uint32_t flash_system_WorkerState_code = 1021; // abc
+const uint32_t flash_system_Worker_current_get = 1024; // abc
+const uint32_t flash_system_Worker_pr = 1025; // native
+const uint32_t flash_system_Worker_state_get = 1027; // native
+const uint32_t flash_system_Worker_start = 1028; // native
+const uint32_t flash_system_Worker_isParentOf = 1029; // native
+const uint32_t flash_system_Worker_isPrimordial_get = 1030; // native
+const uint32_t flash_system_Worker_setSharedProperty = 1031; // native
+const uint32_t flash_system_Worker_getSharedProperty = 1032; // native
+const uint32_t flash_system_Worker_terminate = 1033; // native
+const uint32_t flash_system_WorkerEvent_currentState_get = 1036; // abc
+const uint32_t flash_system_WorkerEvent_previousState_get = 1037; // abc
+const uint32_t flash_system_WorkerEvent_target_get = 1038; // abc
+const uint32_t flash_system_WorkerDomain_current_get = 1040; // abc
+const uint32_t flash_system_WorkerDomain_createWorkerFromByteArray = 1042; // abc
+const uint32_t flash_system_WorkerDomain_createWorkerFromPrimordial = 1043; // abc
+const uint32_t flash_system_WorkerDomain_private_createWorkerFromByteArrayInternal = 1044; // native
+const uint32_t flash_system_WorkerDomain_listWorkers = 1045; // native
+const uint32_t flash_trace_Trace_setLevel = 1047; // native
+const uint32_t flash_trace_Trace_getLevel = 1048; // native
+const uint32_t flash_trace_Trace_setListener = 1049; // native
+const uint32_t flash_trace_Trace_getListener = 1050; // native
+const uint32_t shell_async_CoreEventLoop_running_get = 1056; // abc
+const uint32_t shell_async_CoreEventLoop_running_set = 1057; // abc
+const uint32_t shell_async_CoreEventLoop_frequency_get = 1058; // abc
+const uint32_t shell_async_CoreEventLoop_frequency_set = 1059; // abc
+const uint32_t shell_async_CoreEventLoop_timers_get = 1060; // abc
+const uint32_t shell_async_CoreEventLoop_timers_set = 1061; // abc
+const uint32_t shell_async_CoreEventLoop_frame_get = 1062; // abc
+const uint32_t shell_async_CoreEventLoop_started_get = 1063; // abc
+const uint32_t shell_async_CoreEventLoop_elapsed_get = 1064; // abc
+const uint32_t shell_async_CoreEventLoop_private_tick = 1065; // abc
+const uint32_t shell_async_CoreEventLoop_setCallback = 1066; // abc
+const uint32_t shell_async_CoreEventLoop_private__loop = 1067; // abc
+const uint32_t shell_async_CoreEventLoop_timerPending_get = 1068; // abc
+const uint32_t shell_async_CoreEventLoop_handleTimers = 1069; // abc
+const uint32_t shell_async_CoreEventLoop_start = 1070; // abc
+const uint32_t shell_async_CoreEventLoop_stop = 1071; // abc
+const uint32_t flash_events_EventDispatcher_private_trimHeaderValue = 1073; // abc
+const uint32_t flash_events_EventDispatcher_private_ctor = 1075; // abc
+const uint32_t flash_events_EventDispatcher_private_dispatchEventFunction = 1076; // abc
+const uint32_t flash_events_EventDispatcher_private_dispatchHttpStatusEvent = 1078; // abc
+const uint32_t flash_events_EventDispatcher_addEventListener = 1079; // abc
+const uint32_t flash_events_EventDispatcher_dispatchEvent = 1080; // abc
+const uint32_t flash_events_EventDispatcher_hasEventListener = 1081; // abc
+const uint32_t flash_events_EventDispatcher_removeEventListener = 1082; // abc
+const uint32_t flash_events_EventDispatcher_willTrigger = 1083; // abc
+const uint32_t flash_events_EventDispatcher_toString = 1084; // abc
+const uint32_t flash_events_HTTPStatusEvent_status_get = 1087; // abc
+const uint32_t flash_events_HTTPStatusEvent_responseURL_get = 1088; // abc
+const uint32_t flash_events_HTTPStatusEvent_responseURL_set = 1089; // abc
+const uint32_t flash_events_HTTPStatusEvent_responseHeaders_get = 1090; // abc
+const uint32_t flash_events_HTTPStatusEvent_responseHeaders_set = 1091; // abc
+const uint32_t flash_events_HTTPStatusEvent_redirected_get = 1092; // abc
+const uint32_t flash_events_HTTPStatusEvent_redirected_set = 1093; // abc
+const uint32_t flash_events_HTTPStatusEvent_clone = 1094; // abc
+const uint32_t flash_events_HTTPStatusEvent_toString = 1095; // abc
+const uint32_t flash_events_TimerEvent_clone = 1098; // abc
+const uint32_t flash_events_TimerEvent_toString = 1099; // abc
+const uint32_t flash_events_TimerEvent_updateAfterEvent = 1100; // abc
+const uint32_t flash_sampler_NewObjectSample_object_get = 1102; // native
+const uint32_t flash_sampler_NewObjectSample_size_get = 1103; // native
+const uint32_t flash_utils_Timer_private__timerDispatch = 1109; // abc
+const uint32_t flash_utils_Timer_private__start = 1110; // abc
+const uint32_t flash_utils_Timer_tick = 1111; // abc
+const uint32_t flash_utils_Timer_delay_get = 1112; // abc
+const uint32_t flash_utils_Timer_delay_set = 1113; // abc
+const uint32_t flash_utils_Timer_repeatCount_get = 1114; // abc
+const uint32_t flash_utils_Timer_repeatCount_set = 1115; // abc
+const uint32_t flash_utils_Timer_currentCount_get = 1116; // abc
+const uint32_t flash_utils_Timer_running_get = 1117; // abc
+const uint32_t flash_utils_Timer_reset = 1118; // abc
+const uint32_t flash_utils_Timer_start = 1119; // abc
+const uint32_t flash_utils_Timer_stop = 1120; // abc
 
 extern avmplus::Atom native_script_function_C_assert__debugBreak_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom native_script_function_C_assert__debugBreak_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
@@ -1398,8 +1491,194 @@ extern avmplus::Atom C_errno___errno__GetErrno_thunk(MethodEnv* env, uint32_t ar
 extern avmplus::Atom C_errno___errno__GetErrno_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom C_errno___errno__SetErrno_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom C_errno___errno__SetErrno_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_CHAR_BIT_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_CHAR_BIT_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_CHAR_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_CHAR_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_CHAR_MIN_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_CHAR_MIN_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_INT_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_INT_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_INT_MIN_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_INT_MIN_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern double C_limits___limits_LLONG_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern double C_limits___limits_LLONG_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern double C_limits___limits_LLONG_MIN_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern double C_limits___limits_LLONG_MIN_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_LONG_BIT_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_LONG_BIT_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_LONG_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_LONG_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_LONG_MIN_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_LONG_MIN_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SCHAR_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SCHAR_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SCHAR_MIN_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SCHAR_MIN_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SHRT_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SHRT_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SHRT_MIN_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SHRT_MIN_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_UCHAR_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_UCHAR_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_UINT_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_UINT_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern double C_limits___limits_ULLONG_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern double C_limits___limits_ULLONG_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_ULONG_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_ULONG_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_USHRT_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_USHRT_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_WORD_BIT_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_WORD_BIT_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_ARG_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_ARG_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_ATEXIT_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_ATEXIT_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_CHILD_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_CHILD_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_LINK_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_LINK_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_MAX_CANON_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_MAX_CANON_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_MAX_INPUT_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_MAX_INPUT_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_NAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_NAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_NGROUPS_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_NGROUPS_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_OPEN_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_OPEN_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom C_limits___limits_PATH_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom C_limits___limits_PATH_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_PIPE_BUF_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_PIPE_BUF_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SSIZE_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SSIZE_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_STREAM_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_STREAM_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TZNAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TZNAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_MB_LEN_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_MB_LEN_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SIZE_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SIZE_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SYMLINK_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SYMLINK_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_AIO_LISTIO_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_AIO_LISTIO_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_AIO_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_AIO_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_AIO_PRIO_DELTA_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_AIO_PRIO_DELTA_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_DELAYTIMER_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_DELAYTIMER_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_HOST_NAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_HOST_NAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_LOGIN_NAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_LOGIN_NAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_MQ_OPEN_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_MQ_OPEN_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_MQ_PRIO_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_MQ_PRIO_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_PAGESIZE_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_PAGESIZE_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_PAGE_SIZE_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_PAGE_SIZE_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_RE_DUP_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_RE_DUP_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_RTSIG_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_RTSIG_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SEM_NSEMS_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SEM_NSEMS_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SEM_VALUE_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SEM_VALUE_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SIGQUEUE_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SIGQUEUE_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SS_REPL_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SS_REPL_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SYMLOOP_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_SYMLOOP_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TIMER_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TIMER_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TRACE_EVENT_NAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TRACE_EVENT_NAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TRACE_NAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TRACE_NAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TRACE_SYS_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TRACE_SYS_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TRACE_USER_EVENT_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TRACE_USER_EVENT_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TTY_NAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits_TTY_NAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_ARG_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_ARG_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_CHILD_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_CHILD_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_LINK_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_LINK_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_MAX_CANON_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_MAX_CANON_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_MAX_INPUT_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_MAX_INPUT_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_NAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_NAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_NGROUPS_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_NGROUPS_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_OPEN_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_OPEN_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_PATH_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_PATH_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_PIPE_BUF_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_PIPE_BUF_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SSIZE_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SSIZE_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_STREAM_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_STREAM_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TZNAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TZNAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SYMLINK_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SYMLINK_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_AIO_LISTIO_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_AIO_LISTIO_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_AIO_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_AIO_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_DELAYTIMER_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_DELAYTIMER_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_HOST_NAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_HOST_NAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_LOGIN_NAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_LOGIN_NAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_MQ_OPEN_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_MQ_OPEN_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_MQ_PRIO_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_MQ_PRIO_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_RE_DUP_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_RE_DUP_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_RTSIG_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_RTSIG_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SEM_NSEMS_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SEM_NSEMS_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SEM_VALUE_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SEM_VALUE_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SIGQUEUE_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SIGQUEUE_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SS_REPL_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SS_REPL_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SYMLOOP_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_SYMLOOP_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TIMER_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TIMER_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TRACE_EVENT_NAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TRACE_EVENT_NAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TRACE_NAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TRACE_NAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TRACE_SYS_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TRACE_SYS_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TRACE_USER_EVENT_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TRACE_USER_EVENT_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TTY_NAME_MAX_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom C_limits___limits__POSIX_TTY_NAME_MAX_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom C_locale___locale_LC_ALL_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom C_locale___locale_LC_ALL_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom C_signal___signal_SIGEV_NONE_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
