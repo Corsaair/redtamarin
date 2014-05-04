@@ -51,7 +51,7 @@
 			templates-path="${basedir}/build/doc/templates/"
 			warnings="false"
 			strict="false"
-			keep-xml="false"
+			keep-xml="${build.fatswc}"
 			skip-xsl="false"
 			restore-builtin-classes="true"
 			failonerror="true"
@@ -296,6 +296,25 @@
                 <delete file="src/as3/api-versions.as"/>
             </then>
         </if>
+
+		<if>
+			<equals arg1="${build.fatswc}" arg2="true"/>
+			<then>
+				
+                <!-- update swc with asdoc xml -->
+                <zip destfile="${app.release}/components/redtamarin.swc" update="true">
+                    <zipfileset dir="${app.release}/documentation/tempdita" prefix="docs">
+                        <include name="*.xml" />
+                        <include name="*.dita" />
+                        <exclude name="ASDoc_Config.xml" />
+                        <exclude name="overviews.xml" />
+                    </zipfileset>
+                </zip>
+
+                <delete dir="${app.release}/documentation/tempdita" />
+
+			</then>
+		</if>
 
 	</target>
 
