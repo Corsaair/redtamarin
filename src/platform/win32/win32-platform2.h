@@ -18,9 +18,6 @@
 
 // ==== HEADERS ==== 
 
-//for const MAX_PATH in C.stdlib
-//#include <limits.h> //already included in win32-platform.h
-
 //for C.stdlib
 //#include <stdlib.h> //already included in win32-platform.h
 
@@ -324,6 +321,170 @@
 
 
 // ---- C.limits ---- 
+//#include <limits.h> //already included in win32-platform.h
+
+//POSIX compat
+//ARG_MAX  14500       /* 16k heap, minus overhead */
+
+//from POSIX, min acceptable value
+/* from http://msdn.microsoft.com/en-us/library/tze57ck3.aspx
+   atexit and _onexit use the heap to hold the register of functions.
+   Thus, the number of functions that can be registered is limited only by heap memory.
+
+   so again 16k heap minus overhead could be 14500
+   but because we defien 32 already for mac and linux
+   and that 32 is good enough let's keep it also for windows
+*/
+#ifndef ATEXIT_MAX
+# define ATEXIT_MAX 32
+#endif
+
+//from POSIX, min acceptable value
+/* from http://blogs.technet.com/b/markrussinovich/archive/2009/07/08/3261309.aspx
+   Q: how many processes can you run concurrently on Windows?
+   A: depends
+   
+   in short it depens on the amount of memory and CPU ...
+*/
+#ifndef CHILD_MAX
+# define CHILD_MAX 25
+#endif
+
+//LINK_MAX  1024
+
+//MAX_CANON  255
+//MAX_INPUT  255
+//NAME_MAX  255
+//OPEN_MAX  32
+//PATH_MAX  512
+//PIPE_BUF  512
+//SSIZE_MAX  32767
+//STREAM_MAX  20
+//TZNAME_MAX  10
+
+//POSIX compat
+#define _POSIX_SYMLINK_MAX           255
+#define _POSIX_AIO_LISTIO_MAX        2
+#define _POSIX_AIO_MAX               1
+#define _POSIX_DELAYTIMER_MAX        32
+#define _POSIX_HOST_NAME_MAX         255
+#define _POSIX_MQ_OPEN_MAX           8
+#define _POSIX_MQ_PRIO_MAX           32
+#define _POSIX_RE_DUP_MAX            255
+#define _POSIX_RTSIG_MAX             8
+#define _POSIX_SEM_NSEMS_MAX         256
+#define _POSIX_SEM_VALUE_MAX         32767
+#define _POSIX_SIGQUEUE_MAX          32
+#define _POSIX_SS_REPL_MAX           4
+#define _POSIX_SYMLOOP_MAX           8
+#define _POSIX_TIMER_MAX             32
+#define _POSIX_TRACE_EVENT_NAME_MAX  30
+#define _POSIX_TRACE_NAME_MAX        8
+#define _POSIX_TRACE_SYS_MAX         8
+#define _POSIX_TRACE_USER_EVENT_MAX  32
+#define _POSIX_TTY_NAME_MAX          9
+
+//POSIX support
+
+#ifndef SYMLINK_MAX
+# define SYMLINK_MAX  _POSIX_SYMLINK_MAX
+#endif
+
+#ifndef AIO_LISTIO_MAX
+# define AIO_LISTIO_MAX  _POSIX_AIO_LISTIO_MAX
+#endif
+
+#ifndef AIO_MAX
+# define AIO_MAX  _POSIX_AIO_MAX
+#endif
+
+#ifndef AIO_PRIO_DELTA_MAX
+# define AIO_PRIO_DELTA_MAX 0
+#endif
+
+#ifndef DELAYTIMER_MAX
+# define DELAYTIMER_MAX  _POSIX_DELAYTIMER_MAX
+#endif
+
+#ifndef HOST_NAME_MAX
+# define HOST_NAME_MAX  MAX_COMPUTERNAME_LENGTH+1
+#endif
+
+/* NOTE:
+   UNLEN 256 (eg. User Name Length)
+   is defined in Lmcons.h
+*/
+#ifndef LOGIN_NAME_MAX
+# define LOGIN_NAME_MAX  UNLEN
+#endif
+
+#ifndef MQ_OPEN_MAX
+# define MQ_OPEN_MAX  _POSIX_MQ_OPEN_MAX
+#endif
+
+#ifndef MQ_PRIO_MAX
+# define MQ_PRIO_MAX  _POSIX_MQ_PRIO_MAX
+#endif
+
+#ifndef PAGE_SIZE
+# define PAGE_SIZE 4096
+#endif
+
+#ifndef PAGESIZE
+# define PAGESIZE PAGE_SIZE
+#endif
+
+#ifndef RE_DUP_MAX
+# define RE_DUP_MAX _POSIX_RE_DUP_MAX
+#endif
+
+#ifndef RTSIG_MAX
+# define RTSIG_MAX _POSIX_RTSIG_MAX
+#endif
+
+#ifndef SEM_NSEMS_MAX
+# define SEM_NSEMS_MAX _POSIX_SEM_NSEMS_MAX
+#endif
+
+#ifndef SEM_VALUE_MAX
+# define SEM_VALUE_MAX _POSIX_SEM_VALUE_MAX
+#endif
+
+#ifndef SIGQUEUE_MAX
+# define SIGQUEUE_MAX _POSIX_SIGQUEUE_MAX
+#endif
+
+#ifndef SS_REPL_MAX
+# define SS_REPL_MAX _POSIX_SS_REPL_MAX
+#endif
+
+#ifndef SYMLOOP_MAX
+# define SYMLOOP_MAX  _POSIX_SYMLOOP_MAX
+#endif
+
+#ifndef TIMER_MAX
+# define TIMER_MAX  _POSIX_TIMER_MAX
+#endif
+
+#ifndef TRACE_EVENT_NAME_MAX
+# define TRACE_EVENT_NAME_MAX  _POSIX_TRACE_EVENT_NAME_MAX
+#endif
+
+#ifndef TRACE_NAME_MAX
+# define TRACE_NAME_MAX  _POSIX_TRACE_NAME_MAX
+#endif
+
+#ifndef TRACE_SYS_MAX
+# define TRACE_SYS_MAX  _POSIX_TRACE_SYS_MAX
+#endif
+
+#ifndef TRACE_USER_EVENT_MAX
+# define TRACE_USER_EVENT_MAX  _POSIX_TRACE_USER_EVENT_MAX
+#endif
+
+#ifndef TTY_NAME_MAX
+# define TTY_NAME_MAX  _POSIX_TTY_NAME_MAX
+#endif
 
 // ---- C.limits ---- END
 

@@ -16,9 +16,6 @@
 
 // ==== HEADERS ==== 
 
-//for const MAX_PATH in C.stdlib
-//#include <limits.h> //already included in mac-platform.h
-
 //for C.stdlib
 //#include <stdlib.h> //already included in mac-platform.h
 
@@ -291,6 +288,167 @@
 
 // ---- C.limits ---- 
 //#include <limits.h> //already included in mac-platform.h
+
+//POSIX compat
+//from syslimits.h, eg. 256 * 1024 = 262144
+#ifndef ARG_MAX
+# define ARG_MAX (256 * 1024)
+#endif
+
+//from POSIX, min acceptable value
+#ifndef ATEXIT_MAX
+# define ATEXIT_MAX 32
+#endif
+
+//from syslimits.h
+/* Note:
+   CHILD_MAX *must* be less than hard_maxproc, which is set at
+   compile time; you *cannot* set it higher than the hard limit!!
+*/
+#ifndef CHILD_MAX
+# define CHILD_MAX 266
+#endif
+
+//from syslimits.h
+#ifndef LINK_MAX
+# define LINK_MAX 32767
+#endif
+
+//from syslimits.h
+#ifndef MAX_CANON
+# define MAX_CANON 1024
+#endif
+
+//from syslimits.h
+#ifndef MAX_INPUT
+# define MAX_INPUT 1024
+#endif
+
+//NAME_MAX  255
+
+//from syslimits.h
+#ifndef OPEN_MAX
+# define OPEN_MAX 10240
+#endif
+
+//from syslimits.h
+#ifndef PATH_MAX
+# define PATH_MAX 1024
+#endif
+
+//from syslimits.h
+#ifndef PIPE_BUF
+# define PIPE_BUF 512
+#endif
+
+//SSIZE_MAX  32767
+
+//from POSIX, min acceptable value
+#ifndef STREAM_MAX
+# define STREAM_MAX _POSIX_STREAM_MAX
+#endif
+
+//from POSIX, min acceptable value
+#ifndef TZNAME_MAX
+# define TZNAME_MAX _POSIX_TZNAME_MAX
+#endif
+
+#ifndef SYMLINK_MAX
+# define SYMLINK_MAX  _POSIX_SYMLINK_MAX
+#endif
+
+#ifndef AIO_LISTIO_MAX
+# define AIO_LISTIO_MAX _POSIX_AIO_LISTIO_MAX
+#endif
+
+#ifndef AIO_MAX
+# define AIO_MAX _POSIX_AIO_MAX
+#endif
+
+#ifndef AIO_PRIO_DELTA_MAX
+# define AIO_PRIO_DELTA_MAX 0
+#endif
+
+#ifndef DELAYTIMER_MAX
+# define DELAYTIMER_MAX  _POSIX_DELAYTIMER_MAX
+#endif
+
+#ifndef HOST_NAME_MAX
+# define HOST_NAME_MAX  MAXHOSTNAMELEN
+#endif
+
+#ifndef LOGIN_NAME_MAX
+# define LOGIN_NAME_MAX  MAXLOGNAME+1
+#endif
+
+#ifndef MQ_OPEN_MAX
+# define MQ_OPEN_MAX  _POSIX_MQ_OPEN_MAX
+#endif
+
+#ifndef MQ_PRIO_MAX
+# define MQ_PRIO_MAX  _POSIX_MQ_PRIO_MAX
+#endif
+
+#ifndef PAGE_SIZE
+# define PAGE_SIZE 4096
+#endif
+
+#ifndef PAGESIZE
+# define PAGESIZE PAGE_SIZE
+#endif
+
+#ifndef RE_DUP_MAX
+# define RE_DUP_MAX _POSIX_RE_DUP_MAX
+#endif
+
+#ifndef RTSIG_MAX
+# define RTSIG_MAX _POSIX_RTSIG_MAX
+#endif
+
+#ifndef SEM_NSEMS_MAX
+# define SEM_NSEMS_MAX _POSIX_SEM_NSEMS_MAX
+#endif
+
+#ifndef SEM_VALUE_MAX
+# define SEM_VALUE_MAX _POSIX_SEM_VALUE_MAX
+#endif
+
+#ifndef SIGQUEUE_MAX
+# define SIGQUEUE_MAX _POSIX_SIGQUEUE_MAX
+#endif
+
+#ifndef SS_REPL_MAX
+# define SS_REPL_MAX _POSIX_SS_REPL_MAX
+#endif
+
+#ifndef SYMLOOP_MAX
+# define SYMLOOP_MAX  _POSIX_SYMLOOP_MAX
+#endif
+
+#ifndef TIMER_MAX
+# define TIMER_MAX  _POSIX_TIMER_MAX
+#endif
+
+#ifndef TRACE_EVENT_NAME_MAX
+# define TRACE_EVENT_NAME_MAX  _POSIX_TRACE_EVENT_NAME_MAX
+#endif
+
+#ifndef TRACE_NAME_MAX
+# define TRACE_NAME_MAX  _POSIX_TRACE_NAME_MAX
+#endif
+
+#ifndef TRACE_SYS_MAX
+# define TRACE_SYS_MAX  _POSIX_TRACE_SYS_MAX
+#endif
+
+#ifndef TRACE_USER_EVENT_MAX
+# define TRACE_USER_EVENT_MAX  _POSIX_TRACE_USER_EVENT_MAX
+#endif
+
+#ifndef TTY_NAME_MAX
+# define TTY_NAME_MAX  _POSIX_TTY_NAME_MAX
+#endif
+
 // ---- C.limits ---- END
 
 
