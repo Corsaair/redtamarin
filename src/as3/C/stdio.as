@@ -398,7 +398,15 @@ package C.stdio
      * <code>getdelim()</code>, <code>getline()</code>, <code>gets()</code>, or <code>scanf()</code> using stream
      * that returns data not supplied by a prior call to <code>ungetc()</code>.
      * </p>
-     *
+     * 
+     * <p><b>Snippet :</b></p>
+     * <pre>
+     * var c:int;
+     * while( c != EOF ) {
+     *     c = fgetc( file ); // get 1 byte from the file
+     * }
+     * </pre>
+     * 
      * @example Usage
      * <listing>
      * import C.stdio.&#42;;
@@ -423,7 +431,7 @@ package C.stdio
      * 
      * // we close the file
      * fclose( file );
-     * 
+     *
      * </listing>
      * 
      * @param stream The pointer to a <code>FILE</code>.
