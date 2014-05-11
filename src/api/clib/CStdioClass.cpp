@@ -515,13 +515,11 @@ namespace avmshell
         return write;
     }
 
-    /*static*/ int CStdioClass::getc(ScriptObject* self, CFILEObject* stream)
+    int CStdioClass::_getc(CFILEObject* stream)
     {
-        Toplevel* toplevel = self->toplevel();
-
         if( !stream )
         {
-            toplevel->throwArgumentError(kNullArgumentError, "stream");
+            toplevel()->throwArgumentError(kNullArgumentError, "stream");
         }
 
         return VMPI_getc( stream->read() );
