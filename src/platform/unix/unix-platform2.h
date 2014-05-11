@@ -72,6 +72,26 @@
 
 // ---- C.ctype ---- 
 
+#define VMPI_isascii(c)  isascii(c)
+#define VMPI_isblank  ::isblank
+#define VMPI_toascii(c)  toascii(c)
+
+/*
+int VMPI_isascii(int value)
+{
+    return isascii( value );
+}
+
+int VMPI_isblank(int value)
+{
+    return isblank( value );
+}
+
+int VMPI_toascii(int value)
+{
+    return toascii( value );
+}*/
+
 // ---- C.ctype ---- END
 
 
@@ -98,6 +118,95 @@
    but still we try to define the bigger one possible
    not necessarily UINT32_MAX/UINT64_MAX
 */
+
+# if __WORDSIZE == 64
+#  define SIZE_MAX    (18446744073709551615UL)
+# else
+#  define SIZE_MAX    (4294967295U)
+# endif
+
+//POSIX compat
+#ifndef _POSIX_SYMLINK_MAX
+#define _POSIX_SYMLINK_MAX           255
+#endif
+
+#ifndef _POSIX_AIO_LISTIO_MAX
+#define _POSIX_AIO_LISTIO_MAX        2
+#endif
+
+#ifndef _POSIX_AIO_MAX
+#define _POSIX_AIO_MAX               1
+#endif
+
+#ifndef _POSIX_DELAYTIMER_MAX
+#define _POSIX_DELAYTIMER_MAX        32
+#endif
+
+#ifndef _POSIX_HOST_NAME_MAX
+#define _POSIX_HOST_NAME_MAX         255
+#endif
+
+#ifndef _POSIX_MQ_OPEN_MAX
+#define _POSIX_MQ_OPEN_MAX           8
+#endif
+
+#ifndef _POSIX_MQ_PRIO_MAX
+#define _POSIX_MQ_PRIO_MAX           32
+#endif
+
+#ifndef _POSIX_RE_DUP_MAX
+#define _POSIX_RE_DUP_MAX            255
+#endif
+
+#ifndef _POSIX_RTSIG_MAX
+#define _POSIX_RTSIG_MAX             8
+#endif
+
+#ifndef _POSIX_SEM_NSEMS_MAX
+#define _POSIX_SEM_NSEMS_MAX         256
+#endif
+
+#ifndef _POSIX_SEM_VALUE_MAX
+#define _POSIX_SEM_VALUE_MAX         32767
+#endif
+
+#ifndef _POSIX_SIGQUEUE_MAX
+#define _POSIX_SIGQUEUE_MAX          32
+#endif
+
+#ifndef _POSIX_SS_REPL_MAX
+#define _POSIX_SS_REPL_MAX           4
+#endif
+
+#ifndef _POSIX_SYMLOOP_MAX
+#define _POSIX_SYMLOOP_MAX           8
+#endif
+
+#ifndef _POSIX_TIMER_MAX
+#define _POSIX_TIMER_MAX             32
+#endif
+
+#ifndef _POSIX_TRACE_EVENT_NAME_MAX
+#define _POSIX_TRACE_EVENT_NAME_MAX  30
+#endif
+
+#ifndef _POSIX_TRACE_NAME_MAX
+#define _POSIX_TRACE_NAME_MAX        8
+#endif
+
+#ifndef _POSIX_TRACE_SYS_MAX
+#define _POSIX_TRACE_SYS_MAX         8
+#endif
+
+#ifndef _POSIX_TRACE_USER_EVENT_MAX
+#define _POSIX_TRACE_USER_EVENT_MAX  32
+#endif
+
+#ifndef _POSIX_TTY_NAME_MAX
+#define _POSIX_TTY_NAME_MAX          9
+#endif
+
+
 
 //POSIX compat
 //from linux/limits.h:#define ARG_MAX 131072	/* # bytes of args + environ for exec() */
@@ -300,20 +409,147 @@
 
 
 // ---- C.stdio ---- 
-#define VMPI_remove      ::remove
-#define VMPI_rename      ::rename
-#define VMPI_popen       ::popen
-#define VMPI_pclose      ::pclose
+#define VMPI_clearerr          ::clearerr
+#define VMPI_fclose            ::fclose
+#define VMPI_fdopen            ::fdopen
+#define VMPI_feof              ::feof
+#define VMPI_ferror            ::ferror
+#define VMPI_fflush            ::fflush
+#define VMPI_fgetc             ::fgetc
+#define VMPI_fgetpos           ::fgetpos
+#define VMPI_fgets             ::fgets
+#define VMPI_fileno            ::fileno
+#define VMPI_flockfile         ::flockfile
+#define VMPI_fopen             ::fopen
+#define VMPI_fputc             ::fputc
+#define VMPI_fputs             ::fputs
+#define VMPI_fread             ::fread
+#define VMPI_freopen           ::freopen
+#define VMPI_fseek             ::fseek
+#define VMPI_fsetpos           ::fsetpos
+#define VMPI_ftell             ::ftell
+#define VMPI_ftrylockfile      ::ftrylockfile
+#define VMPI_funlockfile       ::funlockfile
+#define VMPI_fwrite            ::fwrite
+#define VMPI_getc              ::getc
+#define VMPI_getchar           ::getchar
+//getc_unlocked //need to be defined in VMPI2.h as it is a macro
+//getchar_unlocked //need to be defined in VMPI2.h as it is a macro
+#define VMPI_pclose            ::pclose
+#define VMPI_perror            ::perror
+#define VMPI_popen             ::popen
+//putc_unlocked //need to be defined in VMPI2.h as it is a macro
+//putchar_unlocked //need to be defined in VMPI2.h as it is a macro
+#define VMPI_remove            ::remove
+#define VMPI_rename            ::rename
+#define VMPI_rewind            ::rewind
 // ---- C.stdio ---- END
 
 
 // ---- C.stdlib ---- 
-
+//_Exit()
+//a641()
+//#define VMPI_abort   ::abort // defined in mac-platform.h
+//abs()
+//atexit()
+#define VMPI_atof    ::atof
+//#define VMPI_atoi    ::atoi // defined in mac-platform.h
+#define VMPI_atol    ::atol
+//atoll()
+//bsearch()
+//calloc()
+#define VMPI_div     ::div
+//drand48()
+//erand48()
+//#define VMPI_exit    ::exit // defined in mac-platform.h
+//extern void VMPI_free(void* ptr); // defined in VMPI.h
+//extern const char *VMPI_getenv(const char *name); // defined in VMPI.h
+//getsubopt()
+//grantpt()
+//initstate()
+//jrand48()
+//l64a()
+//labs()
+//lcong48()
+#define VMPI_ldiv     ::ldiv
+//llabs()
+#define VMPI_lldiv    ::lldiv
+//lrand48()
+//VMPI_malloc //extern void* VMPI_alloc(size_t size); // defined in VMPI.h
+#define VMPI_mblen    ::mblen
+//mbstowcs()
+//mbtowc()
+#define VMPI_mkdtemp  ::mkdtemp
+#define VMPI_mkstemp  ::mkstemp
+//mrand48()
+//nrand48()
+//posix_memalign()
+//posix_openpt()
+//ptsname()
+//putenv()
+//qsort()
+#define VMPI_rand     ::rand
+//rand_r()
+//random()
+//realloc()
+//extern char *VMPI_realpath(char const *path); // defined in VMPI2.h
+//seed48()
+//extern int VMPI_setenv(const char *name, const char *value, int overwrite); // defined in VMPI2.h
+//setkey()
+//setstate()
+#define VMPI_srand    ::srand
+//srand48()
+//srandom()
+//strtod()
+//strtof()
+//#define VMPI_strtol         ::strtol //already defined in mac-platform.h
+//strtold()
+//strtoll()
+//strtoul()
+//strtoull()
+//system()
+//unlockpt()
+//extern int VMPI_unsetenv(const char *name); // defined in VMPI2.h
+//wcstombs()
+//wctomb()
 // ---- C.stdlib ---- END
 
 
 // ---- C.string ---- 
+//memccpy()
+//#define VMPI_memchr         ::memchr //already defined in mac-platform.h
+//#define VMPI_memcmp         ::memcmp //already defined in mac-platform.h
+//#define VMPI_memcpy         ::memcpy //already defined in mac-platform.h
+//#define VMPI_memmove        ::memmove //already defined in mac-platform.h
+//#define VMPI_memset         ::memset //already defined in mac-platform.h
+//stpcpy()
+//stpncpy()
+//#define VMPI_strcat         ::strcat //already defined in mac-platform.h
+//#define VMPI_strchr         ::strchr //already defined in mac-platform.h
+//#define VMPI_strcmp         ::strcmp //already defined in mac-platform.h
+#define VMPI_strcoll     ::strcoll
+//strcoll_l()
+//#define VMPI_strcpy         ::strcpy //already defined in mac-platform.h
+//strcspn()
+#define VMPI_strdup      ::strdup
 #define VMPI_strerror    ::strerror
+//strerror_l()
+//strerror_r()
+//#define VMPI_strlen         ::strlen //already defined in mac-platform.h
+//#define VMPI_strncat        ::strncat //already defined in mac-platform.h
+//#define VMPI_strncmp        ::strncmp //already defined in mac-platform.h
+//#define VMPI_strncpy        ::strncpy //already defined in mac-platform.h
+//strndup()
+//strnlen()
+//strpbrk()
+//#define VMPI_strrchr        ::strrchr //already defined in mac-platform.h
+//strsignal()
+#define VMPI_strspn      ::strspn
+//#define VMPI_strstr         ::strstr //already defined in mac-platform.h
+//strtok()
+//strtok_r()
+//strxfrm()
+//strxfrm_l()
 // ---- C.string ---- END
 
 
@@ -337,7 +573,15 @@
 
 
 // ---- C.dirent ---- 
-
+#include <dirent.h>
+#define VMPI_closedir       ::closedir
+#define VMPI_dirfd          ::dirfd
+//extern DIR *VMPI_fdopendir(int fd); //already defined in VMPI2.h
+#define VMPI_opendir        ::opendir
+#define VMPI_readdir        ::readdir
+#define VMPI_rewinddir      ::rewinddir
+#define VMPI_seekdir        ::seekdir
+#define VMPI_telldir        ::telldir
 // ---- C.dirent ---- END
 
 
@@ -350,6 +594,23 @@
 //solaris compat
 #ifndef FIONREAD
   #include <sys/filio.h> /* Solaris 2 puts it here */
+#endif
+
+//posix compat
+#ifndef O_EXEC
+# define O_EXEC O_RDONLY
+#endif
+
+#ifndef O_SEARCH
+# define O_SEARCH O_RDONLY
+#endif
+
+#ifndef O_TTY_INIT
+# define O_TTY_INIT 0x0000
+#endif
+
+#ifndef O_RSYNC
+# define O_RSYNC O_SYNC
 #endif
 
 //macintosh compat
@@ -414,7 +675,9 @@
 
 
 // ---- C.netdb ---- 
-
+#define VMPI_getprotobynumber  ::getprotobynumber
+#define VMPI_getprotoent       ::getprotoent
+#define VMPI_gethostent        ::gethostent
 // ---- C.netdb ---- END
 
 
@@ -459,7 +722,12 @@
 
 
 // ---- C.sys.stat ---- 
-
+#include <sys/stat.h>
+//#define VMPI_chmod       ::chmod // defined in VMPI2.h
+//#define VMPI_mkdir       ::mkdir // defined in VMPI2.h
+#define VMPI_stat        ::stat
+#define VMPI_fstat       ::fstat
+#define VMPI_umask       ::umask
 // ---- C.sys.stat ---- END
 
 
@@ -479,7 +747,7 @@
 
 
 // ---- C.sys.wait ---- 
-
+#include <sys/wait.h>
 // ---- C.sys.wait ---- END
 
 
@@ -496,6 +764,17 @@
 // ---- C.unistd ---- 
 #define VMPI_access      ::access
 #define VMPI_chdir       ::chdir
+#define VMPI_close       ::close
+#define VMPI_dup         ::dup
+#define VMPI_dup2        ::dup2
+//#define VMPI_execl     ::execl //not used
+//#define VMPI_execle    ::execle //not used
+//#define VMPI_execlp    ::execlp //not used
+#define VMPI_execv     ::execv
+#define VMPI_execve      ::execve
+#define VMPI_execvp      ::execvp
+#define VMPI_fsync       ::fsync
+#define VMPI_ftruncate   ::ftruncate
 #define VMPI_getcwd      ::getcwd
 #define VMPI_gethostname ::gethostname
 #define VMPI_getpid      ::getpid
@@ -520,13 +799,6 @@
   #define NONBLOCKING_ENABLE           1
 #endif /* !NONBLOCKING_ENABLE */
 
-#if !defined(O_TEXT)
-  #define O_TEXT          0x4000
-#endif /* !O_TEXT */
-
-#if !defined(O_BINARY)
-  #define O_BINARY        0x8000
-#endif /* !O_BINARY */
 
 #define VMPI_inet_ntop   ::inet_ntop
 
