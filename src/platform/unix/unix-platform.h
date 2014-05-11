@@ -7,8 +7,6 @@
 #ifndef __avmplus_unix_platform__
 #define __avmplus_unix_platform__
 
-#include <assert.h>
-
 #define VMPI_memcpy         ::memcpy
 #define VMPI_memset         ::memset
 #define VMPI_memcmp         ::memcmp
@@ -31,20 +29,25 @@
 #define VMPI_vsnprintf      ::vsnprintf
 #define VMPI_sscanf         ::sscanf
 
-#define VMPI_atoi   ::atoi
-#define VMPI_tolower ::tolower
-#define VMPI_islower ::islower
-#define VMPI_toupper ::toupper
-#define VMPI_isupper ::isupper
-#define VMPI_isdigit ::isdigit
+
+
+//ctype
 #define VMPI_isalnum ::isalnum
-#define VMPI_isxdigit ::isxdigit
-#define VMPI_isspace ::isspace
+#define VMPI_isalpha ::isalpha
+#define VMPI_iscntrl ::iscntrl
+#define VMPI_isdigit ::isdigit
 #define VMPI_isgraph ::isgraph
+#define VMPI_islower ::islower
 #define VMPI_isprint ::isprint
 #define VMPI_ispunct ::ispunct
-#define VMPI_iscntrl ::iscntrl
-#define VMPI_isalpha ::isalpha
+#define VMPI_isspace ::isspace
+#define VMPI_isupper ::isupper
+#define VMPI_isxdigit ::isxdigit
+#define VMPI_tolower ::tolower
+#define VMPI_toupper ::toupper
+
+//stdlib
+#define VMPI_atoi   ::atoi
 #define VMPI_abort   ::abort
 #define VMPI_exit    ::exit
 
@@ -95,6 +98,10 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <signal.h>
+
+#ifdef DEBUG
+#include <assert.h>
+#endif
 
 typedef pthread_t vmpi_thread_t;
 
