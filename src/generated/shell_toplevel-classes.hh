@@ -10,6 +10,27 @@
 namespace avmplus {
 
 //-----------------------------------------------------------
+// C.ctype::__ctype
+//-----------------------------------------------------------
+class __ctypeObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmshell::CTypeClass;
+    REALLY_INLINE explicit __ctypeObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit __ctypeObject(const __ctypeObject&); // unimplemented
+    void operator=(const __ctypeObject&); // unimplemented
+};
+
+#define avmplus___ctypeObject_isExactInterlock 1
+//-----------------------------------------------------------
 // C.errno::__errno
 //-----------------------------------------------------------
 class __errnoObject : public avmplus::ScriptObject
