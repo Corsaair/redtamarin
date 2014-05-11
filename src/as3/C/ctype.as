@@ -7,6 +7,30 @@
 package C.ctype
 {
 
+    /** @internal */
+    [native(cls="::avmshell::CTypeClass", methods="auto", construct="none")]
+    [Inspectable(environment="none")]
+    internal class __ctype
+    {
+        public native static function _avm_isalnum( c:int ):int;
+        public native static function _avm_isalpha( c:int ):int;
+        public native static function _avm_isascii( c:int ):int;
+        public native static function _avm_isblank( c:int ):int;
+        public native static function _avm_iscntrl( c:int ):int;
+        public native static function _avm_isdigit( c:int ):int;
+        public native static function _avm_isgraph( c:int ):int;
+        public native static function _avm_islower( c:int ):int;
+        public native static function _avm_isprint( c:int ):int;
+        public native static function _avm_ispunct( c:int ):int;
+        public native static function _avm_isspace( c:int ):int;
+        public native static function _avm_isupper( c:int ):int;
+        public native static function _avm_isxdigit( c:int ):int;
+
+        public native static function _avm_toascii( c:int ):int;
+        public native static function _avm_tolower( c:int ):int;
+        public native static function _avm_toupper( c:int ):int;
+    }
+
     /** 
      * Test for an alphanumeric character.
      *
@@ -19,8 +43,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::isalnum")]
-    public native function isalnum( c:int ):int;
+    public function isalnum( c:int ):int
+    {
+        return __ctype._avm_isalnum( c );
+    }
 
     /** 
      * Test for an alphabetic character.
@@ -34,8 +60,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::isalpha")]
-    public native function isalpha( c:int ):int;
+    public function isalpha( c:int ):int
+    {
+        return __ctype._avm_isalpha( c );
+    }
 
     /** 
      * Test for a 7-bit US-ASCII character.
@@ -49,8 +77,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::isascii")]
-    public native function isascii( c:int ):int;
+    public function isascii( c:int ):int
+    {
+        return __ctype._avm_isascii( c );
+    }
 
     /** 
      * Test for a blank character.
@@ -64,8 +94,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::isblank")]
-    public native function isblank( c:int ):int;
+    public function isblank( c:int ):int
+    {
+        return __ctype._avm_isblank( c );
+    }
 
     /** 
      * Test for a control character.
@@ -79,8 +111,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::iscntrl")]
-    public native function iscntrl( c:int ):int;
+    public function iscntrl( c:int ):int
+    {
+        return __ctype._avm_iscntrl( c );
+    }
 
     /** 
      * Test for a decimal digit.
@@ -94,8 +128,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::isdigit")]
-    public native function isdigit( c:int ):int;
+    public function isdigit( c:int ):int
+    {
+        return __ctype._avm_isdigit( c );
+    }
 
     /** 
      * Test for a visible character.
@@ -109,8 +145,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::isgraph")]
-    public native function isgraph( c:int ):int;
+    public function isgraph( c:int ):int
+    {
+        return __ctype._avm_isgraph( c );
+    }
 
     /** 
      * Test for a lowercase letter.
@@ -124,8 +162,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::islower")]
-    public native function islower( c:int ):int;
+    public function islower( c:int ):int
+    {
+        return __ctype._avm_islower( c );
+    }
 
     /** 
      * Test for a printable character.
@@ -139,8 +179,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::isprint")]
-    public native function isprint( c:int ):int;
+    public function isprint( c:int ):int
+    {
+        return __ctype._avm_isprint( c );
+    }
 
     /** 
      * Test for a punctuation character.
@@ -154,8 +196,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::ispunct")]
-    public native function ispunct( c:int ):int;
+    public function ispunct( c:int ):int
+    {
+        return __ctype._avm_ispunct( c );
+    }
 
     /** 
      * Test for a white-space character.
@@ -169,8 +213,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::isspace")]
-    public native function isspace( c:int ):int;
+    public function isspace( c:int ):int
+    {
+        return __ctype._avm_isspace( c );
+    }
 
     /** 
      * Test for an uppercase letter.
@@ -184,8 +230,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::isupper")]
-    public native function isupper( c:int ):int;
+    public function isupper( c:int ):int
+    {
+        return __ctype._avm_isupper( c );
+    }
 
     /** 
      * Test for a hexadecimal digit.
@@ -199,8 +247,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::isxdigit")]
-    public native function isxdigit( c:int ):int;
+    public function isxdigit( c:int ):int
+    {
+        return __ctype._avm_isxdigit( c );
+    }
 
     /** 
      * Translate an integer to a 7-bit ASCII character.
@@ -213,8 +263,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::toascii")]
-    public native function toascii( c:int ):int;
+    public function toascii( c:int ):int
+    {
+        return __ctype._avm_toascii( c );
+    }
 
     /** 
      * Transliterate uppercase characters to lowercase.
@@ -228,8 +280,10 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::tolower")]
-    public native function tolower( c:int ):int;
+    public function tolower( c:int ):int
+    {
+        return __ctype._avm_tolower( c );
+    }
 
     /** 
      * Transliterate lowercase characters to uppercase.
@@ -243,7 +297,9 @@ package C.ctype
      *
      * @see String#charCodeAt()
      */
-    [native("::avmshell::CTypeClass::toupper")]
-    public native function toupper( c:int ):int;
+    public function toupper( c:int ):int
+    {
+        return __ctype._avm_toupper( c );
+    }
 
 }

@@ -31,6 +31,7 @@ package C.stdio
         public native static function get stdout():FILE;
         public native static function get stderr():FILE;
 
+        public native static function _getc( stream:FILE ):int;
         public native static function _getc_unlocked( stream:FILE ):int;
         public native static function _getchar_unlocked():int;
 
@@ -1202,8 +1203,10 @@ package C.stdio
      * 
      * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/getc.html
      */
-    [native("::avmshell::CStdioClass::getc")]
-    public native function getc( stream:FILE ):int;
+    public function getc( stream:FILE ):int
+    {
+        return __stdio._getc( stream );
+    }
 
     /**
      * Get a byte from a stdin stream.
