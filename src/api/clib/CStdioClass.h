@@ -33,6 +33,7 @@ namespace avmshell
         CFILEObject* get_stdout();
         CFILEObject* get_stderr();
 
+        int _getc(CFILEObject* stream);
         int _getc_unlocked(CFILEObject* stream);
         int _getchar_unlocked();
         
@@ -65,7 +66,7 @@ namespace avmshell
         static int ftrylockfile(ScriptObject* self, CFILEObject* file);
         static void funlockfile(ScriptObject* self, CFILEObject* file);
         static int fwrite(ScriptObject* self, ByteArrayObject* bytes, int nitems, CFILEObject* stream);
-        static int getc(ScriptObject* self, CFILEObject* stream);
+        //getc()
         static int getchar(ScriptObject*);
         //getc_unlocked()
         //getchar_unlocked()
