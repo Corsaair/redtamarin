@@ -21,6 +21,7 @@
 - reimplemented fully errno.h, now we support all constants for all OS
 - fully implemented limits.h, with support/compat for all OS
 - added the option to generate fat swc for redtamarin.swc
+- update includes and sync for Linux
 
 * 0.4.0 Akihabara (from tag 1R000)
 - BRAND NEW REFACTOR NO BACKWARD COMPATIBILITY
