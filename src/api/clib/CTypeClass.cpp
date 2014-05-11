@@ -12,7 +12,7 @@ namespace avmshell
     CTypeClass::CTypeClass(VTable *cvtable)
         : ClassClosure(cvtable)
     {
-        
+        createVanillaPrototype();
     }
 
     CTypeClass::~CTypeClass()
@@ -20,82 +20,82 @@ namespace avmshell
         
     }
 
-    /*static*/ int CTypeClass::isalnum(ScriptObject*, int c)
+    int CTypeClass::_avm_isalnum(int c)
     {
         return VMPI_isalnum( c );
     }
 
-    /*static*/ int CTypeClass::isalpha(ScriptObject*, int c)
+    int CTypeClass::_avm_isalpha(int c)
     {
         return VMPI_isalpha( c );
     }
 
-    /*static*/ int CTypeClass::isascii(ScriptObject*, int c)
+    int CTypeClass::_avm_isascii(int c)
     {
         return VMPI_isascii( c );
     }
 
-    /*static*/ int CTypeClass::isblank(ScriptObject*, int c)
+    int CTypeClass::_avm_isblank(int c)
     {
         return VMPI_isblank( c );
     }
 
-    /*static*/ int CTypeClass::iscntrl(ScriptObject*, int c)
+    int CTypeClass::_avm_iscntrl(int c)
     {
         return VMPI_iscntrl( c );
     }
 
-    /*static*/ int CTypeClass::isdigit(ScriptObject*, int c)
+    int CTypeClass::_avm_isdigit(int c)
     {
         return VMPI_isdigit( c );
     }
 
-    /*static*/ int CTypeClass::isgraph(ScriptObject*, int c)
+    int CTypeClass::_avm_isgraph(int c)
     {
         return VMPI_isgraph( c );
     }
 
-    /*static*/ int CTypeClass::islower(ScriptObject*, int c)
+    int CTypeClass::_avm_islower(int c)
     {
         return VMPI_islower( c );
     }
 
-    /*static*/ int CTypeClass::isprint(ScriptObject*, int c)
+    int CTypeClass::_avm_isprint(int c)
     {
         return VMPI_isprint( c );
     }
 
-    /*static*/ int CTypeClass::ispunct(ScriptObject*, int c)
+    int CTypeClass::_avm_ispunct(int c)
     {
         return VMPI_ispunct( c );
     }
 
-    /*static*/ int CTypeClass::isspace(ScriptObject*, int c)
+    int CTypeClass::_avm_isspace(int c)
     {
         return VMPI_isspace( c );
     }
 
-    /*static*/ int CTypeClass::isupper(ScriptObject*, int c)
+    int CTypeClass::_avm_isupper(int c)
     {
         return VMPI_isupper( c );
     }
 
-    /*static*/ int CTypeClass::isxdigit(ScriptObject*, int c)
+    int CTypeClass::_avm_isxdigit(int c)
     {
         return VMPI_isxdigit( c );
     }
 
-    /*static*/ int CTypeClass::toascii(ScriptObject*, int c)
+    int CTypeClass::_avm_toascii(int c)
     {
         return VMPI_toascii( c );
     }
 
-    /*static*/ int CTypeClass::tolower(ScriptObject*, int c)
+    int CTypeClass::_avm_tolower(int c)
     {
         return VMPI_tolower( c );
     }
 
-    /*static*/ int CTypeClass::toupper(ScriptObject*, int c)
+    int CTypeClass::_avm_toupper(int c)
     {
         return VMPI_toupper( c );
     }

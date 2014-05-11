@@ -16,40 +16,25 @@ namespace avmshell
     public:
         CTypeClass(VTable* cvtable);
         ~CTypeClass();
-        
-        static int isalnum(ScriptObject*, int c);
 
-        static int isalpha(ScriptObject*, int c);
+        int _avm_isalnum(int c);
+        int _avm_isalpha(int c);
+        int _avm_isascii(int c);
+        int _avm_isblank(int c);
+        int _avm_iscntrl(int c);
+        int _avm_isdigit(int c);
+        int _avm_isgraph(int c);
+        int _avm_islower(int c);
+        int _avm_isprint(int c);
+        int _avm_ispunct(int c);
+        int _avm_isspace(int c);
+        int _avm_isupper(int c);
+        int _avm_isxdigit(int c);
+        int _avm_toascii(int c);
+        int _avm_tolower(int c);
+        int _avm_toupper(int c);
 
-        static int isascii(ScriptObject*, int c);
-
-        static int isblank(ScriptObject*, int c);
-
-        static int iscntrl(ScriptObject*, int c);
-
-        static int isdigit(ScriptObject*, int c);
-
-        static int isgraph(ScriptObject*, int c);
-
-        static int islower(ScriptObject*, int c);
-
-        static int isprint(ScriptObject*, int c);
-
-        static int ispunct(ScriptObject*, int c);
-
-        static int isspace(ScriptObject*, int c);
-
-        static int isupper(ScriptObject*, int c);
-
-        static int isxdigit(ScriptObject*, int c);
-
-        static int toascii(ScriptObject*, int c);
-
-        static int tolower(ScriptObject*, int c);
-
-        static int toupper(ScriptObject*, int c);
-        
-        //DECLARE_SLOTS_CTypeClass;
+        DECLARE_SLOTS_CTypeClass;
     };
 
 }
