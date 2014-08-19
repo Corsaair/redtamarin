@@ -8,6 +8,7 @@
 #define __avmplus_AVMPI__
 
 #include "VMPI.h"
+#include "VMPI2.h"
 
 // Include feature settings.  These also perform platform sniffing if platform
 // settings are not provided eg on the command line.
@@ -30,11 +31,19 @@
 #include "avmfeatures.h"
 
 #if AVMSYSTEM_WIN32
+
+  #ifndef _WINSOCKAPI_
+  #define _WINSOCKAPI_
+  #endif
+
   #include "win32/win32-platform.h"
+  #include "win32/win32-platform2.h"
 #elif AVMSYSTEM_UNIX
   #include "unix/unix-platform.h"
+  #include "unix/unix-platform2.h"
 #elif AVMSYSTEM_MAC
   #include "mac/mac-platform.h"
+  #include "mac/mac-platform2.h"
 #elif AVMSYSTEM_SYMBIAN
   #include "symbian/symbian-platform.h"
 #endif
