@@ -305,6 +305,5 @@ REALLY_INLINE vmpi_thread_t VMPI_nullThread()
 }
 
 #include "../VMPI/ThreadsPosix-inlines.h"
-#include "mac-platform2.h"
 
 #endif // __avmplus_mac_platform__
