@@ -105,9 +105,18 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "name");
         }
         
-        StUTF8String nameUTF8(name);
-        const char * str = VMPI_getenv( nameUTF8.c_str() );
-        return core->newStringUTF8( str );
+        #if AVMSYSTEM_WIN32
+            StUTF16String nameUTF16(name);
+            const wchar * str = VMPI_getenv16( nameUTF16.c_str() );
+            
+            Stringp value = core->newStringUTF16( str );
+            StUTF8String valueUTF8(value);
+            return core->newStringUTF8( valueUTF8.c_str() );
+        #elif
+            StUTF8String nameUTF8(name);
+            const char * str = VMPI_getenv( nameUTF8.c_str() );
+            return core->newStringUTF8( str );
+        #endif
     }
 
     /*static*/ Cldiv_tObject* CStdlibClass::ldiv(ScriptObject* self, double numer, double denom)
@@ -132,8 +141,8 @@ namespace avmshell
         Clldiv_tClass *lld_c = shelltop->getShellClasses()->get_lldiv_tClass();
         Clldiv_tObject *lld_o = lld_c->constructObject();
 
-        lld_o->set_quot( result.quot );
-        lld_o->set_rem( result.rem );
+        lld_o->set_quot( (double) result.quot );
+        lld_o->set_rem( (double) result.rem );
 
         return lld_o;
     }
@@ -194,10 +203,17 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "name");
         }
         
-        StUTF8String nameUTF8(name);
-        
-        char * str = VMPI_strdup( nameUTF8.c_str() );
-        int result = VMPI_putenv( str );
+        #if AVMSYSTEM_WIN32
+            StUTF16String nameUTF16(name);
+            
+            wchar * str = VMPI_strdup16( nameUTF16.c_str() );
+            int result  = VMPI_putenv16( str );
+        #elif
+            StUTF8String nameUTF8(name);
+            
+            char * str = VMPI_strdup( nameUTF8.c_str() );
+            int result = VMPI_putenv( str );
+        #endif
 
         /* note:
            do not free() after strdup() or the string ref will be lost
@@ -225,8 +241,19 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "path");
         }
         
-        StUTF8String pathUTF8(path);
-        return core->newStringUTF8( VMPI_realpath(pathUTF8.c_str()) );
+        #if AVMSYSTEM_WIN32
+            StUTF16String pathUTF16(path);
+            wchar * str = VMPI_realpath16( pathUTF16.c_str() );
+            
+            Stringp value = core->newStringUTF16( str );
+            StUTF8String valueUTF8(value);
+            return core->newStringUTF8( valueUTF8.c_str() );
+        #elif
+            StUTF8String pathUTF8(path);
+            char * str = VMPI_realpath( pathUTF8.c_str() );
+
+            return core->newStringUTF8( str );
+        #endif
     }
 
     /*static*/ int CStdlibClass::setenv(ScriptObject* self, Stringp name, Stringp value, bool overwrite)
@@ -246,9 +273,15 @@ namespace avmshell
         int writeover = 0;
         if( overwrite ) { writeover = 1; }
         
-        StUTF8String nameUTF8(name);
-        StUTF8String valueUTF8(value);
-        return VMPI_setenv( nameUTF8.c_str(), valueUTF8.c_str(), writeover );
+        #if AVMSYSTEM_WIN32
+            StUTF16String nameUTF16(name);
+            StUTF16String valueUTF16(value);
+            return VMPI_setenv16( nameUTF16.c_str(), valueUTF16.c_str(), writeover );
+        #elif
+            StUTF8String nameUTF8(name);
+            StUTF8String valueUTF8(value);
+            return VMPI_setenv( nameUTF8.c_str(), valueUTF8.c_str(), writeover );
+        #endif
     }
 
     /*static*/ void CStdlibClass::srand(ScriptObject*, unsigned seed)
@@ -258,14 +291,23 @@ namespace avmshell
 
     /*static*/ int CStdlibClass::system(ScriptObject*, Stringp command)
     {
-        if( !command )
-        {
-            //toplevel()->throwArgumentError(kNullArgumentError, "command");
-            return VMPI_system( NULL );
-        }
-        
-        StUTF8String commandUTF8(command);
-        return VMPI_system( commandUTF8.c_str() );
+        #if AVMSYSTEM_WIN32
+            if( !command )
+            {
+                return VMPI_system16( NULL );
+            }
+            
+            StUTF16String commandUTF16(command);
+            return VMPI_system16( commandUTF16.c_str() );
+        #elif
+            if( !command )
+            {
+                return VMPI_system( NULL );
+            }
+            
+            StUTF8String commandUTF8(command);
+            return VMPI_system( commandUTF8.c_str() );
+        #endif
     }
 
     /*static*/ int CStdlibClass::unsetenv(ScriptObject* self, Stringp name)
@@ -277,8 +319,13 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "name");
         }
         
-        StUTF8String nameUTF8(name);
-        return VMPI_unsetenv( nameUTF8.c_str() );
+        #if AVMSYSTEM_WIN32
+            StUTF16String nameUTF16(name);
+            return VMPI_unsetenv16( nameUTF16.c_str() );
+        #elif
+            StUTF8String nameUTF8(name);
+            return VMPI_unsetenv( nameUTF8.c_str() );
+        #endif
     }
 
 
