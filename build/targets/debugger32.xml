@@ -2,6 +2,20 @@
 
 	<target name="before">
 
+		<!-- convert path for cygwin -->
+		<path id="basedir.path">
+		    <pathelement path="${basedir}" />
+		</path>
+        <pathconvert targetos="unix" property="basedir.cygwin" refid="basedir.path">
+        	<map from="C:" to="/cygdrive/c"/>
+        </pathconvert>
+        <pathconvert targetos="unix" property="basedir.unix" refid="basedir.path" />
+
+        <!-- debug -->
+        <!-- <echo message="${basedir}" /> -->
+        <!-- <echo message="${basedir.cygwin}" /> -->
+        <!-- <echo message="${basedir.unix}" /> -->
+
 		<if>
 			<and>
 			<equals arg1="${build.cleanGenerated}" arg2="true"/>
@@ -66,15 +80,15 @@
         <then>
 
 			<delete>
-				<fileset dir="${basedir}/src/generated" includes="**/*.h"/>
-				<fileset dir="${basedir}/src/generated" includes="**/*.hh"/>
-				<fileset dir="${basedir}/src/generated" includes="**/*.cpp"/>
+				<fileset dir="${basedir.unix}/src/generated" includes="**/*.h"/>
+				<fileset dir="${basedir.unix}/src/generated" includes="**/*.hh"/>
+				<fileset dir="${basedir.unix}/src/generated" includes="**/*.cpp"/>
 			</delete>
 	    	
 			<exec executable="make" dir="${target.debugger32.path}" failonerror="true">
-				<env key="ASC" value="${basedir}/${ASC1}"/>
-				<env key="AVM" value="${basedir}/${AVMSHELL_EXE}"/>
-				<env key="AVMSHELL_TOOL" value="${basedir}/${AVMSHELL_EXE}"/>
+				<env key="ASC" value="${basedir.unix}/${ASC1}"/>
+				<env key="AVM" value="${basedir.unix}/${AVMSHELL_EXE}"/>
+				<env key="AVMSHELL_TOOL" value="${basedir.unix}/${AVMSHELL_EXE}"/>
 			</exec>
 
         </then>
