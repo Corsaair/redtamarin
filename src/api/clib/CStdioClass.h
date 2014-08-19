@@ -83,7 +83,7 @@ namespace avmshell
         //putc_unlocked()
         //putchar_unlocked()
         //static int puts(ScriptObject* self, Stringp s);
-        /* remove() */
+        static int remove(ScriptObject* self, Stringp path);
         static int rename(ScriptObject* self, Stringp oldname, Stringp newname);
         //renameat()
         static void rewind(ScriptObject* self, CFILEObject* stream);
@@ -107,16 +107,16 @@ namespace avmshell
         
 
         /* old stuff */
-        int get_PATH_MAX();
-        int get_NONBLOCKING_DISABLE();
-        int get_NONBLOCKING_ENABLE();
+        //int get_PATH_MAX();
+        //int get_NONBLOCKING_DISABLE();
+        //int get_NONBLOCKING_ENABLE();
         //int get_O_TEXT();
         //int get_O_BINARY();
 
-        int remove(Stringp filename);
+        //int remove(Stringp filename);
         //int rename(Stringp oldname, Stringp newname);
-        void con_stream_mode(int state);
-        void con_trans_mode(int state);
+        //void con_stream_mode(int state);
+        //void con_trans_mode(int state);
         //int kbhit();
 
 
