@@ -583,6 +583,5 @@ REALLY_INLINE vmpi_thread_t VMPI_nullThread()
 }
 
 #include "../VMPI/ThreadsPosix-inlines.h"
-#include "unix-platform2.h"
 
 #endif // __avmplus_unix_platform__
