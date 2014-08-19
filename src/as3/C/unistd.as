@@ -17,13 +17,13 @@ package C.unistd
         public native static function get W_OK():int;
         public native static function get R_OK():int;
 
-        public native static function getcwd():String;                      //char *getcwd(char *buf, size_t size);
-        public native static function gethostname():String;                 //int gethostname(char *name, size_t namelen);
-        public native static function getlogin():String;                    //char *getlogin(void);
-        public native static function getpid():int;                         //pid_t getpid(void);
-        public native static function rmdir( path:String ):int;            //int rmdir(const char *path);
-        public native static function sleep( milliseconds:uint ):void;     //unsigned sleep(unsigned seconds);
-        public native static function unlink( path:String ):int;           //int unlink(const char *path);
+        public native static function getcwd():String;
+        public native static function gethostname():String;
+        public native static function getlogin():String;
+        public native static function getpid():int;
+        public native static function rmdir( path:String ):int;
+        public native static function sleep( milliseconds:uint ):void;
+        public native static function unlink( path:String ):int;
     }
 
     /**
@@ -524,7 +524,6 @@ package C.unistd
 
 
 
-
     /**
      * Change mode of a file.
      * 
@@ -541,10 +540,10 @@ package C.unistd
      * @playerversion AVM 0.3
      * @since 0.3.0
      */
-    public function chmod( path:String, mode:int ):int
+    /*public function chmod( path:String, mode:int ):int
     {
         return __unistd.chmod( path, mode );
-    }
+    }*/
     
     /**
      * Get the pathname of the current working directory.
@@ -596,10 +595,10 @@ package C.unistd
      * @playerversion AVM 0.3
      * @since 0.3.0
      */
-    public function mkdir( path:String ):int
+    /*public function mkdir( path:String ):int
     {
         return __unistd.mkdir( path );
-    }
+    }*/
 
     /**
      * Remove directory.
