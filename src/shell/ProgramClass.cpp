@@ -59,13 +59,27 @@ namespace avmshell
         AvmCore *core = this->core();
 
         ArrayObject *array = toplevel->arrayClass()->newArray();
-        char **cur = environ;
+
+        #if AVMSYSTEM_WIN32
+            wchar **cur = _wenviron;
+        #elif
+            char **cur = environ;
+        #endif
+
         int i = 0;
         while( *cur )
         {
-            array->setUintProperty(i, core->newStringUTF8(*cur)->atom());
-            i++;
+            #if AVMSYSTEM_WIN32
+                Stringp value = core->newStringUTF16(*cur);
+                StUTF8String valueUTF8(value);
+
+                array->setUintProperty( i, core->newStringUTF8( valueUTF8.c_str() )->atom() );
+            #elif
+                array->setUintProperty( i, core->newStringUTF8( *cur )->atom() );
+            #endif
+
             cur++;
+            i++;
         }
         
         return array;
