@@ -51,6 +51,7 @@ namespace avmshell
 
     Stringp RuntimeClass::_getAvmplusArchitecture()
     {
+        /*
         #if AVMSYSTEM_IA32
             return core()->newConstantStringLatin1( "x86-32" );
         #endif
@@ -80,6 +81,28 @@ namespace avmshell
         #endif
 
             return core()->newConstantStringLatin1( "unknown" );
+        */
+
+        ShellCore* core = (ShellCore*)this->core();
+
+        #if AVMSYSTEM_IA32
+            return core->newConstantStringLatin1( "x86-32" );
+        #elif AVMSYSTEM_AMD64
+            return core->newConstantStringLatin1( "x86-64" );
+        #elif AVMSYSTEM_ARM
+            return core->newConstantStringLatin1( "ARM" );
+        #elif AVMSYSTEM_PPC
+            return core->newConstantStringLatin1( "PowerPC" );
+        #elif AVMSYSTEM_SPARC
+            return core->newConstantStringLatin1( "SPARC" );
+        #elif AVMSYSTEM_MIPS
+            return core->newConstantStringLatin1( "MIPS" );
+        #elif AVMSYSTEM_SH4
+            return core->newConstantStringLatin1( "SH4" );
+        #else
+            return core->newConstantStringLatin1( "unknown" );
+        #endif
+
     }
 
     Stringp RuntimeClass::_getAvmplusVersion()
