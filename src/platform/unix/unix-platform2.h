@@ -437,11 +437,15 @@ int VMPI_toascii(int value)
 //getchar_unlocked //need to be defined in VMPI2.h as it is a macro
 #define VMPI_pclose            ::pclose
 #define VMPI_perror            ::perror
+#define VMPI_perror16          ::perror
 #define VMPI_popen             ::popen
+#define VMPI_popen16           ::popen
 //putc_unlocked //need to be defined in VMPI2.h as it is a macro
 //putchar_unlocked //need to be defined in VMPI2.h as it is a macro
 #define VMPI_remove            ::remove
+#define VMPI_remove16          ::remove
 #define VMPI_rename            ::rename
+#define VMPI_rename16          ::rename
 #define VMPI_rewind            ::rewind
 // ---- C.stdio ---- END
 
@@ -471,16 +475,16 @@ int VMPI_toascii(int value)
 //l64a()
 //labs()
 //lcong48()
-#define VMPI_ldiv     ::ldiv
+//VMPI_ldiv
 //llabs()
-#define VMPI_lldiv    ::lldiv
+//VMPI_lldiv
 //lrand48()
 //VMPI_malloc //extern void* VMPI_alloc(size_t size); // defined in VMPI.h
 #define VMPI_mblen    ::mblen
 //mbstowcs()
 //mbtowc()
-#define VMPI_mkdtemp  ::mkdtemp
-#define VMPI_mkstemp  ::mkstemp
+//VMPI_mkdtemp
+//VMPI_mkstemp
 //mrand48()
 //nrand48()
 //posix_memalign()
@@ -525,27 +529,41 @@ int VMPI_toascii(int value)
 //stpcpy()
 //stpncpy()
 //#define VMPI_strcat         ::strcat //already defined in mac-platform.h
+#define VMPI_strcat16         ::strcat
 //#define VMPI_strchr         ::strchr //already defined in mac-platform.h
+#define VMPI_strchr16         ::strchr
 //#define VMPI_strcmp         ::strcmp //already defined in mac-platform.h
-#define VMPI_strcoll     ::strcoll
+#define VMPI_strcmp16         ::strcmp
+#define VMPI_strcoll          ::strcoll
+#define VMPI_strcoll16        ::strcoll
 //strcoll_l()
 //#define VMPI_strcpy         ::strcpy //already defined in mac-platform.h
+#define VMPI_strcpy16         ::strcpy
 //strcspn()
 #define VMPI_strdup      ::strdup
+#define VMPI_strdup16    ::strdup
 #define VMPI_strerror    ::strerror
+#define VMPI_strerror16  ::strerror
 //strerror_l()
 //strerror_r()
 //#define VMPI_strlen         ::strlen //already defined in mac-platform.h
+#define VMPI_strlen16         ::strlen
 //#define VMPI_strncat        ::strncat //already defined in mac-platform.h
+#define VMPI_strncat16        ::strncat
 //#define VMPI_strncmp        ::strncmp //already defined in mac-platform.h
+#define VMPI_strncmp16        ::strncmp
 //#define VMPI_strncpy        ::strncpy //already defined in mac-platform.h
+#define VMPI_strncpy16        ::strncpy
 //strndup()
 //strnlen()
 //strpbrk()
 //#define VMPI_strrchr        ::strrchr //already defined in mac-platform.h
+#define VMPI_strrchr16        ::strrchr
 //strsignal()
-#define VMPI_strspn      ::strspn
+#define VMPI_strspn           ::strspn
+#define VMPI_strspn16         ::strspn
 //#define VMPI_strstr         ::strstr //already defined in mac-platform.h
+#define VMPI_strstr16         ::strstr
 //strtok()
 //strtok_r()
 //strxfrm()
@@ -726,6 +744,7 @@ int VMPI_toascii(int value)
 //#define VMPI_chmod       ::chmod // defined in VMPI2.h
 //#define VMPI_mkdir       ::mkdir // defined in VMPI2.h
 #define VMPI_stat        ::stat
+#define VMPI_stat16      ::stat
 #define VMPI_fstat       ::fstat
 #define VMPI_umask       ::umask
 // ---- C.sys.stat ---- END
@@ -763,23 +782,32 @@ int VMPI_toascii(int value)
 
 // ---- C.unistd ---- 
 #define VMPI_access      ::access
+#define VMPI_access16    ::access
 #define VMPI_chdir       ::chdir
+#define VMPI_chdir16     ::chdir
 #define VMPI_close       ::close
 #define VMPI_dup         ::dup
 #define VMPI_dup2        ::dup2
 //#define VMPI_execl     ::execl //not used
 //#define VMPI_execle    ::execle //not used
 //#define VMPI_execlp    ::execlp //not used
-#define VMPI_execv     ::execv
+#define VMPI_execv       ::execv
+#define VMPI_execv16     ::execv
 #define VMPI_execve      ::execve
+#define VMPI_execve16    ::execve
 #define VMPI_execvp      ::execvp
+#define VMPI_execvp16    ::execvp
 #define VMPI_fsync       ::fsync
 #define VMPI_ftruncate   ::ftruncate
 #define VMPI_getcwd      ::getcwd
-#define VMPI_gethostname ::gethostname
+#define VMPI_getcwd16    ::getcwd
+
+//#define VMPI_gethostname ::gethostname
 #define VMPI_getpid      ::getpid
 #define VMPI_rmdir       ::rmdir
+#define VMPI_rmdir16     ::rmdir
 #define VMPI_unlink      ::unlink
+#define VMPI_unlink16    ::unlink
 // ---- C.unistd ---- END
 
 
@@ -787,20 +815,6 @@ int VMPI_toascii(int value)
 
 // ---- C.utime ---- END
 
-
-
-// ==== MISC ==== 
-
-#if !defined(NONBLOCKING_DISABLE)
-  #define NONBLOCKING_DISABLE          0
-#endif /* !NONBLOCKING_DISABLE */
-
-#if !defined(NONBLOCKING_ENABLE)
-  #define NONBLOCKING_ENABLE           1
-#endif /* !NONBLOCKING_ENABLE */
-
-
-#define VMPI_inet_ntop   ::inet_ntop
 
 
 #endif // __avmplus_unix_platform2__
