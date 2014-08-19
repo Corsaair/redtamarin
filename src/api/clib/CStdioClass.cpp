@@ -493,7 +493,7 @@ namespace avmshell
             return 0;
         }
 
-        uint32_t writesize;
+        uint32_t writesize = 0;
 
         if( available < (uint32_t) buffersize )
         {
@@ -567,8 +567,13 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "s");
         }
 
-        StUTF8String sUTF8(s);
-        VMPI_perror( sUTF8.c_str() );
+        #if AVMSYSTEM_WIN32
+            StUTF16String sUTF16(s);
+            VMPI_perror16( sUTF16.c_str() );
+        #elif
+            StUTF8String sUTF8(s);
+            VMPI_perror( sUTF8.c_str() );
+        #endif
     }
 
     /*static*/ CFILEObject* CStdioClass::popen(ScriptObject* self, Stringp command, Stringp mode)
@@ -585,9 +590,15 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "mode");
         }
 
-        StUTF8String commandUTF8(command);
-        StUTF8String modeUTF8(mode);
-        FILE* f = VMPI_popen( commandUTF8.c_str(), modeUTF8.c_str() );
+        #if AVMSYSTEM_WIN32
+            StUTF16String commandUTF16(command);
+            StUTF16String modeUTF16(mode);
+            FILE* f = VMPI_popen16( commandUTF16.c_str(), modeUTF16.c_str() );
+        #elif
+            StUTF8String commandUTF8(command);
+            StUTF8String modeUTF8(mode);
+            FILE* f = VMPI_popen( commandUTF8.c_str(), modeUTF8.c_str() );
+        #endif
 
         if( f )
         {
@@ -603,7 +614,22 @@ namespace avmshell
     }
 
 
+    /*static*/ int CStdioClass::remove(ScriptObject* self, Stringp path)
+    {
+        Toplevel* toplevel = self->toplevel();
 
+        if (!path) {
+            toplevel->throwArgumentError(kNullArgumentError, "path");
+        }
+
+        #if AVMSYSTEM_WIN32
+            StUTF16String pathUTF16(path);
+            return VMPI_remove16( pathUTF16.c_str() );
+        #elif
+            StUTF8String pathUTF8(path);
+            return VMPI_remove( pathUTF8.c_str() );
+        #endif
+    }
 
 
     /*static*/ int CStdioClass::rename(ScriptObject* self, Stringp oldname, Stringp newname)
@@ -618,9 +644,15 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "newname");
         }
         
-        StUTF8String oldnameUTF8(oldname);
-        StUTF8String newnameUTF8(newname);
-        return VMPI_rename(oldnameUTF8.c_str(), newnameUTF8.c_str());
+        #if AVMSYSTEM_WIN32
+            StUTF16String oldnameUTF16(oldname);
+            StUTF16String newnameUTF16(newname);
+            return VMPI_rename16( oldnameUTF16.c_str(), newnameUTF16.c_str() );
+        #elif
+            StUTF8String oldnameUTF8(oldname);
+            StUTF8String newnameUTF8(newname);
+            return VMPI_rename( oldnameUTF8.c_str(), newnameUTF8.c_str() );
+        #endif
     }
 
     /*static*/ void CStdioClass::rewind(ScriptObject* self, CFILEObject* stream)
@@ -720,20 +752,20 @@ namespace avmshell
 
     /* old stuff */
 
-    int CStdioClass::get_PATH_MAX()
+    /*int CStdioClass::get_PATH_MAX()
     {
         return PATH_MAX;
-    }
+    }*/
 
-    int CStdioClass::get_NONBLOCKING_DISABLE()
+    /*int CStdioClass::get_NONBLOCKING_DISABLE()
     {
         return NONBLOCKING_DISABLE;
-    }
+    }*/
 
-    int CStdioClass::get_NONBLOCKING_ENABLE()
+    /*int CStdioClass::get_NONBLOCKING_ENABLE()
     {
         return NONBLOCKING_ENABLE;
-    }
+    }*/
 
     /*int CStdioClass::get_O_TEXT()
     {
@@ -748,7 +780,7 @@ namespace avmshell
     
 
 
-    int CStdioClass::remove(Stringp filename)
+    /*int CStdioClass::remove(Stringp filename)
     {
         if (!filename) {
             toplevel()->throwArgumentError(kNullArgumentError, "filename");
@@ -756,20 +788,20 @@ namespace avmshell
 
         StUTF8String filenameUTF8(filename);
         return VMPI_remove(filenameUTF8.c_str());
-    }
+    }*/
     
 
 
 
-    void CStdioClass::con_stream_mode(int state)
+    /*void CStdioClass::con_stream_mode(int state)
     {
         VMPI_con_stream_mode( state );
-    }
+    }*/
 
-    void CStdioClass::con_trans_mode(int state)
+    /*void CStdioClass::con_trans_mode(int state)
     {
         VMPI_con_trans_mode( state );
-    }
+    }*/
 
     /*int CStdioClass::kbhit()
     {
