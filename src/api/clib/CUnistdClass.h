@@ -111,14 +111,14 @@ namespace avmshell
         //int access(avmplus::Stringp path, int mode);
         //int chdir(avmplus::Stringp path);
         //int chmod(avmplus::Stringp path, int mode);
-        avmplus::Stringp getcwd();
-        avmplus::Stringp gethostname();
-        avmplus::Stringp getlogin();
+        Stringp getcwd();
+        Stringp gethostname();
+        Stringp getlogin();
         int getpid();
         //int mkdir(avmplus::Stringp path);
-        int rmdir(avmplus::Stringp path);
+        int rmdir(Stringp path);
         void sleep(int milliseconds);
-        int unlink(avmplus::Stringp path);
+        int unlink(Stringp path);
 
 
         DECLARE_SLOTS_CUnistdClass;
