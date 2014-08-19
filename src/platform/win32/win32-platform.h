@@ -27,6 +27,7 @@
     #pragma warning(disable:4946) // reinterpret_cast used between related classes (bugzilla 615964)
     #pragma warning(disable:4127) // conditional expression is constant - appears to be compiler noise primarily
     #pragma warning(disable:4201) // nonstandard extension used : nameless struct/union
+  //#pragma warning(disable: 4244) // possible loss of data
     #pragma warning(disable:4251) // X needs to have dll-interface to be used by clients of class Y
     #pragma warning(disable:4310) // cast truncates constant value
     #pragma warning(disable:4371) // better packing than in the previous version of the compiler
@@ -46,6 +47,7 @@
     #pragma warning(default:4296)   // expression is always true (false) (Generally, an unsigned variable was used in a comparison operation with zero.)
     #pragma warning(default:4905)   // wide string literal cast to 'LPSTR'
     #pragma warning(default:4906)   // string literal cast to 'LPWSTR'
+
 
     // some that might be useful to turn on someday, but would require too much twiddly code tweaking right now
     //  #pragma warning(error:4820) // 'bytes' bytes padding added after construct 'member_name' (MSFT system headers generate zillions of these, sadly)
@@ -511,8 +513,6 @@ REALLY_INLINE void VMPI_spinloopPause()
     __asm pause;
 #endif
 }
-
-#include "win32-platform2.h"
 
 #endif // __avmplus_win32_platform__
 
