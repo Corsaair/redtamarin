@@ -7,6 +7,89 @@
 #ifndef __avmplus_VMPI2__
 #define __avmplus_VMPI2__
 
+// Belt and suspenders...
+
+#ifdef DEBUG
+    #ifndef _DEBUG
+        #define _DEBUG
+    #endif
+#endif
+
+#ifdef _DEBUG
+    #ifndef DEBUG
+        #define DEBUG
+    #endif
+#endif
+
+#ifdef NDEBUG
+#undef _DEBUG
+#undef DEBUG
+#endif //#ifdef NDEBUG
+
+/////////
+// TODO: Remove dependency of VMPI on the feature system
+#ifdef AVMSHELL_BUILD
+#include "../shell/avmshell-features.h"
+#else
+/* The embedding host must provide this file in some directory that's included in
+ * header search paths.  It must define a value (0 or 1) for every feature
+ * required by avmplus, see shell/avmshell-features.h for a model, also see
+ * core/avmfeatures.as for documentation of the feature system.
+ */
+#include "avmhost-features.h"
+#endif
+
+// Include the feature system here so that the platform files can depend on
+// the internal (VMCFG_, etc) names rather than feature names.  Eases
+// maintainability.
+
+#include "../core/avmfeatures.h"
+// END TODO: remove dependency of VMPI on the feature system
+/////////
+
+// TODO Move this file to VMPI:
+#include "system-selection.h"
+
+// TODO Move these files to VMPI:
+#if AVMSYSTEM_WIN32
+
+  #ifndef _WINSOCKAPI_
+  #define _WINSOCKAPI_
+  #endif
+
+  #include "win32/win32-platform2.h"
+#elif AVMSYSTEM_UNIX
+  #include "unix/unix-platform2.h"
+#elif AVMSYSTEM_MAC
+  #include "mac/mac-platform2.h"
+#elif AVMSYSTEM_SYMBIAN
+  #include "symbian/symbian-platform.h"
+#endif
+
+/* wchar is our version of wchar_t, since wchar_t is different sizes
+ on different platforms, but we want to use UTF-16 uniformly. */
+typedef uint16_t wchar;
+
+// Catchall, though in general the platform files are really responsible for giving
+// REALLY_INLINE and FASTCALL a definition.
+
+#ifndef REALLY_INLINE
+    #define REALLY_INLINE inline
+#endif
+#ifndef FASTCALL
+    #define FASTCALL
+#endif
+
+// Bug 569361.  NO_INLINE is hint that annotated function should be kept
+// out-of-line.  Caveats: the NO_INLINE annotations guarantee nothing,
+// as is evident from catch-all definition below (also, some compilers
+// may require it to be applied to declaration sites to be effective).
+#ifndef NO_INLINE
+    #define NO_INLINE
+#endif
+
+#define ARRAY_SIZE(x) (sizeof(x)/sizeof(x[0]))
+
 // ==== BEFORE ==== 
 /* for special case that need to be defined first */
 
@@ -73,6 +156,9 @@ extern int VMPI_kill(int pid, int sig);
 
 
 // ---- C.stdio ---- 
+extern void VMPI_flockfile (FILE *stream);
+extern int VMPI_ftrylockfile (FILE *stream);
+extern void VMPI_funlockfile (FILE *stream);
 extern int VMPI_getc_unlocked(FILE *stream);
 extern int VMPI_getchar_unlocked();
 extern int VMPI_putc_unlocked(int c, FILE *stream);
@@ -81,14 +167,24 @@ extern int VMPI_putchar_unlocked(int c);
 
 
 // ---- C.stdlib ---- 
-//extern void VMPI_free(void* ptr); // defined in VMPI.h
-//extern const char *VMPI_getenv(const char *name); // defined in VMPI.h
-//VMPI_malloc //extern void* VMPI_alloc(size_t size); // defined in VMPI.h
-extern int VMPI_putenv(char *name);
+//VMPI_free
+//VMPI_getenv
+extern const wchar *VMPI_getenv16(const wchar *name);
+extern ldiv_t VMPI_ldiv(double numer, double denom);
+extern lldiv_t VMPI_lldiv(double numer, double denom);
+//VMPI_malloc
+extern char *VMPI_mkdtemp(char *templ);
+extern int VMPI_mkstemp(char *templ);
+extern int VMPI_putenv(const char *name);
+extern int VMPI_putenv16(const wchar *name);
 extern char *VMPI_realpath(char const *path);
+extern wchar *VMPI_realpath16(wchar const *path);
 extern int VMPI_setenv(const char *name, const char *value, int overwrite);
+extern int VMPI_setenv16(const wchar *name, const wchar *value, int overwrite);
 extern int VMPI_system(const char *command);
+extern int VMPI_system16(const wchar *command);
 extern int VMPI_unsetenv(const char *name);
+extern int VMPI_unsetenv16(const wchar *name);
 // ---- C.stdlib ---- END
 
 
@@ -137,7 +233,9 @@ extern int VMPI_openat(int fd, const char *path, int oflag, int mode);
 
 
 // ---- C.netdb ---- 
-
+extern struct protoent *VMPI_getprotobynumber(int proto);
+extern struct protoent *VMPI_getprotoent();
+extern struct hostent *VMPI_gethostent();
 // ---- C.netdb ---- END
 
 
@@ -184,7 +282,11 @@ extern int VMPI_spawnp(int *pid, const char *file, char *const argv[], char *con
 
 // ---- C.sys.stat ---- 
 extern int VMPI_chmod(const char *path, int mode);
+extern int VMPI_chmod16(const wchar *path, int mode);
+//extern int VMPI_fstat(int fildes, struct stat *buf);
 extern int VMPI_mkdir(const char *path, int mode);
+extern int VMPI_mkdir16(const wchar *path, int mode);
+//extern int VMPI_stat(const char *path, struct stat *buf);
 // ---- C.sys.stat ---- END
 
 
@@ -228,6 +330,7 @@ extern int VMPI_waitpid(int pid, int *stat_loc, int options);
 
 
 // ---- C.unistd ---- 
+extern int VMPI_gethostname(char *name, int namelen);
 extern void VMPI_sleep(int milliseconds);
 // ---- C.unistd ---- END
 
@@ -249,101 +352,14 @@ extern double VMPI_SystemMemoryPeak();
 // ---- shell.HardwareInformation ---- END
 
 // ---- shell.OperatingSystem ---- 
+extern void VMPI_getUserName(char *username);
+extern void VMPI_getUserName16(wchar *username);
 //extern void VMPI_OperatingSystemName(char *name);
 // ---- shell.OperatingSystem ---- END
 
 
 
 // ==== AVMGLUE ==== 
-
-
-// ==== MISC ==== 
-
-extern char *VMPI_int2char(int n);
-extern char *VMPI_getLocale();
-extern void VMPI_getUserName(char *username);
-extern void VMPI_con_stream_mode(int state);
-extern void VMPI_con_trans_mode(int state);
-extern struct hostent *VMPI_gethostbyaddr(const char *addr);
-extern double VMPI_getStdinFileLength();
-extern void VMPI_getOperatingSystemName(char *name);
-extern void VMPI_getOperatingSystemNodeName(char *nodename);
-extern void VMPI_getOperatingSystemRelease(char *release);
-extern void VMPI_getOperatingSystemVersion(char *version);
-extern void VMPI_getOperatingSystemMachine(char *machine);
-extern void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix);
-extern int VMPI_getLogicalDrives();
-extern int VMPI_getFileMode(const char *path);
-extern double VMPI_getFileSize(const char *path);
-extern double VMPI_getFileLastModifiedTime(const char *path);
-extern bool VMPI_isRegularFile(const char *path);
-extern bool VMPI_isDirectory(const char *path);
-extern bool VMPI_isAttributeHidden(const char *path);
-extern double VMPI_getFreeDiskSpace(const char *path);
-extern double VMPI_getTotalDiskSpace(const char *path);
-
-//extern size_t VMPI_getVMPageSize(); // defined in VMPI.h
-//extern double VMPI_getLocalTimeOffset(); // defined in VMPI.h
-//extern double VMPI_getDaylightSavingsTA(double time); // defined in VMPI.h
-//extern double VMPI_getDate(); // defined in VMPI.h
-//extern uint64_t VMPI_getTime(); // defined in VMPI.h
-//extern void VMPI_log(const char* message); // defined in VMPI.h
-//extern void VMPI_debugLog(const char* message); // defined in VMPI.h
-//extern void VMPI_debugBreak(); // defined in VMPI.h
-//extern size_t VMPI_size(void* ptr); // defined in VMPI.h
-//extern uint64_t VMPI_getPerformanceFrequency(); // defined in VMPI.h
-//extern uint64_t VMPI_getPerformanceCounter(); // defined in VMPI.h
-//class VMPI_TimerClient // defined in VMPI.h
-//extern uintptr_t VMPI_startTimer(unsigned int period, VMPI_TimerClient* client); // defined in VMPI.h
-//extern void VMPI_stopTimer(uintptr_t id); // defined in VMPI.h
-//extern void VMPI_lockInit(vmpi_spin_lock_t* lock); // defined in VMPI.h
-//extern void VMPI_lockDestroy(vmpi_spin_lock_t* lock); // defined in VMPI.h
-//extern bool VMPI_lockAcquire(vmpi_spin_lock_t* lock); // defined in VMPI.h
-//extern bool VMPI_lockRelease(vmpi_spin_lock_t* lock); // defined in VMPI.h
-//extern bool VMPI_lockTestAndAcquire(vmpi_spin_lock_t* lock); // defined in VMPI.h
-//extern bool VMPI_tlsCreate(uintptr_t* tlsId); // defined in VMPI.h
-//extern void VMPI_tlsDestroy(uintptr_t tlsId); // defined in VMPI.h
-//extern bool VMPI_tlsSetValue(uintptr_t tlsId, void* value); // defined in VMPI.h
-//extern void* VMPI_tlsGetValue(uintptr_t tlsId); // defined in VMPI.h
-//extern vmpi_thread_t VMPI_currentThread(); // defined in VMPI.h
-//extern vmpi_thread_t VMPI_nullThread(); // defined in VMPI.h
-//extern void VMPI_callWithRegistersSaved(void (*fn)(void* stackPointer, void* arg), void* arg); // defined in VMPI.h
-//extern int32_t VMPI_atomicIncAndGet32(volatile int32_t* value); // defined in VMPI.h
-//extern int32_t VMPI_atomicIncAndGet32WithBarrier(volatile int32_t* value); // defined in VMPI.h
-//extern int32_t VMPI_atomicDecAndGet32(volatile int32_t* value); // defined in VMPI.h
-//extern int32_t VMPI_atomicDecAndGet32WithBarrier(volatile int32_t* value); // defined in VMPI.h
-//extern bool VMPI_compareAndSwap32(int32_t oldValue, int32_t newValue, volatile int32_t* address); // defined in VMPI.h
-//extern bool VMPI_compareAndSwap32WithBarrier(int32_t oldValue, int32_t newValue, volatile int32_t* address); // defined in VMPI.h
-//extern void VMPI_memoryBarrier(); // defined in VMPI.h
-//extern bool VMPI_threadCreate(vmpi_thread_t* thread, vmpi_thread_attr_t* attr, vmpi_thread_start_t start_fn, vmpi_thread_arg_t arg); // defined in VMPI.h
-//extern bool VMPI_threadDetach(vmpi_thread_t thread); // defined in VMPI.h
-//extern void VMPI_threadSleep(int32_t timeout_millis); // defined in VMPI.h
-//extern void VMPI_threadJoin(vmpi_thread_t thread); // defined in VMPI.h
-//extern bool VMPI_recursiveMutexInit(vmpi_mutex_t* mutex); // defined in VMPI.h
-//extern bool VMPI_recursiveMutexDestroy(vmpi_mutex_t* mutex); // defined in VMPI.h
-//extern void VMPI_recursiveMutexLock(vmpi_mutex_t* mutex); // defined in VMPI.h
-//extern bool VMPI_recursiveMutexTryLock(vmpi_mutex_t* mutex); // defined in VMPI.h
-//extern void VMPI_recursiveMutexUnlock(vmpi_mutex_t* mutex); // defined in VMPI.h
-//extern bool VMPI_condVarInit(vmpi_condvar_t* condvar); // defined in VMPI.h
-//extern bool VMPI_condVarDestroy(vmpi_condvar_t* condvar); // defined in VMPI.h
-//extern void VMPI_condVarWait(vmpi_condvar_t* condvar, vmpi_mutex_t* mutex); // defined in VMPI.h
-//extern bool VMPI_condVarTimedWait(vmpi_condvar_t* condvar, vmpi_mutex_t* mutex, int32_t timeout_millis); // defined in VMPI.h
-//extern void VMPI_condVarBroadcast(vmpi_condvar_t* condvar); // defined in VMPI.h
-//extern void VMPI_condVarSignal(vmpi_condvar_t* condvar); // defined in VMPI.h
-//extern bool VMPI_threadAttrInit(vmpi_thread_attr_t* attr); // defined in VMPI.h
-//extern bool VMPI_threadAttrSetGuardSize(vmpi_thread_attr_t* attr, size_t size); // defined in VMPI.h
-//extern bool VMPI_threadAttrSetStackSize(vmpi_thread_attr_t* attr, size_t size); // defined in VMPI.h
-//extern void VMPI_threadAttrSetPriorityLow(vmpi_thread_attr_t* attr); // defined in VMPI.h
-//extern void VMPI_threadAttrSetPriorityNormal(vmpi_thread_attr_t* attr); // defined in VMPI.h
-//extern void VMPI_threadAttrSetPriorityHigh(vmpi_thread_attr_t* attr); // defined in VMPI.h
-//extern size_t VMPI_threadAttrDefaultGuardSize(); // defined in VMPI.h
-//extern size_t VMPI_threadAttrDefaultStackSize(); // defined in VMPI.h
-//extern void VMPI_threadYield(); // defined in VMPI.h
-//extern int VMPI_processorQtyAtBoot(); // defined in VMPI.h
-//extern void VMPI_spinloopPause(); // defined in VMPI.h
-//struct VMPI_TimerData // defined in VMPI.h
-
-
 
 
 #endif /* __avmplus_VMPI2__ */
