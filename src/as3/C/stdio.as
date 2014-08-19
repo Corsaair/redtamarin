@@ -42,18 +42,18 @@ package C.stdio
            PATH_MAX is normaly defined in <limits.h>
            we moved the definition here (as we don't plan to create a C.limits.* package)
         */
-        public native static function get PATH_MAX():int;
+        //public native static function get PATH_MAX():int;
 
-        public native static function get NONBLOCKING_DISABLE():int;
-        public native static function get NONBLOCKING_ENABLE():int;
+        //public native static function get NONBLOCKING_DISABLE():int;
+        //public native static function get NONBLOCKING_ENABLE():int;
 
         //public native static function get O_TEXT():int;
         //public native static function get O_BINARY():int;
         
-        public native static function remove( filename:String ):int;                 //int remove ( const char * filename );
+        //public native static function remove( filename:String ):int;                 //int remove ( const char * filename );
         //public native static function rename( oldname:String, newname:String ):int;  //int rename ( const char * oldname, const char * newname );
-        public native static function con_stream_mode( state:int ):void;             //void con_stream_mode( int state );
-        public native static function con_trans_mode( state:int ):void;              //void setmode( int state );
+        //public native static function con_stream_mode( state:int ):void;             //void con_stream_mode( int state );
+        //public native static function con_trans_mode( state:int ):void;              //void setmode( int state );
         //public native static function kbhit():int;                                   //int kbhit( void );
     }
 
@@ -1353,12 +1353,12 @@ package C.stdio
      * 
      * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/remove.html
      */
-    //[native("::avmshell::CStdioClass::remove")]
-    //public native function remove( path:String ):int;
-    public function remove( filename:String ):int
+    [native("::avmshell::CStdioClass::remove")]
+    public native function remove( path:String ):int;
+    /*public function remove( filename:String ):int
     {
         return __stdio.remove( filename );
-    }
+    }*/
 
     /**
      * Rename a file.
@@ -1585,10 +1585,10 @@ package C.stdio
      * @productversion redtamarin 0.3
      * @since 0.3.2
      */
-    public function con_stream_mode( state:int ):void
+    /*public function con_stream_mode( state:int ):void
     {
         return __stdio.con_stream_mode( state );
-    }
+    }*/
 
     //NONSTANDARD - RedTamarin Extension to ISO C standard.
     /**
@@ -1597,10 +1597,10 @@ package C.stdio
      * @productversion redtamarin 0.3
      * @since 0.3.2
      */
-    public function con_trans_mode( state:int ):void
+    /*public function con_trans_mode( state:int ):void
     {
         return __stdio.con_trans_mode( state );
-    }
+    }*/
 
     //NONSTANDARD - RedTamarin Extension to ISO C standard.
     /*
