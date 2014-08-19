@@ -14,7 +14,7 @@ package C.sys.stat
         /* note:
            we need to wrap mkdir() here so we can override the mode argument
         */
-        public native static function _mkdir( path:String, mode:int ):int;
+        public native static function mkdir( path:String, mode:int ):int;
     }
 
     /**
@@ -800,7 +800,7 @@ package C.sys.stat
             mode = S_IRWXU | S_IRWXG | S_IRWXO;
         }
 
-        return __stat._mkdir( path, mode );
+        return __stat.mkdir( path, mode );
     }
 
     /**
@@ -1217,7 +1217,7 @@ package C.sys.stat
          * @langversion 3.0
          * @playerversion AVM 0.4
          */
-        public var st_atime:int;
+        public var st_atime:Number;
 
         /**
          * Last data modification timestamp.
@@ -1245,7 +1245,7 @@ package C.sys.stat
          * @langversion 3.0
          * @playerversion AVM 0.4
          */
-        public var st_mtime:int;
+        public var st_mtime:Number;
 
         /**
          * Last file status change timestamp.
@@ -1265,7 +1265,7 @@ package C.sys.stat
          * @langversion 3.0
          * @playerversion AVM 0.4
          */
-        public var st_ctime:int;
+        public var st_ctime:Number;
 
         public function toString():String
         {
