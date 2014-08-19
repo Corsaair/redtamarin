@@ -17,7 +17,7 @@ namespace avmshell
         CSysStatClass(VTable* cvtable);
         ~CSysStatClass();
 
-        int _mkdir(Stringp path, int mode);
+        int mkdir(Stringp path, int mode);
 
 
         static int chmod(ScriptObject* self, Stringp path, int mode);
