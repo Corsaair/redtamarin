@@ -23,6 +23,9 @@ package shell
     [native(cls="::avmshell::RuntimeClass", methods="auto", construct="none")]
     public class Runtime
     {
+        //private static var _localAvmplusDescription = "redtamarin-0.0-unknown[0A000]";
+        include "description.incl";
+        
 
         private static var _API:Array = [];
                            _API[660] = "FP_9_0";
@@ -144,7 +147,14 @@ package shell
          */
         public static function get description():String
         {
-            return _getAvmplusDescription();
+            var desc:String = _getAvmplusDescription();
+
+            if( desc == "" )
+            {
+                desc = _localAvmplusDescription;
+            }
+
+            return desc;
         }
 
         /**
@@ -191,6 +201,12 @@ package shell
             //format: redtamarin-0.4-beta[1S131]
             var rtversion:String = "";
             var desc:String = description;
+
+            if( desc == "" )
+            {
+                return "";
+            }
+
             var tmp:Array = desc.split( "-" );
             
             rtversion += tmp[1]; //0.4
