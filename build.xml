@@ -392,6 +392,9 @@
 
         <property name="app.desc" value="${app.name}-${app.version.shortnumberclean}-${app.label}[${app.version.tag}]" />
         <property name="doc.footer" value="${app.name} v${app.version.shortnumberclean} ${app.label} [${app.version.tag}]" />
+
+        <echo file="src/as3/shell/description.incl" append="false">private static var _localAvmplusDescription = "${app.desc}";
+        </echo>
         
 
         <if>
