@@ -138,7 +138,7 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "dirp");
         }
 
-        VMPI_seekdir( dirp->read(), loc );
+        VMPI_seekdir( dirp->read(), (off_t) loc );
     }
 
     /*static*/ double CDirentClass::telldir(ScriptObject* self, CDIRObject* dirp)
