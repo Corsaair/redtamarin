@@ -10,6 +10,9 @@
 
 // ==== HEADERS ==== 
 
+#include "VMPI.h"
+#include "VMPI2.h"
+
 #ifdef AVMPLUS_MAC
     #include <malloc/malloc.h>
     #include <CoreServices/CoreServices.h>
@@ -95,6 +98,21 @@ int VMPI_kill(int pid, int sig)
 
 
 // ---- C.stdio ---- 
+void VMPI_flockfile(FILE *stream)
+{
+    flockfile(stream);
+}
+
+int VMPI_ftrylockfile(FILE *stream)
+{
+    return ftrylockfile(stream);
+}
+
+void VMPI_funlockfile(FILE *stream)
+{
+    funlockfile(stream);
+}
+
 int VMPI_getc_unlocked(FILE *stream)
 {
     return getc_unlocked( stream );
@@ -118,9 +136,41 @@ int VMPI_putchar_unlocked(int c)
 
 
 // ---- C.stdlib ---- 
+const wchar *VMPI_getenv16(const wchar *name)
+{
+    (void)name;
+    return NULL;
+}
+
+ldiv_t VMPI_ldiv(double numer, double denom)
+{
+    return ldiv( (long) numer, (long) denom );
+}
+
+lldiv_t VMPI_lldiv(double numer, double denom)
+{
+    return lldiv( (long long) numer, (long long) denom );
+}
+
+char *VMPI_mkdtemp(char *templ)
+{
+    return mkdtemp( templ );
+}
+
+int VMPI_mkstemp(char *templ)
+{
+    return mkstemp( templ );
+}
+
 int VMPI_putenv(char *name)
 {
     return putenv( name );
+}
+
+int VMPI_putenv16(const wchar *name)
+{
+    (void)name;
+    return -1;
 }
 
 char *VMPI_realpath(char const *path)
@@ -144,9 +194,23 @@ char *VMPI_realpath(char const *path)
     return NULL;
 }
 
+wchar *VMPI_realpath16(wchar const *path)
+{
+    (void)path;
+    return NULL;
+}
+
 int VMPI_setenv(const char *name, const char *value, int overwrite)
 {
     return setenv( name, value, overwrite );
+}
+
+int VMPI_setenv16(const wchar *name, const wchar *value, int overwrite)
+{
+    (void)name;
+    (void)value;
+    (void)overwrite;
+    return -1;
 }
 
 int VMPI_system(const char *command)
@@ -154,9 +218,21 @@ int VMPI_system(const char *command)
     return system( command );
 }
 
+int VMPI_system16(const wchar *command)
+{
+    (void)command;
+    return -1;
+}
+
 int VMPI_unsetenv(const char *name)
 {
     return unsetenv( name );
+}
+
+int VMPI_unsetenv16(const wchar *name)
+{
+    (void)name;
+    return -1;
 }
 // ---- C.stdlib ---- END
 
@@ -325,7 +401,22 @@ int VMPI_openat(int fd, const char *path, int oflag, int mode)
 
 
 // ---- C.netdb ---- 
+/*
+struct protoent *VMPI_getprotobynumber(int proto)
+{
+    return ::getprotobynumber(proto);
+}
 
+struct protoent *VMPI_getprotoent()
+{
+    return ::getprotoent();
+}
+
+struct hostent *VMPI_gethostent()
+{
+    return ::gethostent();
+}
+*/
 // ---- C.netdb ---- END
 
 
@@ -383,10 +474,33 @@ int VMPI_chmod(const char *path, int mode)
     return chmod(path, (mode_t)mode);
 }
 
+int VMPI_chmod16(const wchar *path, int mode)
+{
+    (void)path;
+    return -1;
+}
+
+/*int VMPI_fstat(int fildes, struct stat *buf)
+{
+    return fstat( fildes, &buf );
+}*/
+
 int VMPI_mkdir(const char *path, int mode)
 {
     return mkdir(path, (mode_t)mode);
 }
+
+int VMPI_mkdir16(const wchar *path, int mode)
+{
+    (void)path;
+    (void)mode;
+    return -1;
+}
+
+/*int VMPI_stat(const char *path, struct stat *buf)
+{
+    return stat( path, &buf );
+}*/
 // ---- C.sys.stat ---- END
 
 
@@ -470,6 +584,11 @@ int VMPI_waitpid(int pid, int *stat_loc, int options)
 
 
 // ---- C.unistd ---- 
+int VMPI_gethostname(char *name, int namelen)
+{
+    return ::gethostname(name, namelen);
+}
+
 void VMPI_sleep(int milliseconds)
 {
     usleep(1000 * milliseconds);
@@ -588,36 +707,6 @@ double VMPI_SystemMemoryPeak()
 // ---- shell.HardwareInformation ---- END
 
 // ---- shell.OperatingSystem ---- 
-
-// ---- shell.OperatingSystem ---- END
-
-
-
-// ==== AVMGLUE ==== 
-
-
-
-// ==== MISC ==== 
-
-char *VMPI_int2char(int n)
-{
-    char buffer[100];
-    char *value;
-    size_t size;
-
-    size  = VMPI_sprintf( buffer, "%d", n ) * sizeof(char);
-    value = (char*) VMPI_alloc( size+1 );
-    VMPI_strcpy( value, buffer );
-    
-    return value;
-}
-
-char *VMPI_getLocale()
-{
-    //get the Environment's default locale
-    return setlocale( LC_ALL, "" );
-}
-
 /* note:
    1. getpwuid( geteuid() ) shall return the name associated with the effective user ID of the process
    2. getlogin() shall return the name associated with the current login activity
@@ -627,272 +716,19 @@ void VMPI_getUserName(char *username)
 {
     struct passwd *pws;
     pws = getpwuid( geteuid() );
-    VMPI_strcpy( username, pws->pw_name );
+    VMPI_strcpy( username, pws->pw_name ); 
 }
 
-void VMPI_con_stream_mode(int state)
+void VMPI_getUserName16(wchar *username)
 {
-    struct termios ttystate;
- 
-    //get the terminal state
-    tcgetattr(STDIN_FILENO, &ttystate);
- 
-    if (state==NONBLOCKING_ENABLE)
-    {
-        //turn off canonical mode
-        ttystate.c_lflag &= ~ICANON;
-        //minimum of number input read.
-        ttystate.c_cc[VMIN] = 1;
-    }
-    else if (state==NONBLOCKING_DISABLE)
-    {
-        //turn on canonical mode
-        ttystate.c_lflag |= ICANON;
-    }
-    //set the terminal attributes.
-    tcsetattr(STDIN_FILENO, TCSANOW, &ttystate);
+    (void)username;
 }
+// ---- shell.OperatingSystem ---- END
 
-void VMPI_con_trans_mode(int state)
-{
-    (void)state; //does nothing under POSIX
-}
 
-double VMPI_getStdinFileLength()
-{
-    int stdinHandle = fileno(stdin);
-    struct stat stats;
-    fstat(stdinHandle, &stats);
-    return stats.st_size;
-}
 
-struct hostent *VMPI_gethostbyaddr(const char *addr)
-{
-    struct in_addr ipv4addr;
-    
-    inet_pton(AF_INET, addr, &ipv4addr);
-    return gethostbyaddr(&ipv4addr, sizeof ipv4addr, AF_INET);
-}
+// ==== AVMGLUE ==== 
 
-//OperatingSystem.getName()
-void VMPI_getOperatingSystemName(char *name)
-{
-    utsname info;
-    const char *osname;
-    
-    if( uname(&info) < 0 ) {
-        osname = "";
-    }
-    else {
-        osname = info.sysname;
-    }
-    
-    VMPI_strcpy( name, osname );
-}
-
-//OperatingSystem.getNodeName()
-void VMPI_getOperatingSystemNodeName(char *nodename)
-{
-    utsname info;
-    const char *osnodename;
-    
-    if( uname(&info) < 0 ) {
-        osnodename = "";
-    }
-    else {
-        osnodename = info.nodename;
-    }
-    
-    VMPI_strcpy( nodename, osnodename );
-}
-
-//OperatingSystem.getRelease()
-void VMPI_getOperatingSystemRelease(char *release)
-{
-    utsname info;
-    const char *osrelease;
-    
-    if( uname(&info) < 0 ) {
-        osrelease = "";
-    }
-    else {
-        osrelease = info.release;
-    }
-    
-    VMPI_strcpy( release, osrelease );
-}
-
-//OperatingSystem.getVersion()
-void VMPI_getOperatingSystemVersion(char *version)
-{
-    utsname info;
-    const char *osversion;
-    
-    if( uname(&info) < 0 ) {
-        osversion = "";
-    }
-    else {
-        osversion = info.version;
-    }
-
-    VMPI_strcpy( version, osversion );
-}
-
-//OperatingSystem.getMachine()
-void VMPI_getOperatingSystemMachine(char *machine)
-{
-    utsname info;
-    const char *osmachine;
-    
-    if( uname(&info) < 0 ) {
-        osmachine = "";
-    }
-    else {
-        osmachine = info.machine;
-    }
-    
-    VMPI_strcpy( machine, osmachine );
-}
-
-//OperatingSystem.getVendorVersion()
-void VMPI_getOperatingSystemVersionNumbers(int *major, int *minor, int *bugfix)
-{
-#ifdef AVMPLUS_MAC
-    /* under OSX 10.8 ‘Gestalt’ is deprecated and there is no replacement
-       see:
-       http://stackoverflow.com/questions/11072804/mac-os-x-10-8-replacement-for-gestalt-for-testing-os-version-at-runtime
-
-       instead use:
-
-       on the command line
-       $ sysctl kern.osrelease
-       kern.osrelease: 12.0.0
-       $ sysctl kern.osversion
-       kern.osversion: 12A269
-
-       in code
-       #include <errno.h>
-       #include <sys/sysctl.h>
-       
-       char str[256];
-       size_t size = sizeof(str);
-       int ret = sysctlbyname("kern.osrelease", str, &size, NULL, 0);
-
-       results can be:
-       12.x.x  OS X 10.8.x Mountain Lion
-       11.x.x  OS X 10.7.x Lion
-       10.x.x  OS X 10.6.x Snow Leopard
-       9.x.x  OS X 10.5.x Leopard
-       8.x.x  OS X 10.4.x Tiger
-       7.x.x  OS X 10.3.x Panther
-       6.x.x  OS X 10.2.x Jaguar
-       5.x    OS X 10.1.x Puma
-    */ 
-    /*
-    SInt32 version, version_major, version_minor, version_bugfix;
-    if( Gestalt(gestaltSystemVersion, &version) == noErr )
-    {
-        if( version >= 0x00001040 )
-        {
-            Gestalt(gestaltSystemVersionMajor, &version_major);
-            Gestalt(gestaltSystemVersionMinor, &version_minor);
-            Gestalt(gestaltSystemVersionBugFix, &version_bugfix);
-        }
-        else
-        {
-            version_bugfix = version & 0xf;
-            version >>= 4;
-            version_minor = version & 0xf;
-            version >>= 4;
-            version_major = version - (version >> 4) * 6;
-        }
-        
-        *major  = (int)version_major;
-        *minor  = (int)version_minor;
-        *bugfix = (int)version_bugfix;
-    }
-    */
-
-    //tmp fix
-    *major  = 0;
-    *minor  = 0;
-    *bugfix = 0;
-#else
-    (void)major;
-    (void)minor;
-    (void)bugfix;
-#endif
-}
-
-int VMPI_getLogicalDrives()
-{
-    return 0;
-}
-
-int VMPI_getFileMode(const char *path)
-{
-    struct stat stats;
-    stat(path, &stats);
-    return stats.st_mode;
-}
-
-double VMPI_getFileSize(const char *path)
-{
-    struct stat stats;
-    stat(path, &stats);
-    return stats.st_size;
-}
-
-double VMPI_getFileLastModifiedTime(const char *path)
-{
-    struct stat stats;
-    stat(path, &stats);
-    return double( stats.st_mtime ) * 1000.0;
-    //return double( stats.st_atime ) * 1000.0;
-    //return double( stats.st_ctime ) * 1000.0;
-}
-
-bool VMPI_isRegularFile(const char *path)
-{
-    return S_ISREG( VMPI_getFileMode(path) );
-}
-
-bool VMPI_isDirectory(const char *path)
-{
-    return S_ISDIR( VMPI_getFileMode(path) );
-}
-
-//bool VMPI_isSymbolicLink(const char *path)
-
-bool VMPI_isAttributeHidden(const char *path)
-{
-#ifdef AVMPLUS_MAC
-    struct stat stats;
-    stat(path, &stats);
-    return (stats.st_flags & UF_HIDDEN);
-#else
-    (void)path;
-    return false;
-#endif
-}
-
-double VMPI_getFreeDiskSpace(const char *path)
-{
-    struct statvfs stats;
-    if( statvfs(path, &stats) != 0) {
-        return -1;
-    }
-    return static_cast<double>(stats.f_bavail) * stats.f_frsize;
-}
-
-double VMPI_getTotalDiskSpace(const char *path)
-{
-    struct statvfs stats;
-    if( statvfs(path, &stats) != 0) {
-        return -1;
-    }
-    return static_cast<double>(stats.f_blocks) * stats.f_frsize;
-}
 
 
 
