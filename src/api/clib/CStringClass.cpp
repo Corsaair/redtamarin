@@ -34,9 +34,15 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "s2");
         }
         
-        StUTF8String s1UTF8(s1);
-        StUTF8String s2UTF8(s2);
-        return VMPI_strcmp( s1UTF8.c_str(), s2UTF8.c_str() );
+        #if AVMSYSTEM_WIN32
+            StUTF16String s1UTF16(s1);
+            StUTF16String s2UTF16(s2);
+            return VMPI_strcmp16( s1UTF16.c_str(), s2UTF16.c_str() );
+        #elif
+            StUTF8String s1UTF8(s1);
+            StUTF8String s2UTF8(s2);
+            return VMPI_strcmp( s1UTF8.c_str(), s2UTF8.c_str() );
+        #endif
     }
 
     /*static*/ int CStringClass::strcoll(ScriptObject* self, Stringp s1, Stringp s2)
@@ -53,16 +59,31 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "s2");
         }
         
-        StUTF8String s1UTF8(s1);
-        StUTF8String s2UTF8(s2);
-        return VMPI_strcoll( s1UTF8.c_str(), s2UTF8.c_str() );
+        #if AVMSYSTEM_WIN32
+            StUTF16String s1UTF16(s1);
+            StUTF16String s2UTF16(s2);
+            return VMPI_strcoll16( s1UTF16.c_str(), s2UTF16.c_str() );
+        #elif
+            StUTF8String s1UTF8(s1);
+            StUTF8String s2UTF8(s2);
+            return VMPI_strcoll( s1UTF8.c_str(), s2UTF8.c_str() );
+        #endif
     }
 
     /*static*/ Stringp CStringClass::strerror(ScriptObject* self, int errnum)
     {
         AvmCore *core = self->core();
 
-        return core->newStringUTF8( VMPI_strerror( errnum ) );
+        #if AVMSYSTEM_WIN32
+            wchar *str = VMPI_strerror16( errnum );
+
+            Stringp value = core->newStringUTF16( str );
+            StUTF8String valueUTF8(value);
+            return core->newStringUTF8( valueUTF8.c_str() );
+        #elif
+            char *str = VMPI_strerror( errnum );
+            return core->newStringUTF8( str );
+        #endif
     }
 
     /*static unsigned CStringClass::strlen(ScriptObject* self, Stringp str)
@@ -92,9 +113,15 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "s2");
         }
         
-        StUTF8String s1UTF8(s1);
-        StUTF8String s2UTF8(s2);
-        return VMPI_strspn( s1UTF8.c_str(), s2UTF8.c_str() );
+        #if AVMSYSTEM_WIN32
+            StUTF16String s1UTF16(s1);
+            StUTF16String s2UTF16(s2);
+            return VMPI_strspn16( s1UTF16.c_str(), s2UTF16.c_str() );
+        #elif
+            StUTF8String s1UTF8(s1);
+            StUTF8String s2UTF8(s2);
+            return VMPI_strspn( s1UTF8.c_str(), s2UTF8.c_str() );
+        #endif
     }
     
 
