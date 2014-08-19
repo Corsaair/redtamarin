@@ -25,8 +25,8 @@ namespace avmshell
     int CLimitsClass::get_CHAR_MIN() { return CHAR_MIN; }
     int CLimitsClass::get_INT_MAX() { return INT_MAX; }
     int CLimitsClass::get_INT_MIN() { return INT_MIN; }
-    double CLimitsClass::get_LLONG_MAX() { return LLONG_MAX; }
-    double CLimitsClass::get_LLONG_MIN() { return LLONG_MIN; }
+    double CLimitsClass::get_LLONG_MAX() { return (double) LLONG_MAX; }
+    double CLimitsClass::get_LLONG_MIN() { return (double) LLONG_MIN; }
     int CLimitsClass::get_LONG_BIT() { return LONG_BIT; }
     int CLimitsClass::get_LONG_MAX() { return LONG_MAX; }
     int CLimitsClass::get_LONG_MIN() { return LONG_MIN; }
@@ -35,9 +35,9 @@ namespace avmshell
     int CLimitsClass::get_SHRT_MAX() { return SHRT_MAX; }
     int CLimitsClass::get_SHRT_MIN() { return SHRT_MIN; }
     int CLimitsClass::get_UCHAR_MAX() { return UCHAR_MAX; }
-    uint32_t CLimitsClass::get_UINT_MAX() { return UINT_MAX; }
-    double CLimitsClass::get_ULLONG_MAX() { return ULLONG_MAX; }
-    uint32_t CLimitsClass::get_ULONG_MAX() { return ULONG_MAX; }
+    uint32_t CLimitsClass::get_UINT_MAX() { return (uint32_t) UINT_MAX; }
+    double CLimitsClass::get_ULLONG_MAX() { return (double) ULLONG_MAX; }
+    uint32_t CLimitsClass::get_ULONG_MAX() { return (uint32_t) ULONG_MAX; }
     int CLimitsClass::get_USHRT_MAX() { return USHRT_MAX; }
     int CLimitsClass::get_WORD_BIT() { return WORD_BIT; }
 
