@@ -748,6 +748,4 @@ struct VMPI_TimerData
     VMPI_TimerClient    *client;    // a object containing a function we must call on every tick
 };
 
-#include "VMPI2.h"
-
 #endif /* __avmplus_VMPI__ */
