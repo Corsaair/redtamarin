@@ -74,8 +74,13 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "path");
         }
 
-        StUTF8String pathUTF8(path);
-        return VMPI_access(pathUTF8.c_str(), mode);
+        #if AVMSYSTEM_WIN32
+            StUTF16String pathUTF16(path);
+            return VMPI_access16( pathUTF16.c_str(), mode );
+        #elif
+            StUTF8String pathUTF8(path);
+            return VMPI_access( pathUTF8.c_str(), mode );
+        #endif
     }
 
     /*static*/ int CUnistdClass::chdir(ScriptObject* self, Stringp path)
@@ -86,8 +91,13 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "path");
         }
 
-        StUTF8String pathUTF8(path);
-        return VMPI_chdir(pathUTF8.c_str());
+        #if AVMSYSTEM_WIN32
+            StUTF16String pathUTF16(path);
+            return VMPI_chdir16( pathUTF16.c_str() );
+        #elif
+            StUTF8String pathUTF8(path);
+            return VMPI_chdir( pathUTF8.c_str() );
+        #endif
     }
 
     /*static*/ int CUnistdClass::close(ScriptObject*, int fildes)
@@ -114,7 +124,7 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "path");
         }
 
-        const char* execargs[4096]; //ARG_MAX = 4096
+        const char* execargs[ ARG_MAX ]; //ARG_MAX = 4096
 
         if (argc > 0)
         {
@@ -163,8 +173,8 @@ namespace avmshell
 
         int cmdc = 0;
         int envc = 0;
-        const char* execargs[4096]; //ARG_MAX = 4096
-        const char* execenvs[4096]; //ARG_MAX = 4096
+        const char* execargs[ ARG_MAX ]; //ARG_MAX = 4096
+        const char* execenvs[ ARG_MAX ]; //ARG_MAX = 4096
 
         if( argc > 0 )
         {
@@ -287,8 +297,8 @@ namespace avmshell
             envp = toplevel->arrayClass()->newArray();
         }
 
-        const char* execargs[4096]; //ARG_MAX = 4096
-        const char* execenvs[4096]; //ARG_MAX = 4096
+        const char* execargs[ ARG_MAX ]; //ARG_MAX = 4096
+        const char* execenvs[ ARG_MAX ]; //ARG_MAX = 4096
         int cmdc = argv->get_length();
         int envc = envp->get_length();
 
@@ -389,25 +399,43 @@ namespace avmshell
         return VMPI_chmod(pathUTF8.c_str(), mode);
     }*/
 
-    avmplus::Stringp CUnistdClass::getcwd()
+    Stringp CUnistdClass::getcwd()
     {
-        char path[256];
-        VMPI_getcwd(path, (size_t)256);
-        return core()->newStringUTF8( path );
+        #if AVMSYSTEM_WIN32
+            wchar path[ PATH_MAX ];
+            VMPI_getcwd16( path, (size_t) PATH_MAX );
+
+            Stringp value = core()->newStringUTF16( path );
+            StUTF8String valueUTF8(value);
+            return core()->newStringUTF8( valueUTF8.c_str() );
+        #elif
+            char path[ PATH_MAX ];
+            VMPI_getcwd( path, (size_t) PATH_MAX );
+            return core()->newStringUTF8( path );
+        #endif
     }
 
-    avmplus::Stringp CUnistdClass::gethostname()
+    Stringp CUnistdClass::gethostname()
     {
-        char hostname[256];
-        VMPI_gethostname(hostname, (size_t)256);
+        char hostname[ HOST_NAME_MAX ];
+        VMPI_gethostname( hostname, (size_t) HOST_NAME_MAX );
         return core()->newStringUTF8( hostname );
     }
 
-    avmplus::Stringp CUnistdClass::getlogin()
+    Stringp CUnistdClass::getlogin()
     {
-        char username[256];
-        VMPI_getUserName( username );
-        return core()->newStringUTF8( username );
+        #if AVMSYSTEM_WIN32
+            wchar username[ LOGIN_NAME_MAX ];
+            VMPI_getUserName16( username );
+
+            Stringp value = core()->newStringUTF16( username );
+            StUTF8String valueUTF8(value);
+            return core()->newStringUTF8( valueUTF8.c_str() );
+        #elif
+            char username[ LOGIN_NAME_MAX ];
+            VMPI_getUserName( username );
+            return core()->newStringUTF8( username );
+        #endif
     }
 
     int CUnistdClass::getpid()
@@ -425,14 +453,19 @@ namespace avmshell
         return VMPI_mkdir(pathUTF8.c_str());
     }*/
     
-    int CUnistdClass::rmdir(avmplus::Stringp path)
+    int CUnistdClass::rmdir(Stringp path)
     {
         if (!path) {
             toplevel()->throwArgumentError(kNullArgumentError, "path");
         }
-        
-        avmplus::StUTF8String pathUTF8(path);
-        return VMPI_rmdir(pathUTF8.c_str());
+
+        #if AVMSYSTEM_WIN32
+            StUTF16String pathUTF16(path);
+            return VMPI_rmdir16( pathUTF16.c_str() );
+        #elif
+            StUTF8String pathUTF8(path);
+            return VMPI_rmdir( pathUTF8.c_str() );
+        #endif
     }
 
     /* note
@@ -451,17 +484,22 @@ namespace avmshell
         // Or do we try to make the all the isolate threads sleep? In a safepoint? and interruptibly?
         if (milliseconds < 0) 
             milliseconds = 0;
-        vmbase::VMThread::sleep(milliseconds);
+        vmbase::VMThread::sleep( milliseconds );
     }
 
-    int CUnistdClass::unlink(avmplus::Stringp path)
+    int CUnistdClass::unlink(Stringp path)
     {
         if (!path) {
             toplevel()->throwArgumentError(kNullArgumentError, "path");
         }
         
-        avmplus::StUTF8String pathUTF8(path);
-        return VMPI_unlink(pathUTF8.c_str());
+        #if AVMSYSTEM_WIN32
+            StUTF16String pathUTF16(path);
+            return VMPI_unlink16( pathUTF16.c_str() );
+        #elif
+            StUTF8String pathUTF8(path);
+            return VMPI_unlink( pathUTF8.c_str() );
+        #endif
     }
 
 }
