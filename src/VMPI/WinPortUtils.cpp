@@ -272,7 +272,7 @@ void VMPI_log(const char* message)
     }
 }
 
-const char *VMPI_getenv(const char *env)
+/*const char *VMPI_getenv(const char *env)
 {
     const char *val = NULL;
     (void)env;
@@ -283,7 +283,7 @@ const char *VMPI_getenv(const char *env)
 #endif
 #endif // AVMSYSTEM_WINDOWSSTOREAPP
     return val;
-}
+}*/
 
 // Call VMPI_getPerformanceFrequency() once to initialize its cache; avoids thread safety issues.
 static uint64_t unused_value = VMPI_getPerformanceFrequency();
