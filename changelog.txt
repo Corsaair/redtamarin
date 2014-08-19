@@ -22,6 +22,35 @@
 - fully implemented limits.h, with support/compat for all OS
 - added the option to generate fat swc for redtamarin.swc
 - update includes and sync for Linux
+- fixed windows build
+- update includes and sync for windows
+- compile under Windows but some implementations are missing
+  eg. some POSIX function will return -1 and set errno = ENOSYS
+- fixed redtamarin description for Windows
+  cygwin will not accept '--enable-desc=redtamarin-0.0-unknown[0A000]'
+  and display "AVMPLUS_DESC is not supported on windows via cygwin make.  Ignoring description."
+  so we also generate an include on the fly 'src/as3/shell/description.incl'
+  fixed: Runtime.description, Runtime.redtamarin
+- Windows fix: stat, now we have correct file size, date stamp etc.
+- Windows fix: the basic event loop (alpha quality) is working,
+  yep Windows can goAsync() too
+- Windows implement: HardwareInformation.memory,
+  HardwareInformation.memoryUsage, HardwareInformation.memoryPeakUsage
+- Windows implement for C.sys.stat:
+  chmod(), mkdir(), stat() now supports UTF-8
+- Windows implement for C.stdlib:
+  getenv(), putenv(), setenv(), unsetenv(), realpath(), system() now supports UTF-8
+- Windows implement: Program.environ now supports UTF-8
+- Windows implement for C.stdio:
+  perror(), popen(), remove(), rename() now supports UTF-8
+- Windows implement for C.unistd:
+  access(), chdir(), getcwd(), getlogin(), rmdir(), unlink() now supports UTF-8
+  note: not gethostname() because GetHostNameW is min supported by WIN8+
+- Windows implement for C.string:
+  strchr(), strdup(), strerror(), strlen(), strncpy(), etc. now supports UTF-8
+- Windows note: execv(), execve(), execvp() do not now supports UTF-8 yet
+
+
 
 * 0.4.0 Akihabara (from tag 1R000)
 - BRAND NEW REFACTOR NO BACKWARD COMPATIBILITY
