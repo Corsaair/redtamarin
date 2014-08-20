@@ -34,7 +34,7 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "s2");
         }
         
-        #if AVMSYSTEM_WIN32
+        #ifdef AVMSYSTEM_WIN32
             StUTF16String s1UTF16(s1);
             StUTF16String s2UTF16(s2);
             return VMPI_strcmp16( s1UTF16.c_str(), s2UTF16.c_str() );
@@ -59,7 +59,7 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "s2");
         }
         
-        #if AVMSYSTEM_WIN32
+        #ifdef AVMSYSTEM_WIN32
             StUTF16String s1UTF16(s1);
             StUTF16String s2UTF16(s2);
             return VMPI_strcoll16( s1UTF16.c_str(), s2UTF16.c_str() );
@@ -73,8 +73,9 @@ namespace avmshell
     /*static*/ Stringp CStringClass::strerror(ScriptObject* self, int errnum)
     {
         AvmCore *core = self->core();
+        (void)errnum;
 
-        #if AVMSYSTEM_WIN32
+        #ifdef AVMSYSTEM_WIN32
             wchar *str = VMPI_strerror16( errnum );
 
             Stringp value = core->newStringUTF16( str );
@@ -113,7 +114,7 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "s2");
         }
         
-        #if AVMSYSTEM_WIN32
+        #ifdef AVMSYSTEM_WIN32
             StUTF16String s1UTF16(s1);
             StUTF16String s2UTF16(s2);
             return VMPI_strspn16( s1UTF16.c_str(), s2UTF16.c_str() );

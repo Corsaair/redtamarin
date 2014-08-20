@@ -16,6 +16,7 @@
 #ifdef AVMPLUS_MAC
     #include <malloc/malloc.h>
     #include <CoreServices/CoreServices.h>
+    #include <crt_externs.h>
 #endif //AVMPLUS_MAC
 
 //for termios, ttystate, tcgetattr, ICANON, WMIN, TCSANOW, tcsetattr in C.stdio
@@ -401,7 +402,7 @@ int VMPI_openat(int fd, const char *path, int oflag, int mode)
 
 
 // ---- C.netdb ---- 
-/*
+
 struct protoent *VMPI_getprotobynumber(int proto)
 {
     return ::getprotobynumber(proto);
@@ -416,7 +417,7 @@ struct hostent *VMPI_gethostent()
 {
     return ::gethostent();
 }
-*/
+
 // ---- C.netdb ---- END
 
 
@@ -477,6 +478,7 @@ int VMPI_chmod(const char *path, int mode)
 int VMPI_chmod16(const wchar *path, int mode)
 {
     (void)path;
+    (void)mode;
     return -1;
 }
 
@@ -584,6 +586,33 @@ int VMPI_waitpid(int pid, int *stat_loc, int options)
 
 
 // ---- C.unistd ---- 
+/* NOTE:
+   see: https://developer.apple.com/library/mac/documentation/Darwin/Reference/Manpages/man7/environ.7.html
+   "if direct access to environ is needed, the _NSGetEnviron() routine,
+   defined in <crt_externs.h>, can be used to retrieve the address of environ at runtime."
+
+*/
+char** VMPI_GetEnviron()
+{
+    #if AVMSYSTEM_MAC
+        return *_NSGetEnviron();
+    #elif AVMSYSTEM_UNIX
+        return environ;
+    #endif
+}
+
+wchar** VMPI_GetEnviron16()
+{
+    return NULL;
+}
+
+wchar *VMPI_getcwd16(wchar *buf, size_t size)
+{
+    (void)buf;
+    (void)size;
+    return NULL;
+}
+
 int VMPI_gethostname(char *name, int namelen)
 {
     return ::gethostname(name, namelen);

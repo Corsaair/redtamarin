@@ -156,9 +156,9 @@ extern int VMPI_kill(int pid, int sig);
 
 
 // ---- C.stdio ---- 
-extern void VMPI_flockfile (FILE *stream);
-extern int VMPI_ftrylockfile (FILE *stream);
-extern void VMPI_funlockfile (FILE *stream);
+extern void VMPI_flockfile(FILE *stream);
+extern int VMPI_ftrylockfile(FILE *stream);
+extern void VMPI_funlockfile(FILE *stream);
 extern int VMPI_getc_unlocked(FILE *stream);
 extern int VMPI_getchar_unlocked();
 extern int VMPI_putc_unlocked(int c, FILE *stream);
@@ -330,6 +330,9 @@ extern int VMPI_waitpid(int pid, int *stat_loc, int options);
 
 
 // ---- C.unistd ---- 
+extern char** VMPI_GetEnviron();
+extern wchar** VMPI_GetEnviron16();
+extern wchar *VMPI_getcwd16(wchar *buf, size_t size);
 extern int VMPI_gethostname(char *name, int namelen);
 extern void VMPI_sleep(int milliseconds);
 // ---- C.unistd ---- END

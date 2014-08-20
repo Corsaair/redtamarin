@@ -419,7 +419,7 @@ int VMPI_toascii(int value)
 #define VMPI_fgetpos           ::fgetpos
 #define VMPI_fgets             ::fgets
 #define VMPI_fileno            ::fileno
-#define VMPI_flockfile         ::flockfile
+//#define VMPI_flockfile         ::flockfile
 #define VMPI_fopen             ::fopen
 #define VMPI_fputc             ::fputc
 #define VMPI_fputs             ::fputs
@@ -428,8 +428,8 @@ int VMPI_toascii(int value)
 #define VMPI_fseek             ::fseek
 #define VMPI_fsetpos           ::fsetpos
 #define VMPI_ftell             ::ftell
-#define VMPI_ftrylockfile      ::ftrylockfile
-#define VMPI_funlockfile       ::funlockfile
+//#define VMPI_ftrylockfile      ::ftrylockfile
+//#define VMPI_funlockfile       ::funlockfile
 #define VMPI_fwrite            ::fwrite
 #define VMPI_getc              ::getc
 #define VMPI_getchar           ::getchar
@@ -693,9 +693,9 @@ int VMPI_toascii(int value)
 
 
 // ---- C.netdb ---- 
-#define VMPI_getprotobynumber  ::getprotobynumber
-#define VMPI_getprotoent       ::getprotoent
-#define VMPI_gethostent        ::gethostent
+//#define VMPI_getprotobynumber  ::getprotobynumber
+//#define VMPI_getprotoent       ::getprotoent
+//#define VMPI_gethostent        ::gethostent
 // ---- C.netdb ---- END
 
 

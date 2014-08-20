@@ -1132,7 +1132,7 @@ int ftruncate(int fildes, off_t length);
 #define VMPI_fsync       ::_commit
 #define VMPI_ftruncate   ::ftruncate
 #define VMPI_getcwd      ::_getcwd
-#define VMPI_getcwd16    ::_wgetcwd
+//#define VMPI_getcwd16    ::_wgetcwd
 
 #define VMPI_getpid      ::_getpid
 #define VMPI_rmdir       ::_rmdir

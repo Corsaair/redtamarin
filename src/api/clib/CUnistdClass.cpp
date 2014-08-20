@@ -69,12 +69,13 @@ namespace avmshell
     /*static*/ int CUnistdClass::access(ScriptObject* self, Stringp path, int mode)
     {
         Toplevel* toplevel = self->toplevel();
+        (void)mode;
 
         if (!path) {
             toplevel->throwArgumentError(kNullArgumentError, "path");
         }
 
-        #if AVMSYSTEM_WIN32
+        #ifdef AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_access16( pathUTF16.c_str(), mode );
         #elif
@@ -91,7 +92,7 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "path");
         }
 
-        #if AVMSYSTEM_WIN32
+        #ifdef AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_chdir16( pathUTF16.c_str() );
         #elif
@@ -401,7 +402,7 @@ namespace avmshell
 
     Stringp CUnistdClass::getcwd()
     {
-        #if AVMSYSTEM_WIN32
+        #ifdef AVMSYSTEM_WIN32
             wchar path[ PATH_MAX ];
             VMPI_getcwd16( path, (size_t) PATH_MAX );
 
@@ -424,7 +425,7 @@ namespace avmshell
 
     Stringp CUnistdClass::getlogin()
     {
-        #if AVMSYSTEM_WIN32
+        #ifdef AVMSYSTEM_WIN32
             wchar username[ LOGIN_NAME_MAX ];
             VMPI_getUserName16( username );
 
@@ -459,7 +460,7 @@ namespace avmshell
             toplevel()->throwArgumentError(kNullArgumentError, "path");
         }
 
-        #if AVMSYSTEM_WIN32
+        #ifdef AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_rmdir16( pathUTF16.c_str() );
         #elif
@@ -493,7 +494,7 @@ namespace avmshell
             toplevel()->throwArgumentError(kNullArgumentError, "path");
         }
         
-        #if AVMSYSTEM_WIN32
+        #ifdef AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_unlink16( pathUTF16.c_str() );
         #elif

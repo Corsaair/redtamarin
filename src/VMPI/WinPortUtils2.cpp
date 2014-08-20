@@ -1006,6 +1006,21 @@ int ftruncate(int fildes, off_t length)
     return 0;
 }
 
+char **VMPI_environ()
+{
+    return _environ;
+}
+
+wchar **VMPI_environ16()
+{
+    return _wenviron;
+}
+
+wchar *VMPI_getcwd16(wchar *buf, size_t size)
+{
+    return _wgetcwd( buf, (int) size );
+}
+
 int VMPI_gethostname(char *name, int namelen)
 {
     int result = -1;

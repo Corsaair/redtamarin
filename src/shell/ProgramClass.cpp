@@ -60,16 +60,16 @@ namespace avmshell
 
         ArrayObject *array = toplevel->arrayClass()->newArray();
 
-        #if AVMSYSTEM_WIN32
-            wchar **cur = _wenviron;
+        #ifdef AVMSYSTEM_WIN32
+            wchar **cur = VMPI_GetEnviron16();
         #elif
-            char **cur = environ;
+            char **cur = VMPI_GetEnviron();
         #endif
 
         int i = 0;
         while( *cur )
         {
-            #if AVMSYSTEM_WIN32
+            #ifdef AVMSYSTEM_WIN32
                 Stringp value = core->newStringUTF16(*cur);
                 StUTF8String valueUTF8(value);
 
