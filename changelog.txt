@@ -49,8 +49,7 @@
 - Windows implement for C.string:
   strchr(), strdup(), strerror(), strlen(), strncpy(), etc. now supports UTF-8
 - Windows note: execv(), execve(), execvp() do not now supports UTF-8 yet
-
-
+- stabilize macintosh build, some fixes and bolts
 
 * 0.4.0 Akihabara (from tag 1R000)
 - BRAND NEW REFACTOR NO BACKWARD COMPATIBILITY
