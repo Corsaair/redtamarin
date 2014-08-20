@@ -1006,12 +1006,12 @@ int ftruncate(int fildes, off_t length)
     return 0;
 }
 
-char **VMPI_environ()
+char** VMPI_GetEnviron()
 {
     return _environ;
 }
 
-wchar **VMPI_environ16()
+wchar** VMPI_GetEnviron16()
 {
     return _wenviron;
 }
