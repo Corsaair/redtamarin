@@ -51,6 +51,7 @@ namespace avmplus {
     class EventLoopInterface; // shell.async::EventLoop
     class EventObject; // flash.events::Event
     class FileIOObject; // shell::FileIO
+    class FileSystemObject; // shell::FileSystem
     class FunctionObject; // Function
     class HTTPStatusEventClass; // flash.events::HTTPStatusEvent$
     class HTTPStatusEventObject; // flash.events::HTTPStatusEvent
@@ -252,6 +253,7 @@ namespace avmshell {
     class CsigvalObject; // C.signal::sigval
     class DiagnosticsClass; // shell::Diagnostics$
     class FileClass; // shell::FileIO$
+    class FileSystemClass; // shell::FileSystem$
     class HardwareInformationClass; // shell::HardwareInformation$
     class OperatingSystemClass; // shell::OperatingSystem$
     class ProgramClass; // shell::Program$
@@ -322,80 +324,81 @@ const uint32_t abcclass_shell_Runtime = 44;
 const uint32_t abcclass_shell_Diagnostics = 45;
 const uint32_t abcclass_shell_HardwareInformation = 46;
 const uint32_t abcclass_shell_OperatingSystem = 47;
-const uint32_t abcclass_shell_RunMode = 48;
-const uint32_t abcclass_shell_Domain = 49;
-const uint32_t abcclass_shell_FileIO = 50;
-const uint32_t abcclass_shell_Environment = 51;
-const uint32_t abcclass_shell_BinaryData = 52;
-const uint32_t abcclass_shell_async_EventLoop = 53;
-const uint32_t abcclass_flash_accessibility_ISearchableText = 54;
-const uint32_t abcclass_flash_accessibility_ISimpleTextSelection = 55;
-const uint32_t abcclass_flash_accessibility_Accessibility = 56;
-const uint32_t abcclass_flash_accessibility_AccessibilityImplementation = 57;
-const uint32_t abcclass_flash_accessibility_AccessibilityProperties = 58;
-const uint32_t abcclass_flash_data_EncryptedLocalStore = 59;
-const uint32_t abcclass_flash_data_SQLCollationType = 60;
-const uint32_t abcclass_flash_data_SQLColumnNameStyle = 61;
-const uint32_t abcclass_flash_data_SQLColumnSchema = 62;
-const uint32_t abcclass_flash_data_SQLConnection = 63;
-const uint32_t abcclass_flash_data_SQLIndexSchema = 64;
-const uint32_t abcclass_flash_data_SQLMode = 65;
-const uint32_t abcclass_flash_data_SQLResult = 66;
-const uint32_t abcclass_flash_data_SQLSchema = 67;
-const uint32_t abcclass_flash_data_SQLSchemaResult = 68;
-const uint32_t abcclass_flash_data_SQLStatement = 69;
-const uint32_t abcclass_flash_data_SQLTableSchema = 70;
-const uint32_t abcclass_flash_data_SQLTransactionLockType = 71;
-const uint32_t abcclass_flash_data_SQLTriggerSchema = 72;
-const uint32_t abcclass_flash_data_SQLViewSchema = 73;
-const uint32_t abcclass_flash_display_IBitmapDrawable = 74;
-const uint32_t abcclass_flash_display_IDrawCommand = 75;
-const uint32_t abcclass_flash_display_IGraphicsData = 76;
-const uint32_t abcclass_flash_display_IGraphicsFill = 77;
-const uint32_t abcclass_flash_display_IGraphicsPath = 78;
-const uint32_t abcclass_flash_display_IGraphicsStroke = 79;
-const uint32_t abcclass_flash_display_ActionScriptVersion = 80;
-const uint32_t abcclass_flash_display_PixelSnapping = 81;
-const uint32_t abcclass_flash_display_PNGEncoderOptions = 82;
-const uint32_t abcclass_flash_display_Scene = 83;
-const uint32_t abcclass_flash_display_StageAlign = 84;
-const uint32_t abcclass_flash_display_StageAspectRatio = 85;
-const uint32_t abcclass_flash_display_StageDisplayState = 86;
-const uint32_t abcclass_flash_display_StageOrientation = 87;
-const uint32_t abcclass_flash_display_StageQuality = 88;
-const uint32_t abcclass_flash_display_StageScaleMode = 89;
-const uint32_t abcclass_flash_display_SWFVersion = 90;
-const uint32_t abcclass_flash_display_TriangleCulling = 91;
-const uint32_t abcclass_flash_errors_ScriptTimeoutError = 92;
-const uint32_t abcclass_flash_errors_StackOverflowError = 93;
-const uint32_t abcclass_flash_errors_InvalidSWFError = 94;
-const uint32_t abcclass_flash_errors_SQLErrorOperation = 95;
-const uint32_t abcclass_flash_errors_SQLError = 96;
-const uint32_t abcclass_flash_errors_DRMManagerError = 97;
-const uint32_t abcclass_flash_events_IEventDispatcher = 98;
-const uint32_t abcclass_flash_events_Event = 99;
-const uint32_t abcclass_flash_geom_Orientation3D = 100;
-const uint32_t abcclass_flash_geom_Point = 101;
-const uint32_t abcclass_flash_geom_Rectangle = 102;
-const uint32_t abcclass_flash_net_URLRequestHeader = 103;
-const uint32_t abcclass_flash_sampler_StackFrame = 104;
-const uint32_t abcclass_flash_sampler_Sample = 105;
-const uint32_t abcclass_flash_sampler_ClassFactory = 106;
-const uint32_t abcclass_flash_system_Capabilities = 107;
-const uint32_t abcclass_flash_system_System = 108;
-const uint32_t abcclass_flash_system_WorkerState = 109;
-const uint32_t abcclass_flash_system_Worker = 110;
-const uint32_t abcclass_flash_system_WorkerEvent = 111;
-const uint32_t abcclass_flash_system_WorkerDomain = 112;
-const uint32_t abcclass_flash_trace_Trace = 113;
-const uint32_t abcclass_flash_utils_Endian = 114;
-const uint32_t abcclass_shell_async_CoreEventLoop = 115;
-const uint32_t abcclass_flash_events_EventDispatcher = 116;
-const uint32_t abcclass_flash_events_HTTPStatusEvent = 117;
-const uint32_t abcclass_flash_events_TimerEvent = 118;
-const uint32_t abcclass_flash_sampler_NewObjectSample = 119;
-const uint32_t abcclass_flash_sampler_DeleteObjectSample = 120;
-const uint32_t abcclass_flash_utils_Timer = 121;
+const uint32_t abcclass_shell_FileSystem = 48;
+const uint32_t abcclass_shell_RunMode = 49;
+const uint32_t abcclass_shell_Domain = 50;
+const uint32_t abcclass_shell_FileIO = 51;
+const uint32_t abcclass_shell_Environment = 52;
+const uint32_t abcclass_shell_BinaryData = 53;
+const uint32_t abcclass_shell_async_EventLoop = 54;
+const uint32_t abcclass_flash_accessibility_ISearchableText = 55;
+const uint32_t abcclass_flash_accessibility_ISimpleTextSelection = 56;
+const uint32_t abcclass_flash_accessibility_Accessibility = 57;
+const uint32_t abcclass_flash_accessibility_AccessibilityImplementation = 58;
+const uint32_t abcclass_flash_accessibility_AccessibilityProperties = 59;
+const uint32_t abcclass_flash_data_EncryptedLocalStore = 60;
+const uint32_t abcclass_flash_data_SQLCollationType = 61;
+const uint32_t abcclass_flash_data_SQLColumnNameStyle = 62;
+const uint32_t abcclass_flash_data_SQLColumnSchema = 63;
+const uint32_t abcclass_flash_data_SQLConnection = 64;
+const uint32_t abcclass_flash_data_SQLIndexSchema = 65;
+const uint32_t abcclass_flash_data_SQLMode = 66;
+const uint32_t abcclass_flash_data_SQLResult = 67;
+const uint32_t abcclass_flash_data_SQLSchema = 68;
+const uint32_t abcclass_flash_data_SQLSchemaResult = 69;
+const uint32_t abcclass_flash_data_SQLStatement = 70;
+const uint32_t abcclass_flash_data_SQLTableSchema = 71;
+const uint32_t abcclass_flash_data_SQLTransactionLockType = 72;
+const uint32_t abcclass_flash_data_SQLTriggerSchema = 73;
+const uint32_t abcclass_flash_data_SQLViewSchema = 74;
+const uint32_t abcclass_flash_display_IBitmapDrawable = 75;
+const uint32_t abcclass_flash_display_IDrawCommand = 76;
+const uint32_t abcclass_flash_display_IGraphicsData = 77;
+const uint32_t abcclass_flash_display_IGraphicsFill = 78;
+const uint32_t abcclass_flash_display_IGraphicsPath = 79;
+const uint32_t abcclass_flash_display_IGraphicsStroke = 80;
+const uint32_t abcclass_flash_display_ActionScriptVersion = 81;
+const uint32_t abcclass_flash_display_PixelSnapping = 82;
+const uint32_t abcclass_flash_display_PNGEncoderOptions = 83;
+const uint32_t abcclass_flash_display_Scene = 84;
+const uint32_t abcclass_flash_display_StageAlign = 85;
+const uint32_t abcclass_flash_display_StageAspectRatio = 86;
+const uint32_t abcclass_flash_display_StageDisplayState = 87;
+const uint32_t abcclass_flash_display_StageOrientation = 88;
+const uint32_t abcclass_flash_display_StageQuality = 89;
+const uint32_t abcclass_flash_display_StageScaleMode = 90;
+const uint32_t abcclass_flash_display_SWFVersion = 91;
+const uint32_t abcclass_flash_display_TriangleCulling = 92;
+const uint32_t abcclass_flash_errors_ScriptTimeoutError = 93;
+const uint32_t abcclass_flash_errors_StackOverflowError = 94;
+const uint32_t abcclass_flash_errors_InvalidSWFError = 95;
+const uint32_t abcclass_flash_errors_SQLErrorOperation = 96;
+const uint32_t abcclass_flash_errors_SQLError = 97;
+const uint32_t abcclass_flash_errors_DRMManagerError = 98;
+const uint32_t abcclass_flash_events_IEventDispatcher = 99;
+const uint32_t abcclass_flash_events_Event = 100;
+const uint32_t abcclass_flash_geom_Orientation3D = 101;
+const uint32_t abcclass_flash_geom_Point = 102;
+const uint32_t abcclass_flash_geom_Rectangle = 103;
+const uint32_t abcclass_flash_net_URLRequestHeader = 104;
+const uint32_t abcclass_flash_sampler_StackFrame = 105;
+const uint32_t abcclass_flash_sampler_Sample = 106;
+const uint32_t abcclass_flash_sampler_ClassFactory = 107;
+const uint32_t abcclass_flash_system_Capabilities = 108;
+const uint32_t abcclass_flash_system_System = 109;
+const uint32_t abcclass_flash_system_WorkerState = 110;
+const uint32_t abcclass_flash_system_Worker = 111;
+const uint32_t abcclass_flash_system_WorkerEvent = 112;
+const uint32_t abcclass_flash_system_WorkerDomain = 113;
+const uint32_t abcclass_flash_trace_Trace = 114;
+const uint32_t abcclass_flash_utils_Endian = 115;
+const uint32_t abcclass_shell_async_CoreEventLoop = 116;
+const uint32_t abcclass_flash_events_EventDispatcher = 117;
+const uint32_t abcclass_flash_events_HTTPStatusEvent = 118;
+const uint32_t abcclass_flash_events_TimerEvent = 119;
+const uint32_t abcclass_flash_sampler_NewObjectSample = 120;
+const uint32_t abcclass_flash_sampler_DeleteObjectSample = 121;
+const uint32_t abcclass_flash_utils_Timer = 122;
 
 /* methods */
 const uint32_t native_script_function_flash_sampler_getMasterString = 14; // native
@@ -971,219 +974,221 @@ const uint32_t shell_HardwareInformation_memory_get = 761; // abc
 const uint32_t shell_HardwareInformation_memoryUsage_get = 762; // abc
 const uint32_t shell_HardwareInformation_memoryPeakUsage_get = 763; // abc
 const uint32_t shell_OperatingSystem_isWindowsStore = 766; // native
-const uint32_t shell_Domain_currentDomain_get = 771; // native
-const uint32_t shell_Domain_MIN_DOMAIN_MEMORY_LENGTH_get = 772; // native
-const uint32_t shell_Domain_private_init = 773; // native
-const uint32_t shell_Domain_loadBytes = 775; // native
-const uint32_t shell_Domain_getClass = 776; // native
-const uint32_t shell_Domain_load = 777; // abc
-const uint32_t shell_Domain_domainMemory_get = 778; // native
-const uint32_t shell_Domain_domainMemory_set = 779; // native
-const uint32_t shell_FileIO_exists = 781; // native
-const uint32_t shell_FileIO_read = 782; // native
-const uint32_t shell_FileIO_write = 783; // native
-const uint32_t shell_FileIO_readByteArray = 784; // native
-const uint32_t shell_FileIO_writeByteArray = 785; // native
-const uint32_t shell_Environment_private__parse = 789; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_callProperty = 790; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_deleteProperty = 791; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_getProperty = 792; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_setProperty = 793; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_hasProperty = 794; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextNameIndex = 795; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextName = 796; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextValue = 797; // abc
-const uint32_t shell_Environment_length_get = 798; // abc
-const uint32_t shell_Environment_refresh = 799; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_running_get = 803; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_running_set = 804; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_frequency_get = 805; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_frequency_set = 806; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_timers_get = 807; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_timers_set = 808; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_frame_get = 809; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_started_get = 810; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_elapsed_get = 811; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_timerPending_get = 812; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_setCallback = 813; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_handleTimers = 814; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_start = 815; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_stop = 816; // abc
-const uint32_t flash_accessibility_ISearchableText_flash_accessibility_ISearchableText_searchText_get = 819; // abc
-const uint32_t flash_accessibility_ISimpleTextSelection_flash_accessibility_ISimpleTextSelection_selectionAnchorIndex_get = 822; // abc
-const uint32_t flash_accessibility_ISimpleTextSelection_flash_accessibility_ISimpleTextSelection_selectionActiveIndex_get = 823; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accRole = 829; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accName = 830; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accValue = 831; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accState = 832; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accDefaultAction = 833; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_accDoDefaultAction = 834; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_isLabeledBy = 835; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_getChildIDArray = 836; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_accLocation = 837; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accSelection = 838; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accFocus = 839; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_accSelect = 840; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_selectionAnchorIndex = 841; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_selectionActiveIndex = 842; // abc
-const uint32_t flash_data_EncryptedLocalStore_isSupported_get = 846; // abc
-const uint32_t flash_display_Scene_name_get = 896; // abc
-const uint32_t flash_display_Scene_labels_get = 897; // abc
-const uint32_t flash_display_Scene_numFrames_get = 898; // abc
-const uint32_t flash_errors_SQLError_operation_get = 925; // abc
-const uint32_t flash_errors_SQLError_details_get = 926; // abc
-const uint32_t flash_errors_SQLError_detailID_get = 927; // abc
-const uint32_t flash_errors_SQLError_detailArguments_get = 928; // abc
-const uint32_t flash_errors_DRMManagerError_subErrorID_get = 931; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_addEventListener = 933; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_dispatchEvent = 934; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_hasEventListener = 935; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_removeEventListener = 936; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_willTrigger = 937; // abc
-const uint32_t flash_events_Event_private_ctor = 941; // abc
-const uint32_t flash_events_Event_type_get = 942; // abc
-const uint32_t flash_events_Event_bubbles_get = 943; // abc
-const uint32_t flash_events_Event_cancelable_get = 944; // abc
-const uint32_t flash_events_Event_target_get = 945; // abc
-const uint32_t flash_events_Event_currentTarget_get = 946; // abc
-const uint32_t flash_events_Event_eventPhase_get = 947; // abc
-const uint32_t flash_events_Event_formatToString = 948; // abc
-const uint32_t flash_events_Event_clone = 949; // abc
-const uint32_t flash_events_Event_isDefaultPrevented = 950; // abc
-const uint32_t flash_events_Event_preventDefault = 951; // abc
-const uint32_t flash_events_Event_stopImmediatePropagation = 952; // abc
-const uint32_t flash_events_Event_stopPropagation = 953; // abc
-const uint32_t flash_events_Event_toString = 954; // abc
-const uint32_t flash_geom_Point_interpolate = 958; // abc
-const uint32_t flash_geom_Point_distance = 959; // abc
-const uint32_t flash_geom_Point_polar = 960; // abc
-const uint32_t flash_geom_Point_length_get = 962; // abc
-const uint32_t flash_geom_Point_clone = 963; // abc
-const uint32_t flash_geom_Point_offset = 964; // abc
-const uint32_t flash_geom_Point_equals = 965; // abc
-const uint32_t flash_geom_Point_subtract = 966; // abc
-const uint32_t flash_geom_Point_add = 967; // abc
-const uint32_t flash_geom_Point_normalize = 968; // abc
-const uint32_t flash_geom_Point_toString = 969; // abc
-const uint32_t flash_geom_Rectangle_left_get = 972; // abc
-const uint32_t flash_geom_Rectangle_left_set = 973; // abc
-const uint32_t flash_geom_Rectangle_right_get = 974; // abc
-const uint32_t flash_geom_Rectangle_right_set = 975; // abc
-const uint32_t flash_geom_Rectangle_top_get = 976; // abc
-const uint32_t flash_geom_Rectangle_top_set = 977; // abc
-const uint32_t flash_geom_Rectangle_bottom_get = 978; // abc
-const uint32_t flash_geom_Rectangle_bottom_set = 979; // abc
-const uint32_t flash_geom_Rectangle_topLeft_get = 980; // abc
-const uint32_t flash_geom_Rectangle_topLeft_set = 981; // abc
-const uint32_t flash_geom_Rectangle_bottomRight_get = 982; // abc
-const uint32_t flash_geom_Rectangle_bottomRight_set = 983; // abc
-const uint32_t flash_geom_Rectangle_size_get = 984; // abc
-const uint32_t flash_geom_Rectangle_size_set = 985; // abc
-const uint32_t flash_geom_Rectangle_clone = 986; // abc
-const uint32_t flash_geom_Rectangle_isEmpty = 987; // abc
-const uint32_t flash_geom_Rectangle_setEmpty = 988; // abc
-const uint32_t flash_geom_Rectangle_inflate = 989; // abc
-const uint32_t flash_geom_Rectangle_inflatePoint = 990; // abc
-const uint32_t flash_geom_Rectangle_offset = 991; // abc
-const uint32_t flash_geom_Rectangle_offsetPoint = 992; // abc
-const uint32_t flash_geom_Rectangle_contains = 993; // abc
-const uint32_t flash_geom_Rectangle_containsPoint = 994; // abc
-const uint32_t flash_geom_Rectangle_containsRect = 995; // abc
-const uint32_t flash_geom_Rectangle_intersection = 996; // abc
-const uint32_t flash_geom_Rectangle_intersects = 997; // abc
-const uint32_t flash_geom_Rectangle_union = 998; // abc
-const uint32_t flash_geom_Rectangle_equals = 999; // abc
-const uint32_t flash_geom_Rectangle_toString = 1000; // abc
-const uint32_t flash_sampler_StackFrame_toString = 1004; // abc
-const uint32_t flash_system_Capabilities_playerType_get = 1011; // abc
-const uint32_t flash_system_Capabilities_isDebugger_get = 1012; // abc
-const uint32_t flash_system_System_setClipboard = 1015; // abc
-const uint32_t flash_system_System_totalMemory_get = 1016; // abc
-const uint32_t flash_system_System_totalMemoryNumber_get = 1017; // abc
-const uint32_t flash_system_System_freeMemory_get = 1018; // native
-const uint32_t flash_system_System_privateMemory_get = 1019; // abc
-const uint32_t flash_system_System_useCodePage_get = 1020; // abc
-const uint32_t flash_system_System_useCodePage_set = 1021; // abc
-const uint32_t flash_system_System_vmVersion_get = 1022; // abc
-const uint32_t flash_system_System_pause = 1023; // abc
-const uint32_t flash_system_System_resume = 1024; // abc
-const uint32_t flash_system_System_exit = 1025; // abc
-const uint32_t flash_system_System_gc = 1026; // abc
-const uint32_t flash_system_System_disposeXML = 1027; // abc
-const uint32_t flash_system_WorkerState_code = 1030; // abc
-const uint32_t flash_system_Worker_current_get = 1033; // abc
-const uint32_t flash_system_Worker_pr = 1034; // native
-const uint32_t flash_system_Worker_state_get = 1036; // native
-const uint32_t flash_system_Worker_start = 1037; // native
-const uint32_t flash_system_Worker_isParentOf = 1038; // native
-const uint32_t flash_system_Worker_isPrimordial_get = 1039; // native
-const uint32_t flash_system_Worker_setSharedProperty = 1040; // native
-const uint32_t flash_system_Worker_getSharedProperty = 1041; // native
-const uint32_t flash_system_Worker_terminate = 1042; // native
-const uint32_t flash_system_WorkerEvent_currentState_get = 1045; // abc
-const uint32_t flash_system_WorkerEvent_previousState_get = 1046; // abc
-const uint32_t flash_system_WorkerEvent_target_get = 1047; // abc
-const uint32_t flash_system_WorkerDomain_current_get = 1049; // abc
-const uint32_t flash_system_WorkerDomain_createWorkerFromByteArray = 1051; // abc
-const uint32_t flash_system_WorkerDomain_createWorkerFromPrimordial = 1052; // abc
-const uint32_t flash_system_WorkerDomain_private_createWorkerFromByteArrayInternal = 1053; // native
-const uint32_t flash_system_WorkerDomain_listWorkers = 1054; // native
-const uint32_t flash_trace_Trace_setLevel = 1056; // native
-const uint32_t flash_trace_Trace_getLevel = 1057; // native
-const uint32_t flash_trace_Trace_setListener = 1058; // native
-const uint32_t flash_trace_Trace_getListener = 1059; // native
-const uint32_t shell_async_CoreEventLoop_running_get = 1065; // abc
-const uint32_t shell_async_CoreEventLoop_running_set = 1066; // abc
-const uint32_t shell_async_CoreEventLoop_frequency_get = 1067; // abc
-const uint32_t shell_async_CoreEventLoop_frequency_set = 1068; // abc
-const uint32_t shell_async_CoreEventLoop_timers_get = 1069; // abc
-const uint32_t shell_async_CoreEventLoop_timers_set = 1070; // abc
-const uint32_t shell_async_CoreEventLoop_frame_get = 1071; // abc
-const uint32_t shell_async_CoreEventLoop_started_get = 1072; // abc
-const uint32_t shell_async_CoreEventLoop_elapsed_get = 1073; // abc
-const uint32_t shell_async_CoreEventLoop_private_tick = 1074; // abc
-const uint32_t shell_async_CoreEventLoop_setCallback = 1075; // abc
-const uint32_t shell_async_CoreEventLoop_private__loop = 1076; // abc
-const uint32_t shell_async_CoreEventLoop_timerPending_get = 1077; // abc
-const uint32_t shell_async_CoreEventLoop_handleTimers = 1078; // abc
-const uint32_t shell_async_CoreEventLoop_start = 1079; // abc
-const uint32_t shell_async_CoreEventLoop_stop = 1080; // abc
-const uint32_t flash_events_EventDispatcher_private_trimHeaderValue = 1082; // abc
-const uint32_t flash_events_EventDispatcher_private_ctor = 1084; // abc
-const uint32_t flash_events_EventDispatcher_private_dispatchEventFunction = 1085; // abc
-const uint32_t flash_events_EventDispatcher_private_dispatchHttpStatusEvent = 1087; // abc
-const uint32_t flash_events_EventDispatcher_addEventListener = 1088; // abc
-const uint32_t flash_events_EventDispatcher_dispatchEvent = 1089; // abc
-const uint32_t flash_events_EventDispatcher_hasEventListener = 1090; // abc
-const uint32_t flash_events_EventDispatcher_removeEventListener = 1091; // abc
-const uint32_t flash_events_EventDispatcher_willTrigger = 1092; // abc
-const uint32_t flash_events_EventDispatcher_toString = 1093; // abc
-const uint32_t flash_events_HTTPStatusEvent_status_get = 1096; // abc
-const uint32_t flash_events_HTTPStatusEvent_responseURL_get = 1097; // abc
-const uint32_t flash_events_HTTPStatusEvent_responseURL_set = 1098; // abc
-const uint32_t flash_events_HTTPStatusEvent_responseHeaders_get = 1099; // abc
-const uint32_t flash_events_HTTPStatusEvent_responseHeaders_set = 1100; // abc
-const uint32_t flash_events_HTTPStatusEvent_redirected_get = 1101; // abc
-const uint32_t flash_events_HTTPStatusEvent_redirected_set = 1102; // abc
-const uint32_t flash_events_HTTPStatusEvent_clone = 1103; // abc
-const uint32_t flash_events_HTTPStatusEvent_toString = 1104; // abc
-const uint32_t flash_events_TimerEvent_clone = 1107; // abc
-const uint32_t flash_events_TimerEvent_toString = 1108; // abc
-const uint32_t flash_events_TimerEvent_updateAfterEvent = 1109; // abc
-const uint32_t flash_sampler_NewObjectSample_object_get = 1111; // native
-const uint32_t flash_sampler_NewObjectSample_size_get = 1112; // native
-const uint32_t flash_utils_Timer_private__timerDispatch = 1118; // abc
-const uint32_t flash_utils_Timer_private__start = 1119; // abc
-const uint32_t flash_utils_Timer_tick = 1120; // abc
-const uint32_t flash_utils_Timer_delay_get = 1121; // abc
-const uint32_t flash_utils_Timer_delay_set = 1122; // abc
-const uint32_t flash_utils_Timer_repeatCount_get = 1123; // abc
-const uint32_t flash_utils_Timer_repeatCount_set = 1124; // abc
-const uint32_t flash_utils_Timer_currentCount_get = 1125; // abc
-const uint32_t flash_utils_Timer_running_get = 1126; // abc
-const uint32_t flash_utils_Timer_reset = 1127; // abc
-const uint32_t flash_utils_Timer_start = 1128; // abc
-const uint32_t flash_utils_Timer_stop = 1129; // abc
+const uint32_t shell_FileSystem_exists = 769; // abc
+const uint32_t shell_FileSystem_read = 770; // native
+const uint32_t shell_Domain_currentDomain_get = 775; // native
+const uint32_t shell_Domain_MIN_DOMAIN_MEMORY_LENGTH_get = 776; // native
+const uint32_t shell_Domain_private_init = 777; // native
+const uint32_t shell_Domain_loadBytes = 779; // native
+const uint32_t shell_Domain_getClass = 780; // native
+const uint32_t shell_Domain_load = 781; // abc
+const uint32_t shell_Domain_domainMemory_get = 782; // native
+const uint32_t shell_Domain_domainMemory_set = 783; // native
+const uint32_t shell_FileIO_exists = 785; // native
+const uint32_t shell_FileIO_read = 786; // native
+const uint32_t shell_FileIO_write = 787; // native
+const uint32_t shell_FileIO_readByteArray = 788; // native
+const uint32_t shell_FileIO_writeByteArray = 789; // native
+const uint32_t shell_Environment_private__parse = 793; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_callProperty = 794; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_deleteProperty = 795; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_getProperty = 796; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_setProperty = 797; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_hasProperty = 798; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextNameIndex = 799; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextName = 800; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextValue = 801; // abc
+const uint32_t shell_Environment_length_get = 802; // abc
+const uint32_t shell_Environment_refresh = 803; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_running_get = 807; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_running_set = 808; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_frequency_get = 809; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_frequency_set = 810; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_timers_get = 811; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_timers_set = 812; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_frame_get = 813; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_started_get = 814; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_elapsed_get = 815; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_timerPending_get = 816; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_setCallback = 817; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_handleTimers = 818; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_start = 819; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_stop = 820; // abc
+const uint32_t flash_accessibility_ISearchableText_flash_accessibility_ISearchableText_searchText_get = 823; // abc
+const uint32_t flash_accessibility_ISimpleTextSelection_flash_accessibility_ISimpleTextSelection_selectionAnchorIndex_get = 826; // abc
+const uint32_t flash_accessibility_ISimpleTextSelection_flash_accessibility_ISimpleTextSelection_selectionActiveIndex_get = 827; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accRole = 833; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accName = 834; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accValue = 835; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accState = 836; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accDefaultAction = 837; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_accDoDefaultAction = 838; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_isLabeledBy = 839; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_getChildIDArray = 840; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_accLocation = 841; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accSelection = 842; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accFocus = 843; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_accSelect = 844; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_selectionAnchorIndex = 845; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_selectionActiveIndex = 846; // abc
+const uint32_t flash_data_EncryptedLocalStore_isSupported_get = 850; // abc
+const uint32_t flash_display_Scene_name_get = 900; // abc
+const uint32_t flash_display_Scene_labels_get = 901; // abc
+const uint32_t flash_display_Scene_numFrames_get = 902; // abc
+const uint32_t flash_errors_SQLError_operation_get = 929; // abc
+const uint32_t flash_errors_SQLError_details_get = 930; // abc
+const uint32_t flash_errors_SQLError_detailID_get = 931; // abc
+const uint32_t flash_errors_SQLError_detailArguments_get = 932; // abc
+const uint32_t flash_errors_DRMManagerError_subErrorID_get = 935; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_addEventListener = 937; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_dispatchEvent = 938; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_hasEventListener = 939; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_removeEventListener = 940; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_willTrigger = 941; // abc
+const uint32_t flash_events_Event_private_ctor = 945; // abc
+const uint32_t flash_events_Event_type_get = 946; // abc
+const uint32_t flash_events_Event_bubbles_get = 947; // abc
+const uint32_t flash_events_Event_cancelable_get = 948; // abc
+const uint32_t flash_events_Event_target_get = 949; // abc
+const uint32_t flash_events_Event_currentTarget_get = 950; // abc
+const uint32_t flash_events_Event_eventPhase_get = 951; // abc
+const uint32_t flash_events_Event_formatToString = 952; // abc
+const uint32_t flash_events_Event_clone = 953; // abc
+const uint32_t flash_events_Event_isDefaultPrevented = 954; // abc
+const uint32_t flash_events_Event_preventDefault = 955; // abc
+const uint32_t flash_events_Event_stopImmediatePropagation = 956; // abc
+const uint32_t flash_events_Event_stopPropagation = 957; // abc
+const uint32_t flash_events_Event_toString = 958; // abc
+const uint32_t flash_geom_Point_interpolate = 962; // abc
+const uint32_t flash_geom_Point_distance = 963; // abc
+const uint32_t flash_geom_Point_polar = 964; // abc
+const uint32_t flash_geom_Point_length_get = 966; // abc
+const uint32_t flash_geom_Point_clone = 967; // abc
+const uint32_t flash_geom_Point_offset = 968; // abc
+const uint32_t flash_geom_Point_equals = 969; // abc
+const uint32_t flash_geom_Point_subtract = 970; // abc
+const uint32_t flash_geom_Point_add = 971; // abc
+const uint32_t flash_geom_Point_normalize = 972; // abc
+const uint32_t flash_geom_Point_toString = 973; // abc
+const uint32_t flash_geom_Rectangle_left_get = 976; // abc
+const uint32_t flash_geom_Rectangle_left_set = 977; // abc
+const uint32_t flash_geom_Rectangle_right_get = 978; // abc
+const uint32_t flash_geom_Rectangle_right_set = 979; // abc
+const uint32_t flash_geom_Rectangle_top_get = 980; // abc
+const uint32_t flash_geom_Rectangle_top_set = 981; // abc
+const uint32_t flash_geom_Rectangle_bottom_get = 982; // abc
+const uint32_t flash_geom_Rectangle_bottom_set = 983; // abc
+const uint32_t flash_geom_Rectangle_topLeft_get = 984; // abc
+const uint32_t flash_geom_Rectangle_topLeft_set = 985; // abc
+const uint32_t flash_geom_Rectangle_bottomRight_get = 986; // abc
+const uint32_t flash_geom_Rectangle_bottomRight_set = 987; // abc
+const uint32_t flash_geom_Rectangle_size_get = 988; // abc
+const uint32_t flash_geom_Rectangle_size_set = 989; // abc
+const uint32_t flash_geom_Rectangle_clone = 990; // abc
+const uint32_t flash_geom_Rectangle_isEmpty = 991; // abc
+const uint32_t flash_geom_Rectangle_setEmpty = 992; // abc
+const uint32_t flash_geom_Rectangle_inflate = 993; // abc
+const uint32_t flash_geom_Rectangle_inflatePoint = 994; // abc
+const uint32_t flash_geom_Rectangle_offset = 995; // abc
+const uint32_t flash_geom_Rectangle_offsetPoint = 996; // abc
+const uint32_t flash_geom_Rectangle_contains = 997; // abc
+const uint32_t flash_geom_Rectangle_containsPoint = 998; // abc
+const uint32_t flash_geom_Rectangle_containsRect = 999; // abc
+const uint32_t flash_geom_Rectangle_intersection = 1000; // abc
+const uint32_t flash_geom_Rectangle_intersects = 1001; // abc
+const uint32_t flash_geom_Rectangle_union = 1002; // abc
+const uint32_t flash_geom_Rectangle_equals = 1003; // abc
+const uint32_t flash_geom_Rectangle_toString = 1004; // abc
+const uint32_t flash_sampler_StackFrame_toString = 1008; // abc
+const uint32_t flash_system_Capabilities_playerType_get = 1015; // abc
+const uint32_t flash_system_Capabilities_isDebugger_get = 1016; // abc
+const uint32_t flash_system_System_setClipboard = 1019; // abc
+const uint32_t flash_system_System_totalMemory_get = 1020; // abc
+const uint32_t flash_system_System_totalMemoryNumber_get = 1021; // abc
+const uint32_t flash_system_System_freeMemory_get = 1022; // native
+const uint32_t flash_system_System_privateMemory_get = 1023; // abc
+const uint32_t flash_system_System_useCodePage_get = 1024; // abc
+const uint32_t flash_system_System_useCodePage_set = 1025; // abc
+const uint32_t flash_system_System_vmVersion_get = 1026; // abc
+const uint32_t flash_system_System_pause = 1027; // abc
+const uint32_t flash_system_System_resume = 1028; // abc
+const uint32_t flash_system_System_exit = 1029; // abc
+const uint32_t flash_system_System_gc = 1030; // abc
+const uint32_t flash_system_System_disposeXML = 1031; // abc
+const uint32_t flash_system_WorkerState_code = 1034; // abc
+const uint32_t flash_system_Worker_current_get = 1037; // abc
+const uint32_t flash_system_Worker_pr = 1038; // native
+const uint32_t flash_system_Worker_state_get = 1040; // native
+const uint32_t flash_system_Worker_start = 1041; // native
+const uint32_t flash_system_Worker_isParentOf = 1042; // native
+const uint32_t flash_system_Worker_isPrimordial_get = 1043; // native
+const uint32_t flash_system_Worker_setSharedProperty = 1044; // native
+const uint32_t flash_system_Worker_getSharedProperty = 1045; // native
+const uint32_t flash_system_Worker_terminate = 1046; // native
+const uint32_t flash_system_WorkerEvent_currentState_get = 1049; // abc
+const uint32_t flash_system_WorkerEvent_previousState_get = 1050; // abc
+const uint32_t flash_system_WorkerEvent_target_get = 1051; // abc
+const uint32_t flash_system_WorkerDomain_current_get = 1053; // abc
+const uint32_t flash_system_WorkerDomain_createWorkerFromByteArray = 1055; // abc
+const uint32_t flash_system_WorkerDomain_createWorkerFromPrimordial = 1056; // abc
+const uint32_t flash_system_WorkerDomain_private_createWorkerFromByteArrayInternal = 1057; // native
+const uint32_t flash_system_WorkerDomain_listWorkers = 1058; // native
+const uint32_t flash_trace_Trace_setLevel = 1060; // native
+const uint32_t flash_trace_Trace_getLevel = 1061; // native
+const uint32_t flash_trace_Trace_setListener = 1062; // native
+const uint32_t flash_trace_Trace_getListener = 1063; // native
+const uint32_t shell_async_CoreEventLoop_running_get = 1069; // abc
+const uint32_t shell_async_CoreEventLoop_running_set = 1070; // abc
+const uint32_t shell_async_CoreEventLoop_frequency_get = 1071; // abc
+const uint32_t shell_async_CoreEventLoop_frequency_set = 1072; // abc
+const uint32_t shell_async_CoreEventLoop_timers_get = 1073; // abc
+const uint32_t shell_async_CoreEventLoop_timers_set = 1074; // abc
+const uint32_t shell_async_CoreEventLoop_frame_get = 1075; // abc
+const uint32_t shell_async_CoreEventLoop_started_get = 1076; // abc
+const uint32_t shell_async_CoreEventLoop_elapsed_get = 1077; // abc
+const uint32_t shell_async_CoreEventLoop_private_tick = 1078; // abc
+const uint32_t shell_async_CoreEventLoop_setCallback = 1079; // abc
+const uint32_t shell_async_CoreEventLoop_private__loop = 1080; // abc
+const uint32_t shell_async_CoreEventLoop_timerPending_get = 1081; // abc
+const uint32_t shell_async_CoreEventLoop_handleTimers = 1082; // abc
+const uint32_t shell_async_CoreEventLoop_start = 1083; // abc
+const uint32_t shell_async_CoreEventLoop_stop = 1084; // abc
+const uint32_t flash_events_EventDispatcher_private_trimHeaderValue = 1086; // abc
+const uint32_t flash_events_EventDispatcher_private_ctor = 1088; // abc
+const uint32_t flash_events_EventDispatcher_private_dispatchEventFunction = 1089; // abc
+const uint32_t flash_events_EventDispatcher_private_dispatchHttpStatusEvent = 1091; // abc
+const uint32_t flash_events_EventDispatcher_addEventListener = 1092; // abc
+const uint32_t flash_events_EventDispatcher_dispatchEvent = 1093; // abc
+const uint32_t flash_events_EventDispatcher_hasEventListener = 1094; // abc
+const uint32_t flash_events_EventDispatcher_removeEventListener = 1095; // abc
+const uint32_t flash_events_EventDispatcher_willTrigger = 1096; // abc
+const uint32_t flash_events_EventDispatcher_toString = 1097; // abc
+const uint32_t flash_events_HTTPStatusEvent_status_get = 1100; // abc
+const uint32_t flash_events_HTTPStatusEvent_responseURL_get = 1101; // abc
+const uint32_t flash_events_HTTPStatusEvent_responseURL_set = 1102; // abc
+const uint32_t flash_events_HTTPStatusEvent_responseHeaders_get = 1103; // abc
+const uint32_t flash_events_HTTPStatusEvent_responseHeaders_set = 1104; // abc
+const uint32_t flash_events_HTTPStatusEvent_redirected_get = 1105; // abc
+const uint32_t flash_events_HTTPStatusEvent_redirected_set = 1106; // abc
+const uint32_t flash_events_HTTPStatusEvent_clone = 1107; // abc
+const uint32_t flash_events_HTTPStatusEvent_toString = 1108; // abc
+const uint32_t flash_events_TimerEvent_clone = 1111; // abc
+const uint32_t flash_events_TimerEvent_toString = 1112; // abc
+const uint32_t flash_events_TimerEvent_updateAfterEvent = 1113; // abc
+const uint32_t flash_sampler_NewObjectSample_object_get = 1115; // native
+const uint32_t flash_sampler_NewObjectSample_size_get = 1116; // native
+const uint32_t flash_utils_Timer_private__timerDispatch = 1122; // abc
+const uint32_t flash_utils_Timer_private__start = 1123; // abc
+const uint32_t flash_utils_Timer_tick = 1124; // abc
+const uint32_t flash_utils_Timer_delay_get = 1125; // abc
+const uint32_t flash_utils_Timer_delay_set = 1126; // abc
+const uint32_t flash_utils_Timer_repeatCount_get = 1127; // abc
+const uint32_t flash_utils_Timer_repeatCount_set = 1128; // abc
+const uint32_t flash_utils_Timer_currentCount_get = 1129; // abc
+const uint32_t flash_utils_Timer_running_get = 1130; // abc
+const uint32_t flash_utils_Timer_reset = 1131; // abc
+const uint32_t flash_utils_Timer_start = 1132; // abc
+const uint32_t flash_utils_Timer_stop = 1133; // abc
 
 extern avmplus::Atom native_script_function_C_assert__debugBreak_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom native_script_function_C_assert__debugBreak_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
@@ -2201,6 +2206,8 @@ extern double shell_HardwareInformation_private__getMemoryPeakUsage_thunk(Method
 extern double shell_HardwareInformation_private__getMemoryPeakUsage_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom shell_OperatingSystem_isWindowsStore_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom shell_OperatingSystem_isWindowsStore_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom shell_FileSystem_read_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom shell_FileSystem_read_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom shell_Domain_currentDomain_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom shell_Domain_currentDomain_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom shell_Domain_MIN_DOMAIN_MEMORY_LENGTH_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
@@ -5163,6 +5170,66 @@ class avmplus_OperatingSystemObjectSlots
 //-----------------------------------------------------------
 
 //-----------------------------------------------------------
+// shell::FileSystem$
+//-----------------------------------------------------------
+class avmshell_FileSystemClassSlots
+{
+    friend class SlotOffsetsAndAsserts;
+    friend class avmshell::FileSystemClass;
+};
+#define DECLARE_SLOTS_FileSystemClass \
+    public: \
+        static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable); \
+    public: \
+        AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); ) \
+    private: \
+        AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } ) \
+    public: \
+        REALLY_INLINE bool isType(avmplus::Atom value) \
+        { \
+            return isTypeImpl(value); \
+        } \
+        REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value) \
+        { \
+            return isTypeImpl(value->atom()); \
+        } \
+        REALLY_INLINE GCRef<avmplus::FileSystemObject> asType(avmplus::Atom value) \
+        { \
+            avmplus::Atom const result = asTypeImpl(value); \
+            return GCRef<avmplus::FileSystemObject>((avmplus::FileSystemObject*)(avmplus::AvmCore::atomToScriptObject(result))); \
+        } \
+        REALLY_INLINE GCRef<avmplus::FileSystemObject> asType(GCRef<avmplus::ScriptObject> value) \
+        { \
+            avmplus::Atom const result = asTypeImpl(value->atom()); \
+            return GCRef<avmplus::FileSystemObject>((avmplus::FileSystemObject*)(avmplus::AvmCore::atomToScriptObject(result))); \
+        } \
+        REALLY_INLINE GCRef<avmplus::FileSystemObject> coerceToType(avmplus::Atom value) \
+        { \
+            avmplus::Atom const result = coerceToTypeImpl(value); \
+            return GCRef<avmplus::FileSystemObject>((avmplus::FileSystemObject*)(avmplus::AvmCore::atomToScriptObject(result))); \
+        } \
+        REALLY_INLINE GCRef<avmplus::FileSystemObject> coerceToType(GCRef<avmplus::ScriptObject> value) \
+        { \
+            avmplus::Atom const result = coerceToTypeImpl(value->atom()); \
+            return GCRef<avmplus::FileSystemObject>((avmplus::FileSystemObject*)(avmplus::AvmCore::atomToScriptObject(result))); \
+        } \
+    private: \
+        friend class avmplus::NativeID::SlotOffsetsAndAsserts; \
+
+//-----------------------------------------------------------
+
+//-----------------------------------------------------------
+// shell::FileSystem
+//-----------------------------------------------------------
+class avmplus_FileSystemObjectSlots
+{
+    friend class SlotOffsetsAndAsserts;
+    friend class avmplus::FileSystemObject;
+#define GC_TRIVIAL_TRACER_FileSystemObject
+};
+//-----------------------------------------------------------
+
+//-----------------------------------------------------------
 // shell::RunMode$
 //-----------------------------------------------------------
 class avmplus_RunModeClassSlots
@@ -7514,8 +7581,8 @@ class shell_toplevelClassManifest : public avmplus::ClassManifestBase
     friend class avmplus::DoubleVectorClass;
     friend class avmplus::ObjectVectorClass;
 private:
-    REALLY_INLINE shell_toplevelClassManifest(avmplus::ScriptEnv* e) : ClassManifestBase(122, e) { }
-    REALLY_INLINE static shell_toplevelClassManifest* create(avmplus::ScriptEnv* e) { return new (MMgc::GC::GetGC(e), MMgc::kExact, sizeof(ClassClosure*)*121) shell_toplevelClassManifest(e); }
+    REALLY_INLINE shell_toplevelClassManifest(avmplus::ScriptEnv* e) : ClassManifestBase(123, e) { }
+    REALLY_INLINE static shell_toplevelClassManifest* create(avmplus::ScriptEnv* e) { return new (MMgc::GC::GetGC(e), MMgc::kExact, sizeof(ClassClosure*)*122) shell_toplevelClassManifest(e); }
 public:
     REALLY_INLINE GCRef<avmplus::AccessibilityClass> get_AccessibilityClass() { return (avmplus::AccessibilityClass*)(lazyInitClass(avmplus::NativeID::abcclass_flash_accessibility_Accessibility)); }
     REALLY_INLINE GCRef<avmplus::AccessibilityImplementationClass> get_AccessibilityImplementationClass() { return (avmplus::AccessibilityImplementationClass*)(lazyInitClass(avmplus::NativeID::abcclass_flash_accessibility_AccessibilityImplementation)); }
@@ -7540,6 +7607,7 @@ public:
     REALLY_INLINE GCRef<avmplus::EventLoopClass> get_EventLoopClass() { return (avmplus::EventLoopClass*)(lazyInitClass(avmplus::NativeID::abcclass_shell_async_EventLoop)); }
     REALLY_INLINE GCRef<avmshell::CFILEClass> get_FILEClass() { return (avmshell::CFILEClass*)(lazyInitClass(avmplus::NativeID::abcclass_C_stdio_FILE)); }
     REALLY_INLINE GCRef<avmshell::FileClass> get_FileIOClass() { return (avmshell::FileClass*)(lazyInitClass(avmplus::NativeID::abcclass_shell_FileIO)); }
+    REALLY_INLINE GCRef<avmshell::FileSystemClass> get_FileSystemClass() { return (avmshell::FileSystemClass*)(lazyInitClass(avmplus::NativeID::abcclass_shell_FileSystem)); }
     REALLY_INLINE GCRef<avmplus::HTTPStatusEventClass> get_HTTPStatusEventClass() { return (avmplus::HTTPStatusEventClass*)(lazyInitClass(avmplus::NativeID::abcclass_flash_events_HTTPStatusEvent)); }
     REALLY_INLINE GCRef<avmshell::HardwareInformationClass> get_HardwareInformationClass() { return (avmshell::HardwareInformationClass*)(lazyInitClass(avmplus::NativeID::abcclass_shell_HardwareInformation)); }
     REALLY_INLINE GCRef<avmplus::IBitmapDrawableClass> get_IBitmapDrawableClass() { return (avmplus::IBitmapDrawableClass*)(lazyInitClass(avmplus::NativeID::abcclass_flash_display_IBitmapDrawable)); }

@@ -1658,6 +1658,27 @@ private:
 
 #define avmplus_OperatingSystemObject_isExactInterlock 1
 //-----------------------------------------------------------
+// shell::FileSystem
+//-----------------------------------------------------------
+class FileSystemObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmshell::FileSystemClass;
+    REALLY_INLINE explicit FileSystemObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit FileSystemObject(const FileSystemObject&); // unimplemented
+    void operator=(const FileSystemObject&); // unimplemented
+};
+
+#define avmplus_FileSystemObject_isExactInterlock 1
+//-----------------------------------------------------------
 // shell::RunMode
 //-----------------------------------------------------------
 class RunModeObject : public avmplus::ScriptObject
