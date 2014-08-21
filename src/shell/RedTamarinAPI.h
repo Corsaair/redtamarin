@@ -60,9 +60,10 @@
 #include "DiagnosticsClass.h"
 #include "HardwareInformationClass.h"
 #include "OperatingSystemClass.h"
+#include "FileSystemClass.h"
 
 //#include "RedTamarinProgramClass.h"
-//#include "FileSystemClass.h"
+//
 
 //#include "SocketClass.h"
 

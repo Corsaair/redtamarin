@@ -61,6 +61,7 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../api/shell/DiagnosticsClass.cpp \
   $(curdir)/../api/shell/HardwareInformationClass.cpp \
   $(curdir)/../api/shell/OperatingSystemClass.cpp \
+  $(curdir)/../api/shell/FileSystemClass.cpp \
   $(curdir)/../api/glue/SystemClass.cpp \
   $(NULL)
 

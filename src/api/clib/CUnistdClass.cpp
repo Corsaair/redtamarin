@@ -75,10 +75,12 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "path");
         }
 
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
+            printf( "VMPI_access16\n" );
             StUTF16String pathUTF16(path);
             return VMPI_access16( pathUTF16.c_str(), mode );
         #else
+            printf( "VMPI_access\n" );
             StUTF8String pathUTF8(path);
             return VMPI_access( pathUTF8.c_str(), mode );
         #endif

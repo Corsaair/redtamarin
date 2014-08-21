@@ -103,6 +103,7 @@ include "as3/shell/Runtime.as";
 include "as3/shell/Diagnostics.as";
 include "as3/shell/HardwareInformation.as";
 include "as3/shell/OperatingSystem.as";
+include "as3/shell/FileSystem.as";
 include "as3/shell/RunMode.as";
 include "as3/shell/Domain.as";
 include "as3/shell/FileIO.as";
