@@ -570,7 +570,7 @@ namespace avmshell
         #ifdef AVMSYSTEM_WIN32
             StUTF16String sUTF16(s);
             VMPI_perror16( sUTF16.c_str() );
-        #elif
+        #else
             StUTF8String sUTF8(s);
             VMPI_perror( sUTF8.c_str() );
         #endif
@@ -594,7 +594,7 @@ namespace avmshell
             StUTF16String commandUTF16(command);
             StUTF16String modeUTF16(mode);
             FILE* f = VMPI_popen16( commandUTF16.c_str(), modeUTF16.c_str() );
-        #elif
+        #else
             StUTF8String commandUTF8(command);
             StUTF8String modeUTF8(mode);
             FILE* f = VMPI_popen( commandUTF8.c_str(), modeUTF8.c_str() );
@@ -625,7 +625,7 @@ namespace avmshell
         #ifdef AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_remove16( pathUTF16.c_str() );
-        #elif
+        #else
             StUTF8String pathUTF8(path);
             return VMPI_remove( pathUTF8.c_str() );
         #endif
@@ -648,7 +648,7 @@ namespace avmshell
             StUTF16String oldnameUTF16(oldname);
             StUTF16String newnameUTF16(newname);
             return VMPI_rename16( oldnameUTF16.c_str(), newnameUTF16.c_str() );
-        #elif
+        #else
             StUTF8String oldnameUTF8(oldname);
             StUTF8String newnameUTF8(newname);
             return VMPI_rename( oldnameUTF8.c_str(), newnameUTF8.c_str() );

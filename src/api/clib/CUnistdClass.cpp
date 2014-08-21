@@ -78,7 +78,7 @@ namespace avmshell
         #ifdef AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_access16( pathUTF16.c_str(), mode );
-        #elif
+        #else
             StUTF8String pathUTF8(path);
             return VMPI_access( pathUTF8.c_str(), mode );
         #endif
@@ -95,7 +95,7 @@ namespace avmshell
         #ifdef AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_chdir16( pathUTF16.c_str() );
-        #elif
+        #else
             StUTF8String pathUTF8(path);
             return VMPI_chdir( pathUTF8.c_str() );
         #endif
@@ -409,7 +409,7 @@ namespace avmshell
             Stringp value = core()->newStringUTF16( path );
             StUTF8String valueUTF8(value);
             return core()->newStringUTF8( valueUTF8.c_str() );
-        #elif
+        #else
             char path[ PATH_MAX ];
             VMPI_getcwd( path, (size_t) PATH_MAX );
             return core()->newStringUTF8( path );
@@ -432,7 +432,7 @@ namespace avmshell
             Stringp value = core()->newStringUTF16( username );
             StUTF8String valueUTF8(value);
             return core()->newStringUTF8( valueUTF8.c_str() );
-        #elif
+        #else
             char username[ LOGIN_NAME_MAX ];
             VMPI_getUserName( username );
             return core()->newStringUTF8( username );
@@ -463,7 +463,7 @@ namespace avmshell
         #ifdef AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_rmdir16( pathUTF16.c_str() );
-        #elif
+        #else
             StUTF8String pathUTF8(path);
             return VMPI_rmdir( pathUTF8.c_str() );
         #endif
@@ -497,7 +497,7 @@ namespace avmshell
         #ifdef AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_unlink16( pathUTF16.c_str() );
-        #elif
+        #else
             StUTF8String pathUTF8(path);
             return VMPI_unlink( pathUTF8.c_str() );
         #endif

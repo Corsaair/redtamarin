@@ -62,7 +62,7 @@ namespace avmshell
 
         #ifdef AVMSYSTEM_WIN32
             wchar **cur = VMPI_GetEnviron16();
-        #elif
+        #else
             char **cur = VMPI_GetEnviron();
         #endif
 
@@ -74,7 +74,7 @@ namespace avmshell
                 StUTF8String valueUTF8(value);
 
                 array->setUintProperty( i, core->newStringUTF8( valueUTF8.c_str() )->atom() );
-            #elif
+            #else
                 array->setUintProperty( i, core->newStringUTF8( *cur )->atom() );
             #endif
 

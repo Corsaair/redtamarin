@@ -38,7 +38,7 @@ namespace avmshell
             StUTF16String s1UTF16(s1);
             StUTF16String s2UTF16(s2);
             return VMPI_strcmp16( s1UTF16.c_str(), s2UTF16.c_str() );
-        #elif
+        #else
             StUTF8String s1UTF8(s1);
             StUTF8String s2UTF8(s2);
             return VMPI_strcmp( s1UTF8.c_str(), s2UTF8.c_str() );
@@ -63,7 +63,7 @@ namespace avmshell
             StUTF16String s1UTF16(s1);
             StUTF16String s2UTF16(s2);
             return VMPI_strcoll16( s1UTF16.c_str(), s2UTF16.c_str() );
-        #elif
+        #else
             StUTF8String s1UTF8(s1);
             StUTF8String s2UTF8(s2);
             return VMPI_strcoll( s1UTF8.c_str(), s2UTF8.c_str() );
@@ -81,7 +81,7 @@ namespace avmshell
             Stringp value = core->newStringUTF16( str );
             StUTF8String valueUTF8(value);
             return core->newStringUTF8( valueUTF8.c_str() );
-        #elif
+        #else
             char *str = VMPI_strerror( errnum );
             return core->newStringUTF8( str );
         #endif
@@ -118,7 +118,7 @@ namespace avmshell
             StUTF16String s1UTF16(s1);
             StUTF16String s2UTF16(s2);
             return VMPI_strspn16( s1UTF16.c_str(), s2UTF16.c_str() );
-        #elif
+        #else
             StUTF8String s1UTF8(s1);
             StUTF8String s2UTF8(s2);
             return VMPI_strspn( s1UTF8.c_str(), s2UTF8.c_str() );

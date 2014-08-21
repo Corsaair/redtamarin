@@ -112,7 +112,7 @@ namespace avmshell
             Stringp value = core->newStringUTF16( str );
             StUTF8String valueUTF8(value);
             return core->newStringUTF8( valueUTF8.c_str() );
-        #elif
+        #else
             StUTF8String nameUTF8(name);
             const char * str = VMPI_getenv( nameUTF8.c_str() );
             return core->newStringUTF8( str );
@@ -208,7 +208,7 @@ namespace avmshell
             
             wchar * str = VMPI_strdup16( nameUTF16.c_str() );
             int result  = VMPI_putenv16( str );
-        #elif
+        #else
             StUTF8String nameUTF8(name);
             
             char * str = VMPI_strdup( nameUTF8.c_str() );
@@ -248,7 +248,7 @@ namespace avmshell
             Stringp value = core->newStringUTF16( str );
             StUTF8String valueUTF8(value);
             return core->newStringUTF8( valueUTF8.c_str() );
-        #elif
+        #else
             StUTF8String pathUTF8(path);
             char * str = VMPI_realpath( pathUTF8.c_str() );
 
@@ -277,7 +277,7 @@ namespace avmshell
             StUTF16String nameUTF16(name);
             StUTF16String valueUTF16(value);
             return VMPI_setenv16( nameUTF16.c_str(), valueUTF16.c_str(), writeover );
-        #elif
+        #else
             StUTF8String nameUTF8(name);
             StUTF8String valueUTF8(value);
             return VMPI_setenv( nameUTF8.c_str(), valueUTF8.c_str(), writeover );
@@ -299,7 +299,7 @@ namespace avmshell
             
             StUTF16String commandUTF16(command);
             return VMPI_system16( commandUTF16.c_str() );
-        #elif
+        #else
             if( !command )
             {
                 return VMPI_system( NULL );
@@ -322,7 +322,7 @@ namespace avmshell
         #ifdef AVMSYSTEM_WIN32
             StUTF16String nameUTF16(name);
             return VMPI_unsetenv16( nameUTF16.c_str() );
-        #elif
+        #else
             StUTF8String nameUTF8(name);
             return VMPI_unsetenv( nameUTF8.c_str() );
         #endif

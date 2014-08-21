@@ -29,7 +29,7 @@ namespace avmshell
         #ifdef AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_mkdir16( pathUTF16.c_str(), mode );
-        #elif
+        #else
             StUTF8String pathUTF8(path);
             return VMPI_mkdir( pathUTF8.c_str(), mode );
         #endif
@@ -51,7 +51,7 @@ namespace avmshell
         #ifdef AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_chmod16( pathUTF16.c_str(), mode );
-        #elif
+        #else
             StUTF8String pathUTF8(path);
             return VMPI_chmod( pathUTF8.c_str(), mode );
         #endif
@@ -103,7 +103,7 @@ namespace avmshell
         #ifdef AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             int result = VMPI_stat16( pathUTF16.c_str(), &statbuf );
-        #elif
+        #else
             StUTF8String pathUTF8(path);
             int result = VMPI_stat( pathUTF8.c_str(), &statbuf );
         #endif
