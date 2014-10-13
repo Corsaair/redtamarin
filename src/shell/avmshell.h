@@ -85,7 +85,7 @@ namespace avmshell
 #include "FileInputStream.h"
 #include "ConsoleOutputStream.h"
 #include "ProgramClass.h"
-#include "FileClass.h"
+//#include "FileClass.h"
 #include "DomainClass.h"
 #include "DebugCLI.h"
 #include "DataIO.h"
