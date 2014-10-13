@@ -172,4 +172,37 @@ namespace avmshell
         VMPI_set_errno( value );
     }
 
+
+
+    /*CErrorClass::CErrorClass(VTable *vtable)
+        : NativeErrorClass(vtable)
+    {
+        createVanillaPrototype();
+    }*/
+
+    /*CErrorClass::~CErrorClass()
+    {
+        //nothing to destroy
+    }*/
+
+    /*void CErrorClass::dummy()
+    {
+        //does strictly nothing
+    }*/
+
+
+    /*CErrorObject::CErrorObject(VTable *vtable, ScriptObject *delegate)
+        : ErrorObject(vtable, delegate)
+    {}*/
+
+    /*CErrorObject::~CErrorObject()
+    {
+        //nothing to destroy
+    }*/
+
+    /*void CErrorObject::dummy()
+    {
+        //does strictly nothing
+    }*/
+
 }

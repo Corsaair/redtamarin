@@ -164,6 +164,33 @@ namespace avmshell
         DECLARE_SLOTS_CErrnoClass;
     };
 
+
+
+
+    class CErrorClass : public NativeErrorClass
+    {
+    public:
+        CErrorClass(VTable* vtable) : NativeErrorClass(vtable) {};
+        /*~CErrorClass();*/
+
+        /*void dummy();*/
+
+    private:
+        DECLARE_SLOTS_CErrorClass;
+    };
+
+    class CErrorObject : public ErrorObject
+    {
+    public:
+        CErrorObject(VTable *vtable, ScriptObject *delegate) : ErrorObject(vtable, delegate) {};
+        /*~CErrorObject();*/
+
+        /*void dummy();*/
+
+    private:
+        DECLARE_SLOTS_CErrorObject;
+    };
+
 }
 
 #endif /* __avmshell_CErrnoClass__ */

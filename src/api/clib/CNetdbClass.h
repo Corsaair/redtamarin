@@ -24,10 +24,59 @@ namespace avmshell
         int get_AI_V4MAPPED();
         int get_AI_ALL();
         int get_AI_ADDRCONFIG();
+
+        int get_NI_NOFQDN();
+        int get_NI_NUMERICHOST();
+        int get_NI_NAMEREQD();
+        int get_NI_NUMERICSERV();
+        int get_NI_NUMERICSCOPE();
+        int get_NI_DGRAM();
+
+        int get_EAI_AGAIN();
+        int get_EAI_BADFLAGS();
+        int get_EAI_FAIL();
+        int get_EAI_FAMILY();
+        int get_EAI_MEMORY();
+        int get_EAI_NONAME();
+        int get_EAI_SERVICE();
+        int get_EAI_SOCKTYPE();
+        int get_EAI_SYSTEM();
+        int get_EAI_OVERFLOW();
+
+        ChostentObject* gethostbyaddr4(CIn_AddrObject* addr, int type);
+        ChostentObject* gethostbyaddr6(CIn6_AddrObject* addr, int type);
         
+        //endhostent()
+        //endnetent()
+        //endprotoent()
+        //endservent()
+        //freeaddrinfo()
+        static Stringp gai_strerror(ScriptObject* self, int ecode);
+        static ArrayObject* getaddrinfo(ScriptObject* self, Stringp nodename, Stringp servname, CaddrinfoObject* hints, CEAIrrorObject* eaierr);
+        //gethostbyaddr()
+        static ChostentObject* gethostbyname(ScriptObject* self, Stringp name);
+        static ChostentObject* gethostent(ScriptObject* self);
+        //getnameinfo()
+        //getnetbyaddr()
+        //getnetbyname()
+        //getnetent()
+        //getprotobyname()
         static CprotoentObject* getprotobynumber(ScriptObject* self, int proto);
         static CprotoentObject* getprotoent(ScriptObject* self);
-        static ChostentObject* gethostent(ScriptObject* self);
+        //getservbyname()
+        //getservbyport()
+        //getservent()
+        //sethostent()
+        //setnetent()
+        //setprotoent()
+        //setservent()
+        
+
+        
+        
+        
+
+        
 
         DECLARE_SLOTS_CNetdbClass;
     };
@@ -80,6 +129,59 @@ namespace avmshell
         DECLARE_SLOTS_CprotoentObject;
     };
 
+
+    class CaddrinfoClass : public ClassClosure
+    {
+    public:
+        CaddrinfoClass(VTable* vtable);
+        ~CaddrinfoClass();
+
+        void dummy();
+
+    private:
+        DECLARE_SLOTS_CaddrinfoClass;
+    };
+
+    class CaddrinfoObject : public ScriptObject
+    {
+    public:
+        CaddrinfoObject(VTable *vtable, ScriptObject *delegate);
+        ~CaddrinfoObject();
+
+        void dummy();
+
+    private:
+        DECLARE_SLOTS_CaddrinfoObject;
+    };
+
+
+
+
+
+
+    class CEAIrrorClass : public NativeErrorClass
+    {
+    public:
+        CEAIrrorClass(VTable* vtable) : NativeErrorClass(vtable) {};
+        /*~CEAIrrorClass();*/
+
+        /*void dummy();*/
+
+    private:
+        DECLARE_SLOTS_CEAIrrorClass;
+    };
+
+    class CEAIrrorObject : public ErrorObject
+    {
+    public:
+        CEAIrrorObject(VTable *vtable, ScriptObject *delegate) : ErrorObject(vtable, delegate) {};
+        /*~CEAIrrorObject();*/
+
+        /*void dummy();*/
+
+    private:
+        DECLARE_SLOTS_CEAIrrorObject;
+    };
 
 }
 

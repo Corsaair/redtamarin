@@ -567,7 +567,7 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "s");
         }
 
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
             StUTF16String sUTF16(s);
             VMPI_perror16( sUTF16.c_str() );
         #else
@@ -590,7 +590,7 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "mode");
         }
 
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
             StUTF16String commandUTF16(command);
             StUTF16String modeUTF16(mode);
             FILE* f = VMPI_popen16( commandUTF16.c_str(), modeUTF16.c_str() );
@@ -622,7 +622,7 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "path");
         }
 
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_remove16( pathUTF16.c_str() );
         #else
@@ -644,7 +644,7 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "newname");
         }
         
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
             StUTF16String oldnameUTF16(oldname);
             StUTF16String newnameUTF16(newname);
             return VMPI_rename16( oldnameUTF16.c_str(), newnameUTF16.c_str() );

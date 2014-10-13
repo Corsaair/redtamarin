@@ -76,11 +76,9 @@ namespace avmshell
         }
 
         #if AVMSYSTEM_WIN32
-            printf( "VMPI_access16\n" );
             StUTF16String pathUTF16(path);
             return VMPI_access16( pathUTF16.c_str(), mode );
         #else
-            printf( "VMPI_access\n" );
             StUTF8String pathUTF8(path);
             return VMPI_access( pathUTF8.c_str(), mode );
         #endif
@@ -94,7 +92,7 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "path");
         }
 
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_chdir16( pathUTF16.c_str() );
         #else
@@ -404,7 +402,7 @@ namespace avmshell
 
     Stringp CUnistdClass::getcwd()
     {
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
             wchar path[ PATH_MAX ];
             VMPI_getcwd16( path, (size_t) PATH_MAX );
 
@@ -421,13 +419,19 @@ namespace avmshell
     Stringp CUnistdClass::gethostname()
     {
         char hostname[ HOST_NAME_MAX ];
-        VMPI_gethostname( hostname, (size_t) HOST_NAME_MAX );
+        int result = VMPI_gethostname( hostname, (size_t) HOST_NAME_MAX );
+
+        if( result < 0 )
+        {
+            return NULL;
+        }
+
         return core()->newStringUTF8( hostname );
     }
 
     Stringp CUnistdClass::getlogin()
     {
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
             wchar username[ LOGIN_NAME_MAX ];
             VMPI_getUserName16( username );
 
@@ -462,7 +466,7 @@ namespace avmshell
             toplevel()->throwArgumentError(kNullArgumentError, "path");
         }
 
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_rmdir16( pathUTF16.c_str() );
         #else
@@ -496,7 +500,7 @@ namespace avmshell
             toplevel()->throwArgumentError(kNullArgumentError, "path");
         }
         
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_unlink16( pathUTF16.c_str() );
         #else

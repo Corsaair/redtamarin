@@ -26,7 +26,7 @@ namespace avmshell
             toplevel()->throwArgumentError(kNullArgumentError, "path");
         }
 
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_mkdir16( pathUTF16.c_str(), mode );
         #else
@@ -48,7 +48,7 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "path");
         }
 
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             return VMPI_chmod16( pathUTF16.c_str(), mode );
         #else
@@ -100,7 +100,7 @@ namespace avmshell
 
         struct stat statbuf;
 
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
             StUTF16String pathUTF16(path);
             int result = VMPI_stat16( pathUTF16.c_str(), &statbuf );
         #else
