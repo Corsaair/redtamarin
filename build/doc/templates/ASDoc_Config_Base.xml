@@ -19,7 +19,7 @@
 <!-- this file normally should not be edited.  Use the command-line
      parameters for ASDoc instead -->
 <asDocConfig>
-  <options buildNum="asd3_0_final_1" verbose="false" livedocs="false" standalone="true" eclipse="false" docversion="3" includePrivate="true" splitIndex="true" showVersions="true" showConventions="false" showReview="false" />
+  <options buildNum="asd3_0_final_1" verbose="false" livedocs="false" standalone="true" eclipse="false" docversion="3" includePrivate="false" splitIndex="true" showVersions="true" showConventions="false" showReview="false" />
 
   <keywords show="false" num="500" />
 <!--

@@ -933,6 +933,19 @@ else if( window.attachEvent ) // Microsoft
 				<xsl:comment>
 				<xsl:text/>
 					<xsl:text>if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {</xsl:text><xsl:text>titleBar_setSubTitle("</xsl:text><xsl:value-of select="$subTitle"/><xsl:text>"); </xsl:text><xsl:text>titleBar_setSubNav(</xsl:text><xsl:value-of select="$showConstants"/><xsl:text>,</xsl:text><xsl:value-of select="$showProperties"/><xsl:text>,</xsl:text><xsl:value-of select="$showStyles"/><xsl:text>,</xsl:text><xsl:value-of select="$showSkinPart"/><xsl:text>,</xsl:text><xsl:value-of select="$showSkinState"/><xsl:text>,</xsl:text><xsl:value-of select="$showEffects"/><xsl:text>,</xsl:text><xsl:value-of select="$showEvents"/><xsl:text>,</xsl:text><xsl:value-of select="$showConstructors"/><xsl:text>,</xsl:text><xsl:value-of select="$showMethods"/><xsl:text>,</xsl:text><xsl:value-of select="$showIncludeExamples"/><xsl:text>,</xsl:text><xsl:value-of select="$showPackageConstants"/>	<xsl:text>,</xsl:text><xsl:value-of select="$showPackageProperties"/><xsl:text>,</xsl:text><xsl:value-of select="$showPackageFunctions"/><xsl:text>,</xsl:text><xsl:value-of select="$showInterfaces"/><xsl:text>,</xsl:text><xsl:value-of select="$showClasses"/><xsl:text>,</xsl:text><xsl:value-of select="$showPackageUse"/><xsl:text>);</xsl:text><xsl:text>}</xsl:text>	<xsl:text/>
+
+					<xsl:text>if( !isEclipse() ) {
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-94526-27', 'auto');
+  ga('send', 'pageview');
+
+					}
+					</xsl:text>
 				</xsl:comment>
 			</script>
 		</xsl:if>
