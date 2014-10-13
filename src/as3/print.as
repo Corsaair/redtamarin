@@ -43,7 +43,7 @@ package
      *
      * @see trace()
      */
-    public function print( ...arguments ):void
+    public function print( ... arguments ):void
     {
         //TODO: define trace/print hook in Program ?
 

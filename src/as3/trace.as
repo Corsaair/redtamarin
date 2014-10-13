@@ -47,7 +47,7 @@ package
      * @playerversion AIR 1.0
      * @langversion 3.0
      */
-    public function trace( ...arguments ):void
+    public function trace( ... arguments ):void
     {
         Program.trace( arguments );
         //Program.trace.apply( null, arguments );
