@@ -9,6 +9,22 @@ package C.stdlib
     import shell.Program;
     import C.errno.*;
 
+    /**
+     * @name <code>&lt;stdlib.h&gt;</code>
+     * Standard library definitions.
+     *
+     * <p>
+     * Defines numeric conversion functions,
+     * pseudo-random numbers generation functions,
+     * memory allocation, process control functions.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/stdlib.h.html stdlib.h
+     */
+
     /** @internal */
     [native(cls="::avmshell::CStdlibClass", methods="auto", construct="none")]
     [Inspectable(environment="none")]
@@ -107,6 +123,10 @@ package C.stdlib
      */
     public const MB_CUR_MAX:int = __stdlib.MB_CUR_MAX;
 
+
+    //_Exit()
+    //a64l()
+
     /**
      * Generate an abnormal process abort.
      * 
@@ -117,6 +137,10 @@ package C.stdlib
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
+     *
+     * @private
+     * we can not directly hook to the native function atexit()
+     * because our code run inside a VM!
      */
     public function abort():void
     {
@@ -192,7 +216,7 @@ package C.stdlib
     {
         try
         {
-            Program.atExit( f );
+            Program.AVM2::atExit( f );
         }
         catch( e:Error )
         {
@@ -281,6 +305,9 @@ package C.stdlib
      */
     public function atoll( str:String ):Number { return atol( str ); }
 
+    //bsearch()
+    //calloc()
+
     /**
      * Compute the quotient and remainder of an integer division.
      *
@@ -289,6 +316,9 @@ package C.stdlib
      */
     [native("::avmshell::CStdlibClass::div")]
     public native function div( numer:int, denom:int ):div_t;
+
+    //drand48()
+    //erand48()
 
     /**
      * Terminate program execution.
@@ -306,6 +336,8 @@ package C.stdlib
         Program.exit( status );
     }
 
+    //free()
+
     /**
      * Get value of an environment variable.
      * 
@@ -315,6 +347,12 @@ package C.stdlib
     [native("::avmshell::CStdlibClass::getenv")]
     public native function getenv( name:String ):String;
 
+    //getsubopt()
+    //grantpt()
+    //initstate()
+    //jrand48()
+    //l64a()
+
     /**
      * Return a long integer absolute value.
      *
@@ -322,6 +360,8 @@ package C.stdlib
      * @playerversion AVM 0.4
      */
     public function labs( i:Number ):Number { return Math.abs(i); }
+
+    //lcong48()
 
     /**
      * Compute the quotient and remainder of a number division.
@@ -333,6 +373,14 @@ package C.stdlib
     public native function ldiv( numer:Number, denom:Number ):ldiv_t;
 
     /**
+     * Return a long integer absolute value.
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     */
+    public function llabs( i:Number ):Number { return Math.abs(i); }
+
+    /**
      * Compute the quotient and remainder of a number division.
      *
      * @langversion 3.0
@@ -341,13 +389,8 @@ package C.stdlib
     [native("::avmshell::CStdlibClass::lldiv")]
     public native function lldiv( numer:Number, denom:Number ):lldiv_t;
 
-    /**
-     * Return a long integer absolute value.
-     *
-     * @langversion 3.0
-     * @playerversion AVM 0.4
-     */
-    public function llabs( i:Number ):Number { return Math.abs(i); }
+    //lrand48()
+    //malloc()
 
     /**
      * Get number of bytes in a character.
@@ -357,6 +400,9 @@ package C.stdlib
      */
     [native("::avmshell::CStdlibClass::mblen")]
     public native function mblen( s:String, n:int ):int;
+
+    //mbstowcs()
+    //mbtowc()
 
     /**
      * Create a unique directory.
@@ -376,6 +422,11 @@ package C.stdlib
     [native("::avmshell::CStdlibClass::mkstemp")]
     public native function mkstemp( template:String ):int;
 
+    //mrand48()
+    //nrand48()
+    //posix_memalign()
+    //posix_openpt()
+    //ptsname()
 
     /**
      * Change or add a value to an environment.
@@ -386,6 +437,8 @@ package C.stdlib
     [native("::avmshell::CStdlibClass::putenv")]
     public native function putenv( name:String ):int;
 
+    //qsort()
+
     /**
      * Pseudo-random number generator.
      * 
@@ -394,6 +447,10 @@ package C.stdlib
      */
     [native("::avmshell::CStdlibClass::rand")]
     public native function rand():int;
+
+    //rand_r()
+    //random()
+    //realloc()
 
     /**
      * Resolve a pathname.
@@ -404,6 +461,8 @@ package C.stdlib
     [native("::avmshell::CStdlibClass::realpath")]
     public native function realpath( path:String ):String;
 
+    //seed48()
+
     /**
      * Add or change an environment variable.
      * 
@@ -412,6 +471,9 @@ package C.stdlib
      */
     [native("::avmshell::CStdlibClass::setenv")]
     public native function setenv( name:String, value:String, overwrite:Boolean = false ):int;
+
+    //setkey()
+    //setstate()
 
     /**
      * Pseudo-random number generator.
@@ -422,11 +484,8 @@ package C.stdlib
     [native("::avmshell::CStdlibClass::srand")]
     public native function srand( seed:uint ):void;
 
-    /*
-    public function setkey( key:* = null ):void
-    {
-        errno.value = ENOSYS;
-    }*/
+    //srand48()
+    //srandom()
 
     /**
      * Convert a string to a double-precision number.
@@ -493,6 +552,8 @@ package C.stdlib
     [native("::avmshell::CStdlibClass::system")]
     public native function system( command:String ):int;
 
+    //unlockpt()
+
     /**
      * Remove an environment variable.
      * 
@@ -502,6 +563,9 @@ package C.stdlib
     [native("::avmshell::CStdlibClass::unsetenv")]
     public native function unsetenv( name:String ):int;
     
+    //wcstombs()
+    //wctomb()
+
 
     /**
      * Structure <code>div_t</code> returned by <code>div()</code>.
@@ -512,6 +576,16 @@ package C.stdlib
     [native(cls="::avmshell::Cdiv_tClass", instance="::avmshell::Cdiv_tObject", methods="auto")]
     public class div_t
     {
+
+        /**
+         * Construct a <code>div_t</code> structure.
+         */
+        public function div_t( quot:int = 0, rem:int = 0 ):void
+        {
+            this.quot = quot;
+            this.rem  = rem;
+        }
+
         /**
          * Quotient.
          */
@@ -525,10 +599,10 @@ package C.stdlib
         public function toString():String
         {
             var str:String = "";
-                str += "[div_t:"
+                str += "{div_t:"
                 str += " quot="+quot;
                 str += ", rem="+rem;
-                str += "]";
+                str += "}";
 
             return str;
         }
@@ -543,6 +617,16 @@ package C.stdlib
     [native(cls="::avmshell::Cldiv_tClass", instance="::avmshell::Cldiv_tObject", methods="auto")]
     public class ldiv_t
     {
+
+        /**
+         * Construct a <code>ldiv_t</code> structure.
+         */
+        public function ldiv_t( quot:Number = 0, rem:Number = 0 ):void
+        {
+            this.quot = quot;
+            this.rem  = rem;
+        }
+
         /**
          * Quotient.
          */
@@ -556,10 +640,10 @@ package C.stdlib
         public function toString():String
         {
             var str:String = "";
-                str += "[ldiv_t:"
+                str += "{ldiv_t:"
                 str += " quot="+quot;
                 str += ", rem="+rem;
-                str += "]";
+                str += "}";
 
             return str;
         }
@@ -568,6 +652,16 @@ package C.stdlib
     [native(cls="::avmshell::Clldiv_tClass", instance="::avmshell::Clldiv_tObject", methods="auto")]
     public class lldiv_t
     {
+
+        /**
+         * Construct a <code>lldiv_t</code> structure.
+         */
+        public function lldiv_t( quot:Number = 0, rem:Number = 0 ):void
+        {
+            this.quot = quot;
+            this.rem  = rem;
+        }
+
         /**
          * Quotient.
          */
@@ -581,10 +675,10 @@ package C.stdlib
         public function toString():String
         {
             var str:String = "";
-                str += "[lldiv_t:"
+                str += "{lldiv_t:"
                 str += " quot="+quot;
                 str += ", rem="+rem;
-                str += "]";
+                str += "}";
 
             return str;
         }

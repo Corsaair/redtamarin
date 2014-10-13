@@ -7,6 +7,20 @@
 package C.cpio
 {
 
+    /**
+     * @name <code>&lt;cpio.h&gt;</code>
+     * cpio archive values.
+     *
+     * <p>
+     * Magic numbers for the cpio archive format.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/cpio.h.html cpio.h
+     */
+
 	/**
 	 * Socket.
 	 *
@@ -176,4 +190,14 @@ package C.cpio
 	 */
 	public const MAGIC:String = "070707";
 	
+    /**
+     * @private
+     * only here for asdocs
+     */
+    [Inspectable(environment="none")]
+    internal function dummy():void
+    {
+        //do nothing
+    }
+
 }

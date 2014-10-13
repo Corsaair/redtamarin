@@ -7,6 +7,21 @@
 package C.limits
 {
 
+    /**
+     * @name <code>&lt;limits.h&gt;</code>
+     * Implementation-defined constants.
+     *
+     * <p>
+     * Defines macros and symbolic constants for various limits
+     * on resources that the implementation imposes on applications.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/limits.h.html limits.h
+     */
+    
     /** @internal */
     [native(cls="::avmshell::CLimitsClass", methods="auto", construct="none")]
     [Inspectable(environment="none")]
@@ -1323,4 +1338,13 @@ package C.limits
      */
      public const _POSIX_TTY_NAME_MAX:int = __limits._POSIX_TTY_NAME_MAX;
 
+    /**
+     * @private
+     * only here for asdocs
+     */
+    [Inspectable(environment="none")]
+    internal function dummy():void
+    {
+        //do nothing
+    }
 }

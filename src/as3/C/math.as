@@ -7,10 +7,28 @@
 package C.math
 {
 
+    /**
+     * @name <code>&lt;math.h&gt;</code>
+     * Mathematical declarations.
+     *
+     * <p>
+     * Contains mathematical functions and constants.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/math.h.html math.h
+     */
+    
 	//M_E
     /**
      * Value of <code>e</code>.
-     *
+     * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * <p>
      * A mathematical constant for the base of natural logarithms, expressed as <code>e</code>.
      * </p>
@@ -219,6 +237,10 @@ package C.math
     /**
      * Sine function.
      *
+     * <p>
+     * TODO
+     * </p>
+     * 
      * <p>
      * This function shall compute the sine of their argument <code>x</code>, measured in radians.
      * </p>

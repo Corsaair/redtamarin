@@ -7,8 +7,31 @@
 package C.conio
 {
 
+    /**
+     * @name <code>&lt;conio.h&gt;</code>
+     * Console input and output.
+     *
+     * <p>
+     * Declares several useful library functions for performing
+     * console input and output from a program.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see http://en.wikipedia.org/wiki/Conio.h conio.h
+     */
+
 	/**
-	 * TODO
+	 * <p>
+     * <b>NEED MORE WORK</b>
+     * </p>
+     * 
+     * Emit a beep sound.
+     *
+     * <p>
+     * TODO
+     * </p>
 	 * 
      * @langversion 3.0
      * @playerversion AVM 0.4
@@ -20,6 +43,10 @@ package C.conio
     }
 
     /**
+     * <p>
+     * <b>NEED MORE WORK</b>
+     * </p>
+     * 
      * Turns the console/terminal <b>canonical</b> mode <code>on</code> or <code>off</code>.
      *
      * <p>
@@ -51,6 +78,10 @@ package C.conio
     public native function canonical( status:Boolean ):void;
 
     /**
+     * <p>
+     * <b>NEED MORE WORK</b>
+     * </p>
+     * 
      * Turns the console/terminal <b>echo</b> mode <code>on</code> or <code>off</code>.
      *
      * <p>
@@ -100,6 +131,10 @@ package C.conio
     //public native function getche():int;
 
     /**
+     * <p>
+     * <b>NEED MORE WORK</b>
+     * </p>
+     * 
      * Checks the console for keyboard input.
      *
      * <p>

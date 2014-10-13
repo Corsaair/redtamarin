@@ -8,6 +8,7 @@ package C.stdio
 {
     import C.errno.*;
     import C.string.*;
+    
     import flash.utils.ByteArray;
 
     /** @internal */
@@ -1339,7 +1340,7 @@ package C.stdio
     //public native function puts( s:String ):int;
 
     /**
-     * Remove a file.
+     * Remove a file or a directory.
      *
      * 
      * <p><b>note:</b></p>

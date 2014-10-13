@@ -7,6 +7,26 @@
 package C.ctype
 {
 
+    /**
+     * @name <code>&lt;ctype.h&gt;</code>
+     * Character types.
+     * 
+     * <p>
+     * C character classification is an operation provided
+     * by a group of functions in the ANSI C Standard Library
+     * for the C programming language.
+     * 
+     * These functions are used to test characters for membership
+     * in a particular class of characters, such as alphabetic characters,
+     * control characters, etc. Both single-byte, and wide characters are supported.
+     * </p>
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/ctype.h.html ctype.h
+     */
+    
     /** @internal */
     [native(cls="::avmshell::CTypeClass", methods="auto", construct="none")]
     [Inspectable(environment="none")]
@@ -290,7 +310,7 @@ package C.ctype
      *
      * @param c The character code value.
      * @return the function shall return the uppercase letter corresponding to the argument passed;
-     * otherwise, they shall return the argument unchanged..
+     * otherwise, they shall return the argument unchanged.
      *
      * @langversion 3.0
      * @playerversion AVM 0.4

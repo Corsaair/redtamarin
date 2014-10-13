@@ -6,6 +6,24 @@
 
 package C.fcntl
 {
+
+    /**
+     * @name <code>&lt;fcntl.h&gt;</code>
+     * File control options and operations.
+     *
+     * <p>
+     * Contains constructs that refer to file control,
+     * e.g. opening a file,
+     * retrieving and changing the permissions of file,
+     * locking a file for edit, etc.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/fcntl.h.html fcntl.h
+     */
+
     /** @internal */
     [native(cls="::avmshell::CFcntlClass", methods="auto", construct="none")]
     [Inspectable(environment="none")]
@@ -559,7 +577,11 @@ package C.fcntl
 
     /**
      * Create a new file or rewrite an existing one.
-     *
+     * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @example The <code>creat()</code> function shall behave as if it is implemented as follows:
      * <listing>
      * function creat( path:String, mode:int ):int
@@ -585,9 +607,13 @@ package C.fcntl
 
     /**
      * File control.
-     *
+     * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @example 
-     * http://www.beej.us/guide/bgnet/output/html/multipage/fcntlman.html
+     * 
      * <listing>
      * var s:int = socket(PF_INET, SOCK_STREAM, 0);
      * 
@@ -599,6 +625,8 @@ package C.fcntl
      * @langversion 3.0
      * @playerversion AVM 0.4
      * @playerversion POSIX +
+     *
+     * @see http://www.beej.us/guide/bgnet/output/html/multipage/fcntlman.html
      */
     [native("::avmshell::CFcntlClass::fcntl")]
     public native function fcntl( fildes:int, cmd:int, arg:int = -1 ):int;
@@ -606,6 +634,10 @@ package C.fcntl
     /**
      * Open file relative to a path.
      *
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @example Opening a File for Writing by the Owner
      * <listing>
      * var fd:int;
@@ -652,6 +684,10 @@ package C.fcntl
 
     /**
      * Open file relative to directory file descriptor.
+     *
+     * <p>
+     * TODO
+     * </p>
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4

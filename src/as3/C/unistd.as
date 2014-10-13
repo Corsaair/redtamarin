@@ -6,16 +6,40 @@
 
 package C.unistd
 {
-    
+    import shell.Program;
+
+    /**
+     * @name <code>&lt;unistd.h&gt;</code>
+     * Standard symbolic constants and types.
+     *
+     * <p>
+     * Here we provides access to the POSIX operating system API.
+     * We defines miscellaneous symbolic constants and types,
+     * and declares miscellaneous functions.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/locale.h.html unistd.h
+     */
+
     /** @internal */
     [native(cls="::avmshell::CUnistdClass", methods="auto", construct="none")]
     [Inspectable(environment="none")]
     internal class __unistd
     {
+        //access()
         public native static function get F_OK():int;
         public native static function get X_OK():int;
         public native static function get W_OK():int;
         public native static function get R_OK():int;
+
+        //lockf()
+        //F_LOCK
+        //F_TEST
+        //F_TLOCK
+        //F_ULOCK
 
         public native static function getcwd():String;
         public native static function gethostname():String;
@@ -26,8 +50,19 @@ package C.unistd
         public native static function unlink( path:String ):int;
     }
 
+
+    //_POSIX_ etc.
+    //_XOPEN_ etc.
+    //_CS_ etc.
+    //_PC_ etc.
+    //_SC_ etc.
+
     /**
      * Test for existence of file.
+     * 
+     * <p>
+     * TODO
+     * </p>
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
@@ -37,6 +72,10 @@ package C.unistd
     /**
      * Test for execute (search) permission.
      * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @langversion 3.0
      * @playerversion AVM 0.4
      */
@@ -45,6 +84,10 @@ package C.unistd
     /**
      * Test for write permission.
      * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @langversion 3.0
      * @playerversion AVM 0.4
      */
@@ -52,6 +95,10 @@ package C.unistd
 
     /**
      * Test for read permission.
+     * 
+     * <p>
+     * TODO
+     * </p>
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
@@ -62,6 +109,10 @@ package C.unistd
     /**
      * File number of <code>stdin</code>; <code>0</code>.
      * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @langversion 3.0
      * @playerversion AVM 0.4
      */
@@ -69,6 +120,10 @@ package C.unistd
 
     /**
      * File number of <code>stdout</code>; <code>1</code>.
+     * 
+     * <p>
+     * TODO
+     * </p>
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
@@ -78,6 +133,10 @@ package C.unistd
     /**
      * File number of <code>stderr</code>; <code>2</code>.
      * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @langversion 3.0
      * @playerversion AVM 0.4
      */
@@ -85,6 +144,10 @@ package C.unistd
 
 
 
+    //optarg
+    //opterr
+    //optind
+    //optopt
 
 
 
@@ -161,6 +224,8 @@ package C.unistd
     [native("::avmshell::CUnistdClass::access")]
     public native function access( path:String, mode:int ):int;
 
+    //alarm()
+
     /**
      * Change working directory.
      *
@@ -215,6 +280,8 @@ package C.unistd
      */
     [native("::avmshell::CUnistdClass::chdir")]
     public native function chdir( path:String ):int;
+
+    //chown()
     
     /**
      * Close a file descriptor.
@@ -298,6 +365,9 @@ package C.unistd
      */
     [native("::avmshell::CUnistdClass::close")]
     public native function close( fildes:int ):int;
+
+    //confstr()
+    //crypt()
 
     /**
      * Duplicate an open file descriptor.
@@ -419,6 +489,9 @@ package C.unistd
     [native("::avmshell::CUnistdClass::dup2")]
     public native function dup2( fildes:int, fildes2:int ):int;
 
+    //_exit()
+    //encrypt()
+
     /* note:
 
         e = envp, array of pointers to environment settings, is passed to the new process.
@@ -435,7 +508,11 @@ package C.unistd
 
     /**
      * Execute a file.
-     *
+     * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @langversion 3.0
      * @playerversion AVM 0.4
      */
@@ -444,7 +521,11 @@ package C.unistd
 
     /**
      * Execute a file.
-     *
+     * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @langversion 3.0
      * @playerversion AVM 0.4
      */
@@ -453,7 +534,11 @@ package C.unistd
 
     /**
      * Execute a file.
-     *
+     * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @langversion 3.0
      * @playerversion AVM 0.4
      */
@@ -462,7 +547,11 @@ package C.unistd
 
     /**
      * Execute a file.
-     *
+     * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @langversion 3.0
      * @playerversion AVM 0.4
      */
@@ -471,7 +560,11 @@ package C.unistd
 
     /**
      * Execute a file.
-     *
+     * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @langversion 3.0
      * @playerversion AVM 0.4
      */
@@ -480,16 +573,33 @@ package C.unistd
 
     /**
      * Execute a file.
-     *
+     * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @langversion 3.0
      * @playerversion AVM 0.4
      */
     [native("::avmshell::CUnistdClass::execvp")]
     public native function execvp( file:String, argv:Array ):int;
 
+    //faccessat()
+    //fchdir()
+    //fchown()
+    //fchownat()
+    //fdatasync()
+    //fexecve()
+    //fork()
+    //fpathconf()
+
     /**
      * Synchronize changes to a file.
-     *
+     * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @langversion 3.0
      * @playerversion AVM 0.4
      */
@@ -498,7 +608,11 @@ package C.unistd
 
     /**
      * Truncate a file to a specified length.
-     *
+     * 
+     * <p>
+     * TODO
+     * </p>
+     * 
      * @langversion 3.0
      * @playerversion AVM 0.4
      */
@@ -506,61 +620,38 @@ package C.unistd
     public native function ftruncate( fildes:int, length:uint ):int;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Change mode of a file.
-     * 
-     * <p><b>note:</b></p>
-     * <p>
-     * under WIN32 chmod is limited, you will only be able to set read or write at the user level
-     * </p>
-     * <code>chmod( "myfile.txt", S_WRITE );</code>
-     * <p>
-     * will be the same as
-     * </p>
-     * <code>chmod( "myfile.txt", (S_IWUSR | S_IWGRP | S_IWOTH ) );</code>
-     * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    /*public function chmod( path:String, mode:int ):int
-    {
-        return __unistd.chmod( path, mode );
-    }*/
-    
     /**
      * Get the pathname of the current working directory.
+     *
+     * <p>
+     * TODO
+     * </p>
      * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
     public function getcwd():String
     {
         return __unistd.getcwd();
     }
 
+    //getegid()
+    //geteuid()
+    //getgid()
+    //getgroups()
+    //gethostid()
+
     /**
      * Get the name of the current host.
+     *
+     * Returns <code>null</code> on error and <code>errno</code> is set accordingly.
      * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+     * <p>
+     * TODO
+     * </p>
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
     public function gethostname():String
     {
@@ -570,46 +661,81 @@ package C.unistd
     /**
      * Get the login name of the current user.
      * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+     * <p>
+     * TODO
+     * </p>
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
     public function getlogin():String
     {
         return __unistd.getlogin();
     }
 
+    //getlogin_r()
+    //getopt()
+    //getpgid()
+    //getpgrp()
+
     /**
      * Get the process ID.
      * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+     * <p>
+     * TODO
+     * </p>
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
     public function getpid():int
     {
         return __unistd.getpid();
     }
 
-    /**
-     * Make directory.
-     * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
-     */
-    /*public function mkdir( path:String ):int
-    {
-        return __unistd.mkdir( path );
-    }*/
+    //getppid()
+    //getsid()
+    //getuid()
+    //isatty()
+    //lchown()
+    //link()
+    //linkat()
+    //lockf()
+    //lseek()
+    //nice()
+    //pathconf()
+    //pause()
+    //pipe()
+    //pread()
+    //pwrite()
+    //read()
+    //readlink()
+    //readlinkat()
 
     /**
      * Remove directory.
      * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+     * <p>
+     * TODO
+     * </p>
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
     public function rmdir( path:String ):int
     {
         return __unistd.rmdir( path );
     }
+
+    //setegid()
+    //seteuid()
+    //setgid()
+    //setpgid()
+    //setpgrp()
+    //setregid()
+    //setreuid()
+    //setsid()
+    //setuid()
 
     /**
      * Suspend execution for an interval of time.
@@ -619,23 +745,53 @@ package C.unistd
      * <code>sleep()</code> in C usually use seconds, here we are using milliseconds
      * </p>
      * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+     * <p>
+     * TODO
+     * </p>
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
     public function sleep( milliseconds:uint ):void
     {
         __unistd.sleep( milliseconds );
     }
 
+    //swab()
+    //symlink()
+    //symlinkat()
+    //sync()
+    //sysconf()
+    //tcgetpgrp()
+    //tcsetpgrp()
+    //truncate()
+    //ttyname()
+    //ttyname_r()
+
     /**
-     * Remove a directory entry.
+     * Removes a file entry.
+     *
+     * <p>
+     * It can also removes symbolic link and directories,
+     * but it is preferable to use <code>rmdir()</code>
+     * as unlinking a directory is restricted to superuser
+     * in many historical implementations.
+     * </p>
      * 
-     * @playerversion AVM 0.3
-     * @since 0.3.0
+     * <p>
+     * TODO
+     * </p>
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
      */
     public function unlink( path:String ):int
     {
         return __unistd.unlink( path );
     }
+
+    //unlinkat()
+    //write()
+
 
 }

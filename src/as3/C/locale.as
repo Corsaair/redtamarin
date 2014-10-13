@@ -7,6 +7,21 @@
 package C.locale
 {
 
+    /**
+     * @name <code>&lt;local.h&gt;</code>
+     * Localization category macros.
+     *
+     * <p>
+     * Defines macros and functions implementing basic
+     * localization routines and specific information.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/locale.h.html local.h
+     */
+
     /** @internal */
     [native(cls="::avmshell::CLocaleClass", methods="auto", construct="none")]
     [Inspectable(environment="none")]
@@ -44,7 +59,21 @@ package C.locale
 
 
     //char *setlocale(int category, const char *locale);
-    //function setlocale( category:int, locale:String ):String;
+    /**
+     * <p>
+     * <b>NOT IMPLEMENTED</b>
+     * </p>
+     * 
+     * [setlocale description]
+     * @param  category [description]
+     * @param  locale   [description]
+     * @return          [description]
+     */
+    public function setlocale( category:int, locale:String ):String
+    {
+        //not implemented
+        return null;
+    }
 
     //struct lconv *localeconv(void);
     //function localeconv():lconv;
@@ -52,4 +81,13 @@ package C.locale
     //struct lconv
     //public class lconv
 
+    /**
+     * @private
+     * only here for asdocs
+     */
+    [Inspectable(environment="none")]
+    internal function dummy():void
+    {
+        //do nothing
+    }
 }

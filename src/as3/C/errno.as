@@ -8,6 +8,21 @@ package C.errno
 {
     import C.string.*;
 
+    /**
+     * @name <code>&lt;errno.h&gt;</code>
+     * System error numbers.
+     *
+     * <p>
+     * Defines macros to report error conditions
+     * through error codes stored in a static location called errno.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/errno.h.html errno.h
+     */
+
     /** @internal */
     [native(cls="::avmshell::CErrnoClass", methods="auto", construct="none")]
     [Inspectable(environment="none")]
@@ -1459,6 +1474,10 @@ package C.errno
      * Last error number.
      *
      * <p>
+     * TODO
+     * </p>
+     * 
+     * <p>
      * A value is stored in <b>errno</b> by certain library functions when they detect errors.
      * </p>
      *
@@ -1497,7 +1516,7 @@ package C.errno
      *  
      *  if( !FileSystem.exists( filename ) )
      *  {
-     *      var e:CError = new CError( errno );
+     *      var e:CError = new CError( "", errno );
      *      trace( e ); //ENOENT: No such file or directory
      *  }
      * </listing>
@@ -1537,6 +1556,10 @@ package C.errno
 
     /**
      * Error Number value.
+     *
+     * <p>
+     * TODO
+     * </p>
      * 
      * <p>
      * Designates an object that is assigned a value greater than zero on certain library errors.
@@ -1562,31 +1585,92 @@ package C.errno
     {
         private var _value:uint;
 
+        /**
+         * [ErrorNumber description]
+         *
+         * <p>
+         * TODO
+         * </p>
+         * 
+         */
         public function ErrorNumber()
         {
 
         }
 
+        /**
+         * [value description]
+         * @return [description]
+         *
+         * <p>
+         * TODO
+         * </p>
+         * 
+         */
         public function get value():int
         {
             _value = __errno._GetErrno();
             return _value;
         }
 
+        /**
+         * @private
+         */
         public function set value( num:int ):void
         {
             _value = num;
             __errno._SetErrno( _value );
         }
 
+        /**
+         * [valueOf description]
+         * @return [description]
+         *
+         * <p>
+         * TODO
+         * </p>
+         * 
+         */
         public function valueOf():int { return this.value; }
 
+        /**
+         * [toString description]
+         * @return [description]
+         *
+         * <p>
+         * TODO
+         * </p>
+         * 
+         */
         public function toString():String { return strerror( this.value ); }
+
+        /**
+         * [toErrnoString description]
+         * @return [description]
+         *
+         * <p>
+         * TODO
+         * </p>
+         * 
+         */
+        public function toErrnoString():String
+        {
+            if( __errmap[ valueOf() ] )
+            {
+                return __errmap[ valueOf() ];
+            }
+
+            return String( valueOf() );
+        }
 
     }
 
     /**
      * The CError exception allow to throws an <b>errno</b> as an Error object.
+     *
+     * <p>
+     * TODO
+     * </p>
      * 
      * @example basic usage
      * <code>
@@ -1597,20 +1681,71 @@ package C.errno
      * var result:int = rename( "hello.txt", "world.txt" );
      * if( errno > 0 )
      * {
-     *     throw new CError( errno );
+     *     throw new CError( "", errno );
      * }
      * </code>
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
      */
+    [native(cls="::avmshell::CErrorClass", instance="::avmshell::CErrorObject", methods="auto")]
     public dynamic class CError extends Error
     {
+        
+        // E262 {ReadOnly, DontDelete, DontEnum }
+        public static const length:int = 1;
+
+        private var _errorID:int;
         prototype.name = "CError";
         
-        public function CError( id:int = 0 )
+        /**
+         * [CError description]
+         * @param message [description]
+         * @param id      [description]
+         *
+         * <p>
+         * TODO
+         * </p>
+         * 
+         */
+        public function CError( message = "", id = 0 )
         {
-            super( strerror( id ), id );
+             super(message, id);
+            this.name = prototype.name;
+
+            this.apply( id );
+        }
+
+        /**
+         * [errorID description]
+         * @return [description]
+         *
+         * <p>
+         * TODO
+         * </p>
+         * 
+         */
+        public override function get errorID():int
+        {
+            return this._errorID;
+        }
+
+
+        /**
+         * [apply description]
+         * @param  id [description]
+         * @return    [description]
+         *
+         * <p>
+         * TODO
+         * </p>
+         * 
+         */
+        [cppcall]
+        public function apply( id:int = 0 ):void
+        {
+            this.message  = strerror( id );
+            this._errorID = id;
 
             if( __errmap[ id ] )
             {
@@ -1620,6 +1755,29 @@ package C.errno
             {
                 this.name = prototype.name;
             }
+        }
+
+        //ArgumentError: Error #1507: Argument filename cannot be null.
+        //CError: EOVERFLOW #84: Value too large to be stored in data type
+        //CError #666
+        /**
+         * [toString description]
+         * @return [description]
+         *
+         * <p>
+         * TODO
+         * </p>
+         * 
+         */
+        public function toString():String
+        {
+            var e:Error = this;
+            if( e.message !== "" )
+            {
+                return "CError: " + e.name + " #" + e.errorID + ": " + e.message
+            }
+
+            return e.name + " #" + e.id;
         }
     }
     

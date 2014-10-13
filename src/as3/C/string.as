@@ -9,6 +9,29 @@ package C.string
     import C.sys.stat.*;
     
     /**
+     * @name <code>&lt;string.h&gt;</code>
+     * String operations.
+     *
+     * <p>
+     * Defines string handling functions.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/string.h.html string.h
+     */
+
+    //memccpy()
+    //memchr()
+    //memcmp()
+    //memcpy()
+    //memmove()
+    //memset()
+    //stpcpy()
+    //stpncpy()
+
+    /**
      * Concatenate two or more strings.
      * 
      * @langversion 3.0
@@ -48,6 +71,11 @@ package C.string
     [native("::avmshell::CStringClass::strcoll")]
     public native function strcoll( s1:String, s2:String ):int;
 
+    //strcoll_l()
+    //strcpy()
+    //strcspn()
+    //strdup()
+
     /**
      * Accepts an error number argument errnum and returns the corresponding message string.
      * 
@@ -56,6 +84,9 @@ package C.string
      */
     [native("::avmshell::CStringClass::strerror")]
     public native function strerror( errnum:int ):String;
+
+    //strerror_l()
+    //strerror_r()
     
     /**
      * Find length of string.
@@ -235,6 +266,10 @@ package C.string
         return strcmp( s1.substr( 0, n ), s2.substr( 0, n ) );
     }
 
+    //strncpy()
+    //strndup()
+    //strnlen()
+
     /**
      * Returns an octal string describing file modes.
      *
@@ -317,7 +352,6 @@ package C.string
     }
 
     //strsignal()
-    
     //strsigno()
     
     /**
@@ -351,5 +385,8 @@ package C.string
         return s1.split( s2 );
     }
 
+    //strtok_r()
+    //strxfrm()
+    //strxfrm_l()
 
 }

@@ -8,7 +8,28 @@ package C.dirent
 {
 
     /**
+     * @name <code>&lt;dirent.h&gt;</code>
+     * Format of directory entries.
+     * 
+     * <p>
+     * Contains constructs that facilitate directory traversing.
+     * The function is not part of the C standard,
+     * but is considered "pseudo-standard"
+     * and is usually portable between platforms.
+     * </p>
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4
+     *
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/dirent.h.html dirent.h
+     */
+
+    /**
      * Close a directory stream.
+     *
+     * <p>
+     * TODO
+     * </p>
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
@@ -18,6 +39,10 @@ package C.dirent
 
     /**
      * Extract the file descriptor used by a DIR stream.
+     *
+     * <p>
+     * TODO
+     * </p>
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
@@ -27,9 +52,14 @@ package C.dirent
 
     /**
      * Open directory associated with name.
+     *
+     * <p>
+     * TODO
+     * </p>
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
+     * @playerversion POSIX +
      */
     [native("::avmshell::CDirentClass::fdopendir")]
     public native function fdopendir( fd:int ):DIR;
@@ -151,6 +181,10 @@ package C.dirent
 
     /**
      * Open directory associated with name.
+     *
+     * <p>
+     * TODO
+     * </p>
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
@@ -160,6 +194,10 @@ package C.dirent
 
     /**
      * Read a directory.
+     *
+     * <p>
+     * TODO
+     * </p>
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
@@ -169,6 +207,10 @@ package C.dirent
 
     /**
      * Reset the position of a directory stream to the beginning of a directory.
+     *
+     * <p>
+     * TODO
+     * </p>
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
@@ -178,6 +220,10 @@ package C.dirent
 
     /**
      * Set the position of a directory stream.
+     *
+     * <p>
+     * TODO
+     * </p>
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
@@ -187,6 +233,10 @@ package C.dirent
 
     /**
      * Current location of a named directory stream.
+     *
+     * <p>
+     * TODO
+     * </p>
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
