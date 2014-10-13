@@ -138,94 +138,6 @@ private:
 
 #define avmplus_ErrorNumberClass_isExactInterlock 1
 //-----------------------------------------------------------
-// C.errno::CError
-//-----------------------------------------------------------
-class CErrorObject : public avmplus::ErrorObject
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-protected:
-    friend class avmplus::CErrorClass;
-    REALLY_INLINE explicit CErrorObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ErrorObject(ivtable, delegate) {}
-private:
-    explicit CErrorObject(const CErrorObject&); // unimplemented
-    void operator=(const CErrorObject&); // unimplemented
-};
-
-#define avmplus_CErrorObject_isExactInterlock 1
-//-----------------------------------------------------------
-// C.errno::CError$
-//-----------------------------------------------------------
-class CErrorClass : public avmplus::ClassClosure
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
-public:
-    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-public:
-    inline GCRef<avmplus::CErrorObject> constructObject(int32_t arg1)
-    {
-        avmplus::AvmCore* const core = ((avmplus::AvmCore*)(this->core()));
-        avmplus::Atom args[2] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), core->intToAtom(arg1) };
-        avmplus::Atom const result = this->construct(1, args);
-        return GCRef<avmplus::CErrorObject>((avmplus::CErrorObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    inline GCRef<avmplus::CErrorObject> constructObject()
-    {
-        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
-        avmplus::Atom const result = this->construct(0, args);
-        return GCRef<avmplus::CErrorObject>((avmplus::CErrorObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-public:
-    REALLY_INLINE bool isType(avmplus::Atom value)
-    {
-        return isTypeImpl(value);
-    }
-    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
-    {
-        return isTypeImpl(value->atom());
-    }
-    REALLY_INLINE GCRef<avmplus::CErrorObject> asType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = asTypeImpl(value);
-        return GCRef<avmplus::CErrorObject>((avmplus::CErrorObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::CErrorObject> asType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = asTypeImpl(value->atom());
-        return GCRef<avmplus::CErrorObject>((avmplus::CErrorObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::CErrorObject> coerceToType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value);
-        return GCRef<avmplus::CErrorObject>((avmplus::CErrorObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::CErrorObject> coerceToType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value->atom());
-        return GCRef<avmplus::CErrorObject>((avmplus::CErrorObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-protected:
-    inline explicit CErrorClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
-private:
-    explicit CErrorClass(const CErrorClass&); // unimplemented
-    void operator=(const CErrorClass&); // unimplemented
-};
-
-#define avmplus_CErrorClass_isExactInterlock 1
-//-----------------------------------------------------------
 // C.limits::__limits
 //-----------------------------------------------------------
 class __limitsObject : public avmplus::ScriptObject
@@ -351,6 +263,341 @@ private:
 };
 
 #define avmplus___timeObject_isExactInterlock 1
+//-----------------------------------------------------------
+// C.time::tm
+//-----------------------------------------------------------
+class tmObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+public:
+    REALLY_INLINE int32_t get_tm_sec() const { return m_slots_tmObject.m_tm_sec; }
+    REALLY_INLINE void set_tm_sec(int32_t newVal) { m_slots_tmObject.m_tm_sec = newVal; }
+public:
+    REALLY_INLINE int32_t get_tm_min() const { return m_slots_tmObject.m_tm_min; }
+    REALLY_INLINE void set_tm_min(int32_t newVal) { m_slots_tmObject.m_tm_min = newVal; }
+public:
+    REALLY_INLINE int32_t get_tm_hour() const { return m_slots_tmObject.m_tm_hour; }
+    REALLY_INLINE void set_tm_hour(int32_t newVal) { m_slots_tmObject.m_tm_hour = newVal; }
+public:
+    REALLY_INLINE int32_t get_tm_mday() const { return m_slots_tmObject.m_tm_mday; }
+    REALLY_INLINE void set_tm_mday(int32_t newVal) { m_slots_tmObject.m_tm_mday = newVal; }
+public:
+    REALLY_INLINE int32_t get_tm_mon() const { return m_slots_tmObject.m_tm_mon; }
+    REALLY_INLINE void set_tm_mon(int32_t newVal) { m_slots_tmObject.m_tm_mon = newVal; }
+public:
+    REALLY_INLINE int32_t get_tm_year() const { return m_slots_tmObject.m_tm_year; }
+    REALLY_INLINE void set_tm_year(int32_t newVal) { m_slots_tmObject.m_tm_year = newVal; }
+public:
+    REALLY_INLINE int32_t get_tm_wday() const { return m_slots_tmObject.m_tm_wday; }
+    REALLY_INLINE void set_tm_wday(int32_t newVal) { m_slots_tmObject.m_tm_wday = newVal; }
+public:
+    REALLY_INLINE int32_t get_tm_yday() const { return m_slots_tmObject.m_tm_yday; }
+    REALLY_INLINE void set_tm_yday(int32_t newVal) { m_slots_tmObject.m_tm_yday = newVal; }
+public:
+    REALLY_INLINE int32_t get_tm_isdst() const { return m_slots_tmObject.m_tm_isdst; }
+    REALLY_INLINE void set_tm_isdst(int32_t newVal) { m_slots_tmObject.m_tm_isdst = newVal; }
+private:
+    avmplus::NativeID::avmplus_tmObjectSlots m_slots_tmObject;
+protected:
+    friend class avmplus::tmClass;
+    REALLY_INLINE explicit tmObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit tmObject(const tmObject&); // unimplemented
+    void operator=(const tmObject&); // unimplemented
+};
+
+#define avmplus_tmObject_isExactInterlock 1
+//-----------------------------------------------------------
+// C.time::tm$
+//-----------------------------------------------------------
+class tmClass : public avmplus::ClassClosure
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
+public:
+    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+public:
+    inline GCRef<avmplus::tmObject> constructObject()
+    {
+        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(0, args);
+        return GCRef<avmplus::tmObject>((avmplus::tmObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::tmObject> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::tmObject>((avmplus::tmObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::tmObject> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::tmObject>((avmplus::tmObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::tmObject> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::tmObject>((avmplus::tmObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::tmObject> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::tmObject>((avmplus::tmObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    inline explicit tmClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit tmClass(const tmClass&); // unimplemented
+    void operator=(const tmClass&); // unimplemented
+};
+
+#define avmplus_tmClass_isExactInterlock 1
+//-----------------------------------------------------------
+// C.time::timespec
+//-----------------------------------------------------------
+class timespecObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+public:
+    REALLY_INLINE int32_t get_tv_sec() const { return m_slots_timespecObject.m_tv_sec; }
+    REALLY_INLINE void set_tv_sec(int32_t newVal) { m_slots_timespecObject.m_tv_sec = newVal; }
+public:
+    REALLY_INLINE double get_tv_nsec() const { return m_slots_timespecObject.m_tv_nsec; }
+    REALLY_INLINE void set_tv_nsec(double newVal) { m_slots_timespecObject.m_tv_nsec = newVal; }
+private:
+    avmplus::NativeID::avmplus_timespecObjectSlots m_slots_timespecObject;
+protected:
+    friend class avmplus::timespecClass;
+    REALLY_INLINE explicit timespecObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit timespecObject(const timespecObject&); // unimplemented
+    void operator=(const timespecObject&); // unimplemented
+};
+
+#define avmplus_timespecObject_isExactInterlock 1
+//-----------------------------------------------------------
+// C.time::timespec$
+//-----------------------------------------------------------
+class timespecClass : public avmplus::ClassClosure
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
+public:
+    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+public:
+    inline GCRef<avmplus::timespecObject> constructObject(int32_t arg1, double arg2)
+    {
+        avmplus::AvmCore* const core = ((avmplus::AvmCore*)(this->core()));
+        avmplus::Atom args[3] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), core->intToAtom(arg1), core->doubleToAtom(arg2) };
+        avmplus::Atom const result = this->construct(2, args);
+        return GCRef<avmplus::timespecObject>((avmplus::timespecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    inline GCRef<avmplus::timespecObject> constructObject(int32_t arg1)
+    {
+        avmplus::AvmCore* const core = ((avmplus::AvmCore*)(this->core()));
+        avmplus::Atom args[2] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), core->intToAtom(arg1) };
+        avmplus::Atom const result = this->construct(1, args);
+        return GCRef<avmplus::timespecObject>((avmplus::timespecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    inline GCRef<avmplus::timespecObject> constructObject()
+    {
+        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(0, args);
+        return GCRef<avmplus::timespecObject>((avmplus::timespecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::timespecObject> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::timespecObject>((avmplus::timespecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::timespecObject> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::timespecObject>((avmplus::timespecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::timespecObject> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::timespecObject>((avmplus::timespecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::timespecObject> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::timespecObject>((avmplus::timespecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    inline explicit timespecClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit timespecClass(const timespecClass&); // unimplemented
+    void operator=(const timespecClass&); // unimplemented
+};
+
+#define avmplus_timespecClass_isExactInterlock 1
+//-----------------------------------------------------------
+// C.time::itimerspec
+//-----------------------------------------------------------
+class itimerspecObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+public:
+    REALLY_INLINE avmplus::timespecObject* get_it_interval() const { return m_slots_itimerspecObject.m_it_interval; }
+    REALLY_INLINE void set_it_interval(avmplus::timespecObject* newVal) { m_slots_itimerspecObject.m_it_interval = newVal; }
+public:
+    REALLY_INLINE avmplus::timespecObject* get_it_value() const { return m_slots_itimerspecObject.m_it_value; }
+    REALLY_INLINE void set_it_value(avmplus::timespecObject* newVal) { m_slots_itimerspecObject.m_it_value = newVal; }
+private:
+    avmplus::NativeID::avmplus_itimerspecObjectSlots m_slots_itimerspecObject;
+protected:
+    friend class avmplus::itimerspecClass;
+    REALLY_INLINE explicit itimerspecObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit itimerspecObject(const itimerspecObject&); // unimplemented
+    void operator=(const itimerspecObject&); // unimplemented
+};
+
+#define avmplus_itimerspecObject_isExactInterlock 1
+//-----------------------------------------------------------
+// C.time::itimerspec$
+//-----------------------------------------------------------
+class itimerspecClass : public avmplus::ClassClosure
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
+public:
+    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+public:
+    inline GCRef<avmplus::itimerspecObject> constructObject(GCRef<avmplus::timespecObject> arg1, GCRef<avmplus::timespecObject> arg2)
+    {
+        avmplus::Atom args[3] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), arg1.reinterpretCast<avmplus::ScriptObject>()->atom(), arg2.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(2, args);
+        return GCRef<avmplus::itimerspecObject>((avmplus::itimerspecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    inline GCRef<avmplus::itimerspecObject> constructObject(GCRef<avmplus::timespecObject> arg1)
+    {
+        avmplus::Atom args[2] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), arg1.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(1, args);
+        return GCRef<avmplus::itimerspecObject>((avmplus::itimerspecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    inline GCRef<avmplus::itimerspecObject> constructObject()
+    {
+        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(0, args);
+        return GCRef<avmplus::itimerspecObject>((avmplus::itimerspecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::itimerspecObject> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::itimerspecObject>((avmplus::itimerspecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::itimerspecObject> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::itimerspecObject>((avmplus::itimerspecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::itimerspecObject> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::itimerspecObject>((avmplus::itimerspecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::itimerspecObject> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::itimerspecObject>((avmplus::itimerspecObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    inline explicit itimerspecClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit itimerspecClass(const itimerspecClass&); // unimplemented
+    void operator=(const itimerspecClass&); // unimplemented
+};
+
+#define avmplus_itimerspecClass_isExactInterlock 1
+//-----------------------------------------------------------
+// C.arpa.inet::__inet
+//-----------------------------------------------------------
+class __inetObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmshell::CArpaInetClass;
+    REALLY_INLINE explicit __inetObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit __inetObject(const __inetObject&); // unimplemented
+    void operator=(const __inetObject&); // unimplemented
+};
+
+#define avmplus___inetObject_isExactInterlock 1
 //-----------------------------------------------------------
 // C.fcntl::__fcntl
 //-----------------------------------------------------------
@@ -556,87 +803,6 @@ private:
 
 #define avmplus_serventClass_isExactInterlock 1
 //-----------------------------------------------------------
-// C.netdb::addrinfo
-//-----------------------------------------------------------
-class addrinfoObject : public avmplus::ScriptObject
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-protected:
-    friend class avmplus::addrinfoClass;
-    REALLY_INLINE explicit addrinfoObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
-private:
-    explicit addrinfoObject(const addrinfoObject&); // unimplemented
-    void operator=(const addrinfoObject&); // unimplemented
-};
-
-#define avmplus_addrinfoObject_isExactInterlock 1
-//-----------------------------------------------------------
-// C.netdb::addrinfo$
-//-----------------------------------------------------------
-class addrinfoClass : public avmplus::ClassClosure
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
-public:
-    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-public:
-    inline GCRef<avmplus::addrinfoObject> constructObject()
-    {
-        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
-        avmplus::Atom const result = this->construct(0, args);
-        return GCRef<avmplus::addrinfoObject>((avmplus::addrinfoObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-public:
-    REALLY_INLINE bool isType(avmplus::Atom value)
-    {
-        return isTypeImpl(value);
-    }
-    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
-    {
-        return isTypeImpl(value->atom());
-    }
-    REALLY_INLINE GCRef<avmplus::addrinfoObject> asType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = asTypeImpl(value);
-        return GCRef<avmplus::addrinfoObject>((avmplus::addrinfoObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::addrinfoObject> asType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = asTypeImpl(value->atom());
-        return GCRef<avmplus::addrinfoObject>((avmplus::addrinfoObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::addrinfoObject> coerceToType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value);
-        return GCRef<avmplus::addrinfoObject>((avmplus::addrinfoObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::addrinfoObject> coerceToType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value->atom());
-        return GCRef<avmplus::addrinfoObject>((avmplus::addrinfoObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-protected:
-    inline explicit addrinfoClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
-private:
-    explicit addrinfoClass(const addrinfoClass&); // unimplemented
-    void operator=(const addrinfoClass&); // unimplemented
-};
-
-#define avmplus_addrinfoClass_isExactInterlock 1
-//-----------------------------------------------------------
 // C.netinet::__netinet
 //-----------------------------------------------------------
 class __netinetObject : public avmplus::ScriptObject
@@ -658,368 +824,6 @@ private:
 
 #define avmplus___netinetObject_isExactInterlock 1
 //-----------------------------------------------------------
-// C.netinet::in_addr
-//-----------------------------------------------------------
-class in_addrObject : public avmplus::ScriptObject
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-public:
-    REALLY_INLINE uint32_t get_s_addr() const { return m_slots_in_addrObject.m_s_addr; }
-    REALLY_INLINE void set_s_addr(uint32_t newVal) { m_slots_in_addrObject.m_s_addr = newVal; }
-private:
-    avmplus::NativeID::avmplus_in_addrObjectSlots m_slots_in_addrObject;
-protected:
-    friend class avmplus::in_addrClass;
-    REALLY_INLINE explicit in_addrObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
-private:
-    explicit in_addrObject(const in_addrObject&); // unimplemented
-    void operator=(const in_addrObject&); // unimplemented
-};
-
-#define avmplus_in_addrObject_isExactInterlock 1
-//-----------------------------------------------------------
-// C.netinet::in_addr$
-//-----------------------------------------------------------
-class in_addrClass : public avmplus::ClassClosure
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
-public:
-    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-public:
-    inline GCRef<avmplus::in_addrObject> constructObject()
-    {
-        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
-        avmplus::Atom const result = this->construct(0, args);
-        return GCRef<avmplus::in_addrObject>((avmplus::in_addrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-public:
-    REALLY_INLINE bool isType(avmplus::Atom value)
-    {
-        return isTypeImpl(value);
-    }
-    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
-    {
-        return isTypeImpl(value->atom());
-    }
-    REALLY_INLINE GCRef<avmplus::in_addrObject> asType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = asTypeImpl(value);
-        return GCRef<avmplus::in_addrObject>((avmplus::in_addrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::in_addrObject> asType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = asTypeImpl(value->atom());
-        return GCRef<avmplus::in_addrObject>((avmplus::in_addrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::in_addrObject> coerceToType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value);
-        return GCRef<avmplus::in_addrObject>((avmplus::in_addrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::in_addrObject> coerceToType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value->atom());
-        return GCRef<avmplus::in_addrObject>((avmplus::in_addrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-protected:
-    inline explicit in_addrClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
-private:
-    explicit in_addrClass(const in_addrClass&); // unimplemented
-    void operator=(const in_addrClass&); // unimplemented
-};
-
-#define avmplus_in_addrClass_isExactInterlock 1
-//-----------------------------------------------------------
-// C.netinet::sockaddr_in
-//-----------------------------------------------------------
-class sockaddr_inObject : public avmplus::ScriptObject
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-public:
-    REALLY_INLINE uint32_t get_sin_family() const { return m_slots_sockaddr_inObject.m_sin_family; }
-    REALLY_INLINE void set_sin_family(uint32_t newVal) { m_slots_sockaddr_inObject.m_sin_family = newVal; }
-public:
-    REALLY_INLINE uint32_t get_sin_port() const { return m_slots_sockaddr_inObject.m_sin_port; }
-    REALLY_INLINE void set_sin_port(uint32_t newVal) { m_slots_sockaddr_inObject.m_sin_port = newVal; }
-public:
-    REALLY_INLINE avmplus::in_addrObject* get_sin_addr() const { return m_slots_sockaddr_inObject.m_sin_addr; }
-    REALLY_INLINE void set_sin_addr(avmplus::in_addrObject* newVal) { m_slots_sockaddr_inObject.m_sin_addr = newVal; }
-private:
-    avmplus::NativeID::avmplus_sockaddr_inObjectSlots m_slots_sockaddr_inObject;
-protected:
-    friend class avmplus::sockaddr_inClass;
-    REALLY_INLINE explicit sockaddr_inObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
-private:
-    explicit sockaddr_inObject(const sockaddr_inObject&); // unimplemented
-    void operator=(const sockaddr_inObject&); // unimplemented
-};
-
-#define avmplus_sockaddr_inObject_isExactInterlock 1
-//-----------------------------------------------------------
-// C.netinet::sockaddr_in$
-//-----------------------------------------------------------
-class sockaddr_inClass : public avmplus::ClassClosure
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
-public:
-    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-public:
-    inline GCRef<avmplus::sockaddr_inObject> constructObject()
-    {
-        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
-        avmplus::Atom const result = this->construct(0, args);
-        return GCRef<avmplus::sockaddr_inObject>((avmplus::sockaddr_inObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-public:
-    REALLY_INLINE bool isType(avmplus::Atom value)
-    {
-        return isTypeImpl(value);
-    }
-    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
-    {
-        return isTypeImpl(value->atom());
-    }
-    REALLY_INLINE GCRef<avmplus::sockaddr_inObject> asType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = asTypeImpl(value);
-        return GCRef<avmplus::sockaddr_inObject>((avmplus::sockaddr_inObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::sockaddr_inObject> asType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = asTypeImpl(value->atom());
-        return GCRef<avmplus::sockaddr_inObject>((avmplus::sockaddr_inObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::sockaddr_inObject> coerceToType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value);
-        return GCRef<avmplus::sockaddr_inObject>((avmplus::sockaddr_inObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::sockaddr_inObject> coerceToType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value->atom());
-        return GCRef<avmplus::sockaddr_inObject>((avmplus::sockaddr_inObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-protected:
-    inline explicit sockaddr_inClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
-private:
-    explicit sockaddr_inClass(const sockaddr_inClass&); // unimplemented
-    void operator=(const sockaddr_inClass&); // unimplemented
-};
-
-#define avmplus_sockaddr_inClass_isExactInterlock 1
-//-----------------------------------------------------------
-// C.netinet::in6_addr
-//-----------------------------------------------------------
-class in6_addrObject : public avmplus::ScriptObject
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-public:
-    REALLY_INLINE avmplus::UIntVectorObject* get_s6_addr() const { return m_slots_in6_addrObject.m_s6_addr; }
-    REALLY_INLINE void set_s6_addr(avmplus::UIntVectorObject* newVal) { m_slots_in6_addrObject.m_s6_addr = newVal; }
-private:
-    avmplus::NativeID::avmplus_in6_addrObjectSlots m_slots_in6_addrObject;
-protected:
-    friend class avmplus::in6_addrClass;
-    REALLY_INLINE explicit in6_addrObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
-private:
-    explicit in6_addrObject(const in6_addrObject&); // unimplemented
-    void operator=(const in6_addrObject&); // unimplemented
-};
-
-#define avmplus_in6_addrObject_isExactInterlock 1
-//-----------------------------------------------------------
-// C.netinet::in6_addr$
-//-----------------------------------------------------------
-class in6_addrClass : public avmplus::ClassClosure
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
-public:
-    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-public:
-    inline GCRef<avmplus::in6_addrObject> constructObject()
-    {
-        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
-        avmplus::Atom const result = this->construct(0, args);
-        return GCRef<avmplus::in6_addrObject>((avmplus::in6_addrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-public:
-    REALLY_INLINE bool isType(avmplus::Atom value)
-    {
-        return isTypeImpl(value);
-    }
-    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
-    {
-        return isTypeImpl(value->atom());
-    }
-    REALLY_INLINE GCRef<avmplus::in6_addrObject> asType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = asTypeImpl(value);
-        return GCRef<avmplus::in6_addrObject>((avmplus::in6_addrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::in6_addrObject> asType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = asTypeImpl(value->atom());
-        return GCRef<avmplus::in6_addrObject>((avmplus::in6_addrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::in6_addrObject> coerceToType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value);
-        return GCRef<avmplus::in6_addrObject>((avmplus::in6_addrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::in6_addrObject> coerceToType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value->atom());
-        return GCRef<avmplus::in6_addrObject>((avmplus::in6_addrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-protected:
-    inline explicit in6_addrClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
-private:
-    explicit in6_addrClass(const in6_addrClass&); // unimplemented
-    void operator=(const in6_addrClass&); // unimplemented
-};
-
-#define avmplus_in6_addrClass_isExactInterlock 1
-//-----------------------------------------------------------
-// C.netinet::sockaddr_in6
-//-----------------------------------------------------------
-class sockaddr_in6Object : public avmplus::ScriptObject
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-public:
-    REALLY_INLINE uint32_t get_sin6_family() const { return m_slots_sockaddr_in6Object.m_sin6_family; }
-    REALLY_INLINE void set_sin6_family(uint32_t newVal) { m_slots_sockaddr_in6Object.m_sin6_family = newVal; }
-public:
-    REALLY_INLINE uint32_t get_sin6_port() const { return m_slots_sockaddr_in6Object.m_sin6_port; }
-    REALLY_INLINE void set_sin6_port(uint32_t newVal) { m_slots_sockaddr_in6Object.m_sin6_port = newVal; }
-public:
-    REALLY_INLINE uint32_t get_sin6_flowinfo() const { return m_slots_sockaddr_in6Object.m_sin6_flowinfo; }
-    REALLY_INLINE void set_sin6_flowinfo(uint32_t newVal) { m_slots_sockaddr_in6Object.m_sin6_flowinfo = newVal; }
-public:
-    REALLY_INLINE uint32_t get_sin6_scope_id() const { return m_slots_sockaddr_in6Object.m_sin6_scope_id; }
-    REALLY_INLINE void set_sin6_scope_id(uint32_t newVal) { m_slots_sockaddr_in6Object.m_sin6_scope_id = newVal; }
-public:
-    REALLY_INLINE avmplus::in6_addrObject* get_sin6_addr() const { return m_slots_sockaddr_in6Object.m_sin6_addr; }
-    REALLY_INLINE void set_sin6_addr(avmplus::in6_addrObject* newVal) { m_slots_sockaddr_in6Object.m_sin6_addr = newVal; }
-private:
-    avmplus::NativeID::avmplus_sockaddr_in6ObjectSlots m_slots_sockaddr_in6Object;
-protected:
-    friend class avmplus::sockaddr_in6Class;
-    REALLY_INLINE explicit sockaddr_in6Object(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
-private:
-    explicit sockaddr_in6Object(const sockaddr_in6Object&); // unimplemented
-    void operator=(const sockaddr_in6Object&); // unimplemented
-};
-
-#define avmplus_sockaddr_in6Object_isExactInterlock 1
-//-----------------------------------------------------------
-// C.netinet::sockaddr_in6$
-//-----------------------------------------------------------
-class sockaddr_in6Class : public avmplus::ClassClosure
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
-public:
-    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-public:
-    inline GCRef<avmplus::sockaddr_in6Object> constructObject()
-    {
-        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
-        avmplus::Atom const result = this->construct(0, args);
-        return GCRef<avmplus::sockaddr_in6Object>((avmplus::sockaddr_in6Object*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-public:
-    REALLY_INLINE bool isType(avmplus::Atom value)
-    {
-        return isTypeImpl(value);
-    }
-    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
-    {
-        return isTypeImpl(value->atom());
-    }
-    REALLY_INLINE GCRef<avmplus::sockaddr_in6Object> asType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = asTypeImpl(value);
-        return GCRef<avmplus::sockaddr_in6Object>((avmplus::sockaddr_in6Object*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::sockaddr_in6Object> asType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = asTypeImpl(value->atom());
-        return GCRef<avmplus::sockaddr_in6Object>((avmplus::sockaddr_in6Object*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::sockaddr_in6Object> coerceToType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value);
-        return GCRef<avmplus::sockaddr_in6Object>((avmplus::sockaddr_in6Object*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::sockaddr_in6Object> coerceToType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value->atom());
-        return GCRef<avmplus::sockaddr_in6Object>((avmplus::sockaddr_in6Object*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-protected:
-    inline explicit sockaddr_in6Class(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
-private:
-    explicit sockaddr_in6Class(const sockaddr_in6Class&); // unimplemented
-    void operator=(const sockaddr_in6Class&); // unimplemented
-};
-
-#define avmplus_sockaddr_in6Class_isExactInterlock 1
-//-----------------------------------------------------------
 // C.netinet::ipv6_mreq
 //-----------------------------------------------------------
 class ipv6_mreqObject : public avmplus::ScriptObject
@@ -1035,8 +839,8 @@ public:
     REALLY_INLINE uint32_t get_ipv6mr_interface() const { return m_slots_ipv6_mreqObject.m_ipv6mr_interface; }
     REALLY_INLINE void set_ipv6mr_interface(uint32_t newVal) { m_slots_ipv6_mreqObject.m_ipv6mr_interface = newVal; }
 public:
-    REALLY_INLINE avmplus::in6_addrObject* get_ipv6mr_multiaddr() const { return m_slots_ipv6_mreqObject.m_ipv6mr_multiaddr; }
-    REALLY_INLINE void set_ipv6mr_multiaddr(avmplus::in6_addrObject* newVal) { m_slots_ipv6_mreqObject.m_ipv6mr_multiaddr = newVal; }
+    REALLY_INLINE avmshell::CIn6_AddrObject* get_ipv6mr_multiaddr() const { return m_slots_ipv6_mreqObject.m_ipv6mr_multiaddr; }
+    REALLY_INLINE void set_ipv6mr_multiaddr(avmshell::CIn6_AddrObject* newVal) { m_slots_ipv6_mreqObject.m_ipv6mr_multiaddr = newVal; }
 private:
     avmplus::NativeID::avmplus_ipv6_mreqObjectSlots m_slots_ipv6_mreqObject;
 protected:
@@ -1063,6 +867,19 @@ public:
 private:
     AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
 public:
+    inline GCRef<avmplus::ipv6_mreqObject> constructObject(GCRef<avmshell::CIn6_AddrObject> arg1, uint32_t arg2)
+    {
+        avmplus::AvmCore* const core = ((avmplus::AvmCore*)(this->core()));
+        avmplus::Atom args[3] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), arg1.reinterpretCast<avmplus::ScriptObject>()->atom(), core->uintToAtom(arg2) };
+        avmplus::Atom const result = this->construct(2, args);
+        return GCRef<avmplus::ipv6_mreqObject>((avmplus::ipv6_mreqObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    inline GCRef<avmplus::ipv6_mreqObject> constructObject(GCRef<avmshell::CIn6_AddrObject> arg1)
+    {
+        avmplus::Atom args[2] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), arg1.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(1, args);
+        return GCRef<avmplus::ipv6_mreqObject>((avmplus::ipv6_mreqObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
     inline GCRef<avmplus::ipv6_mreqObject> constructObject()
     {
         avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
@@ -1109,6 +926,27 @@ private:
 
 #define avmplus_ipv6_mreqClass_isExactInterlock 1
 //-----------------------------------------------------------
+// C.sys.select::__select
+//-----------------------------------------------------------
+class __selectObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmshell::CSysSelectClass;
+    REALLY_INLINE explicit __selectObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit __selectObject(const __selectObject&); // unimplemented
+    void operator=(const __selectObject&); // unimplemented
+};
+
+#define avmplus___selectObject_isExactInterlock 1
+//-----------------------------------------------------------
 // C.sys.socket::__socket
 //-----------------------------------------------------------
 class __socketObject : public avmplus::ScriptObject
@@ -1129,176 +967,6 @@ private:
 };
 
 #define avmplus___socketObject_isExactInterlock 1
-//-----------------------------------------------------------
-// C.sys.socket::sockd
-//-----------------------------------------------------------
-class sockdObject : public avmplus::ScriptObject
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-protected:
-    friend class avmplus::sockdClass;
-    REALLY_INLINE explicit sockdObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
-private:
-    explicit sockdObject(const sockdObject&); // unimplemented
-    void operator=(const sockdObject&); // unimplemented
-};
-
-#define avmplus_sockdObject_isExactInterlock 1
-//-----------------------------------------------------------
-// C.sys.socket::sockd$
-//-----------------------------------------------------------
-class sockdClass : public avmplus::ClassClosure
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
-public:
-    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-public:
-    inline GCRef<avmplus::sockdObject> constructObject()
-    {
-        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
-        avmplus::Atom const result = this->construct(0, args);
-        return GCRef<avmplus::sockdObject>((avmplus::sockdObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-public:
-    REALLY_INLINE bool isType(avmplus::Atom value)
-    {
-        return isTypeImpl(value);
-    }
-    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
-    {
-        return isTypeImpl(value->atom());
-    }
-    REALLY_INLINE GCRef<avmplus::sockdObject> asType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = asTypeImpl(value);
-        return GCRef<avmplus::sockdObject>((avmplus::sockdObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::sockdObject> asType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = asTypeImpl(value->atom());
-        return GCRef<avmplus::sockdObject>((avmplus::sockdObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::sockdObject> coerceToType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value);
-        return GCRef<avmplus::sockdObject>((avmplus::sockdObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::sockdObject> coerceToType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value->atom());
-        return GCRef<avmplus::sockdObject>((avmplus::sockdObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-protected:
-    inline explicit sockdClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
-private:
-    explicit sockdClass(const sockdClass&); // unimplemented
-    void operator=(const sockdClass&); // unimplemented
-};
-
-#define avmplus_sockdClass_isExactInterlock 1
-//-----------------------------------------------------------
-// C.sys.socket::sockaddr
-//-----------------------------------------------------------
-class sockaddrObject : public avmplus::ScriptObject
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-public:
-    REALLY_INLINE uint32_t get_sa_family() const { return m_slots_sockaddrObject.m_sa_family; }
-    REALLY_INLINE void set_sa_family(uint32_t newVal) { m_slots_sockaddrObject.m_sa_family = newVal; }
-public:
-    REALLY_INLINE avmplus::String* get_sa_data() const { return m_slots_sockaddrObject.m_sa_data; }
-    REALLY_INLINE void set_sa_data(avmplus::String* newVal) { m_slots_sockaddrObject.m_sa_data = newVal; }
-private:
-    avmplus::NativeID::avmplus_sockaddrObjectSlots m_slots_sockaddrObject;
-protected:
-    friend class avmplus::sockaddrClass;
-    REALLY_INLINE explicit sockaddrObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
-private:
-    explicit sockaddrObject(const sockaddrObject&); // unimplemented
-    void operator=(const sockaddrObject&); // unimplemented
-};
-
-#define avmplus_sockaddrObject_isExactInterlock 1
-//-----------------------------------------------------------
-// C.sys.socket::sockaddr$
-//-----------------------------------------------------------
-class sockaddrClass : public avmplus::ClassClosure
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
-public:
-    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-public:
-    inline GCRef<avmplus::sockaddrObject> constructObject()
-    {
-        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
-        avmplus::Atom const result = this->construct(0, args);
-        return GCRef<avmplus::sockaddrObject>((avmplus::sockaddrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-public:
-    REALLY_INLINE bool isType(avmplus::Atom value)
-    {
-        return isTypeImpl(value);
-    }
-    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
-    {
-        return isTypeImpl(value->atom());
-    }
-    REALLY_INLINE GCRef<avmplus::sockaddrObject> asType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = asTypeImpl(value);
-        return GCRef<avmplus::sockaddrObject>((avmplus::sockaddrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::sockaddrObject> asType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = asTypeImpl(value->atom());
-        return GCRef<avmplus::sockaddrObject>((avmplus::sockaddrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::sockaddrObject> coerceToType(avmplus::Atom value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value);
-        return GCRef<avmplus::sockaddrObject>((avmplus::sockaddrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-    REALLY_INLINE GCRef<avmplus::sockaddrObject> coerceToType(GCRef<avmplus::ScriptObject> value)
-    {
-        avmplus::Atom const result = coerceToTypeImpl(value->atom());
-        return GCRef<avmplus::sockaddrObject>((avmplus::sockaddrObject*)(avmplus::AvmCore::atomToScriptObject(result)));
-    }
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-protected:
-    inline explicit sockaddrClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
-private:
-    explicit sockaddrClass(const sockaddrClass&); // unimplemented
-    void operator=(const sockaddrClass&); // unimplemented
-};
-
-#define avmplus_sockaddrClass_isExactInterlock 1
 //-----------------------------------------------------------
 // C.sys.socket::sockaddr_storage
 //-----------------------------------------------------------
@@ -1510,6 +1178,134 @@ private:
 };
 
 #define avmplus___statObject_isExactInterlock 1
+//-----------------------------------------------------------
+// C.sys.utsname::utsname
+//-----------------------------------------------------------
+class utsnameObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+public:
+    REALLY_INLINE avmplus::String* get_sysname() const { return m_slots_utsnameObject.m_sysname; }
+    REALLY_INLINE void set_sysname(avmplus::String* newVal) { m_slots_utsnameObject.m_sysname = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_nodename() const { return m_slots_utsnameObject.m_nodename; }
+    REALLY_INLINE void set_nodename(avmplus::String* newVal) { m_slots_utsnameObject.m_nodename = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_release() const { return m_slots_utsnameObject.m_release; }
+    REALLY_INLINE void set_release(avmplus::String* newVal) { m_slots_utsnameObject.m_release = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_version() const { return m_slots_utsnameObject.m_version; }
+    REALLY_INLINE void set_version(avmplus::String* newVal) { m_slots_utsnameObject.m_version = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_machine() const { return m_slots_utsnameObject.m_machine; }
+    REALLY_INLINE void set_machine(avmplus::String* newVal) { m_slots_utsnameObject.m_machine = newVal; }
+private:
+    avmplus::NativeID::avmplus_utsnameObjectSlots m_slots_utsnameObject;
+protected:
+    friend class avmplus::utsnameClass;
+    REALLY_INLINE explicit utsnameObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit utsnameObject(const utsnameObject&); // unimplemented
+    void operator=(const utsnameObject&); // unimplemented
+};
+
+#define avmplus_utsnameObject_isExactInterlock 1
+//-----------------------------------------------------------
+// C.sys.utsname::utsname$
+//-----------------------------------------------------------
+class utsnameClass : public avmplus::ClassClosure
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
+public:
+    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+public:
+    inline GCRef<avmplus::utsnameObject> constructObject(GCRef<avmplus::String> arg1, GCRef<avmplus::String> arg2, GCRef<avmplus::String> arg3, GCRef<avmplus::String> arg4, GCRef<avmplus::String> arg5)
+    {
+        avmplus::Atom args[6] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), arg1->atom(), arg2->atom(), arg3->atom(), arg4->atom(), arg5->atom() };
+        avmplus::Atom const result = this->construct(5, args);
+        return GCRef<avmplus::utsnameObject>((avmplus::utsnameObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    inline GCRef<avmplus::utsnameObject> constructObject(GCRef<avmplus::String> arg1, GCRef<avmplus::String> arg2, GCRef<avmplus::String> arg3, GCRef<avmplus::String> arg4)
+    {
+        avmplus::Atom args[5] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), arg1->atom(), arg2->atom(), arg3->atom(), arg4->atom() };
+        avmplus::Atom const result = this->construct(4, args);
+        return GCRef<avmplus::utsnameObject>((avmplus::utsnameObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    inline GCRef<avmplus::utsnameObject> constructObject(GCRef<avmplus::String> arg1, GCRef<avmplus::String> arg2, GCRef<avmplus::String> arg3)
+    {
+        avmplus::Atom args[4] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), arg1->atom(), arg2->atom(), arg3->atom() };
+        avmplus::Atom const result = this->construct(3, args);
+        return GCRef<avmplus::utsnameObject>((avmplus::utsnameObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    inline GCRef<avmplus::utsnameObject> constructObject(GCRef<avmplus::String> arg1, GCRef<avmplus::String> arg2)
+    {
+        avmplus::Atom args[3] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), arg1->atom(), arg2->atom() };
+        avmplus::Atom const result = this->construct(2, args);
+        return GCRef<avmplus::utsnameObject>((avmplus::utsnameObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    inline GCRef<avmplus::utsnameObject> constructObject(GCRef<avmplus::String> arg1)
+    {
+        avmplus::Atom args[2] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), arg1->atom() };
+        avmplus::Atom const result = this->construct(1, args);
+        return GCRef<avmplus::utsnameObject>((avmplus::utsnameObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    inline GCRef<avmplus::utsnameObject> constructObject()
+    {
+        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(0, args);
+        return GCRef<avmplus::utsnameObject>((avmplus::utsnameObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::utsnameObject> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::utsnameObject>((avmplus::utsnameObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::utsnameObject> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::utsnameObject>((avmplus::utsnameObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::utsnameObject> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::utsnameObject>((avmplus::utsnameObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::utsnameObject> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::utsnameObject>((avmplus::utsnameObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    inline explicit utsnameClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit utsnameClass(const utsnameClass&); // unimplemented
+    void operator=(const utsnameClass&); // unimplemented
+};
+
+#define avmplus_utsnameClass_isExactInterlock 1
 //-----------------------------------------------------------
 // C.sys.wait::__wait
 //-----------------------------------------------------------
@@ -1776,27 +1572,6 @@ private:
 };
 
 #define avmplus_RunModeClass_isExactInterlock 1
-//-----------------------------------------------------------
-// shell::FileIO
-//-----------------------------------------------------------
-class FileIOObject : public avmplus::ScriptObject
-{
-    GC_DECLARE_EXACT_METHODS
-public:
-    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
-private:
-    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
-private:
-    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
-protected:
-    friend class avmshell::FileClass;
-    REALLY_INLINE explicit FileIOObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
-private:
-    explicit FileIOObject(const FileIOObject&); // unimplemented
-    void operator=(const FileIOObject&); // unimplemented
-};
-
-#define avmplus_FileIOObject_isExactInterlock 1
 //-----------------------------------------------------------
 // shell::Environment
 //-----------------------------------------------------------
@@ -6126,6 +5901,182 @@ private:
 
 #define avmplus_EventClass_isExactInterlock 1
 //-----------------------------------------------------------
+// flash.filesystem::FileMode
+//-----------------------------------------------------------
+class FileModeObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmplus::FileModeClass;
+    REALLY_INLINE explicit FileModeObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit FileModeObject(const FileModeObject&); // unimplemented
+    void operator=(const FileModeObject&); // unimplemented
+};
+
+#define avmplus_FileModeObject_isExactInterlock 1
+//-----------------------------------------------------------
+// flash.filesystem::FileMode$
+//-----------------------------------------------------------
+class FileModeClass : public avmplus::ClassClosure
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
+public:
+    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+public:
+    inline GCRef<avmplus::FileModeObject> constructObject()
+    {
+        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(0, args);
+        return GCRef<avmplus::FileModeObject>((avmplus::FileModeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::FileModeObject> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::FileModeObject>((avmplus::FileModeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::FileModeObject> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::FileModeObject>((avmplus::FileModeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::FileModeObject> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::FileModeObject>((avmplus::FileModeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::FileModeObject> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::FileModeObject>((avmplus::FileModeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+public:
+    REALLY_INLINE avmplus::String* get_READ() const { return m_slots_FileModeClass.m_READ; }
+    REALLY_INLINE void setconst_READ(avmplus::String* newVal) { m_slots_FileModeClass.m_READ = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_WRITE() const { return m_slots_FileModeClass.m_WRITE; }
+    REALLY_INLINE void setconst_WRITE(avmplus::String* newVal) { m_slots_FileModeClass.m_WRITE = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_UPDATE() const { return m_slots_FileModeClass.m_UPDATE; }
+    REALLY_INLINE void setconst_UPDATE(avmplus::String* newVal) { m_slots_FileModeClass.m_UPDATE = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_APPEND() const { return m_slots_FileModeClass.m_APPEND; }
+    REALLY_INLINE void setconst_APPEND(avmplus::String* newVal) { m_slots_FileModeClass.m_APPEND = newVal; }
+private:
+    avmplus::NativeID::avmplus_FileModeClassSlots m_slots_FileModeClass;
+protected:
+    inline explicit FileModeClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit FileModeClass(const FileModeClass&); // unimplemented
+    void operator=(const FileModeClass&); // unimplemented
+};
+
+#define avmplus_FileModeClass_isExactInterlock 1
+//-----------------------------------------------------------
+// flash.filesystem::FileStream
+//-----------------------------------------------------------
+class FileStreamObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmplus::FileStreamClass;
+    REALLY_INLINE explicit FileStreamObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit FileStreamObject(const FileStreamObject&); // unimplemented
+    void operator=(const FileStreamObject&); // unimplemented
+};
+
+#define avmplus_FileStreamObject_isExactInterlock 1
+//-----------------------------------------------------------
+// flash.filesystem::FileStream$
+//-----------------------------------------------------------
+class FileStreamClass : public avmplus::ClassClosure
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
+public:
+    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+public:
+    inline GCRef<avmplus::FileStreamObject> constructObject()
+    {
+        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(0, args);
+        return GCRef<avmplus::FileStreamObject>((avmplus::FileStreamObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::FileStreamObject> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::FileStreamObject>((avmplus::FileStreamObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::FileStreamObject> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::FileStreamObject>((avmplus::FileStreamObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::FileStreamObject> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::FileStreamObject>((avmplus::FileStreamObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::FileStreamObject> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::FileStreamObject>((avmplus::FileStreamObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    inline explicit FileStreamClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit FileStreamClass(const FileStreamClass&); // unimplemented
+    void operator=(const FileStreamClass&); // unimplemented
+};
+
+#define avmplus_FileStreamClass_isExactInterlock 1
+//-----------------------------------------------------------
 // flash.geom::Orientation3D
 //-----------------------------------------------------------
 class Orientation3DObject : public avmplus::ScriptObject
@@ -6443,6 +6394,219 @@ private:
 };
 
 #define avmplus_RectangleClass_isExactInterlock 1
+//-----------------------------------------------------------
+// flash.net::URLRequest
+//-----------------------------------------------------------
+class URLRequestObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    REALLY_INLINE avmplus::ArrayObject* get__requestHeaders() const { return m_slots_URLRequestObject.m_private__requestHeaders; }
+    REALLY_INLINE void set__requestHeaders(avmplus::ArrayObject* newVal) { m_slots_URLRequestObject.m_private__requestHeaders = newVal; }
+protected:
+    REALLY_INLINE avmplus::String* get__userAgent() const { return m_slots_URLRequestObject.m_private__userAgent; }
+    REALLY_INLINE void set__userAgent(avmplus::String* newVal) { m_slots_URLRequestObject.m_private__userAgent = newVal; }
+private:
+    avmplus::NativeID::avmplus_URLRequestObjectSlots m_slots_URLRequestObject;
+protected:
+    friend class avmplus::URLRequestClass;
+    REALLY_INLINE explicit URLRequestObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit URLRequestObject(const URLRequestObject&); // unimplemented
+    void operator=(const URLRequestObject&); // unimplemented
+};
+
+#define avmplus_URLRequestObject_isExactInterlock 1
+//-----------------------------------------------------------
+// flash.net::URLRequest$
+//-----------------------------------------------------------
+class URLRequestClass : public avmplus::ClassClosure
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
+public:
+    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+public:
+    inline GCRef<avmplus::URLRequestObject> constructObject(GCRef<avmplus::String> arg1)
+    {
+        avmplus::Atom args[2] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), arg1->atom() };
+        avmplus::Atom const result = this->construct(1, args);
+        return GCRef<avmplus::URLRequestObject>((avmplus::URLRequestObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    inline GCRef<avmplus::URLRequestObject> constructObject()
+    {
+        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(0, args);
+        return GCRef<avmplus::URLRequestObject>((avmplus::URLRequestObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::URLRequestObject> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::URLRequestObject>((avmplus::URLRequestObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::URLRequestObject> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::URLRequestObject>((avmplus::URLRequestObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::URLRequestObject> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::URLRequestObject>((avmplus::URLRequestObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::URLRequestObject> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::URLRequestObject>((avmplus::URLRequestObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    REALLY_INLINE uint32_t get_kInvalidParamError() const { return m_slots_URLRequestClass.m_private_kInvalidParamError; }
+    REALLY_INLINE void setconst_kInvalidParamError(uint32_t newVal) { m_slots_URLRequestClass.m_private_kInvalidParamError = newVal; }
+private:
+    avmplus::NativeID::avmplus_URLRequestClassSlots m_slots_URLRequestClass;
+protected:
+    inline explicit URLRequestClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit URLRequestClass(const URLRequestClass&); // unimplemented
+    void operator=(const URLRequestClass&); // unimplemented
+};
+
+#define avmplus_URLRequestClass_isExactInterlock 1
+//-----------------------------------------------------------
+// flash.net::URLRequestDefaults
+//-----------------------------------------------------------
+class URLRequestDefaultsObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmplus::URLRequestDefaultsClass;
+    REALLY_INLINE explicit URLRequestDefaultsObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit URLRequestDefaultsObject(const URLRequestDefaultsObject&); // unimplemented
+    void operator=(const URLRequestDefaultsObject&); // unimplemented
+};
+
+#define avmplus_URLRequestDefaultsObject_isExactInterlock 1
+//-----------------------------------------------------------
+// flash.net::URLRequestDefaults$
+//-----------------------------------------------------------
+class URLRequestDefaultsClass : public avmplus::ClassClosure
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
+public:
+    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+public:
+    inline GCRef<avmplus::URLRequestDefaultsObject> constructObject()
+    {
+        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(0, args);
+        return GCRef<avmplus::URLRequestDefaultsObject>((avmplus::URLRequestDefaultsObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::URLRequestDefaultsObject> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::URLRequestDefaultsObject>((avmplus::URLRequestDefaultsObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::URLRequestDefaultsObject> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::URLRequestDefaultsObject>((avmplus::URLRequestDefaultsObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::URLRequestDefaultsObject> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::URLRequestDefaultsObject>((avmplus::URLRequestDefaultsObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::URLRequestDefaultsObject> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::URLRequestDefaultsObject>((avmplus::URLRequestDefaultsObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    REALLY_INLINE uint32_t get_kApplicationFeatureSecurityError() const { return m_slots_URLRequestDefaultsClass.m_private_kApplicationFeatureSecurityError; }
+    REALLY_INLINE void setconst_kApplicationFeatureSecurityError(uint32_t newVal) { m_slots_URLRequestDefaultsClass.m_private_kApplicationFeatureSecurityError = newVal; }
+protected:
+    REALLY_INLINE bool get__followRedirects() const { return m_slots_URLRequestDefaultsClass.m_private__followRedirects != 0; }
+    REALLY_INLINE void set__followRedirects(avmplus::bool32 newVal) { m_slots_URLRequestDefaultsClass.m_private__followRedirects = newVal; }
+protected:
+    REALLY_INLINE bool get__manageCookies() const { return m_slots_URLRequestDefaultsClass.m_private__manageCookies != 0; }
+    REALLY_INLINE void set__manageCookies(avmplus::bool32 newVal) { m_slots_URLRequestDefaultsClass.m_private__manageCookies = newVal; }
+protected:
+    REALLY_INLINE bool get__authenticate() const { return m_slots_URLRequestDefaultsClass.m_private__authenticate != 0; }
+    REALLY_INLINE void set__authenticate(avmplus::bool32 newVal) { m_slots_URLRequestDefaultsClass.m_private__authenticate = newVal; }
+protected:
+    REALLY_INLINE bool get__useCache() const { return m_slots_URLRequestDefaultsClass.m_private__useCache != 0; }
+    REALLY_INLINE void set__useCache(avmplus::bool32 newVal) { m_slots_URLRequestDefaultsClass.m_private__useCache = newVal; }
+protected:
+    REALLY_INLINE bool get__cacheResponse() const { return m_slots_URLRequestDefaultsClass.m_private__cacheResponse != 0; }
+    REALLY_INLINE void set__cacheResponse(avmplus::bool32 newVal) { m_slots_URLRequestDefaultsClass.m_private__cacheResponse = newVal; }
+protected:
+    REALLY_INLINE avmplus::String* get__userAgent() const { return m_slots_URLRequestDefaultsClass.m_private__userAgent; }
+    REALLY_INLINE void set__userAgent(avmplus::String* newVal) { m_slots_URLRequestDefaultsClass.m_private__userAgent = newVal; }
+protected:
+    REALLY_INLINE avmplus::Atom get__loginCredentials() const { return m_slots_URLRequestDefaultsClass.m_private__loginCredentials; }
+    REALLY_INLINE void set__loginCredentials(avmplus::Atom newVal) { m_slots_URLRequestDefaultsClass.m_private__loginCredentials = newVal; }
+protected:
+    REALLY_INLINE avmplus::String* get__defaultUserAgent() const { return m_slots_URLRequestDefaultsClass.m_private__defaultUserAgent; }
+    REALLY_INLINE void set__defaultUserAgent(avmplus::String* newVal) { m_slots_URLRequestDefaultsClass.m_private__defaultUserAgent = newVal; }
+protected:
+    REALLY_INLINE double get__idleTimeout() const { return m_slots_URLRequestDefaultsClass.m_private__idleTimeout; }
+    REALLY_INLINE void set__idleTimeout(double newVal) { m_slots_URLRequestDefaultsClass.m_private__idleTimeout = newVal; }
+private:
+    avmplus::NativeID::avmplus_URLRequestDefaultsClassSlots m_slots_URLRequestDefaultsClass;
+protected:
+    inline explicit URLRequestDefaultsClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit URLRequestDefaultsClass(const URLRequestDefaultsClass&); // unimplemented
+    void operator=(const URLRequestDefaultsClass&); // unimplemented
+};
+
+#define avmplus_URLRequestDefaultsClass_isExactInterlock 1
 //-----------------------------------------------------------
 // flash.net::URLRequestHeader
 //-----------------------------------------------------------
@@ -6897,6 +7061,20 @@ public:
 private:
     friend class avmplus::NativeID::SlotOffsetsAndAsserts;
 protected:
+    REALLY_INLINE avmplus::String* get__ARCH() const { return m_slots_CapabilitiesClass.m_private__ARCH; }
+    REALLY_INLINE void set__ARCH(avmplus::String* newVal) { m_slots_CapabilitiesClass.m_private__ARCH = newVal; }
+protected:
+    REALLY_INLINE avmplus::String* get__M() const { return m_slots_CapabilitiesClass.m_private__M; }
+    REALLY_INLINE void set__M(avmplus::String* newVal) { m_slots_CapabilitiesClass.m_private__M = newVal; }
+protected:
+    REALLY_INLINE avmplus::String* get__PR32() const { return m_slots_CapabilitiesClass.m_private__PR32; }
+    REALLY_INLINE void set__PR32(avmplus::String* newVal) { m_slots_CapabilitiesClass.m_private__PR32 = newVal; }
+protected:
+    REALLY_INLINE avmplus::String* get__PR64() const { return m_slots_CapabilitiesClass.m_private__PR64; }
+    REALLY_INLINE void set__PR64(avmplus::String* newVal) { m_slots_CapabilitiesClass.m_private__PR64 = newVal; }
+private:
+    avmplus::NativeID::avmplus_CapabilitiesClassSlots m_slots_CapabilitiesClass;
+protected:
     inline explicit CapabilitiesClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
 private:
     explicit CapabilitiesClass(const CapabilitiesClass&); // unimplemented
@@ -6904,6 +7082,223 @@ private:
 };
 
 #define avmplus_CapabilitiesClass_isExactInterlock 1
+//-----------------------------------------------------------
+// flash.system::Security
+//-----------------------------------------------------------
+class SecurityObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmplus::SecurityClass;
+    REALLY_INLINE explicit SecurityObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit SecurityObject(const SecurityObject&); // unimplemented
+    void operator=(const SecurityObject&); // unimplemented
+};
+
+#define avmplus_SecurityObject_isExactInterlock 1
+//-----------------------------------------------------------
+// flash.system::Security$
+//-----------------------------------------------------------
+class SecurityClass : public avmplus::ClassClosure
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
+public:
+    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+public:
+    inline GCRef<avmplus::SecurityObject> constructObject()
+    {
+        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(0, args);
+        return GCRef<avmplus::SecurityObject>((avmplus::SecurityObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::SecurityObject> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::SecurityObject>((avmplus::SecurityObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::SecurityObject> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::SecurityObject>((avmplus::SecurityObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::SecurityObject> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::SecurityObject>((avmplus::SecurityObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::SecurityObject> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::SecurityObject>((avmplus::SecurityObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    REALLY_INLINE avmplus::String* get__sandboxType() const { return m_slots_SecurityClass.m_private__sandboxType; }
+    REALLY_INLINE void set__sandboxType(avmplus::String* newVal) { m_slots_SecurityClass.m_private__sandboxType = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_REMOTE() const { return m_slots_SecurityClass.m_REMOTE; }
+    REALLY_INLINE void setconst_REMOTE(avmplus::String* newVal) { m_slots_SecurityClass.m_REMOTE = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_LOCAL_WITH_FILE() const { return m_slots_SecurityClass.m_LOCAL_WITH_FILE; }
+    REALLY_INLINE void setconst_LOCAL_WITH_FILE(avmplus::String* newVal) { m_slots_SecurityClass.m_LOCAL_WITH_FILE = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_LOCAL_WITH_NETWORK() const { return m_slots_SecurityClass.m_LOCAL_WITH_NETWORK; }
+    REALLY_INLINE void setconst_LOCAL_WITH_NETWORK(avmplus::String* newVal) { m_slots_SecurityClass.m_LOCAL_WITH_NETWORK = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_LOCAL_TRUSTED() const { return m_slots_SecurityClass.m_LOCAL_TRUSTED; }
+    REALLY_INLINE void setconst_LOCAL_TRUSTED(avmplus::String* newVal) { m_slots_SecurityClass.m_LOCAL_TRUSTED = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_APPLICATION() const { return m_slots_SecurityClass.m_APPLICATION; }
+    REALLY_INLINE void setconst_APPLICATION(avmplus::String* newVal) { m_slots_SecurityClass.m_APPLICATION = newVal; }
+private:
+    avmplus::NativeID::avmplus_SecurityClassSlots m_slots_SecurityClass;
+protected:
+    inline explicit SecurityClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit SecurityClass(const SecurityClass&); // unimplemented
+    void operator=(const SecurityClass&); // unimplemented
+};
+
+#define avmplus_SecurityClass_isExactInterlock 1
+//-----------------------------------------------------------
+// flash.system::SecurityPrivilege
+//-----------------------------------------------------------
+class SecurityPrivilegeObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmplus::SecurityPrivilegeClass;
+    REALLY_INLINE explicit SecurityPrivilegeObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit SecurityPrivilegeObject(const SecurityPrivilegeObject&); // unimplemented
+    void operator=(const SecurityPrivilegeObject&); // unimplemented
+};
+
+#define avmplus_SecurityPrivilegeObject_isExactInterlock 1
+//-----------------------------------------------------------
+// flash.system::SecurityPrivilege$
+//-----------------------------------------------------------
+class SecurityPrivilegeClass : public avmplus::ClassClosure
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
+public:
+    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+public:
+    inline GCRef<avmplus::SecurityPrivilegeObject> constructObject()
+    {
+        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(0, args);
+        return GCRef<avmplus::SecurityPrivilegeObject>((avmplus::SecurityPrivilegeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::SecurityPrivilegeObject> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::SecurityPrivilegeObject>((avmplus::SecurityPrivilegeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::SecurityPrivilegeObject> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::SecurityPrivilegeObject>((avmplus::SecurityPrivilegeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::SecurityPrivilegeObject> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::SecurityPrivilegeObject>((avmplus::SecurityPrivilegeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::SecurityPrivilegeObject> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::SecurityPrivilegeObject>((avmplus::SecurityPrivilegeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+public:
+    REALLY_INLINE avmplus::Atom get_FILE() const { return m_slots_SecurityPrivilegeClass.m_FILE; }
+    REALLY_INLINE void setconst_FILE(avmplus::Atom newVal) { m_slots_SecurityPrivilegeClass.m_FILE = newVal; }
+public:
+    REALLY_INLINE avmplus::Atom get_FILE_READ() const { return m_slots_SecurityPrivilegeClass.m_FILE_READ; }
+    REALLY_INLINE void setconst_FILE_READ(avmplus::Atom newVal) { m_slots_SecurityPrivilegeClass.m_FILE_READ = newVal; }
+public:
+    REALLY_INLINE avmplus::Atom get_FILE_WRITE() const { return m_slots_SecurityPrivilegeClass.m_FILE_WRITE; }
+    REALLY_INLINE void setconst_FILE_WRITE(avmplus::Atom newVal) { m_slots_SecurityPrivilegeClass.m_FILE_WRITE = newVal; }
+public:
+    REALLY_INLINE avmplus::Atom get_FILE_APPSTORE() const { return m_slots_SecurityPrivilegeClass.m_FILE_APPSTORE; }
+    REALLY_INLINE void setconst_FILE_APPSTORE(avmplus::Atom newVal) { m_slots_SecurityPrivilegeClass.m_FILE_APPSTORE = newVal; }
+public:
+    REALLY_INLINE avmplus::Atom get_FILE_PATHACCESS() const { return m_slots_SecurityPrivilegeClass.m_FILE_PATHACCESS; }
+    REALLY_INLINE void setconst_FILE_PATHACCESS(avmplus::Atom newVal) { m_slots_SecurityPrivilegeClass.m_FILE_PATHACCESS = newVal; }
+public:
+    REALLY_INLINE avmplus::Atom get_FILE_TEMP() const { return m_slots_SecurityPrivilegeClass.m_FILE_TEMP; }
+    REALLY_INLINE void setconst_FILE_TEMP(avmplus::Atom newVal) { m_slots_SecurityPrivilegeClass.m_FILE_TEMP = newVal; }
+public:
+    REALLY_INLINE avmplus::Atom get_FILE_WRITE_RESOURCE() const { return m_slots_SecurityPrivilegeClass.m_FILE_WRITE_RESOURCE; }
+    REALLY_INLINE void setconst_FILE_WRITE_RESOURCE(avmplus::Atom newVal) { m_slots_SecurityPrivilegeClass.m_FILE_WRITE_RESOURCE = newVal; }
+public:
+    REALLY_INLINE avmplus::Atom get_HTTP_ALL() const { return m_slots_SecurityPrivilegeClass.m_HTTP_ALL; }
+    REALLY_INLINE void setconst_HTTP_ALL(avmplus::Atom newVal) { m_slots_SecurityPrivilegeClass.m_HTTP_ALL = newVal; }
+public:
+    REALLY_INLINE avmplus::Atom get_HTML() const { return m_slots_SecurityPrivilegeClass.m_HTML; }
+    REALLY_INLINE void setconst_HTML(avmplus::Atom newVal) { m_slots_SecurityPrivilegeClass.m_HTML = newVal; }
+public:
+    REALLY_INLINE avmplus::Atom get_WINDOW() const { return m_slots_SecurityPrivilegeClass.m_WINDOW; }
+    REALLY_INLINE void setconst_WINDOW(avmplus::Atom newVal) { m_slots_SecurityPrivilegeClass.m_WINDOW = newVal; }
+public:
+    REALLY_INLINE avmplus::Atom get_SCREEN() const { return m_slots_SecurityPrivilegeClass.m_SCREEN; }
+    REALLY_INLINE void setconst_SCREEN(avmplus::Atom newVal) { m_slots_SecurityPrivilegeClass.m_SCREEN = newVal; }
+private:
+    avmplus::NativeID::avmplus_SecurityPrivilegeClassSlots m_slots_SecurityPrivilegeClass;
+protected:
+    inline explicit SecurityPrivilegeClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit SecurityPrivilegeClass(const SecurityPrivilegeClass&); // unimplemented
+    void operator=(const SecurityPrivilegeClass&); // unimplemented
+};
+
+#define avmplus_SecurityPrivilegeClass_isExactInterlock 1
 //-----------------------------------------------------------
 // flash.system::System
 //-----------------------------------------------------------
