@@ -359,12 +359,12 @@ int VMPI_mkdir(const char *path, int mode)
 
 
 
-int VMPI_putenv(const char *name)
+int VMPI_putenv(char *name)
 {
     return _putenv( name );
 }
 
-int VMPI_putenv16(const wchar *name)
+int VMPI_putenv16(wchar *name)
 {
     return _wputenv( name );
 }
@@ -489,6 +489,58 @@ int VMPI_unsetenv16(const wchar *name)
 
 
 // ==== POSIX ==== 
+
+// ---- C.arpa.inet ---- 
+uint32_t VMPI_htonl(uint32_t hostlong)
+{
+    return (uint32_t) htonl( (u_long) hostlong );
+}
+
+uint32_t VMPI_htons(uint32_t hostshort )
+{
+    return (uint32_t) htons( (u_short) hostshort );
+}
+
+uint32_t VMPI_ntohl(uint32_t netlong )
+{
+    return (uint32_t) ntohl( (u_long) netlong );
+}
+
+uint32_t VMPI_ntohs(uint32_t netshort )
+{
+    return (uint32_t) ntohs( (u_short) netshort );
+}
+
+uint32_t VMPI_inet_addr(const char *cp)
+{
+    return (uint32_t) inet_addr( cp );
+}
+
+uint32_t VMPI_inet_network(const char *cp)
+{
+    return (uint32_t) inet_network( cp );
+}
+
+char *VMPI_inet_ntoa(struct in_addr inaddr)
+{
+    return inet_ntoa( inaddr );
+}
+
+int VMPI_inet_aton(const char *cp, struct in_addr *inp)
+{
+    return inet_aton( cp, inp );
+}
+
+const char *VMPI_inet_ntop(int af, const void *src, char *dst, socklen_t size)
+{
+    return inet_ntop( af, src, dst, size);
+}
+
+int VMPI_inet_pton(int af, const char *src, void *dst)
+{
+    return inet_pton( af, src, dst );
+}
+// ---- C.arpa.inet ---- END
 
 // ---- C.conio ---- 
 void VMPI_canonical(bool status)
@@ -679,6 +731,21 @@ int VMPI_openat(int fd, const char *path, int oflag, int mode)
 
 
 // ---- C.netdb ---- 
+const char *VMPI_gai_strerror(int ecode)
+{
+    return gai_strerror( ecode );
+}
+
+struct hostent *VMPI_gethostbyname(const char *name)
+{
+    return gethostbyname( name );
+}
+
+struct hostent *VMPI_gethostbyaddr(const char *addr, int len, int type)
+{
+    return gethostbyaddr( addr, len, type );
+}
+
 struct protoent *getprotoent()
 {
     return (struct protoent *) NULL;
@@ -720,6 +787,16 @@ struct hostent *VMPI_gethostent()
     }
 
     return result;
+}
+
+int VMPI_getaddrinfo(const char *nodename, const char *servname, const struct addrinfo *hints, struct addrinfo **res)
+{
+    return getaddrinfo( nodename, servname, hints, res );
+}
+
+void VMPI_freeaddrinfo(struct addrinfo *ai)
+{
+    freeaddrinfo( ai );
 }
 // ---- C.netdb ---- END
 
@@ -777,8 +854,114 @@ int VMPI_spawnp(int *pid, const char *file, char *const argv[], char *const envp
 // ---- C.sys.sem ---- END
 
 
-// ---- C.sys.socket ---- 
+// ---- C.sys.select ---- 
+void VMPI_FD_CLR(int fd, fd_set *fdset)
+{
+    FD_CLR( fd, fdset );
+}
 
+int VMPI_FD_ISSET(int fd, fd_set *fdset)
+{
+    return FD_ISSET( fd, fdset );
+}
+
+void VMPI_FD_SET(int fd, fd_set *fdset)
+{
+    FD_SET( fd, fdset );
+}
+
+void VMPI_FD_ZERO(fd_set *fdset)
+{
+    FD_ZERO( fdset );
+}
+
+int VMPI_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds, struct timeval *timeout)
+{
+    return select( nfds, readfds, writefds, errorfds, timeout );
+}
+// ---- C.sys.select ---- END
+
+
+// ---- C.sys.socket ---- 
+int VMPI_accept(int socket, struct sockaddr *address, socklen_t *address_len)
+{
+    return accept( socket, address, address_len );
+}
+
+int VMPI_bind(int socket, const struct sockaddr *address, socklen_t address_len)
+{
+    return bind( socket, address, address_len );
+}
+
+int VMPI_connect(int socket, const struct sockaddr *address, socklen_t address_len)
+{
+    return connect( socket, address, address_len );
+}
+
+int VMPI_getpeername(int socket, struct sockaddr *address, socklen_t *address_len)
+{
+    return getpeername( socket, address, address_len );
+}
+
+int VMPI_getsockname(int socket, struct sockaddr *address, socklen_t *address_len)
+{
+    return getsockname( socket, address, address_len );
+}
+
+int VMPI_getsockopt(int socket, int level, int option_name, void *option_value, socklen_t *option_len)
+{
+    return getsockopt( socket, level, option_name, option_value, option_len );
+}
+
+int VMPI_setsockopt(int socket, int level, int option_name, const void *option_value, socklen_t option_len)
+{
+    return setsockopt( socket, level, option_name, option_value, option_len );
+}
+
+int VMPI_listen(int socket, int backlog)
+{
+    return listen( socket, backlog );
+}
+
+int VMPI_recv(int socket, void *buffer, size_t length, int flags)
+{
+    return recv( socket, buffer, length, flags );
+}
+
+int VMPI_recvfrom(int socket, void *buffer, size_t length, int flags, struct sockaddr *address, socklen_t *address_len)
+{
+    return recvfrom( socket, buffer, length, flags, address, address_len );
+}
+
+int VMPI_send(int socket, const void *buffer, size_t length, int flags)
+{
+    return send( socket, buffer, length, flags );
+}
+
+int VMPI_sendto(int socket, const void *message, size_t length, int flags, const struct sockaddr *dest_addr, socklen_t dest_len)
+{
+    return sendto( socket, message, length, flags, dest_addr, dest_len );
+}
+
+int VMPI_shutdown(int socket, int how)
+{
+    return shutdown( socket, how );
+}
+
+int VMPI_sockatmark(int s)
+{
+    return sockatmark( s );
+}
+
+int VMPI_socket(int domain, int type, int protocol)
+{
+    return socket( domain, type, protocol );
+}
+
+int VMPI_socketpair(int domain, int type, int protocol, int socket_vector[2])
+{
+    return socketpair( domain, type, protocol, socket_vector );
+}
 // ---- C.sys.socket ---- END
 
 
@@ -1006,12 +1189,12 @@ int ftruncate(int fildes, off_t length)
     return 0;
 }
 
-char** VMPI_GetEnviron()
+char **VMPI_GetEnviron()
 {
     return _environ;
 }
 
-wchar** VMPI_GetEnviron16()
+wchar **VMPI_GetEnviron16()
 {
     return _wenviron;
 }
@@ -1100,6 +1283,74 @@ void VMPI_getUserName16(wchar *username)
 }
 // ---- shell.OperatingSystem ---- END
 
+// ---- shell.FileSystem ---- 
+bool VMPI_isAttributeHidden(const char *path)
+{
+    DWORD attrib = GetFileAttributes( path );
+
+    if(attrib & FILE_ATTRIBUTE_HIDDEN) {
+        return true;
+    }
+
+    return false;
+}
+
+bool VMPI_isAttributeHidden16(const wchar *path)
+{
+    /* NOTE:
+       the AS3 function preprend "\\?\" to the path
+    */
+    DWORD attrib = GetFileAttributes( path );
+
+    if(attrib & FILE_ATTRIBUTE_HIDDEN) {
+        return true;
+    }
+
+    return false;
+}
+
+int VMPI_getLogicalDrives()
+{
+    DWORD drives = GetLogicalDrives();
+    return (int)drives;
+}
+
+double VMPI_getFreeDiskSpace(const char *path)
+{
+    ULARGE_INTEGER available;
+    if(!GetDiskFreeSpaceExA(path, &available, NULL, NULL)) {
+        return -1;
+    }
+    return static_cast<double>(available.QuadPart);
+}
+
+double VMPI_getFreeDiskSpace16(const wchar *path)
+{
+    ULARGE_INTEGER available;
+    if(!GetDiskFreeSpaceExW(path, &available, NULL, NULL)) {
+        return -1;
+    }
+    return static_cast<double>(available.QuadPart);
+}
+
+double VMPI_getTotalDiskSpace(const char *path)
+{
+    ULARGE_INTEGER total;
+    if(!GetDiskFreeSpaceExA(path, NULL, &total, NULL)) {
+        return -1;
+    }
+    return static_cast<double>(total.QuadPart);
+}
+
+double VMPI_getTotalDiskSpace16(const wchar *path)
+{
+    ULARGE_INTEGER total;
+    if(!GetDiskFreeSpaceExW(path, NULL, &total, NULL)) {
+        return -1;
+    }
+    return static_cast<double>(total.QuadPart);
+}
+// ---- shell.FileSystem ---- END
 
 
 // ==== AVMGLUE ==== 

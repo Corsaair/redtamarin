@@ -13,9 +13,10 @@
 
 
 //we need to define FD_SETSIZE before the winsock.h include
-#ifndef FD_SETSIZE
-#define FD_SETSIZE      4096
-#endif
+//#ifndef FD_SETSIZE
+#undef FD_SETSIZE
+#define FD_SETSIZE 16384
+//#endif
 
 typedef int pid_t;
 
@@ -774,6 +775,10 @@ typedef struct siginfo_t siginfo_t;
 
 // ==== POSIX ==== 
 
+// ---- C.arpa.inet ---- 
+
+// ---- C.arpa.inet ---- END
+
 // ---- C.conio ---- 
 
 // ---- C.conio ---- END
@@ -1002,6 +1007,11 @@ struct hostent *gethostent();
 // ---- C.sys.sem ---- 
 
 // ---- C.sys.sem ---- END
+
+
+// ---- C.sys.select ---- 
+
+// ---- C.sys.select ---- END
 
 
 // ---- C.sys.socket ---- 

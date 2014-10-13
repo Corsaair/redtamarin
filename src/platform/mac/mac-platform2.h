@@ -12,7 +12,7 @@
 
 //we need to redefine FD_SETSIZE before the select.h include
 #undef FD_SETSIZE
-#define FD_SETSIZE 4096
+#define FD_SETSIZE 16384
 
 // ==== HEADERS ==== 
 
@@ -657,6 +657,10 @@
 
 // ==== POSIX ==== 
 
+// ---- C.arpa.inet ---- 
+
+// ---- C.arpa.inet ---- END
+
 // ---- C.conio ---- 
 //#define VMPI_canonical //already defined in VMPI2.h
 //#define VMPI_echo      //already defined in VMPI2.h
@@ -760,6 +764,13 @@
 
 
 // ---- C.netdb ---- 
+/* NOTE:
+   see unix-platform2.h notes
+*/
+#ifndef NI_NUMERICSCOPE
+# define NI_NUMERICSCOPE 256 /* Don't convert scope_id to name.  */
+#endif
+
 //#define VMPI_getprotobynumber  ::getprotobynumber
 //#define VMPI_getprotoent       ::getprotoent
 //#define VMPI_gethostent        ::gethostent
@@ -801,7 +812,24 @@
 // ---- C.sys.sem ---- END
 
 
+// ---- C.sys.select ---- 
+
+// ---- C.sys.select ---- END
+
+
 // ---- C.sys.socket ---- 
+
+/* NOTE:
+   OSX has no MSG_NOSIGNAL
+   from 10.2+ you can use SO_NOSIGPIPE
+   SO_NOSIGPIPE is a setsockopt() option
+   and not a send() parameter as MSG_NOSIGNAL
+   see: http://lists.apple.com/archives/macnetworkprog/2002/Dec/msg00091.html
+*/
+#ifndef MSG_NOSIGNAL
+//#define MSG_NOSIGNAL SO_NOSIGPIPE
+#define MSG_NOSIGNAL 0
+#endif
 
 // ---- C.sys.socket ---- END
 

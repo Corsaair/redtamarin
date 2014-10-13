@@ -175,8 +175,8 @@ extern lldiv_t VMPI_lldiv(double numer, double denom);
 //VMPI_malloc
 extern char *VMPI_mkdtemp(char *templ);
 extern int VMPI_mkstemp(char *templ);
-extern int VMPI_putenv(const char *name);
-extern int VMPI_putenv16(const wchar *name);
+extern int VMPI_putenv(char *name);
+extern int VMPI_putenv16(wchar *name);
 extern char *VMPI_realpath(char const *path);
 extern wchar *VMPI_realpath16(wchar const *path);
 extern int VMPI_setenv(const char *name, const char *value, int overwrite);
@@ -201,6 +201,20 @@ extern int VMPI_unsetenv16(const wchar *name);
 
 
 // ==== POSIX ==== 
+
+// ---- C.arpa.inet ---- 
+extern uint32_t VMPI_htonl(uint32_t hostlong);
+extern uint32_t VMPI_htons(uint32_t hostshort );
+extern uint32_t VMPI_ntohl(uint32_t netlong );
+extern uint32_t VMPI_ntohs(uint32_t netshort );
+
+extern uint32_t VMPI_inet_addr(const char *cp);
+extern uint32_t VMPI_inet_network(const char *cp);
+extern char *VMPI_inet_ntoa(struct in_addr inaddr);
+extern int VMPI_inet_aton(const char *cp, struct in_addr *inp);
+extern const char *VMPI_inet_ntop(int af, const void *src, char *dst, socklen_t size);
+extern int VMPI_inet_pton(int af, const char *src, void *dst);
+// ---- C.arpa.inet ---- END
 
 // ---- C.conio ---- 
 extern void VMPI_canonical(bool status);
@@ -233,9 +247,14 @@ extern int VMPI_openat(int fd, const char *path, int oflag, int mode);
 
 
 // ---- C.netdb ---- 
+extern const char *VMPI_gai_strerror(int ecode);
+extern struct hostent *VMPI_gethostbyname(const char *name);
+extern struct hostent *VMPI_gethostbyaddr(const char *addr, int len, int type);
 extern struct protoent *VMPI_getprotobynumber(int proto);
 extern struct protoent *VMPI_getprotoent();
 extern struct hostent *VMPI_gethostent();
+extern int VMPI_getaddrinfo(const char *nodename, const char *servname, const struct addrinfo *hints, struct addrinfo **res);
+extern void VMPI_freeaddrinfo(struct addrinfo *ai);
 // ---- C.netdb ---- END
 
 
@@ -275,8 +294,32 @@ extern int VMPI_spawnp(int *pid, const char *file, char *const argv[], char *con
 // ---- C.sys.sem ---- END
 
 
-// ---- C.sys.socket ---- 
+// ---- C.sys.select ---- 
+extern void VMPI_FD_CLR(int fd, fd_set *fdset);
+extern int VMPI_FD_ISSET(int fd, fd_set *fdset);
+extern void VMPI_FD_SET(int fd, fd_set *fdset);
+extern void VMPI_FD_ZERO(fd_set *fdset);
+extern int VMPI_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds, struct timeval *timeout);
+// ---- C.sys.select ---- END
 
+
+// ---- C.sys.socket ---- 
+extern int VMPI_accept(int socket, struct sockaddr *address, socklen_t *address_len);
+extern int VMPI_bind(int socket, const struct sockaddr *address, socklen_t address_len);
+extern int VMPI_connect(int socket, const struct sockaddr *address, socklen_t address_len);
+extern int VMPI_getpeername(int socket, struct sockaddr *address, socklen_t *address_len);
+extern int VMPI_getsockname(int socket, struct sockaddr *address, socklen_t *address_len);
+extern int VMPI_getsockopt(int socket, int level, int option_name, void *option_value, socklen_t *option_len);
+extern int VMPI_setsockopt(int socket, int level, int option_name, const void *option_value, socklen_t option_len);
+extern int VMPI_listen(int socket, int backlog);
+extern int VMPI_recv(int socket, void *buffer, size_t length, int flags);
+extern int VMPI_recvfrom(int socket, void *buffer, size_t length, int flags, struct sockaddr *address, socklen_t *address_len);
+extern int VMPI_send(int socket, const void *buffer, size_t length, int flags);
+extern int VMPI_sendto(int socket, const void *message, size_t length, int flags, const struct sockaddr *dest_addr, socklen_t dest_len);
+extern int VMPI_shutdown(int socket, int how);
+extern int VMPI_sockatmark(int s);
+extern int VMPI_socket(int domain, int type, int protocol);
+extern int VMPI_socketpair(int domain, int type, int protocol, int socket_vector[2]);
 // ---- C.sys.socket ---- END
 
 
@@ -330,8 +373,8 @@ extern int VMPI_waitpid(int pid, int *stat_loc, int options);
 
 
 // ---- C.unistd ---- 
-extern char** VMPI_GetEnviron();
-extern wchar** VMPI_GetEnviron16();
+extern char **VMPI_GetEnviron();
+extern wchar **VMPI_GetEnviron16();
 extern wchar *VMPI_getcwd16(wchar *buf, size_t size);
 extern int VMPI_gethostname(char *name, int namelen);
 extern void VMPI_sleep(int milliseconds);
@@ -359,6 +402,16 @@ extern void VMPI_getUserName(char *username);
 extern void VMPI_getUserName16(wchar *username);
 //extern void VMPI_OperatingSystemName(char *name);
 // ---- shell.OperatingSystem ---- END
+
+// ---- shell.FileSystem ---- 
+extern bool VMPI_isAttributeHidden(const char *path);
+extern bool VMPI_isAttributeHidden16(const wchar *path);
+extern int VMPI_getLogicalDrives();
+extern double VMPI_getFreeDiskSpace(const char *path);
+extern double VMPI_getFreeDiskSpace16(const wchar *path);
+extern double VMPI_getTotalDiskSpace(const char *path);
+extern double VMPI_getTotalDiskSpace16(const wchar *path);
+// ---- shell.FileSystem ---- END
 
 
 

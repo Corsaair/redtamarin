@@ -12,7 +12,7 @@
 
 //we need to redefine FD_SETSIZE before the select.h include
 #undef FD_SETSIZE
-#define FD_SETSIZE 4096
+#define FD_SETSIZE 16384
 
 
 // ==== HEADERS ==== 
@@ -580,6 +580,10 @@ int VMPI_toascii(int value)
 
 // ==== POSIX ==== 
 
+// ---- C.arpa.inet ---- 
+
+// ---- C.arpa.inet ---- END
+
 // ---- C.conio ---- 
 
 // ---- C.conio ---- END
@@ -693,6 +697,29 @@ int VMPI_toascii(int value)
 
 
 // ---- C.netdb ---- 
+/* NOTE:
+   see:
+   Bug 14102 - netdb.h is missing NI_NUMERICSCOPE
+   https://sourceware.org/bugzilla/show_bug.cgi?id=14102
+
+   in OSX headers last value is 32
+   #define NI_WITHSCOPEID 0x00000020
+
+   in Ubuntu headers last value is 128
+   #  define NI_IDN_USE_STD3_ASCII_RULES 128
+
+   next available value like described in the bug above should be 256
+
+   see also: 20/06/2014 in libc-alpha
+   Add NI_NUMERICSCOPE support to getnameinfo
+   http://patchwork.sourceware.org/patch/1629/
+   https://sourceware.org/ml/libc-alpha/2014-06/msg00487.html
+   https://sourceware.org/ml/libc-alpha/2014-06/txtDXZFCMvRig.txt
+*/
+#ifndef NI_NUMERICSCOPE
+# define NI_NUMERICSCOPE 256 /* Don't convert scope_id to name.  */
+#endif
+
 //#define VMPI_getprotobynumber  ::getprotobynumber
 //#define VMPI_getprotoent       ::getprotoent
 //#define VMPI_gethostent        ::gethostent
@@ -732,6 +759,11 @@ int VMPI_toascii(int value)
 // ---- C.sys.sem ---- 
 
 // ---- C.sys.sem ---- END
+
+
+// ---- C.sys.select ---- 
+
+// ---- C.sys.select ---- END
 
 
 // ---- C.sys.socket ---- 
