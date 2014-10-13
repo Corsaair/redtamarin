@@ -17,9 +17,15 @@ namespace avmshell
         FileSystemClass(VTable* cvtable);
         ~FileSystemClass();
         
-        //bool isWindowsStore();
-        Stringp read(Stringp filename);
-        
+        bool _isAttributeHidden(Stringp filename);
+        int _getLogicalDrives();
+        Stringp nativeRead(Stringp filename);
+        void nativeWrite(Stringp filename, Stringp data);
+        ByteArrayObject* nativeReadByteArray(Stringp filename);
+        bool nativeWriteByteArray(Stringp filename, ByteArrayObject* bytes);
+        double getFreeDiskSpace(Stringp filename);
+        double getTotalDiskSpace(Stringp filename);
+
         DECLARE_SLOTS_FileSystemClass;
     };
 
