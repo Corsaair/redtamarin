@@ -7,6 +7,25 @@
 #ifndef __redtamarin_api__
 #define __redtamarin_api__
 
+//AVMSHELL
+// #include "Selftest.h"
+// #include "Platform.h"
+// #include "File.h"
+// 
+// #include "FileInputStream.h"
+// #include "ConsoleOutputStream.h"
+// #include "ProgramClass.h"
+// //#include "FileClass.h" //removed
+// #include "DomainClass.h"
+// #include "DebugCLI.h"
+// #include "DataIO.h"
+// #include "DictionaryGlue.h"
+// #include "SamplerScript.h"
+// #include "ShellCore.h"
+// #include "ShellWorkerGlue.h"
+// #include "ShellWorkerDomainGlue.h"
+
+
 //CLIB
 
 #include "CAssertClass.h" // ---- C.assert ---- 
@@ -26,13 +45,14 @@
 #include "CTimeClass.h" // ---- C.time ---- 
 
 
+#include "CArpaInetClass.h" // ---- C.arpa.inet ---- 
 #include "CConioClass.h" // ---- C.conio ---- 
 // ---- C.cpio ---- 
 #include "CDirentClass.h" // ---- C.dirent ---- 
 #include "CFcntlClass.h" // ---- C.fcntl ---- 
 // ---- C.grp ---- 
 #include "CNetdbClass.h" // ---- C.netdb ---- 
-#include "CNetinetInClass.h"
+#include "CNetinetInClass.h" // ---- C.netinet ---- 
 // ---- C.pthread ---- 
 // ---- C.pwd ---- 
 #include "CSpawnClass.h" // ---- C.spawn ---- 
@@ -40,11 +60,12 @@
 // ---- C.sys.mman ---- 
 // ---- C.sys.msg ---- 
 // ---- C.sys.sem ---- 
+#include "CSysSelectClass.h" // ---- C.sys.select ---- 
 #include "CSysSocketClass.h" // ---- C.sys.socket ---- 
 #include "CSysStatClass.h" // ---- C.sys.stat ---- 
 // ---- C.sys.time ---- 
 // ---- C.sys.types ---- 
-// ---- C.sys.utsname ---- 
+#include "CSysUtsnameClass.h" // ---- C.sys.utsname ---- 
 #include "CSysWaitClass.h" // ---- C.sys.wait ---- 
 // ---- C.tar ---- 
 // ---- C.termios ---- 
@@ -56,19 +77,18 @@
 
 
 //RNL
+//see "shell/ProgramClass.h"
 #include "RuntimeClass.h"
 #include "DiagnosticsClass.h"
 #include "HardwareInformationClass.h"
 #include "OperatingSystemClass.h"
 #include "FileSystemClass.h"
 
-//#include "RedTamarinProgramClass.h"
-//
-
 //#include "SocketClass.h"
 
 //AVMGlue
 #include "SystemClass.h"
-
+#include "FileGlueClass.h"
+#include "FileReferenceClass.h"
 
 #endif /* __redtamarin_api__ */
