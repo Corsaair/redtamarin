@@ -41,6 +41,13 @@
         </else>
         </if>
 
+        <if>
+            <available file="extras.properties" type="file"/>
+        <then>
+            <property file="extras.properties"/>
+        </then>
+        </if>
+
         <property file="build/compile.properties"/>
 
        <!-- FLEX_HOME -->
@@ -322,45 +329,51 @@
 
     <target name="tag">
 
-    	<property file="build/version.properties" prefix="previous." />
-    	
         <if>
-            <equals arg1="${previous.version.build}" arg2="999" />
-        <then>
-            <propertyfile file="build/version.properties">
-                <entry key="version.build" type="int" value="0" pattern="000"/>
-            </propertyfile>
-            <script language="javascript">
-            numeric = Number( project.getProperty("previous.version.serie") );
-            letter  = String( project.getProperty("previous.version.cycle") );
-            if( letter == "Z" )
-            {
-                letter = "A";
-                numeric++;
-            }
-            else
-            {
-                letter = String.fromCharCode( letter.charCodeAt(0)+1 );
-            }
-            project.setNewProperty("current.serie", numeric);
-            project.setNewProperty("current.cycle", letter);
-            </script>
-            <propertyfile file="build/version.properties">
-                <entry key="version.serie" type="int" value="${current.serie}"/>
-                <entry key="version.cycle" type="string" value="${current.cycle}"/>
-            </propertyfile>
-        </then>
-        <else>
-            <propertyfile file="build/version.properties">
-                <entry key="version.build" type="int" operation="+" default="0" pattern="000"/>
-            </propertyfile>
-        </else>
-        </if>
+            <equals arg1="${build.lockversion}" arg2="false"/>
+            <then>
 
-        <!-- remove comments -->
-        <replaceregexp file="build/version.properties" match="#.*" replace="" />
-        <!-- remove blank lines -->
-        <replaceregexp file="build/version.properties" match="(\r?\n)\s*\r?\n" flags="g" replace="\1" />
+                <property file="build/version.properties" prefix="previous." />
+                <if>
+                    <equals arg1="${previous.version.build}" arg2="999" />
+                <then>
+                    <propertyfile file="build/version.properties">
+                        <entry key="version.build" type="int" value="0" pattern="000"/>
+                    </propertyfile>
+                    <script language="javascript">
+                    numeric = Number( project.getProperty("previous.version.serie") );
+                    letter  = String( project.getProperty("previous.version.cycle") );
+                    if( letter == "Z" )
+                    {
+                        letter = "A";
+                        numeric++;
+                    }
+                    else
+                    {
+                        letter = String.fromCharCode( letter.charCodeAt(0)+1 );
+                    }
+                    project.setNewProperty("current.serie", numeric);
+                    project.setNewProperty("current.cycle", letter);
+                    </script>
+                    <propertyfile file="build/version.properties">
+                        <entry key="version.serie" type="int" value="${current.serie}"/>
+                        <entry key="version.cycle" type="string" value="${current.cycle}"/>
+                    </propertyfile>
+                </then>
+                <else>
+                    <propertyfile file="build/version.properties">
+                        <entry key="version.build" type="int" operation="+" default="0" pattern="000"/>
+                    </propertyfile>
+                </else>
+                </if>
+
+                <!-- remove comments -->
+                <replaceregexp file="build/version.properties" match="#.*" replace="" />
+                <!-- remove blank lines -->
+                <replaceregexp file="build/version.properties" match="(\r?\n)\s*\r?\n" flags="g" replace="\1" />
+
+            </then>
+        </if>
         
         <property file="build/version.properties" prefix="app." />
         <property name="app.version.tag" value="${app.version.serie}${app.version.cycle}${app.version.build}" />
@@ -388,7 +401,7 @@
 
 
     <target name="header">
-        <echo message="Build version [${app.version.shortnumberclean}] tag [${app.version.tag}]"/>
+        <echo message="Build version [${app.version.shortnumberclean}] tag [${app.version.tag}] (version locked: ${build.lockversion})"/>
 
         <property name="app.desc" value="${app.name}-${app.version.shortnumberclean}-${app.label}[${app.version.tag}]" />
         <property name="doc.footer" value="${app.name} v${app.version.shortnumberclean} ${app.label} [${app.version.tag}]" />
@@ -416,25 +429,26 @@
             <echo message="building:"/>
             <echo message="           DESC = ${app.desc}"/>
             <echo message="       ----------"/>
+            <echo message=" "/>
             <echo message="       binaries = ${build.binaries}"/>
-            <echo message="          32bit = ${build.32bit}"/>
-            <echo message="          64bit = ${build.64bit}"/>
-            <echo message="        release = ${build.release}"/>
-            <echo message="          debug = ${build.debug}"/>
-            <echo message="       debugger = ${build.debugger}"/>
             <echo message="       ----------"/>
+            <echo message="               |_ 32bit = ${build.32bit}"/>
+            <echo message="               |_ 64bit = ${build.64bit}"/>
+            <echo message="               |_ release = ${build.release}"/>
+            <echo message="               |_ debug = ${build.debug}"/>
+            <echo message="               |_ debugger = ${build.debugger}"/>
             <echo message="               |_ cleanGenerated = ${build.cleanGenerated}"/>
             <echo message="               |_ runTestToCheckBuild = ${build.runTestToCheckBuild}"/>
-            
+            <echo message=" "/>
             <echo message="  documentation = ${build.documentation}"/>
             <echo message="       ----------"/>
             <echo message="               |_ cleanDocumentation = ${build.cleanDocumentation}"/>
-            <echo message="               |_ cleanSWCForDoc = ${build.cleanSWCForDoc}"/>
-            
+            <echo message="               |_ publishDocumentation = ${build.publishDocumentation}"/>
+            <echo message=" "/>
             <echo message="     components = ${build.components}"/>
             <echo message="       ----------"/>
-            <echo message="               |_ no options"/>
-
+            <echo message="               |_ fatswc = ${build.fatswc}"/>
+            <echo message=" "/>
             <echo message="            SDK = ${build.sdk}"/>
             <echo message="       ----------"/>
             <echo message="               |_ cleanBeforeDeploy = ${build.cleanBeforeDeploy}"/>
