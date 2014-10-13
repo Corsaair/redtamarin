@@ -24,7 +24,7 @@ namespace avmshell
     int CSysSelectClass::get_FD_SETSIZE() { return FD_SETSIZE; }
 
 
-    /*static*/ void CSysSelectClass::__FD_CLR(ScriptObject* self, int fd, Cfd_setObject* fdsetp)
+    /*static*/ void CSysSelectClass::_avm_FD_CLR(ScriptObject* self, int fd, Cfd_setObject* fdsetp)
     {
         Toplevel* toplevel = self->toplevel();
 
@@ -36,7 +36,7 @@ namespace avmshell
         VMPI_FD_CLR( fd, &fdsetp->fds );
     }
 
-    /*static*/ int CSysSelectClass::__FD_ISSET(ScriptObject* self, int fd, Cfd_setObject* fdsetp)
+    /*static*/ int CSysSelectClass::_avm_FD_ISSET(ScriptObject* self, int fd, Cfd_setObject* fdsetp)
     {
         Toplevel* toplevel = self->toplevel();
 
@@ -50,7 +50,7 @@ namespace avmshell
         return result;
     }
 
-    /*static*/ void CSysSelectClass::__FD_SET(ScriptObject* self, int fd, Cfd_setObject* fdsetp)
+    /*static*/ void CSysSelectClass::_avm_FD_SET(ScriptObject* self, int fd, Cfd_setObject* fdsetp)
     {
         Toplevel* toplevel = self->toplevel();
 
@@ -62,7 +62,7 @@ namespace avmshell
         VMPI_FD_SET( fd, &fdsetp->fds );
     }
 
-    /*static*/ void CSysSelectClass::__FD_ZERO(ScriptObject* self, Cfd_setObject* fdsetp)
+    /*static*/ void CSysSelectClass::_avm_FD_ZERO(ScriptObject* self, Cfd_setObject* fdsetp)
     {
         Toplevel* toplevel = self->toplevel();
 

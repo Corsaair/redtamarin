@@ -19,10 +19,10 @@ namespace avmshell
 
         int get_FD_SETSIZE();
 
-        static void __FD_CLR(ScriptObject* self, int fd, Cfd_setObject* fdsetp);
-        static int __FD_ISSET(ScriptObject* self, int fd, Cfd_setObject* fdsetp);
-        static void __FD_SET(ScriptObject* self, int fd, Cfd_setObject* fdsetp);
-        static void __FD_ZERO(ScriptObject* self, Cfd_setObject* fdsetp);
+        static void _avm_FD_CLR(ScriptObject* self, int fd, Cfd_setObject* fdsetp);
+        static int _avm_FD_ISSET(ScriptObject* self, int fd, Cfd_setObject* fdsetp);
+        static void _avm_FD_SET(ScriptObject* self, int fd, Cfd_setObject* fdsetp);
+        static void _avm_FD_ZERO(ScriptObject* self, Cfd_setObject* fdsetp);
 
         static int select(ScriptObject* self, int nfds, Cfd_setObject* readfds, Cfd_setObject* writefds, Cfd_setObject* errorfds, CtimevalObject* timeout);
 
