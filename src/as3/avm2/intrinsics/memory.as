@@ -7,32 +7,32 @@
 // DOCUMENTATION ONLY - DO NOT COMPILE IN ABC/SWC
 package avm2.intrinsics.memory
 {
+    /**
+     * @internal
+     * DO NOT TRY TO COMPILE THIS FILE
+     * THIS IS A MOCKUP TO DOCUMENT AN INTERNAL API OF THE AVM2
+     */
 
-	/**
-	 * The XC API.
-	 * 
-	 * <p>
-	 * <b>XC</b> stands for "cross C", previously know as <b>Alchemy</b>,
-	 * and also known as <b>fast memory opcodes</b>, <b>fast mem ops</b>, <b>mops</b>, etc.
-	 * </p>
-	 * 
-	 * <p>
-	 * test
-	 * </p>
-	 * 
-	 * @langversion 3.0
-	 * @playerversion Flash 11.6
-	 * @playerversion AIR 11.6
-	 * 
-	 * @see http://obtw.wordpress.com/2013/04/03/making-bytearray-faster/ Making ByteArray faster
-	 * @see http://www.adobe.com/devnet/air/articles/faster-byte-array-operations.html Faster byte array operations with ASC2
-	 * @see http://plus.google.com/117271975527324598054/posts/GABhwnhkupF fast mem ops a bit more details
-	 * @see http://makc3d.wordpress.com/2013/04/11/as3-and-alchemy/ Can AS3 and Alchemy be friends?
-	 * @see http://jacksondunstan.com/articles/2314 An ASC 2.0 Domain Memory Opcodes Primer
-	 * @see http://pastebin.com/dPjcqT34 Alchemy vs AS3 member access
-	 * @see http://pastie.org/7422818 xctest
-	 */
-	public const XC_API:String = "XC API documentation";
+    /**
+     * @name The XC API.
+     *
+     * <p>
+     * <b>XC</b> stands for "cross C", previously know as <b>Alchemy</b>,
+     * and also known as <b>fast memory opcodes</b>, <b>fast mem ops</b>, <b>mops</b>, etc.
+     * </p>
+     *
+     * @langversion 3.0
+     * @playerversion Flash 11.6
+     * @playerversion AIR 11.6
+     * 
+     * @see http://obtw.wordpress.com/2013/04/03/making-bytearray-faster/ Making ByteArray faster
+     * @see http://www.adobe.com/devnet/air/articles/faster-byte-array-operations.html Faster byte array operations with ASC2
+     * @see http://plus.google.com/117271975527324598054/posts/GABhwnhkupF fast mem ops a bit more details
+     * @see http://makc3d.wordpress.com/2013/04/11/as3-and-alchemy/ Can AS3 and Alchemy be friends?
+     * @see http://jacksondunstan.com/articles/2314 An ASC 2.0 Domain Memory Opcodes Primer
+     * @see http://pastebin.com/dPjcqT34 Alchemy vs AS3 member access
+     * @see http://pastie.org/7422818 xctest
+     */
 
     /**
      * Load 8 bit <code>integer</code>.
@@ -180,8 +180,6 @@ package avm2.intrinsics.memory
      * @throws RangeError Range check failures will result in an <code>InvalidRangeError</code> exception.
      */
 	public native function lf64( addr:int ):Number;
-
-
 
     /**
      * Store 8 bit <code>integer</code>.
@@ -415,8 +413,6 @@ package avm2.intrinsics.memory
      * @playerversion AIR 11.6
      */
 	public native function sxi16(value:int):int;
-
-
 
     /**
      * A complete memory barrier for domainMemory (for both load and store instructions).
