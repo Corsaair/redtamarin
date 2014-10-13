@@ -47,7 +47,7 @@ package C.sys.select
      *
      * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/select.html
      */
-    [native("::avmshell::CSysSelectClass::__FD_CLR")]
+    [native("::avmshell::CSysSelectClass::_avm_FD_CLR")]
     public native function FD_CLR( fd:int, fdsetp:fd_set ):void;
 
     /**
@@ -60,7 +60,7 @@ package C.sys.select
      *
      * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/select.html
      */
-    [native("::avmshell::CSysSelectClass::__FD_ISSET")]
+    [native("::avmshell::CSysSelectClass::_avm_FD_ISSET")]
     public native function FD_ISSET( fd:int, fdsetp:fd_set ):int;
 
     /**
@@ -78,7 +78,7 @@ package C.sys.select
      *
      * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/select.html
      */
-    [native("::avmshell::CSysSelectClass::__FD_SET")]
+    [native("::avmshell::CSysSelectClass::_avm_FD_SET")]
     public native function FD_SET( fd:int, fdsetp:fd_set ):void;
 
     /**
@@ -95,7 +95,7 @@ package C.sys.select
      *
      * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/select.html
      */
-    [native("::avmshell::CSysSelectClass::__FD_ZERO")]
+    [native("::avmshell::CSysSelectClass::_avm_FD_ZERO")]
     public native function FD_ZERO( fdsetp:fd_set ):void;
 
 
