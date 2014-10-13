@@ -7,96 +7,150 @@
 			<shortDescription><![CDATA[The top level contains the core ActionScript classes and global functions.]]></shortDescription>
 			<description><![CDATA[this is the global scope.]]></description>
 		</package>
-		<package name="C" >
+		<!-- <package name="C" >
 			<shortDescription><![CDATA[The C standard library for AS3.]]></shortDescription>
 			<description><![CDATA[The C standard library for AS3 combine ANSI C (C89) / ISO C (C90) and POSIX.1.]]></description>
+		</package> -->
+		<package name="C.arpa.inet" >
+			<shortDescription><![CDATA[Definitions for internet operations.]]></shortDescription>
+			<description><![CDATA[Functions for manipulating numeric IP addresses.]]></description>
 		</package>
 		<package name="C.assert" >
-			<shortDescription><![CDATA[Verify program assertion.]]></shortDescription>
-			<description><![CDATA[assert.h is a header file in the standard library of the C programming language that defines the C preprocessor macro assert(). The macro implements an assertion, which can be used to verify assumptions made by the program and print a diagnostic message if this assumption is false.]]></description>
+			<shortDescription><![CDATA[PARTIAL - Verify program assertion.]]></shortDescription>
+			<description><![CDATA[Defines the C preprocessor macro assert(). The macro implements an assertion, which can be used to verify assumptions made by the program and print a diagnostic message if this assumption is false.]]></description>
+		</package>
+		<package name="C.conio" >
+			<shortDescription><![CDATA[Console input and output.]]></shortDescription>
+			<description><![CDATA[Declares several useful library functions for performing console input and output from a program.]]></description>
+		</package>
+		<package name="C.cpio" >
+			<shortDescription><![CDATA[cpio archive values.]]></shortDescription>
+			<description><![CDATA[Magic numbers for the cpio archive format.]]></description>
 		</package>
 		<package name="C.ctype" >
 			<shortDescription><![CDATA[Character types.]]></shortDescription>
 			<description><![CDATA[C character classification is an operation provided by a group of functions in the ANSI C Standard Library for the C programming language. These functions are used to test characters for membership in a particular class of characters, such as alphabetic characters, control characters, etc. Both single-byte, and wide characters are supported.]]></description>
 		</package>
+		<package name="C.dirent" >
+			<shortDescription><![CDATA[Format of directory entries.]]></shortDescription>
+			<description><![CDATA[Contains constructs that facilitate directory traversing. The function is not part of the C standard, but is considered "pseudo-standard" and is usually portable between platforms.]]></description>
+		</package>
 		<package name="C.errno" >
 			<shortDescription><![CDATA[System error numbers.]]></shortDescription>
-			<description><![CDATA[errno.h is a heawder file in the standard library of C programming language. It defines macros to report error conditions through error codes stored in a static location called errno.]]></description>
+			<description><![CDATA[Defines macros to report error conditions through error codes stored in a static location called errno.]]></description>
+		</package>
+		<package name="C.fcntl" >
+			<shortDescription><![CDATA[File control options and operations.]]></shortDescription>
+			<description><![CDATA[Contains constructs that refer to file control, e.g. opening a file, retrieving and changing the permissions of file, locking a file for edit, etc.]]></description>
 		</package>
 		<package name="C.limits" >
 			<shortDescription><![CDATA[Implementation-defined constants.]]></shortDescription>
-			<description><![CDATA[limits.h is a header file in the standard library of C programming language. It defines macros and symbolic constants for various limits on resources that the implementation imposes on applications.]]></description>
+			<description><![CDATA[Defines macros and symbolic constants for various limits on resources that the implementation imposes on applications.]]></description>
 		</package>
 		<package name="C.locale" >
-			<shortDescription><![CDATA[Localization category macros.]]></shortDescription>
-			<description><![CDATA[locale.h is a header file in the standard library of C programming language. It defines macros and functions implementing basic localization routines and specific information.]]></description>
+			<shortDescription><![CDATA[PARTIAL - Localization category macros.]]></shortDescription>
+			<description><![CDATA[Defines macros and functions implementing basic localization routines and specific information.]]></description>
 		</package>
 		<package name="C.math" >
-			<shortDescription><![CDATA[yadda yadda yadda.]]></shortDescription>
-			<description><![CDATA[]]></description>
+			<shortDescription><![CDATA[PARTIAL - Mathematical declarations.]]></shortDescription>
+			<description><![CDATA[Contains mathematical functions and constants.]]></description>
+		</package>
+		<package name="C.netdb" >
+			<shortDescription><![CDATA[Definitions for network database operations.]]></shortDescription>
+			<description><![CDATA[Functions for translating protocol names and host names into numeric addresses. Searches local data as well as DNS.]]></description>
+		</package>
+		<package name="C.netinet" >
+			<shortDescription><![CDATA[Internet address family.]]></shortDescription>
+			<description><![CDATA[AF INET and AF INET6 address families. Widely used on the Internet, these include IP addresses and TCP and UDP port numbers.]]></description>
 		</package>
 		<package name="C.signal" >
-			<shortDescription><![CDATA[yadda yadda yadda.]]></shortDescription>
-			<description><![CDATA[]]></description>
+			<shortDescription><![CDATA[Signals.]]></shortDescription>
+			<description><![CDATA[Defines signal processing functions and constants.]]></description>
+		</package>
+		<package name="C.spawn" >
+			<shortDescription><![CDATA[Spawn, create a new process to run an executable program.]]></shortDescription>
+			<description><![CDATA[Contains functions to load and execute new child process.]]></description>
 		</package>
 		<package name="C.stdio" >
 			<shortDescription><![CDATA[Standard buffered input/output.]]></shortDescription>
-			<description><![CDATA[stdio.h is a header file in the standard library of C programming language. It defines macros, symbolic constants and functions for file input and output.]]></description>
+			<description><![CDATA[Defines macros, symbolic constants and functions for file input and output.]]></description>
 		</package>
 		<package name="C.stdlib" >
-			<shortDescription><![CDATA[yadda yadda yadda.]]></shortDescription>
-			<description><![CDATA[]]></description>
-		</package>
-		<package name="C.unistd" >
-			<shortDescription><![CDATA[yadda yadda yadda.]]></shortDescription>
-			<description><![CDATA[]]></description>
+			<shortDescription><![CDATA[Standard library definitions.]]></shortDescription>
+			<description><![CDATA[Defines numeric conversion functions, pseudo-random numbers generation functions, memory allocation, process control functions.]]></description>
 		</package>
 		<package name="C.string" >
-			<shortDescription><![CDATA[yadda yadda yadda.]]></shortDescription>
+			<shortDescription><![CDATA[String operations.]]></shortDescription>
+			<description><![CDATA[Defines string handling functions.]]></description>
+		</package>
+		<package name="C.sys.select" >
+			<shortDescription><![CDATA[Select types.]]></shortDescription>
+			<description><![CDATA[Functions for examining the status of file descriptors of open input/output channels.]]></description>
+		</package>
+		<package name="C.sys.socket" >
+			<shortDescription><![CDATA[Berkeley sockets API.]]></shortDescription>
+			<description><![CDATA[Contains core BSD socket functions and data structures.]]></description>
+		</package>
+		<package name="C.sys.stat" >
+			<shortDescription><![CDATA[File information.]]></shortDescription>
+			<description><![CDATA[Contains constructs that facilitate getting information about files attributes.]]></description>
+		</package>
+		<package name="C.sys.utsname" >
+			<shortDescription><![CDATA[PARTIAL - System name structure.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
-		<package name="C.socket" >
-			<shortDescription><![CDATA[yadda yadda yadda.]]></shortDescription>
-			<description><![CDATA[]]></description>
+		<package name="C.sys.wait" >
+			<shortDescription><![CDATA[PARTIAL - Declarations for waiting.]]></shortDescription>
+			<description><![CDATA[Status of terminated child processes.]]></description>
 		</package>
+		<package name="C.time" >
+			<shortDescription><![CDATA[PARTIAL - Time types.]]></shortDescription>
+			<description><![CDATA[Defines time handling functions.]]></description>
+		</package>
+		<package name="C.unistd" >
+			<shortDescription><![CDATA[Standard symbolic constants and types.]]></shortDescription>
+			<description><![CDATA[Here we provides access to the POSIX operating system API. We defines miscellaneous symbolic constants and types, and declares miscellaneous functions.]]></description>
+		</package>
+
+
 		<package name="avmplus" >
-			<shortDescription><![CDATA[The AVM+ package contains cross platform native API]]></shortDescription>
-			<description><![CDATA[]]></description>
+			<shortDescription><![CDATA[The AVM+ package contains FPAPI cross platform native API.]]></shortDescription>
+			<description><![CDATA[Those are usually hidden and not-documented in the FPAPI.]]></description>
 		</package>
 		<package name="avm2.intrinsics.memory" >
-			<shortDescription><![CDATA[This package contains the XP API / fast memory ops]]></shortDescription>
-			<description><![CDATA[]]></description>
+			<shortDescription><![CDATA[This package contains the XC API ("cross C API").]]></shortDescription>
+			<description><![CDATA[XC stands for "cross C", previously know as Alchemy, and also known as fast memory opcodes, fast mem ops, mops, etc.]]></description>
 		</package>
 		<package name="flash.accessibility" >
-			<shortDescription><![CDATA[The flash.accessibility package contains classes for supporting accessibility in Flash content and applications.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.accessibility package contains classes for supporting accessibility in Flash content and applications.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.concurrent" >
-			<shortDescription><![CDATA[The flash.concurrent package contains classes for supporting concurrency in Flash platform applications.]]></shortDescription>
+			<shortDescription><![CDATA[BETA The flash.concurrent package contains classes for supporting concurrency in Flash platform applications.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.crypto" >
-			<shortDescription><![CDATA[The flash.crypto package contains a function for generating cryptographically strong random sequences.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.crypto package contains a function for generating cryptographically strong random sequences.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.data" >
-			<shortDescription><![CDATA[The flash.data package contains classes used for working with Adobe AIR local SQL databases.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.data package contains classes used for working with Adobe AIR local SQL databases.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.desktop" >
-			<shortDescription><![CDATA[The flash.desktop package contains classes used for copy-and-paste and drag-and-drop operations, as well as the Icon class, used to define system icons used by a file. This package is only available to content running in Adobe AIR.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.desktop package contains classes used for copy-and-paste and drag-and-drop operations, as well as the Icon class, used to define system icons used by a file. This package is only available to content running in Adobe AIR.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.display" >
-			<shortDescription><![CDATA[The flash.display package contains the core classes that the Flash Player uses to build visual displays.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.display package contains the core classes that the Flash Player uses to build visual displays.]]></shortDescription>
 			<description><![CDATA[The flash.display package contains the core classes that the Flash Player uses to build visual displays.]]></description>
 		</package>
 		<package name="flash.display3D" >
-			<shortDescription><![CDATA[The flash.display3D package contains the core classes that the Flash Player uses to provide a high-performance rendering context.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.display3D package contains the core classes that the Flash Player uses to provide a high-performance rendering context.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.display3D.textures" >
-			<shortDescription><![CDATA[The flash.display3D.textures package contains the classes that the Flash Player uses to define texture objects for use in rendering.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.display3D.textures package contains the classes that the Flash Player uses to define texture objects for use in rendering.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.errors" >
@@ -110,19 +164,19 @@ The error classes that are not part of the flash.error package are top level cor
 Note: In ActionScript 3.0, exceptions are the primary mechanism for reporting runtime errors. Error events are a secondary mechanism that are used when errors are encountered during an asynchronous operation, such as a call to the Loader.load() method.]]></description>
 		</package>
 		<package name="flash.events" >
-			<shortDescription><![CDATA[The flash.events package supports the new DOM event model and includes the EventDispatcher base class.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.events package supports the new DOM event model and includes the EventDispatcher base class.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.external" >
-			<shortDescription><![CDATA[The flash.external package contains the ExternalInterface class which can be used to communicate with the Flash Player's container.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.external package contains the ExternalInterface class which can be used to communicate with the Flash Player's container.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.filesystem" >
-			<shortDescription><![CDATA[The flash.filesystem package contains classes used in accessing the filesystem. This package is only available to content running in Adobe AIR.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.filesystem package contains classes used in accessing the filesystem. This package is only available to content running in Adobe AIR.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.filters" >
-			<shortDescription><![CDATA[The flash.filters package contains classes for bitmap filter effects.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.filters package contains classes for bitmap filter effects.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.geom" >
@@ -130,39 +184,39 @@ Note: In ActionScript 3.0, exceptions are the primary mechanism for reporting ru
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.globalization" >
-			<shortDescription><![CDATA[The classes in the flash.globalization package provide language- and region- or country- specific functionality for string comparison and sorting, conversion of strings to upper and lower case, formatting of dates, times, numbers and currencies, and parsing of numbers and currencies.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The classes in the flash.globalization package provide language- and region- or country- specific functionality for string comparison and sorting, conversion of strings to upper and lower case, formatting of dates, times, numbers and currencies, and parsing of numbers and currencies.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.html" >
-			<shortDescription><![CDATA[The flash.html package contains classes used for including HTML content in an AIR application. This package is only available to content running in Adobe AIR.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.html package contains classes used for including HTML content in an AIR application. This package is only available to content running in Adobe AIR.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.media" >
-			<shortDescription><![CDATA[The flash.media package contains classes for working with multimedia assets such as sound and video.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.media package contains classes for working with multimedia assets such as sound and video.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.net" >
-			<shortDescription><![CDATA[The flash.net package contains classes for sending and receiving over a network.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.net package contains classes for sending and receiving over a network.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.net.dns" >
-			<shortDescription><![CDATA[The flash.net.dns package contains classes used for working with Domain Name System (DNS) resources, including Internet Protocol IP addresses.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.net.dns package contains classes used for working with Domain Name System (DNS) resources, including Internet Protocol IP addresses.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.net.drm" >
-			<shortDescription><![CDATA[The flash.net.drm package contains classes for working with DRM-protected content. This package is only available to content running in the AIR runtime.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.net.drm package contains classes for working with DRM-protected content. This package is only available to content running in the AIR runtime.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.notifications" >
-			<shortDescription><![CDATA[The flash.notifications package contains classes for remote notifications on mobile devices (iOS only).]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.notifications package contains classes for remote notifications on mobile devices (iOS only).]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.printing" >
-			<shortDescription><![CDATA[The flash.printing package contains classes for printing Flash-based content.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.printing package contains classes for printing Flash-based content.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.profiler" >
-			<shortDescription><![CDATA[The flash.profiler package contains functions used for debugging and profiling ActionScript code.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.profiler package contains functions used for debugging and profiling ActionScript code.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.sampler" >
@@ -170,38 +224,36 @@ Note: In ActionScript 3.0, exceptions are the primary mechanism for reporting ru
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.security" >
-			<shortDescription><![CDATA[The flash.security package includes classes for validating XML signatures. This package is only available to content running in the AIR runtime.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.security package includes classes for validating XML signatures. This package is only available to content running in the AIR runtime.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.sensors" >
-			<shortDescription><![CDATA[The flash.sensors package contains classes for working mobile devices that support GPS and respond to motion.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.sensors package contains classes for working mobile devices that support GPS and respond to motion.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.system" >
-			<shortDescription><![CDATA[The flash.system package contains classes for accessing system-level functionality, such as security, multilanguage content, etc.]]></shortDescription>
+			<shortDescription><![CDATA[BETA The flash.system package contains classes for accessing system-level functionality, such as security, multilanguage content, etc.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.text" >
-			<shortDescription><![CDATA[The flash.text package contains classes for working with text fields, text formatting, text metrics, style sheets, and layout.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.text package contains classes for working with text fields, text formatting, text metrics, style sheets, and layout.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.text.engine" >
-			<shortDescription><![CDATA[The FTE provides low-level support for sophisticated control of text metrics, formatting, and bi-directional text. While it can be used to create and manage simple text elements, the FTE is primarily designed as a foundation for developers to create text-handling components.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The FTE provides low-level support for sophisticated control of text metrics, formatting, and bi-directional text. While it can be used to create and manage simple text elements, the FTE is primarily designed as a foundation for developers to create text-handling components.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.text.ime" >
-			<shortDescription><![CDATA[The flash.text.ime package provides support for inline editing of non-Roman text for applications that provide their own text editing facilities. This support is especially helpful for applications that implement Input Method Editors (IMEs) for use with FTE (the flash.text.engine package).]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.text.ime package provides support for inline editing of non-Roman text for applications that provide their own text editing facilities. This support is especially helpful for applications that implement Input Method Editors (IMEs) for use with FTE (the flash.text.engine package).]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.ui" >
-			<shortDescription><![CDATA[The flash.ui package contains user interface classes, such as classes for interacting with the mouse and keyboard.]]></shortDescription>
+			<shortDescription><![CDATA[ALPHA The flash.ui package contains user interface classes, such as classes for interacting with the mouse and keyboard.]]></shortDescription>
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="flash.trace" >
 			<shortDescription><![CDATA[The flash.trace package contains Trace facility for dumping out method entry line number and file name information while executing.]]></shortDescription>
-			<description><![CDATA[Allows to interact directly with the AVM+ Debugger output.
-
-The Trace listener function will output every single function call occuring at runtime.]]></description>
+			<description><![CDATA[Allows to interact directly with the AVM+ Debugger output. The Trace listener function will output every single function call occuring at runtime.]]></description>
 		</package>
 		<package name="flash.utils" >
 			<shortDescription><![CDATA[The flash.utils package contains utility classes, such as data structures like ByteArray.]]></shortDescription>
@@ -212,9 +264,12 @@ The Trace listener function will output every single function call occuring at r
 			<description><![CDATA[]]></description>
 		</package>
 		<package name="shell" >
-			<shortDescription><![CDATA[The shell package contains RedTamarin Runtime Native functionalities, and other redshell-specific functionality.]]></shortDescription>
-			<description><![CDATA[]]></description>
+			<shortDescription><![CDATA[The RedTamarin Native Libraries (RNL), our own cross platform native API.]]></shortDescription>
+			<description><![CDATA[Here you can find the RedTamarin core cross platform API and other redshell-specific functionalities.]]></description>
 		</package>
-		
+		<package name="shell.async" >
+			<shortDescription><![CDATA[RedTamarin asynchronous operations.]]></shortDescription>
+			<description><![CDATA[Contains all code related to event loop, async mode, etc.]]></description>
+		</package>		
 	</packages>
 </overviews>
