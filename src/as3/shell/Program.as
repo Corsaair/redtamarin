@@ -160,7 +160,7 @@ package shell
          * @langversion 3.0
          * @playerversion AVM 0.4
          */
-        AVM2 static function atExit( f:Function ):void
+        public static function atExit( f:Function ):void
         {
             _exitcall.push( f );
         }
@@ -195,12 +195,26 @@ package shell
 
         /**
          * The function to execute by default when the AVM terminate.
+         *
+         * <p>
+         * This is setup by the boot system.
+         * </p>
          * 
          * @langversion 3.0
          * @playerversion AVM 0.4
          */
         AVM2 static var onExit:Function = null;
 
+        /**
+         * The function to execute by default to find a shell command.
+         *
+         * <p>
+         * This is setup by the boot system.
+         * </p>
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4
+         */
         AVM2 static var findShell:Function = null;
         
         /**
