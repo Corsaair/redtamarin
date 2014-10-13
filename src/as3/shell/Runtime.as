@@ -275,6 +275,10 @@ package shell
          * <p>
          * Instanciate an <code>EventLoop</code> implementation.
          * </p>
+         *
+         * <p>
+         * This is setup by the boot system.
+         * </p>
          * 
          * @langversion 3.0
          * @playerversion AVM 0.4
