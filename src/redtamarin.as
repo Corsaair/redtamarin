@@ -44,13 +44,31 @@
    later, we will provide a script or modify utils/apivergen.as
 */
 
+/* error compatibility notes:
+   in core/ we have different generated files
+   ErrorConstants.h ErrorConstants.cpp ErrorConstants.xml etc.
+   and in particualr ErrorConstants.as
+
+   now we include ErrorConstants.as by default
+   so we can throw from AS3 the same internal errors
+   that amvcore can throw in C++
+
+   example:
+   //C++
+   toplevel->throwArgumentError(kNullArgumentError, "filename");
+
+   //AS3
+   Error.throwError( ArgumentError, Errors.kNullArgumentError, "filename" );
+*/
+
 include "as3/versioning.as";
 
 include "as3/AVM2.as";
 
 /* C standard library for AS3 */
 
-include "as3/C/ISO_C.as";
+//include "as3/C/ISO_C.as";
+include "as3/C/globals.as";
 include "as3/C/assert.as"; //not implemented
 include "as3/C/ctype.as";
 include "as3/C/errno.as";
@@ -67,7 +85,8 @@ include "as3/C/stdlib.as";
 include "as3/C/string.as";
 include "as3/C/time.as";
 
-include "as3/C/POSIX.as";
+//include "as3/C/POSIX.as";
+include "as3/C/arpa/inet.as";
 include "as3/C/conio.as";
 include "as3/C/cpio.as";
 include "as3/C/dirent.as";
@@ -82,11 +101,12 @@ include "as3/C/spawn.as";
 //C.sys.mman
 //C.sys.msg
 //C.sys.sem
+include "as3/C/sys/select.as";
 include "as3/C/sys/socket.as";
 include "as3/C/sys/stat.as";
 //C.sys.time
 //C.sys.types
-//C.sys.utsname
+include "as3/C/sys/utsname.as";
 include "as3/C/sys/wait.as";
 //C.tar
 //C.termios
@@ -106,7 +126,7 @@ include "as3/shell/OperatingSystem.as";
 include "as3/shell/FileSystem.as";
 include "as3/shell/RunMode.as";
 include "as3/shell/Domain.as";
-include "as3/shell/FileIO.as";
+//include "as3/shell/FileIO.as"; //removed, duplicate of FileSystem
 include "as3/shell/Environment.as";
 include "as3/shell/BinaryData.as";
 include "as3/shell/async/EventLoop.as";
@@ -170,6 +190,7 @@ include "as3/shell/boot.as";
 //Vector -- defined in builtin.as -- depends on versioning
 //Math -- defined in Math.as
 //Error -- defined in Error.as
+//Errors -- defined in ErrorConstants.as
 //DefinitionError -- defined in Error.as
 //EvalError -- defined in Error.as
 //RangeError -- defined in Error.as
@@ -515,9 +536,9 @@ include "as3/flash/errors/DRMManagerError.as";
 
 
 //-- flash.filesystem --
-//File
-//FileMode
-//FileStream
+include "as3/flash/filesystem/File.as";
+include "as3/flash/filesystem/FileMode.as";
+include "as3/flash/filesystem/FileStream.as";
 //StorageVolume
 //StorageVolumeInfo
 
@@ -625,7 +646,7 @@ include "as3/flash/geom/Rectangle.as";
 
 //DatagramSocket
 //FileFilter
-//FileReference
+include "as3/flash/net/FileReference.as";
 //FileReferenceList
 //GroupSpecifier
 //InterfaceAddress
@@ -656,8 +677,8 @@ include "as3/flash/geom/Rectangle.as";
 //Socket
 //URLLoader
 //URLLoaderDataFormat
-//URLRequest
-//URLRequestDefaults
+include "as3/flash/net/URLRequest.as";
+include "as3/flash/net/URLRequestDefaults.as";
 include "as3/flash/net/URLRequestHeader.as";
 //URLRequestMethod
 //URLStream
@@ -761,7 +782,8 @@ include "as3/flash/system/Capabilities.as";
 //LoaderContext
 //MessageChannel
 //MessageChannelState
-//Security
+include "as3/flash/system/Security.as";
+include "as3/flash/system/SecurityPrivilege.as"; //undocumented
 //SecurityDomain
 //SecurityPanel
 include "as3/flash/system/System.as";
