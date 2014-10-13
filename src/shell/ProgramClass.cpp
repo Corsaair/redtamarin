@@ -60,27 +60,26 @@ namespace avmshell
 
         ArrayObject *array = toplevel->arrayClass()->newArray();
 
-        #ifdef AVMSYSTEM_WIN32
+        #if AVMSYSTEM_WIN32
             wchar **cur = VMPI_GetEnviron16();
-        #else
-            char **cur = VMPI_GetEnviron();
-        #endif
-
-        int i = 0;
-        while( *cur )
-        {
-            #ifdef AVMSYSTEM_WIN32
-                Stringp value = core->newStringUTF16(*cur);
+            int i = 0;
+            while( cur[i] )
+            {
+                Stringp value = core->newStringUTF16(cur[i]);
                 StUTF8String valueUTF8(value);
 
                 array->setUintProperty( i, core->newStringUTF8( valueUTF8.c_str() )->atom() );
-            #else
-                array->setUintProperty( i, core->newStringUTF8( *cur )->atom() );
-            #endif
-
-            cur++;
-            i++;
-        }
+                i++;
+            }
+        #else
+            char **cur = VMPI_GetEnviron();
+            int i = 0;
+            while( cur[i] )
+            {
+                array->setUintProperty( i, core->newStringUTF8( cur[i] )->atom() );
+                i++;
+            }
+        #endif
         
         return array;
     }
