@@ -39,7 +39,7 @@ print("Building redtamarin...")
 
 configs = "-config CONFIG::VMCFG_FLOAT=false -config AVMGLUE::REDTAMARIN=true"
 
-builtin = "core/builtin.as core/Math.as core/Error.as core/flash_errors_classes.as core/Date.as core/RegExp.as core/JSON.as core/XML.as core/IDataInput.as core/IDataOutput.as core/ByteArray.as core/Proxy.as core/flash_net_classes.as core/Dictionary.as core/IDynamicPropertyOutput.as core/IDynamicPropertyWriter.as core/DynamicPropertyOutput.as core/ObjectInput.as core/ObjectOutput.as core/IExternalizable.as core/ObjectEncoding.as core/concurrent.as core/PromiseChannel.as"
+builtin = "core/builtin.as core/Math.as core/Error.as core/ErrorConstants.as core/flash_errors_classes.as core/Date.as core/RegExp.as core/JSON.as core/XML.as core/IDataInput.as core/IDataOutput.as core/ByteArray.as core/Proxy.as core/flash_net_classes.as core/Dictionary.as core/IDynamicPropertyOutput.as core/IDynamicPropertyWriter.as core/DynamicPropertyOutput.as core/ObjectInput.as core/ObjectOutput.as core/IExternalizable.as core/ObjectEncoding.as core/concurrent.as core/PromiseChannel.as"
 
 redtamarin = " redtamarin.as"
 
