@@ -1,3 +1,18 @@
+* 0.4.0 Akihabara (from tag 1T000)
+- now we include ErrorConstant.as
+  to be able to throw native errors from AS3
+- lots of update to clean up documentation with asdoc
+- added VMPI_GetEnviron
+- implemented FileSystem class AS3 and native
+- started to implement flash.filesystem and flash.net package
+  not finished
+- added undocumented class flash.system.SecurityPrivilege
+- implemented C.sys.socket
+- implemented C.sys.select
+- implemented C.arpa.inet
+- updated C.netdb, and others socket related API
+- sockets and select are working for OS X
+
 * 0.4.0 Akihabara (from tag 1S540)
 - added C.dirent basic closedir, opendir, readdir
 - added more dirent: dirfd, fdopendir, rewinddir, seekdir, telldir
@@ -50,6 +65,9 @@
   strchr(), strdup(), strerror(), strlen(), strncpy(), etc. now supports UTF-8
 - Windows note: execv(), execve(), execvp() do not now supports UTF-8 yet
 - stabilize macintosh build, some fixes and bolts
+- removed FileIO class
+- added/implemented FileSystem class
+
 
 * 0.4.0 Akihabara (from tag 1R000)
 - BRAND NEW REFACTOR NO BACKWARD COMPATIBILITY
