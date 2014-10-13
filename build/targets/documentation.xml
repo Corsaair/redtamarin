@@ -21,6 +21,7 @@
 		<!--
 			asdoc ALWAYS need api-versions.as
 		 -->
+        <!--
         <if>
             <available file="src/as3/api-versions.as" type="file"/>
             <then>
@@ -36,6 +37,7 @@
                 <copy file="src/core/api-versions.as" tofile="src/as3/api-versions.as"/>
             </then>
         </if>
+		 -->
 
 	</target>
 
@@ -102,6 +104,7 @@
 			<doc-sources path-element="${basedir}/src/core/XML.as" />
 			<doc-sources path-element="${basedir}/src/core/Math.as" />
 			<doc-sources path-element="${basedir}/src/core/Error.as" />
+			<doc-sources path-element="${basedir}/src/core/ErrorConstants.as" />
 			<doc-sources path-element="${basedir}/src/core/flash_errors_classes.as" />
 			<doc-sources path-element="${basedir}/src/core/Date.as" />
 			<doc-sources path-element="${basedir}/src/core/RegExp.as" />
@@ -135,7 +138,8 @@
 
 
 			<!-- clib documentation -->
-			<doc-sources path-element="${basedir}/src/as3/C/ISO_C.as" />
+			<!-- <doc-sources path-element="${basedir}/src/as3/C/ISO_C.as" /> -->
+			<doc-sources path-element="${basedir}/src/as3/C/globals.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/assert.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/ctype.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/errno.as" />
@@ -148,7 +152,8 @@
 			<doc-sources path-element="${basedir}/src/as3/C/string.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/time.as" />
 
-			<doc-sources path-element="${basedir}/src/as3/C/POSIX.as" />
+			<!-- <doc-sources path-element="${basedir}/src/as3/C/POSIX.as" /> -->
+			<doc-sources path-element="${basedir}/src/as3/C/arpa/inet.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/conio.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/cpio.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/dirent.as" />
@@ -156,8 +161,10 @@
 			<doc-sources path-element="${basedir}/src/as3/C/netdb.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/netinet.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/spawn.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/sys/select.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/sys/socket.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/sys/stat.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/sys/utsname.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/sys/wait.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/unistd.as" />
 			
@@ -172,7 +179,7 @@
 			<doc-sources path-element="${basedir}/src/as3/shell/FileSystem.as" />
 			<doc-sources path-element="${basedir}/src/as3/shell/RunMode.as" />
 			<doc-sources path-element="${basedir}/src/as3/shell/Domain.as" />
-			<doc-sources path-element="${basedir}/src/as3/shell/FileIO.as" />
+			<!-- <doc-sources path-element="${basedir}/src/as3/shell/FileIO.as" /> -->
 			<doc-sources path-element="${basedir}/src/as3/shell/Environment.as" />
 			<doc-sources path-element="${basedir}/src/as3/shell/BinaryData.as" />
 			<doc-sources path-element="${basedir}/src/as3/shell/async/EventLoop.as" />
@@ -245,15 +252,24 @@
 			<doc-sources path-element="${basedir}/src/as3/flash/events/HTTPStatusEvent.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/events/TimerEvent.as" />
 
+			<doc-sources path-element="${basedir}/src/as3/flash/filesystem/File.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/filesystem/FileMode.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/filesystem/FileStream.as" />
+
 			<doc-sources path-element="${basedir}/src/as3/flash/geom/Orientation3D.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/geom/Point.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/geom/Rectangle.as" />
 
+			<doc-sources path-element="${basedir}/src/as3/flash/net/FileReference.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/net/URLRequest.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/net/URLRequestDefaults.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/net/URLRequestHeader.as" />
 
 			<doc-sources path-element="${basedir}/src/extensions/Sampler.as" />
 
 			<doc-sources path-element="${basedir}/src/as3/flash/system/Capabilities.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/system/Security.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/system/SecurityPrivilege.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/system/System.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/system/WorkerState.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/system/Worker.as" />
@@ -291,12 +307,14 @@
 
 	<target name="after">
         
+        <!--
         <if>
             <available file="src/as3/api-versions.as" type="file"/>
             <then>
                 <delete file="src/as3/api-versions.as"/>
             </then>
         </if>
+		 -->
 
 		<if>
 			<equals arg1="${build.fatswc}" arg2="true"/>
@@ -315,6 +333,49 @@
                 <delete dir="${app.release}/documentation/tempdita" />
 
 			</then>
+		</if>
+
+		<if>
+			<and>
+				<equals arg1="${build.publishDocumentation}" arg2="true"/>
+				<isset property="ftp.site"/>
+				<isset property="ftp.log"/>
+				<isset property="ftp.pwd"/>
+			</and>
+
+			<then>
+				<echo message="Publish documentation to FTP" />
+
+			    <property
+				    name="doctag"
+				    value="${app.version.shortnumberclean}.${app.version.tag}"/>
+
+			    <property
+				    name="remotedirfordoc"
+				    value="/websites/docs.redtamarin.com/${doctag}"/>
+
+                <ftp action="mkdir"
+			         server="${ftp.site}"
+			         userid="${ftp.log}"
+			         password="${ftp.pwd}"
+			         remotedir="${remotedirfordoc}"/>
+                
+                <ftp server="${ftp.site}"
+			         port="21"
+			         remotedir="${remotedirfordoc}"
+			         userid="${ftp.log}"
+			         password="${ftp.pwd}"
+			         passive="yes"
+			         depends="yes">
+			        <fileset dir="${app.release}/documentation">
+			            <include name="**/*"/>
+			        </fileset>
+			    </ftp>
+			
+			</then>
+			<else>
+				<echo message="Parameters are missing to publish documentation to FTP" />
+			</else>
 		</if>
 
 	</target>
