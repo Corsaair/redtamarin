@@ -17,18 +17,28 @@ package shell
        some of those access are protected under the AVM2 namespace
     */
     use namespace AVM2;
+
+    /* 0. in the futur
+
+       we will make this boot system in such way
+       that users can override its logic from a text file
+
+       but before doing that we need a profile class
+       and a config class
+    */
    
-    /* note:
+    /* 1. we reset errno to zero
+
        By default, something somewhere in tamarin define errno=2
        eg. "No such file or directory"
     
        for our API we want errno set as 0 (zero) from the start of the application
        forcing errno=0 here allow to do this
     */
-    //set errno to zero
     errno.value = 0;
 
-    /* note:
+    /* 2. we setup the findShell() function
+
        Here we define the logic to find the current operating system
        command shell or command interpreter
 
@@ -38,20 +48,6 @@ package shell
     Program.findShell = function():String
     {
         var sh:String = "";
-
-        /*switch( OperatingSystem.vendor )
-        {
-            case "Microsoft":
-            sh = getenv( "COMSPEC" );
-            break;
-
-            case "Apple":
-            case "Linux":
-            default:
-            sh = getenv( "SHELL" );
-        }*/
-
-        //sh = getenv( "SHELL" ); //temp
 
         switch( Runtime.platform )
         {
@@ -71,7 +67,19 @@ package shell
         return sh;
     }
 
-    /* note:
+    /* 3. we setup the onExit() function
+
+       this function basically loop trough the _exitcall array
+       and call each one of the functions it may contain
+
+       then this function is defined as the "exit listener"
+       and when the redshell is about to terminate normally
+       it call this function (only if this function exists)
+       just before the actual exiting
+       
+       if the program terminates abnormally
+       the "exit listener" is not called
+
        Causes the specified function to be called when the program terminates normally.
        At least 32 functions can be registered to be called when the program terminates.
        They are called in a last-in, first-out basis (the last function registered is called first).
@@ -88,8 +96,15 @@ package shell
         Program.setExitListener( null );
     }
     
+    /* 3a. the onExit function is defined as the "exit listener"
+    */
     Program.setExitListener( Program.onExit );
 
+    /* 4. we setup the goAsync() function
+       
+       this function only check if the loop is not null
+       and then start the loop
+    */
     Runtime.goAsync = function()
     {
         trace( "Runtime.goAsync()" );
@@ -102,5 +117,7 @@ package shell
         
     }
     
+    /* 5. we run the program selfCheck() function
+    */
     Program.selfCheck();        
 }
