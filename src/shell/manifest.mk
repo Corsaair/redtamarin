@@ -26,7 +26,6 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/ConsoleOutputStream.cpp \
   $(curdir)/DebugCLI.cpp \
   $(curdir)/DomainClass.cpp \
-  $(curdir)/FileClass.cpp \
   $(curdir)/FileInputStream.cpp \
   $(curdir)/ShellCore.cpp \
   $(curdir)/ProgramClass.cpp \
@@ -47,14 +46,17 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../api/clib/CStdlibClass.cpp \
   $(curdir)/../api/clib/CStringClass.cpp \
   $(curdir)/../api/clib/CTimeClass.cpp \
+  $(curdir)/../api/clib/CArpaInetClass.cpp \
   $(curdir)/../api/clib/CConioClass.cpp \
   $(curdir)/../api/clib/CDirentClass.cpp \
   $(curdir)/../api/clib/CFcntlClass.cpp \
   $(curdir)/../api/clib/CNetdbClass.cpp \
   $(curdir)/../api/clib/CNetinetInClass.cpp \
   $(curdir)/../api/clib/CSpawnClass.cpp \
+  $(curdir)/../api/clib/CSysSelectClass.cpp \
   $(curdir)/../api/clib/CSysSocketClass.cpp \
   $(curdir)/../api/clib/CSysStatClass.cpp \
+  $(curdir)/../api/clib/CSysUtsnameClass.cpp \
   $(curdir)/../api/clib/CSysWaitClass.cpp \
   $(curdir)/../api/clib/CUnistdClass.cpp \
   $(curdir)/../api/shell/RuntimeClass.cpp \
@@ -63,6 +65,8 @@ shell_CXXSRCS := $(shell_CXXSRCS) \
   $(curdir)/../api/shell/OperatingSystemClass.cpp \
   $(curdir)/../api/shell/FileSystemClass.cpp \
   $(curdir)/../api/glue/SystemClass.cpp \
+  $(curdir)/../api/glue/FileGlueClass.cpp \
+  $(curdir)/../api/glue/FileReferenceClass.cpp \
   $(NULL)
 
 ifeq (windows,$(TARGET_OS))
