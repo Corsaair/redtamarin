@@ -8,11 +8,14 @@
  * Use the script 'errorgen' to generate this file.
  */
 
+package
+{
+
 /**
  * Errors defines the ID's of error messages output
  * by the Debugger verisons of the Player
  */
-class Errors
+public class Errors
 {
         public static const kOutOfMemoryError                 = 1000;
         public static const kNotImplementedError              = 1001;
@@ -180,3 +183,5 @@ class Errors
         public static const kInvalidArrayLengthError          = 2108;
         public static const kReadExternalNotImplementedError  = 2173;
 };
+
+}
