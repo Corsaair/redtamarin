@@ -12,6 +12,14 @@
 - implemented C.arpa.inet
 - updated C.netdb, and others socket related API
 - sockets and select are working for OS X
+- sockets and select are working for Linux
+- updated Windows native API so now socket and file descriptor
+  can be inerchangeable which then allow to use close() on sockets
+- updated Windows API so socket functions automatically initialize winsock
+- updated exit() function to automatically cleanup winsock
+  note: even without explictly calling exit() winsock will be cleaned up
+  at condition the exit is normal, for abnormal exit winsock will be untouched
+- sockets and select are working for Windows
 
 * 0.4.0 Akihabara (from tag 1S540)
 - added C.dirent basic closedir, opendir, readdir
