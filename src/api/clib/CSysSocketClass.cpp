@@ -95,7 +95,7 @@ namespace avmshell
 
     int CSysSocketClass::accept6(int socket, CSockaddr_in6Object* address)
     {
-        int result;
+        int result = -1;
 
         if( !address )
         {

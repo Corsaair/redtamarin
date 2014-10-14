@@ -80,6 +80,8 @@ namespace avmshell
 
     int CArpaInetClass::_inet_aton(Stringp cp, CIn_AddrObject* inp)
     {
+        //POSIX only
+        
         if( !cp )
         {
             toplevel()->throwArgumentError(kNullArgumentError, "cp");

@@ -85,17 +85,18 @@ namespace avmshell
             toplevel->throwArgumentError(kNullArgumentError, "timeout");
         }
 
-		int result;        
-    	struct timeval tv;
+		struct timeval tv;
     	tv = timeout->toStruct();
 
+        int result = -1;
+        
         if( !readfds && !writefds && !errorfds )
         {
-        	result = VMPI_select( nfds, NULL,          NULL,           NULL, &tv );
+        	result = VMPI_select( nfds, NULL, NULL, NULL, &tv );
         }
         else if( !writefds && !errorfds )
         {
-        	result = VMPI_select( nfds, &readfds->fds, NULL,           NULL, &tv );
+        	result = VMPI_select( nfds, &readfds->fds, NULL, NULL, &tv );
         }
         else if( !errorfds )
         {
@@ -103,26 +104,31 @@ namespace avmshell
         }
         else if( !writefds )
         {
-        	result = VMPI_select( nfds, &readfds->fds, NULL,           &errorfds->fds, &tv );
+        	result = VMPI_select( nfds, &readfds->fds, NULL, &errorfds->fds, &tv );
         }
         else if( !readfds )
         {
-        	result = VMPI_select( nfds, NULL,          &writefds->fds, &errorfds->fds, &tv );
+        	result = VMPI_select( nfds, NULL, &writefds->fds, &errorfds->fds, &tv );
         }
         else if( !readfds && !writefds )
         {
-        	result = VMPI_select( nfds, NULL,          NULL,           &errorfds->fds, &tv );
+        	result = VMPI_select( nfds, NULL, NULL, &errorfds->fds, &tv );
         }
         else if( !readfds && !errorfds )
         {
-        	result = VMPI_select( nfds, NULL,          &writefds->fds, NULL, &tv );
+        	result = VMPI_select( nfds, NULL, &writefds->fds, NULL, &tv );
         }
-        
+        else
+        {
+            result = VMPI_select( nfds, &readfds->fds, &writefds->fds, &errorfds->fds, &tv );
+        }
+
+
         if( result != -1 )
         {
-        	timeout->fromStruct( tv );
+            timeout->fromStruct( tv );
         }
-        
+
         return result;
     }
 

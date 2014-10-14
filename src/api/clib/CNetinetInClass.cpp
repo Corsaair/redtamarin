@@ -118,8 +118,8 @@ namespace avmshell
     struct sockaddr_in CSockaddr_inObject::toStruct()
     {
          struct sockaddr_in sockaddr4;
-         sockaddr4.sin_family = this->get_sin_family();
-         sockaddr4.sin_port   = this->get_sin_port();
+         sockaddr4.sin_family = (uint16_t) this->get_sin_family();
+         sockaddr4.sin_port   = (uint16_t) this->get_sin_port();
 
          CIn_AddrObject* inaddr = this->get_sin_addr();
          struct in_addr inaddr4;
@@ -201,6 +201,7 @@ namespace avmshell
 
         if(!v)
         {
+            VMPI_memcpy( in6addr.s6_addr, s6addr, sizeof s6addr );
             return in6addr;
         }
 
@@ -265,8 +266,8 @@ namespace avmshell
     struct sockaddr_in6 CSockaddr_in6Object::toStruct()
     {
         struct sockaddr_in6 sockaddr6;
-        sockaddr6.sin6_family   = this->get_sin6_family();
-        sockaddr6.sin6_port     = this->get_sin6_port();
+        sockaddr6.sin6_family   = (uint16_t) this->get_sin6_family();
+        sockaddr6.sin6_port     = (uint16_t) this->get_sin6_port();
         sockaddr6.sin6_flowinfo = this->get_sin6_flowinfo();
         sockaddr6.sin6_scope_id = this->get_sin6_scope_id();
 
