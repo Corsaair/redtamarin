@@ -305,6 +305,7 @@ package C.sys.socket
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
+     * @playerversion POSIX +
      */
     public const MSG_EOR:int = __socket.MSG_EOR;
 
@@ -323,6 +324,7 @@ package C.sys.socket
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
+     * @playerversion POSIX +
      */
     public const MSG_NOSIGNAL:int = __socket.MSG_NOSIGNAL;
 

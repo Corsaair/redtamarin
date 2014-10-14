@@ -9,6 +9,8 @@ package C.arpa.inet
     import C.netinet.*;
     import C.sys.socket.*;
 
+    import shell.Runtime;
+
     /**
      * @name <code>&lt;arpa/inet.h&gt;</code>
      * Definitions for internet operations.
@@ -186,6 +188,46 @@ package C.arpa.inet
      */
     public function inet_aton( cp:String, inp:in_addr ):int
     {
+        /* NOTE:
+           Windows does not support inet_aton()
+           so we detect it and implement it
+        */
+        if( Runtime.platform == "windows" )
+        {
+            
+            if( !cp )
+            {
+                Error.throwError( ArgumentError, Errors.kNullArgumentError, "cp" );
+            }
+
+            if( !inp )
+            {
+                Error.throwError( ArgumentError, Errors.kNullArgumentError, "inp" );
+            }
+
+            var addr32:uint = 0;
+
+            if( cp == "255.255.255.255" ) /* special case where it may return INADDR_NONE */
+            {
+                addr32 = INADDR_BROADCAST;
+            }
+            else
+            {
+                addr32 = inet_addr( cp );
+            }
+
+            if( addr32 == INADDR_NONE ) /* invalid address */
+            {
+                return 0;
+            }
+            else
+            {
+                inp.s_addr = addr32;
+                return 1;
+            }
+
+        }
+
         return __inet._inet_aton( cp, inp );
     }
 

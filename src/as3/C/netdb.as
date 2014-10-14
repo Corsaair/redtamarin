@@ -164,6 +164,7 @@ package C.netdb
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
+     * @playerversion POSIX +
      */
     public const NI_NUMERICSCOPE:int = __netdb.NI_NUMERICSCOPE;
 
@@ -258,6 +259,7 @@ package C.netdb
      *
      * @langversion 3.0
      * @playerversion AVM 0.4
+     * @playerversion POSIX +
      */
     public const EAI_SYSTEM:int = __netdb.EAI_SYSTEM;
     __aierrmap[ EAI_SYSTEM ] = "EAI_SYSTEM";
@@ -267,6 +269,7 @@ package C.netdb
      *
      * @langversion 3.0
      * @playerversion AVM 0.4
+     * @playerversion POSIX +
      */
     public const EAI_OVERFLOW:int = __netdb.EAI_OVERFLOW;
     __aierrmap[ EAI_OVERFLOW ] = "EAI_OVERFLOW";
