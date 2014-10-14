@@ -766,6 +766,11 @@ int VMPI_waitpid(int pid, int *stat_loc, int options)
 
 
 // ---- C.unistd ---- 
+int VMPI_close(int fildes)
+{
+    return ::close( fildes );
+}
+
 /* NOTE:
    see: https://developer.apple.com/library/mac/documentation/Darwin/Reference/Manpages/man7/environ.7.html
    "if direct access to environ is needed, the _NSGetEnviron() routine,
@@ -813,6 +818,13 @@ void VMPI_sleep(int milliseconds)
 
 
 // ==== RNL ==== 
+
+// ---- shell.Program ---- 
+void VMPI_exitCleanup()
+{
+    //nothing to cleanup for Macintosh/Linux
+}
+// ---- shell.Program ---- END
 
 // ---- shell.HardwareInformation ---- 
 double VMPI_SystemMemorySize()

@@ -12,6 +12,33 @@
 
 static int WIN32_winsock_started = 0;
 
+#define FD_TO_SOCKET(fd)  ((SOCKET) _get_osfhandle((fd)))
+#define SOCKET_TO_FD(fh)  (_open_osfhandle((long) (fh), O_RDWR | O_BINARY))
+//#define SOCKET_TO_FD(fh)  (_open_osfhandle((HANDLE) (fh), O_RDWR | O_BINARY))
+
+
+int WIN32_is_socket(SOCKET fd)
+{
+    char sockbuf[80];
+    int optlen;
+    int retval;
+    int result = TRUE;
+
+    retval = getsockopt( fd, SOL_SOCKET, SO_TYPE, sockbuf, &optlen );
+
+    if( (retval == SOCKET_ERROR) || (retval == INVALID_SOCKET) )
+    {
+        int iret;
+        iret = WSAGetLastError();
+        if( (iret == WSAENOTSOCK) || (iret == WSANOTINITIALISED) )
+        {
+            result = FALSE;
+        }
+    }
+
+    return result;
+}
+
 int WIN32_SocketStart(int major, int minor)
 {
     if( WIN32_winsock_started )
@@ -51,6 +78,71 @@ void WIN32_SocketStop()
     {
         WSACleanup();
     }
+}
+
+int WIN32_winsock_to_errno()
+{
+    int err = WSAGetLastError();
+
+    switch( err )
+    {
+        case 0:                      return 0;
+        case WSA_INVALID_HANDLE:     return EBADF;
+        case WSA_NOT_ENOUGH_MEMORY:  return ENOMEM;
+        case WSA_INVALID_PARAMETER:  return EINVAL;
+        case WSAEINTR:               return EINTR;
+        case WSAEWOULDBLOCK:         return EWOULDBLOCK;
+        case WSAEINPROGRESS:         return EINPROGRESS;
+        case WSAEALREADY:            return EALREADY;
+        case WSAENOTSOCK:            return ENOTSOCK;
+        case WSAEDESTADDRREQ:        return EDESTADDRREQ;
+        case WSAEMSGSIZE:            return EMSGSIZE;
+        case WSAEPROTOTYPE:          return EPROTOTYPE;
+        case WSAENOPROTOOPT:         return ENOPROTOOPT;
+        case WSAEPROTONOSUPPORT:     return EPROTONOSUPPORT;
+        case WSAESOCKTNOSUPPORT:     return ESOCKTNOSUPPORT;
+        case WSAEOPNOTSUPP:          return EOPNOTSUPP;
+        case WSAEPFNOSUPPORT:        return EPFNOSUPPORT;
+        case WSAEAFNOSUPPORT:        return EAFNOSUPPORT;
+        case WSAEADDRINUSE:          return EADDRINUSE;
+        case WSAEADDRNOTAVAIL:       return EADDRNOTAVAIL;
+        case WSAENETDOWN:            return ENETDOWN;
+        case WSAENETUNREACH:         return ENETUNREACH;
+        case WSAENETRESET:           return ENETRESET;
+        case WSAECONNABORTED:        return ECONNABORTED;
+        case WSAECONNRESET:          return ECONNRESET;
+        case WSAENOBUFS:             return ENOBUFS;
+        case WSAEISCONN:             return EISCONN;
+        case WSAENOTCONN:            return ENOTCONN;
+        case WSAESHUTDOWN:           return ESHUTDOWN;
+        case WSAETOOMANYREFS:        return ETOOMANYREFS;
+        case WSAETIMEDOUT:           return ETIMEDOUT;
+        case WSAECONNREFUSED:        return ECONNREFUSED;
+        case WSAELOOP:               return ELOOP;
+        case WSAENAMETOOLONG:        return ENAMETOOLONG;
+        case WSAEHOSTDOWN:           return EHOSTDOWN;
+        case WSAEHOSTUNREACH:        return EHOSTUNREACH;
+        case WSAENOTEMPTY:           return ENOTEMPTY;
+        case WSAEPROCLIM:            return EPROCLIM;
+        case WSAEUSERS:              return EUSERS;
+        case WSAEDQUOT:              return EDQUOT;
+        case WSAESTALE:              return ESTALE;
+        case WSAEREMOTE:             return EREMOTE;
+        case WSAEINVAL:              return EINVAL;
+        case WSAEFAULT:              return EFAULT;
+        case WSANO_DATA:             return ENODATA;
+        /* Rough equivalents */
+        case WSAEDISCON:             return ECONNRESET;
+        case WSAEINVALIDPROCTABLE:   return EFAULT;
+        case WSASYSNOTREADY:
+        case WSANOTINITIALISED:
+        case WSASYSCALLFAILURE:      return ENOBUFS;
+        case WSAVERNOTSUPPORTED:     return EOPNOTSUPP;
+        case WSAEREFUSED:            return EIO;
+
+    }
+
+    return EINVAL;
 }
 
 static int setenv_with_putenv(const char *name, const char *value)
@@ -518,7 +610,8 @@ uint32_t VMPI_inet_addr(const char *cp)
 
 uint32_t VMPI_inet_network(const char *cp)
 {
-    return (uint32_t) inet_network( cp );
+    //return (uint32_t) inet_network( cp );
+    return (uint32_t) inet_addr( cp );
 }
 
 char *VMPI_inet_ntoa(struct in_addr inaddr)
@@ -528,12 +621,15 @@ char *VMPI_inet_ntoa(struct in_addr inaddr)
 
 int VMPI_inet_aton(const char *cp, struct in_addr *inp)
 {
-    return inet_aton( cp, inp );
+    //return inet_aton( cp, inp );
+    (void)cp;
+    (void)inp;
+    return -1;
 }
 
 const char *VMPI_inet_ntop(int af, const void *src, char *dst, socklen_t size)
 {
-    return inet_ntop( af, src, dst, size);
+    return inet_ntop( af, const_cast<void *>(src), dst, size);
 }
 
 int VMPI_inet_pton(int af, const char *src, void *dst)
@@ -791,7 +887,23 @@ struct hostent *VMPI_gethostent()
 
 int VMPI_getaddrinfo(const char *nodename, const char *servname, const struct addrinfo *hints, struct addrinfo **res)
 {
-    return getaddrinfo( nodename, servname, hints, res );
+    int result = -1;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = getaddrinfo( nodename, servname, hints, res );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return result;
 }
 
 void VMPI_freeaddrinfo(struct addrinfo *ai)
@@ -857,17 +969,17 @@ int VMPI_spawnp(int *pid, const char *file, char *const argv[], char *const envp
 // ---- C.sys.select ---- 
 void VMPI_FD_CLR(int fd, fd_set *fdset)
 {
-    FD_CLR( fd, fdset );
+    FD_CLR( FD_TO_SOCKET(fd), fdset );
 }
 
 int VMPI_FD_ISSET(int fd, fd_set *fdset)
 {
-    return FD_ISSET( fd, fdset );
+    return FD_ISSET( FD_TO_SOCKET(fd), fdset );
 }
 
 void VMPI_FD_SET(int fd, fd_set *fdset)
 {
-    FD_SET( fd, fdset );
+    FD_SET( FD_TO_SOCKET(fd), fdset );
 }
 
 void VMPI_FD_ZERO(fd_set *fdset)
@@ -885,82 +997,315 @@ int VMPI_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds, s
 // ---- C.sys.socket ---- 
 int VMPI_accept(int socket, struct sockaddr *address, socklen_t *address_len)
 {
-    return accept( socket, address, address_len );
+    SOCKET result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = accept( FD_TO_SOCKET(socket), address, address_len );
+    }
+    else
+    {
+        return -1;
+    }
+    
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return SOCKET_TO_FD(result);
 }
 
 int VMPI_bind(int socket, const struct sockaddr *address, socklen_t address_len)
 {
-    return bind( socket, address, address_len );
+    int result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = bind( FD_TO_SOCKET(socket), address, address_len );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return result;
 }
 
 int VMPI_connect(int socket, const struct sockaddr *address, socklen_t address_len)
 {
-    return connect( socket, address, address_len );
+    int result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = connect( FD_TO_SOCKET(socket), address, address_len );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return result;
 }
 
 int VMPI_getpeername(int socket, struct sockaddr *address, socklen_t *address_len)
 {
-    return getpeername( socket, address, address_len );
+    int result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = getpeername( FD_TO_SOCKET(socket), address, address_len );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return result;
 }
 
 int VMPI_getsockname(int socket, struct sockaddr *address, socklen_t *address_len)
 {
-    return getsockname( socket, address, address_len );
+    int result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = getsockname( FD_TO_SOCKET(socket), address, address_len );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return result;
 }
 
 int VMPI_getsockopt(int socket, int level, int option_name, void *option_value, socklen_t *option_len)
 {
-    return getsockopt( socket, level, option_name, option_value, option_len );
+    int result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = getsockopt( FD_TO_SOCKET(socket), level, option_name, (char *)option_value, option_len );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return result;
 }
 
 int VMPI_setsockopt(int socket, int level, int option_name, const void *option_value, socklen_t option_len)
 {
-    return setsockopt( socket, level, option_name, option_value, option_len );
+    int result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = setsockopt( FD_TO_SOCKET(socket), level, option_name, (const char *)option_value, option_len );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return result;
 }
 
 int VMPI_listen(int socket, int backlog)
 {
-    return listen( socket, backlog );
+    int result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = listen( FD_TO_SOCKET(socket), backlog );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return result;
 }
 
 int VMPI_recv(int socket, void *buffer, size_t length, int flags)
 {
-    return recv( socket, buffer, length, flags );
+    int result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = recv( FD_TO_SOCKET(socket), (char *)buffer, length, flags );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return result;
 }
 
 int VMPI_recvfrom(int socket, void *buffer, size_t length, int flags, struct sockaddr *address, socklen_t *address_len)
 {
-    return recvfrom( socket, buffer, length, flags, address, address_len );
+    int result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = recvfrom( FD_TO_SOCKET(socket), (char *)buffer, length, flags, address, address_len );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return result;
 }
 
 int VMPI_send(int socket, const void *buffer, size_t length, int flags)
 {
-    return send( socket, buffer, length, flags );
+    int result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = send( FD_TO_SOCKET(socket), (const char *)buffer, length, flags );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return result;
 }
 
 int VMPI_sendto(int socket, const void *message, size_t length, int flags, const struct sockaddr *dest_addr, socklen_t dest_len)
 {
-    return sendto( socket, message, length, flags, dest_addr, dest_len );
+    int result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = sendto( FD_TO_SOCKET(socket), (const char *)message, length, flags, dest_addr, dest_len );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return result;
 }
 
 int VMPI_shutdown(int socket, int how)
 {
-    return shutdown( socket, how );
+    int result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = shutdown( FD_TO_SOCKET(socket), how );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return result;
 }
 
 int VMPI_sockatmark(int s)
 {
-    return sockatmark( s );
+    //return sockatmark( s );
+    (void)s;
+    errno = ENOSYS;
+    return -1;
 }
 
 int VMPI_socket(int domain, int type, int protocol)
 {
-    return socket( domain, type, protocol );
+    int result;
+    if( WIN32_SocketStart(2,2) == 0 )
+    {
+        result = socket( domain, type, protocol );
+    }
+    else
+    {
+        return -1;
+    }
+
+    if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+    {
+        errno = WIN32_winsock_to_errno();
+        return -1;
+    }
+
+    return SOCKET_TO_FD(result);
 }
 
 int VMPI_socketpair(int domain, int type, int protocol, int socket_vector[2])
 {
-    return socketpair( domain, type, protocol, socket_vector );
+    //return socketpair( domain, type, protocol, socket_vector );
+    (void)domain;
+    (void)type;
+    (void)protocol;
+    (void)socket_vector;
+    errno = ENOSYS;
+    return -1;
 }
 // ---- C.sys.socket ---- END
 
@@ -1189,6 +1534,26 @@ int ftruncate(int fildes, off_t length)
     return 0;
 }
 
+int VMPI_close(int fildes)
+{
+    SOCKET sd = FD_TO_SOCKET(fildes);
+    
+    if(  WIN32_is_socket( sd ) )
+    {
+        int result = closesocket( sd );
+
+        if( (result == SOCKET_ERROR) || (result == INVALID_SOCKET) )
+        {
+            errno = WIN32_winsock_to_errno();
+            return -1;
+        }
+
+        return result;
+    }
+
+    return _close( fildes );
+}
+
 char **VMPI_GetEnviron()
 {
     return _environ;
@@ -1230,6 +1595,31 @@ void VMPI_sleep(int milliseconds)
 
 
 // ==== RNL ==== 
+
+// ---- shell.Program ---- 
+void VMPI_exitCleanup()
+{
+    /* NOTE:
+       here how it works
+       when ShellCore terminate normally
+       we call programClass->exitCallback();
+
+       exitCallback()
+       - always call VMPI_exitCleanup()
+       - and call the array of exit_callback
+         only if it is not empty
+
+        will call WSACleanup() only if a WSAStartup() happened
+        and only udner Windows
+        the same function is empty for Linux/Macintosh
+
+        we could add more calls for either Windows/Macintosh/Linux
+        if other stuff needed to be cleaned up before exiting the program
+    */
+    WIN32_SocketStop();
+}
+// ---- shell.Program ---- END
+
 
 // ---- shell.HardwareInformation ---- 
 double VMPI_SystemMemorySize()
@@ -1300,7 +1690,7 @@ bool VMPI_isAttributeHidden16(const wchar *path)
     /* NOTE:
        the AS3 function preprend "\\?\" to the path
     */
-    DWORD attrib = GetFileAttributes( path );
+    DWORD attrib = GetFileAttributesW( path );
 
     if(attrib & FILE_ATTRIBUTE_HIDDEN) {
         return true;

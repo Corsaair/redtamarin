@@ -373,6 +373,7 @@ extern int VMPI_waitpid(int pid, int *stat_loc, int options);
 
 
 // ---- C.unistd ---- 
+extern int VMPI_close(int fildes);
 extern char **VMPI_GetEnviron();
 extern wchar **VMPI_GetEnviron16();
 extern wchar *VMPI_getcwd16(wchar *buf, size_t size);
@@ -389,6 +390,10 @@ extern void VMPI_sleep(int milliseconds);
 
 
 // ==== RNL ==== 
+
+// ---- shell.Program ---- 
+extern void VMPI_exitCleanup();
+// ---- shell.Program ---- END
 
 // ---- shell.HardwareInformation ---- 
 // extern int VMPI_processorQtyAtBoot(); // defined in VMPI.h
