@@ -10,6 +10,18 @@
 // ==== BEFORE ==== 
 /* for special case that need to be defined first */
 
+/**
+ * Let's disable warnings we don't care about.
+ * 
+ * in select.as we declare the native class fd_set/Cfd_setClass/Cfd_setObject
+ * which apparently create a couple of compilation problems
+ * disabling those should allow the compilation without strange things blowing up to our face
+ */
+#ifdef _MSC_VER
+    #pragma warning(disable:4305)   // warning C4305: 'initializing' : truncation from 'unsigned int' to 'uint16_t'
+    #pragma warning(disable:4309)   // warning C4309: 'initializing' : truncation of constant value
+#endif // _MSC_VER
+
 
 
 //we need to define FD_SETSIZE before the winsock.h include
@@ -107,6 +119,10 @@ typedef int mode_t;
 //posix compat from winsock2.h
 #ifndef EREMOTE
 # define EREMOTE WSAEREMOTE
+#endif
+
+#ifndef EPROCLIM
+# define EPROCLIM WSAEPROCLIM
 #endif
 
 #ifndef EUSERS
@@ -969,6 +985,19 @@ int dirfd (DIR * dir);
 
 
 // ---- C.netdb ---- 
+
+#ifndef NI_NUMERICSCOPE
+# define NI_NUMERICSCOPE 0x20
+#endif
+
+#ifndef EAI_SYSTEM
+# define EAI_SYSTEM 0
+#endif
+
+#ifndef EAI_OVERFLOW
+# define EAI_OVERFLOW 0
+#endif
+
 struct protoent *getprotoent();
 struct hostent *gethostent();
 // ---- C.netdb ---- END
@@ -1015,6 +1044,26 @@ struct hostent *gethostent();
 
 
 // ---- C.sys.socket ---- 
+
+#ifndef MSG_EOR
+# define MSG_EOR 0
+#endif
+
+#ifndef MSG_NOSIGNAL
+# define MSG_NOSIGNAL 0
+#endif
+
+#ifndef SHUT_RD
+# define SHUT_RD SD_RECEIVE
+#endif
+
+#ifndef SHUT_RDWR
+# define SHUT_RDWR SD_BOTH
+#endif
+
+#ifndef SHUT_WR
+# define SHUT_WR SD_SEND
+#endif
 
 // ---- C.sys.socket ---- END
 
@@ -1127,7 +1176,7 @@ int ftruncate(int fildes, off_t length);
 #define VMPI_access16    ::_waccess
 #define VMPI_chdir       ::_chdir
 #define VMPI_chdir16     ::_wchdir
-#define VMPI_close       ::_close
+//#define VMPI_close       ::_close
 #define VMPI_dup         ::_dup
 #define VMPI_dup2        ::_dup2
 //#define VMPI_execl     ::execl //not used

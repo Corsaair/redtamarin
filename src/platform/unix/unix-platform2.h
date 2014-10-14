@@ -817,7 +817,7 @@ int VMPI_toascii(int value)
 #define VMPI_access16(...) (-1)
 #define VMPI_chdir       ::chdir
 #define VMPI_chdir16(...) (-1)
-#define VMPI_close       ::close
+//#define VMPI_close       ::close
 #define VMPI_dup         ::dup
 #define VMPI_dup2        ::dup2
 //#define VMPI_execl     ::execl //not used
