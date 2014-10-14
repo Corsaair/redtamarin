@@ -37,7 +37,7 @@ namespace avmshell
     int ProgramClass::user_argc;
     char **ProgramClass::user_argv;
     char *ProgramClass::exec_name;
-    extern "C" char **environ;
+    //extern "C" char **environ;
 
     ArrayObject * ProgramClass::_getArgv()
     {
@@ -211,6 +211,10 @@ namespace avmshell
 
     void ProgramClass::exitCallback()
     {
+        //always called
+        VMPI_exitCleanup();
+
+        //only called if callbacks are defined
         if( exit_callback )
         {
             Atom argv[] = { nullObjectAtom };
