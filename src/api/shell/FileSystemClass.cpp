@@ -28,7 +28,7 @@ namespace avmshell
 
         #if AVMSYSTEM_WIN32
             StUTF16String filenameUTF16(filename);
-            return VMPI_isAttributeHidden16( filenameUTF8.c_str() );
+            return VMPI_isAttributeHidden16( filenameUTF16.c_str() );
         #else
             StUTF8String filenameUTF8(filename);
             return VMPI_isAttributeHidden( filenameUTF8.c_str() );
@@ -236,7 +236,7 @@ namespace avmshell
         
         #if AVMSYSTEM_WIN32
             StUTF16String filenameUTF16(filename);
-            return VMPI_getFreeDiskSpace16( filenameUTF8.c_str() );
+            return VMPI_getFreeDiskSpace16( filenameUTF16.c_str() );
         #else
             StUTF8String filenameUTF8(filename);
             return VMPI_getFreeDiskSpace( filenameUTF8.c_str() );
@@ -251,7 +251,7 @@ namespace avmshell
      
         #if AVMSYSTEM_WIN32
             StUTF16String filenameUTF16(filename);
-            return VMPI_getTotalDiskSpace16( filenameUTF8.c_str() );
+            return VMPI_getTotalDiskSpace16( filenameUTF16.c_str() );
         #else
             StUTF8String filenameUTF8(filename);
             return VMPI_getTotalDiskSpace( filenameUTF8.c_str() );
