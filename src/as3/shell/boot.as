@@ -118,6 +118,7 @@ package shell
     }
     
     /* 5. we run the program selfCheck() function
+       no we don't
     */
-    Program.selfCheck();        
+    //Program.selfCheck();
 }
