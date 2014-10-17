@@ -36,8 +36,8 @@ package C.limits
         public native static function get LLONG_MAX():Number;
         public native static function get LLONG_MIN():Number;
         public native static function get LONG_BIT():int;
-        public native static function get LONG_MAX():int;
-        public native static function get LONG_MIN():int;
+        public native static function get LONG_MAX():Number;
+        public native static function get LONG_MIN():Number;
         public native static function get SCHAR_MAX():int;
         public native static function get SCHAR_MIN():int;
         public native static function get SHRT_MAX():int;
@@ -67,13 +67,13 @@ package C.limits
         public native static function get OPEN_MAX():int;
         public native static function get PATH_MAX():int;
         public native static function get PIPE_BUF():int;
-        public native static function get SSIZE_MAX():int; // for ssize_t
+        public native static function get SSIZE_MAX():Number; // for ssize_t
         public native static function get STREAM_MAX():int;
         public native static function get TZNAME_MAX():int;
 
         //shared - rest
         public native static function get MB_LEN_MAX():int;
-        public native static function get SIZE_MAX():int; //from stdint, for size_t
+        public native static function get SIZE_MAX():Number; //from stdint, for size_t
         public native static function get SYMLINK_MAX():int;
 
         //shared - compat

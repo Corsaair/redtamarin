@@ -28,8 +28,8 @@ namespace avmshell
     double CLimitsClass::get_LLONG_MAX() { return (double) LLONG_MAX; }
     double CLimitsClass::get_LLONG_MIN() { return (double) LLONG_MIN; }
     int CLimitsClass::get_LONG_BIT() { return LONG_BIT; }
-    int CLimitsClass::get_LONG_MAX() { return LONG_MAX; }
-    int CLimitsClass::get_LONG_MIN() { return LONG_MIN; }
+    double CLimitsClass::get_LONG_MAX() { return (double) LONG_MAX; }
+    double CLimitsClass::get_LONG_MIN() { return (double) LONG_MIN; }
     int CLimitsClass::get_SCHAR_MAX() { return SCHAR_MAX; }
     int CLimitsClass::get_SCHAR_MIN() { return SCHAR_MIN; }
     int CLimitsClass::get_SHRT_MAX() { return SHRT_MAX; }
@@ -52,12 +52,12 @@ namespace avmshell
     int CLimitsClass::get_OPEN_MAX() { return OPEN_MAX; }
     int CLimitsClass::get_PATH_MAX() { return PATH_MAX; }
     int CLimitsClass::get_PIPE_BUF() { return PIPE_BUF; }
-    int CLimitsClass::get_SSIZE_MAX() { return SSIZE_MAX; }
+    double CLimitsClass::get_SSIZE_MAX() { return (double) SSIZE_MAX; }
     int CLimitsClass::get_STREAM_MAX() { return STREAM_MAX; }
     int CLimitsClass::get_TZNAME_MAX() { return TZNAME_MAX; }
 
     int CLimitsClass::get_MB_LEN_MAX() { return MB_LEN_MAX; }
-    int CLimitsClass::get_SIZE_MAX() { return SIZE_MAX; }
+    double CLimitsClass::get_SIZE_MAX() { return (double) SIZE_MAX; }
     int CLimitsClass::get_SYMLINK_MAX() { return SYMLINK_MAX; }
 
     int CLimitsClass::get_AIO_LISTIO_MAX() { return AIO_LISTIO_MAX; }

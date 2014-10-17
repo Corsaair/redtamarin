@@ -25,8 +25,8 @@ namespace avmshell
         double get_LLONG_MAX();
         double get_LLONG_MIN();
         int get_LONG_BIT();
-        int get_LONG_MAX();
-        int get_LONG_MIN();
+        double get_LONG_MAX();
+        double get_LONG_MIN();
         int get_SCHAR_MAX();
         int get_SCHAR_MIN();
         int get_SHRT_MAX();
@@ -49,12 +49,12 @@ namespace avmshell
         int get_OPEN_MAX();
         int get_PATH_MAX();
         int get_PIPE_BUF();
-        int get_SSIZE_MAX();
+        double get_SSIZE_MAX();
         int get_STREAM_MAX();
         int get_TZNAME_MAX();
 
         int get_MB_LEN_MAX();
-        int get_SIZE_MAX();
+        double get_SIZE_MAX();
         int get_SYMLINK_MAX();
 
         int get_AIO_LISTIO_MAX();
