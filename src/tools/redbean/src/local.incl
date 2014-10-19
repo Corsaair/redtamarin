@@ -1,0 +1,98 @@
+                local_var = undefined;
+                try
+                {
+                    local_var = REDTAMARIN_SDK;
+                    if( local_var ) { config.REDTAMARIN_SDK = REDTAMARIN_SDK; }
+                }
+                catch( e:ReferenceError )
+                {
+                    //not found
+                }
+                
+                local_var = undefined;
+                try
+                {
+                    local_var = showHelp;
+                    if( local_var ) { config.showHelp = showHelp; }
+                }
+                catch( e:ReferenceError )
+                {
+                    //not found
+                }
+                
+                local_var = undefined;
+                try
+                {
+                    local_var = showInformations;
+                    if( local_var ) { config.showInformations = showInformations; }
+                }
+                catch( e:ReferenceError )
+                {
+                    //not found
+                }
+                
+                local_var = undefined;
+                try
+                {
+                    local_var = showEnvironment;
+                    if( local_var ) { config.showEnvironment = showEnvironment; }
+                }
+                catch( e:ReferenceError )
+                {
+                    //not found
+                }
+                
+                local_var = undefined;
+                try
+                {
+                    local_var = REDTAMARIN_SDK;
+                    if( local_var ) { config.REDTAMARIN_SDK = REDTAMARIN_SDK; }
+                }
+                catch( e:ReferenceError )
+                {
+                    //not found
+                }
+                
+                local_var = undefined;
+                try
+                {
+                    local_var = quietMode;
+                    if( local_var ) { config.quietMode = quietMode; }
+                }
+                catch( e:ReferenceError )
+                {
+                    //not found
+                }
+                
+                local_var = undefined;
+                try
+                {
+                    local_var = verboseMode;
+                    if( local_var ) { config.verboseMode = verboseMode; }
+                }
+                catch( e:ReferenceError )
+                {
+                    //not found
+                }
+                
+                local_var = undefined;
+                try
+                {
+                    local_var = buildfile;
+                    if( local_var ) { config.buildfile = buildfile; }
+                }
+                catch( e:ReferenceError )
+                {
+                    //not found
+                }
+                
+                local_var = undefined;
+                try
+                {
+                    local_var = useDebugger;
+                    if( local_var ) { config.useDebugger = useDebugger; }
+                }
+                catch( e:ReferenceError )
+                {
+                    //not found
+                }

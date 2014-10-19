@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="redbean-SA" default="main" basedir=".">
+    
+    <target name="define">
+        
+        <!-- override -->
+        <property file="user.properties"/>
+
+        <!-- config -->
+        <property name="FLEX_HOME_MAC" value="/OpenSource/Flex/sdks/4.6.0" />
+        <property name="FLEX_HOME_WIN" value="c:/OpenSource/Flex/sdks/4.6.0" />
+        
+        <property name="build.nozip" value="true" />
+        <property name="build.nodoc" value="false" />
+        <property name="build.noabc" value="false" />
+        <property name="build.fatswc" value="true" />
+        
+        <condition property="FLEX_HOME" value="${FLEX_HOME_MAC}">
+            <os family="mac" />
+        </condition>
+        
+        <condition property="FLEX_HOME" value="${FLEX_HOME_WIN}">
+            <os family="windows" />
+        </condition>
+        
+        <property file="build/build.properties"/>
+        
+        <tstamp>
+            <format property="TODAY" pattern="dd MMMM yyyy" />
+        </tstamp>
+        
+        <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+        
+    </target>
+    
+    <target name="clean" depends="define">
+        <delete dir="${basedir}/${release.dir}" />
+        <delete dir="${basedir}/${deploy.dir}" />
+        <delete dir="${basedir}/${docs.dir}" />
+    </target>
+    
+    <import file="meta.xml" />
+    
+</project>

@@ -1,0 +1,23 @@
+<overviews>
+	<all-packages>
+		<description><![CDATA[All packages available in redbean.]]></description>
+	</all-packages>
+	<packages>
+
+		<package name="redbean" >
+			<shortDescription><![CDATA[redbean functionalities.]]></shortDescription>
+			<description><![CDATA[Contains functions, classes, etc. to help you compile AS3 projects for RedTamarin.]]></description>
+		</package>
+
+		<package name="redbean.core" >
+			<shortDescription><![CDATA[internal functionalities.]]></shortDescription>
+			<description><![CDATA[Classes related to redbean itself.]]></description>
+		</package>
+
+		<package name="redbean.tools" >
+			<shortDescription><![CDATA[Supported tools.]]></shortDescription>
+			<description><![CDATA[Tools are wrappers for misc. command line tools.]]></description>
+		</package>
+
+	</packages>
+</overviews>

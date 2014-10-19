@@ -1,0 +1,11 @@
+* 1.0.0
+  - added logic to locate RedTamarin SDK
+  - added compile()
+  - added shell()
+  - added projector()
+  - added makeswf()
+  - added generateIncludes()
+  - added different OS targets support
+  - added ASC as an 'asc.jar' wrapper
+  - added automated build
+  - added documentation

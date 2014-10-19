@@ -1,0 +1,92 @@
+/*
+ *
+ *  Licensed to the Apache Software Foundation (ASF) under one or more
+ *  contributor license agreements.  See the NOTICE file distributed with
+ *  this work for additional information regarding copyright ownership.
+ *  The ASF licenses this file to You under the Apache License, Version 2.0
+ *  (the "License"); you may not use this file except in compliance with
+ *  the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
+/* RedTamarin Solarized-light Theme full of warm colors */
+
+html>body .listing pre
+{
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    font-size: 14px;
+    
+    padding: 2px;
+    border: 1px solid #E1E1E8;
+
+    display: block;
+    background-color: #fdf6e3;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -o-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -khtml-border-radius: 8px;
+    border-radius: 8px;
+}
+
+html>body pre
+{
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    font-size: 14px;
+    
+    padding: 2px;
+    border: 1px solid #E1E1E8;
+
+    display: block;
+    background-color: #fdf6e3;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -o-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -khtml-border-radius: 8px;
+    border-radius: 8px;
+}
+
+code
+{
+  padding: 2px 4px;
+  color: #33ccff;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.pln { color: #bd3613; } /* plain text */
+
+.str { color: #888888; font-weight: bold; } /* string content */
+
+.kwd { color: #859900; } /* a keyword */
+
+.com { color: #ff55cc; font-weight: bold; } /* a comment */
+
+.typ { color: #b58900; } /* a type name */
+
+.lit { color: #2aa198; } /* a literal value */
+
+.pun { color: #839496; } /* punctuation, lisp open bracket, lisp close bracket */
+.opn { color: #839496; }
+.clo { color: #839496; }
+
+.tag { color: #268bd2; } /* a markup tag name */
+
+.atn { color: #586175; } /* a markup attribute name */
+
+.atv { color: #2aa198; } /* a markup attribute value */
+
+.dec { color: #268bd2; } /* a declaration; a variable name */
+.var { color: #268bd2; }
+
+.fun { color: #FF0000; } /* a function name */
+

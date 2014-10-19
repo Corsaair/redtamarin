@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="redbean" default="main" basedir="."
+    xmlns:if="ant:if"
+    xmlns:unless="ant:unless" >
+    
+    <target name="clean">
+        <delete dir="${basedir}/${release.dir}" />
+        <delete dir="${basedir}/${deploy.dir}" />
+        <delete dir="${basedir}/${docs.dir}" />
+    </target>
+    
+    <target name="before">
+        <mkdir dir="${basedir}/${release.dir}" />
+        <mkdir dir="${basedir}/${deploy.dir}" />
+        <mkdir dir="${basedir}/${asdoc.output}" />
+
+        <!-- debug -->
+        <echo message="properties:" level="verbose" />
+        <echo message="            FLEX_HOME = ${FLEX_HOME}" level="verbose" />
+        <echo message="                TODAY = ${TODAY}" level="verbose" />
+        <echo message="               no zip = ${build.nozip}" level="verbose" />
+        <echo message="     no documentation = ${build.nodoc}" level="verbose" />
+        <echo message="               no abc = ${build.noabc}" level="verbose" />
+        <echo message="              fat swc = ${build.fatswc}" level="verbose" />
+        <echo message="" level="verbose" />
+
+        <echo if:true="${build.nozip}" message="no zip is TRUE" level="verbose" />
+        <echo unless:true="${build.nozip}" message="no zip is FALSE" level="verbose" />
+        <echo if:true="${build.nodoc}" message="no doc is TRUE" level="verbose" />
+        <echo unless:true="${build.nodoc}" message="no doc is FALSE" level="verbose" />
+        <echo if:true="${build.noabc}" message="no abc is TRUE" level="verbose" />
+        <echo unless:true="${build.noabc}" message="no abc is FALSE" level="verbose" />
+        <echo if:true="${build.fatswc}" message="fat swc is TRUE" level="verbose" />
+        <echo unless:true="${build.fatswc}" message="fat swc is FALSE" level="verbose" />
+
+    </target>
+    
+    <target name="main" depends="clean,before,build-abc,build-swc,build-doc,after">
+        
+    </target>
+
+    <target name="build-abc">
+        
+        <sequential unless:true="${build.noabc}">
+            <java
+                dir="${basedir}"
+                jar="${ASC}"
+                fork="true"
+                failonerror="true"
+            >
+                <arg line="-AS3 -optimize"/>
+                <arg line="-import ${redtamarin} src/${project.as}"/>
+            </java>
+            
+            <move file="${basedir}/src/${project.abc}" todir="${basedir}/${release.dir}" />
+        </sequential>
+        
+    </target>
+    
+    <target name="build-swc">
+        
+        <compc
+            output="${basedir}/${release.dir}/${project.swc}"
+        >
+            <strict>false</strict>
+            <optimize>true</optimize>
+            <warnings>false</warnings>
+            <verbose-stacktraces>true</verbose-stacktraces>
+            <compute-digest>false</compute-digest>
+            
+            <external-library-path dir="${basedir}/${project.lib-swc}/" append="true">
+               <include name="redtamarin.swc"/>
+            </external-library-path>
+            
+            <source-path path-element="${basedir}/${project.src}" />
+            <include-sources dir="${basedir}/${project.src}/redbean" includes="**/*.as" />
+            <metadata date="${TODAY}" title="${project.name}">
+                <publisher name="${project.publisher}" />
+                <creator name="${project.creator}" />
+            </metadata>
+        </compc>
+
+    </target>
+    
+    <target name="build-doc">
+
+        <sequential unless:true="${build.nodoc}">
+
+            <!--         templates-path="${basedir}/${asdoc.template}" -->
+            <asdoc
+                output="${basedir}/${asdoc.output}"
+                templates-path="${basedir}/build/doc/templates/"
+                warnings="false"
+                strict="false"
+                keep-xml="${build.fatswc}"
+                skip-xsl="false"
+                restore-builtin-classes="true"
+                failonerror="true"
+                fork="true"
+            >
+                <verbose-stacktraces>true</verbose-stacktraces>
+                <doc-sources path-element="${basedir}/${project.src}/redbean"/>
+                <source-path path-element="${basedir}/${project.src}" />
+                
+                <external-library-path dir="${basedir}/${project.lib-swc}/" append="true">
+                   <include name="redtamarin.swc"/>
+                </external-library-path>
+                
+                <exclude-sources path-element="${basedir}/${project.src}/_globals.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/redbean.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/includes.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/CommandLine.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/RedbeanApplication.as" />
+
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/core/find.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/core/findWith.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/core/verifySDK.as" />
+
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/tools/ASC2.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/tools/COMPC.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/tools/MXMLC.as" />
+
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/utils/bytesToHumanReadable.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/utils/copyObject.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/utils/format.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/utils/pad.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/utils/timeToHumanReadable.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/utils/trimEnd.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/utils/trimStart.as" />
+                <exclude-sources path-element="${basedir}/${project.src}/redbean/utils/whiteSpaces.as" />
+
+
+
+                <window-title>${doc.window-title}</window-title>
+                <main-title>${doc.main-title}</main-title>
+                <footer><![CDATA[${doc.footer}]]></footer>
+                <package-description-file>${basedir}/build/doc/package.description.xml</package-description-file>
+            </asdoc>
+
+            <sequential if:true="${build.fatswc}">
+                
+                <!-- update swc with asdoc xml -->
+                <zip destfile="${basedir}/${release.dir}/${project.swc}" update="true">
+                    <zipfileset dir="${basedir}/${asdoc.output}/tempdita" prefix="docs">
+                        <include name="*.xml" />
+                        <include name="*.dita" />
+                        <exclude name="ASDoc_Config.xml" />
+                        <exclude name="overviews.xml" />
+                    </zipfileset>
+                </zip>
+
+            </sequential>
+
+            <!-- <delete dir="${basedir}/${asdoc.output}/tempdita" /> -->
+
+        </sequential>
+
+    </target>
+
+    <target name="after">
+        
+    </target>
+    
+</project>
