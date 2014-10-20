@@ -933,7 +933,7 @@ int VMPI_spawn(int *pid, const char *path, char *const argv[], char *const envp[
     //return posix_spawn( pid, path, NULL, NULL, argv, envp );
     (void)pid;
     int mode = _P_NOWAIT;
-    return _spawnvpe( mode, path, argv, envp );
+    return (int) _spawnvpe( mode, path, argv, envp );
 }
 
 int VMPI_spawnp(int *pid, const char *file, char *const argv[], char *const envp[])
@@ -941,7 +941,7 @@ int VMPI_spawnp(int *pid, const char *file, char *const argv[], char *const envp
     //return posix_spawnp( (pid_t *)pid, file, NULL, NULL, argv, envp );
     (void)pid;
     int mode = _P_NOWAIT;
-    return _spawnve( mode, file, argv, envp );
+    return (int) _spawnve( mode, file, argv, envp );
 }
 // ---- C.spawn ---- END
 
@@ -1168,7 +1168,7 @@ int VMPI_recv(int socket, void *buffer, size_t length, int flags)
     int result;
     if( WIN32_SocketStart(2,2) == 0 )
     {
-        result = recv( FD_TO_SOCKET(socket), (char *)buffer, length, flags );
+        result = recv( FD_TO_SOCKET(socket), (char *)buffer, (int)length, flags );
     }
     else
     {
@@ -1189,7 +1189,7 @@ int VMPI_recvfrom(int socket, void *buffer, size_t length, int flags, struct soc
     int result;
     if( WIN32_SocketStart(2,2) == 0 )
     {
-        result = recvfrom( FD_TO_SOCKET(socket), (char *)buffer, length, flags, address, address_len );
+        result = recvfrom( FD_TO_SOCKET(socket), (char *)buffer, (int)length, flags, address, address_len );
     }
     else
     {
@@ -1210,7 +1210,7 @@ int VMPI_send(int socket, const void *buffer, size_t length, int flags)
     int result;
     if( WIN32_SocketStart(2,2) == 0 )
     {
-        result = send( FD_TO_SOCKET(socket), (const char *)buffer, length, flags );
+        result = send( FD_TO_SOCKET(socket), (const char *)buffer, (int)length, flags );
     }
     else
     {
@@ -1231,7 +1231,7 @@ int VMPI_sendto(int socket, const void *message, size_t length, int flags, const
     int result;
     if( WIN32_SocketStart(2,2) == 0 )
     {
-        result = sendto( FD_TO_SOCKET(socket), (const char *)message, length, flags, dest_addr, dest_len );
+        result = sendto( FD_TO_SOCKET(socket), (const char *)message, (int)length, flags, dest_addr, dest_len );
     }
     else
     {
@@ -1278,7 +1278,7 @@ int VMPI_sockatmark(int s)
 
 int VMPI_socket(int domain, int type, int protocol)
 {
-    int result;
+    SOCKET result;
     if( WIN32_SocketStart(2,2) == 0 )
     {
         result = socket( domain, type, protocol );
@@ -1475,7 +1475,7 @@ int VMPI_waitpid(int pid, int *stat_loc, int options)
 {
     (void)options;
 
-    return _cwait( stat_loc, pid, WAIT_CHILD );
+    return (int) _cwait( stat_loc, pid, WAIT_CHILD );
 }
 // ---- C.sys.wait ---- END
 
