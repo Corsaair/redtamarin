@@ -160,7 +160,7 @@ namespace avmshell
         
         StUTF8String pathUTF8(path);
         
-        return VMPI_execv( pathUTF8.c_str(), const_cast<char * const *>(execargs) );
+        return (int) VMPI_execv( pathUTF8.c_str(), const_cast<char * const *>(execargs) );
     }
 
     /*static*/ int CUnistdClass::execle(ScriptObject* self, Stringp path, Atom* argv, int argc)
@@ -217,7 +217,7 @@ namespace avmshell
         
         StUTF8String pathUTF8(path);
         
-        return VMPI_execve( pathUTF8.c_str(), const_cast<char * const *>(execargs), const_cast<char * const *>(execenvs) );
+        return (int) VMPI_execve( pathUTF8.c_str(), const_cast<char * const *>(execargs), const_cast<char * const *>(execenvs) );
     }
 
     /*static*/ int CUnistdClass::execlp(ScriptObject* self, Stringp file, Atom* argv, int argc)
@@ -245,7 +245,7 @@ namespace avmshell
         
         StUTF8String fileUTF8(file);
         
-        return VMPI_execvp( fileUTF8.c_str(), const_cast<char * const *>(execargs) );
+        return (int) VMPI_execvp( fileUTF8.c_str(), const_cast<char * const *>(execargs) );
     }
 
     /*static*/ int CUnistdClass::execv(ScriptObject* self, Stringp path, ArrayObject* argv)
@@ -278,7 +278,7 @@ namespace avmshell
         
         StUTF8String pathUTF8(path);
         
-        return VMPI_execv( pathUTF8.c_str(), const_cast<char * const *>(execargs) );
+        return (int) VMPI_execv( pathUTF8.c_str(), const_cast<char * const *>(execargs) );
     }
 
     /*static*/ int CUnistdClass::execve(ScriptObject* self, Stringp path, ArrayObject* argv, ArrayObject* envp)
@@ -328,7 +328,7 @@ namespace avmshell
         
         StUTF8String pathUTF8(path);
         
-        return VMPI_execve( pathUTF8.c_str(), const_cast<char * const *>(execargs), const_cast<char * const *>(execenvs) );
+        return (int) VMPI_execve( pathUTF8.c_str(), const_cast<char * const *>(execargs), const_cast<char * const *>(execenvs) );
     }
 
     /*static*/ int CUnistdClass::execvp(ScriptObject* self, Stringp file, ArrayObject* argv)
@@ -361,7 +361,7 @@ namespace avmshell
         
         StUTF8String fileUTF8(file);
         
-        return VMPI_execvp( fileUTF8.c_str(), const_cast<char * const *>(execargs) );
+        return (int) VMPI_execvp( fileUTF8.c_str(), const_cast<char * const *>(execargs) );
     }
 
     /*static*/ int CUnistdClass::fsync(ScriptObject*, int fildes)
