@@ -209,11 +209,14 @@ namespace vmbase {
     public:
         static void sleep(int32_t timeout)
         {
-            //#if AVMSYSTEM_UNIX && AVMSYSTEM_64BIT
-            //VMPI_callWithRegistersSaved(sleepInSafepointGate, (void*)(intptr_t)timeout);
-            //#else
+            /* NOTE:
+               we need this to be able to compile Linux 64-bit
+            */
+            #if AVMSYSTEM_UNIX && AVMSYSTEM_64BIT
+            VMPI_callWithRegistersSaved(sleepInSafepointGate, (void*)(intptr_t)timeout);
+            #else
             VMPI_callWithRegistersSaved(sleepInSafepointGate, (void*)timeout);
-            //#endif
+            #endif
         }
     };
 

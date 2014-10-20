@@ -159,6 +159,7 @@ $(curdir)/exec-osr.$(OBJ_SUFFIX): avmplus_CXXFLAGS += -Wno-error
 $(curdir)/InvokerCompiler.$(OBJ_SUFFIX): avmplus_CXXFLAGS += -Wno-error
 $(curdir)/LirHelper.$(OBJ_SUFFIX): avmplus_CXXFLAGS += -Wno-error
 $(curdir)/PoolObject.$(OBJ_SUFFIX): avmplus_CXXFLAGS += -Wno-error
+$(curdir)/VMThread.$(OBJ_SUFFIX): avmplus_CXXFLAGS += -Wno-error
 endif
 endif
 ifeq ($(TARGET_OS),android)
