@@ -117,7 +117,7 @@ namespace avmshell
         #if AVMSYSTEM_WIN32
             StUTF16String s1UTF16(s1);
             StUTF16String s2UTF16(s2);
-            return VMPI_strspn16( s1UTF16.c_str(), s2UTF16.c_str() );
+            return (int) VMPI_strspn16( s1UTF16.c_str(), s2UTF16.c_str() );
         #else
             StUTF8String s1UTF8(s1);
             StUTF8String s2UTF8(s2);
