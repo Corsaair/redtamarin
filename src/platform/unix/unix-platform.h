@@ -574,8 +574,12 @@ REALLY_INLINE vmpi_thread_t VMPI_nullThread()
     vmpi_thread_t rtn;
 #ifdef linux
     rtn = -1;
+
+#ifdef DEBUG
     // Bugzilla 656008: sanity check that VMPI_currentThread will be sane.
     assert(rtn != pthread_self());
+#endif
+
 #else
     rtn = NULL;
 #endif
