@@ -209,7 +209,11 @@ namespace vmbase {
     public:
         static void sleep(int32_t timeout)
         {
+            //#if AVMSYSTEM_UNIX && AVMSYSTEM_64BIT
+            //VMPI_callWithRegistersSaved(sleepInSafepointGate, (void*)(intptr_t)timeout);
+            //#else
             VMPI_callWithRegistersSaved(sleepInSafepointGate, (void*)timeout);
+            //#endif
         }
     };
 
