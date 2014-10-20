@@ -310,6 +310,10 @@ REALLY_INLINE LIns* LirHelper::ldf4(LIns* p, int32_t d, AccSet accSet)
 
 // address calc instruction
 REALLY_INLINE LIns* LirHelper::lea(int32_t disp, LIns* base) {
+    //#if AVMSYSTEM_UNIX && AVMSYSTEM_64BIT
+    //return lirout->ins2(LIR_addp, base, InsConstPtr((void*)(intptr_t)disp));
+    //#else
     return lirout->ins2(LIR_addp, base, InsConstPtr((void*)disp));
+    //#endif
 }    
 } // namespace
