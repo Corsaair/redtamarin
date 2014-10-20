@@ -410,8 +410,9 @@ namespace avmshell
             StUTF8String valueUTF8(value);
             return core()->newStringUTF8( valueUTF8.c_str() );
         #else
+            char* cwd; //to fix linux 64bit builds that throws 'warn_unused_result'
             char path[ PATH_MAX ];
-            VMPI_getcwd( path, (size_t) PATH_MAX );
+            cwd = VMPI_getcwd( path, (size_t) PATH_MAX );
             return core()->newStringUTF8( path );
         #endif
     }
