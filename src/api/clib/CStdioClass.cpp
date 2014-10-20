@@ -336,7 +336,7 @@ namespace avmshell
         uint32_t readsize = (uint32_t) buffersize;
         unsigned char *buffer = mmfx_new_array( unsigned char, readsize+1);
 
-        int read = VMPI_fread( buffer, 1, nitems, stream->read() );
+        int read = (int) VMPI_fread( buffer, 1, nitems, stream->read() );
         
         if( read > 0 )
         {
@@ -508,7 +508,7 @@ namespace avmshell
         bytes->GetByteArray().Read(buffer, (uint32_t) writesize);
         int writeitem = (int) writesize;
 
-        int write = VMPI_fwrite( buffer, 1, writeitem, stream->read() );
+        int write = (int) VMPI_fwrite( buffer, 1, writeitem, stream->read() );
         
         mmfx_delete_array( buffer );
 
