@@ -123,12 +123,12 @@ namespace avmshell
         Stringp output = core()->newStringUTF8( "" );
         
         if (read_fp != NULL) {
-            chars_read = fread(buffer, sizeof(char), BUFSIZ, read_fp);
+            chars_read = (int) fread(buffer, sizeof(char), BUFSIZ, read_fp);
             output = output->append( core()->newStringUTF8(buffer, chars_read) );
             
             while(chars_read > 0) {
                 buffer[chars_read - 1] = '\0';
-                chars_read = fread(buffer, sizeof(char), BUFSIZ, read_fp);
+                chars_read = (int) fread(buffer, sizeof(char), BUFSIZ, read_fp);
                 output = output->append( core()->newStringUTF8(buffer, chars_read) );
             }
             
