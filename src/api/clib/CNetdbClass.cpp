@@ -407,7 +407,7 @@ namespace avmshell
             info->set_ai_family( p->ai_family );
             info->set_ai_socktype( p->ai_socktype );
             info->set_ai_protocol( p->ai_protocol );
-            info->set_ai_addrlen( p->ai_addrlen );
+            info->set_ai_addrlen( (int) p->ai_addrlen );
             info->set_ai_canonname( core->newStringUTF8( p->ai_canonname ) );
 
             if( p->ai_family == AF_INET )
