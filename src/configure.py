@@ -120,6 +120,8 @@ def _setGCCVersionedFlags(FLAGS, MAJOR_VERSION, MINOR_VERSION, current_cpu):
             FLAGS += "-Werror -Wempty-body -Wno-logical-op -Wmissing-field-initializers -Wstrict-aliasing=3 -Wno-array-bounds -Wno-clobbered -Wstrict-overflow=0 -funit-at-a-time  "
             if (MAJOR_VERSION == 4 and MINOR_VERSION == 6): # 4.6
                 FLAGS += "-Wno-psabi -Wno-unused-variable -Wno-unused-but-set-variable "
+            elif (MAJOR_VERSION == 4 and MINOR_VERSION == 8): # 4.8
+                FLAGS += "-Wno-psabi -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-local-typedefs -Wno-sizeof-pointer-memaccess -Wno-narrowing -Wno-maybe-uninitialized "
 
     return FLAGS
 
