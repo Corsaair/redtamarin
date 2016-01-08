@@ -1,3 +1,52 @@
+* 0.4.1 Akihabara (tag 1T180)
+- added "patch" to versioning
+  version.major=0
+  version.minor=4
+  version.patch=1
+  version.serie=1
+  version.cycle=T
+  version.build=180
+  see https://github.com/Corsaair/redtamarin/wiki/RedtamarinVersion
+- change in API
+  we changed the format of the description
+  from: redtamarin-0.4-beta[1T180]
+    to: redtamarin-0.4.1.1T180-beta
+  Runtime.description = redtamarin-0.4.1.1T180-beta
+
+  Runtime.redtamarin = 0.4.1S131
+  replaced by
+  Runtime.version = 0.4.1.1T180
+  but version is an Object
+  so you can also access
+  Runtime.version.major = 0
+  Runtime.version.minor = 4
+  Runtime.version.patch = 1
+  Runtime.version.serie = 1
+  Runtime.version.cycle = T
+  Runtime.version.build = 180
+
+  Runtime.version = 2.1 cyclone
+  replaced by
+  Runtime.AVMversion = 2.1 cyclone
+
+  new properties
+  Runtime.tag = 1T180
+  Runtime.codename = Akihabara
+  Runtime.label = beta
+
+  Runtime.redtamarin is marked deprecated
+  and will be removed in 0.4.3
+
+- added flash.system.Security mock
+  for redtamarin SWC compatiblity
+- cleaned up comments in shell.OperatingSystem
+  see https://github.com/Corsaair/redtamarin/wiki/ImplOfOperatingSystem
+- added complete OS detection in shell.OperatingSystem
+  mainly based on env vars, files and parsing
+
+* 0.4.0 Akihabara (from tag 1T174)
+- release
+
 * 0.4.0 Akihabara (from tag 1T000)
 - now we include ErrorConstant.as
   to be able to throw native errors from AS3
