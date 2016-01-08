@@ -39,7 +39,12 @@
 		<!-- make file flags -->
     	<var name="flags" value="--target=x86_64-${TARGET_OS}" />
 
-    	
+        <if>
+            <equals arg1="${SDK_OS}" arg2="macintosh"/>
+        <then>
+            <var name="flags" value="${flags} --mac-sdk=${build.MacOSXSDK}" />
+        </then>
+        </if>
 
         <if>
             <equals arg1="${build.showoptions}" arg2="true"/>
@@ -62,7 +67,7 @@
 			<available file="${target.release64.path}/Makefile" type="file"/>
 		</not>
 			<then>
-		        <exec executable="python" dir="${target.release64.path}" failonerror="true">
+		        <exec executable="${PYTHON_EXE}" dir="${target.release64.path}" failonerror="true">
 		            <arg line="${commandline}"/>
 		        </exec>
 			</then>
@@ -89,11 +94,14 @@
 				<env key="ASC" value="${basedir.unix}/${ASC1}"/>
 				<env key="AVM" value="${basedir.unix}/${AVMSHELL_EXE}"/>
 				<env key="AVMSHELL_TOOL" value="${basedir.unix}/${AVMSHELL_EXE}"/>
+				<arg line="-j${build.makejobs}" />
 			</exec>
 
         </then>
         <else>
-        	<exec executable="make" dir="${target.release64.path}" failonerror="true" />
+        	<exec executable="make" dir="${target.release64.path}" failonerror="true">
+                <arg line="-j${build.makejobs}" />
+            </exec>
         </else>
         </if>
 

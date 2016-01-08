@@ -96,13 +96,13 @@
                 <env key="ASC" value="${basedir.unix}/${ASC1}" />
                 <env key="AVM" value="${basedir.unix}/${AVMSHELL_EXE}" />
                 <env key="AVMSHELL_TOOL" value="${basedir.unix}/${AVMSHELL_EXE}" />
-                <arg line="-j3" />
+                <arg line="-j${build.makejobs}" />
             </exec>
 
         </then>
         <else>
             <exec executable="make" dir="${target.debugger32.path}" failonerror="true">
-                <arg line="-j3" />
+                <arg line="-j${build.makejobs}" />
             </exec>
         </else>
         </if>
