@@ -392,7 +392,7 @@ package shell
          */
         public static function get version():Object
         {
-            if( _version == null ) { return _version; }
+            if( _version != null ) { return _version; }
 
             _redtamarinDetect();
             return _version;
@@ -484,7 +484,7 @@ package shell
         public static function get redtamarin():String
         {
             var ver:Object = version;
-            return version.toString( true );
+            return ver.toString( true );
 
             /*
             //format: redtamarin-0.4-beta[1S131]
