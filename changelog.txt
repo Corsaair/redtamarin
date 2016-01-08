@@ -43,6 +43,17 @@
   see https://github.com/Corsaair/redtamarin/wiki/ImplOfOperatingSystem
 - added complete OS detection in shell.OperatingSystem
   mainly based on env vars, files and parsing
+- updated builds for Windows / Mac OS X / Linux
+  to be in sync with the wiki documentation
+  see https://github.com/Corsaair/redtamarin/wiki/DeveloperEnvironment
+- added some options to the build
+  for Mac OS X, now we can select the Mac OS X SDK
+  and some updates in configure.py to supports all
+  SDK: 104u, 105, 106, 107, 108, 109, 1010 or 1011
+  for Windows, the build autodetect the python exe
+  for Linux, some updates in configure.py to supports GCC 4.8.*
+  and build.makejobs which allow to setup the number
+  of make jobs to run silmutaneously (default to 3 for dual core)
 
 * 0.4.0 Akihabara (from tag 1T174)
 - release
