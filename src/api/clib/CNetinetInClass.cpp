@@ -118,6 +118,8 @@ namespace avmshell
     struct sockaddr_in CSockaddr_inObject::toStruct()
     {
          struct sockaddr_in sockaddr4;
+         VMPI_memset( &sockaddr4.sin_zero, 0, sizeof(sockaddr4.sin_zero) );
+
          sockaddr4.sin_family = (uint16_t) this->get_sin_family();
          sockaddr4.sin_port   = (uint16_t) this->get_sin_port();
 
