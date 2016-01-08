@@ -1,13 +1,13 @@
 <project name="redtamarin-compile-debugger32">
 
-	<target name="before">
+    <target name="before">
 
-		<!-- convert path for cygwin -->
-		<path id="basedir.path">
-		    <pathelement path="${basedir}" />
-		</path>
+        <!-- convert path for cygwin -->
+        <path id="basedir.path">
+            <pathelement path="${basedir}" />
+        </path>
         <pathconvert targetos="unix" property="basedir.cygwin" refid="basedir.path">
-        	<map from="C:" to="/cygdrive/c"/>
+            <map from="C:" to="/cygdrive/c"/>
         </pathconvert>
         <pathconvert targetos="unix" property="basedir.unix" refid="basedir.path" />
 
@@ -16,30 +16,37 @@
         <!-- <echo message="${basedir.cygwin}" /> -->
         <!-- <echo message="${basedir.unix}" /> -->
 
-		<if>
-			<and>
-			<equals arg1="${build.cleanGenerated}" arg2="true"/>
-			<available file="${target.debugger32.path}" type="dir"/>
-			</and>
-			<then>
-				<delete dir="${target.debugger32.path}"/>
-			</then>
-		</if>
+        <if>
+            <and>
+            <equals arg1="${build.cleanGenerated}" arg2="true"/>
+            <available file="${target.debugger32.path}" type="dir"/>
+            </and>
+            <then>
+                <delete dir="${target.debugger32.path}"/>
+            </then>
+        </if>
 
-		<!-- create objdir compilation folder if not found -->
-		<if>
-			<not>
-			<available file="${target.debugger32.path}" type="dir"/>
-			</not>
-			<then>
-				<mkdir dir="${target.debugger32.path}"/>
-			</then>
-		</if>
+        <!-- create objdir compilation folder if not found -->
+        <if>
+            <not>
+            <available file="${target.debugger32.path}" type="dir"/>
+            </not>
+            <then>
+                <mkdir dir="${target.debugger32.path}"/>
+            </then>
+        </if>
 
-		<!-- make file flags -->
-    	<var name="flags" value="--target=i386-${TARGET_OS}" />
-    	<var name="flags" value="${flags} --enable-debug" />
-    	<var name="flags" value="${flags} --enable-debugger" />
+        <!-- make file flags -->
+        <var name="flags" value="--target=i386-${TARGET_OS}" />
+        <var name="flags" value="${flags} --enable-debug" />
+        <var name="flags" value="${flags} --enable-debugger" />
+
+        <if>
+            <equals arg1="${SDK_OS}" arg2="macintosh"/>
+        <then>
+            <var name="flags" value="${flags} --mac-sdk=${build.MacOSXSDK}" />
+        </then>
+        </if>
 
         <if>
             <equals arg1="${build.showoptions}" arg2="true"/>
@@ -56,67 +63,70 @@
         </if>
         <var name="commandline" value="${commandline} ${flags}" />
         
-		<!-- generate make file if not found -->
-		<if>
-			<not>
-			<available file="${target.debugger32.path}/Makefile" type="file"/>
-		</not>
-			<then>
-		        <exec executable="python" dir="${target.debugger32.path}" failonerror="true">
-		        	<arg line="${commandline}"/>
-		        </exec>
-			</then>
-		</if>
+        <!-- generate make file if not found -->
+        <if>
+            <not>
+            <available file="${target.debugger32.path}/Makefile" type="file"/>
+        </not>
+            <then>
+                <exec executable="python" dir="${target.debugger32.path}" failonerror="true">
+                    <arg line="${commandline}"/>
+                </exec>
+            </then>
+        </if>
 
-	</target>
+    </target>
 
-	<target name="compile-debugger32" depends="before,compile,after">
-	</target>
+    <target name="compile-debugger32" depends="before,compile,after">
+    </target>
 
-	<target name="compile">
-       	
-       	<if>
+    <target name="compile">
+        
+        <if>
             <equals arg1="${build.cleanGenerated}" arg2="true"/>
         <then>
 
-			<delete>
-				<fileset dir="${basedir.unix}/src/generated" includes="**/*.h"/>
-				<fileset dir="${basedir.unix}/src/generated" includes="**/*.hh"/>
-				<fileset dir="${basedir.unix}/src/generated" includes="**/*.cpp"/>
-			</delete>
-	    	
-			<exec executable="make" dir="${target.debugger32.path}" failonerror="true">
-				<env key="ASC" value="${basedir.unix}/${ASC1}"/>
-				<env key="AVM" value="${basedir.unix}/${AVMSHELL_EXE}"/>
-				<env key="AVMSHELL_TOOL" value="${basedir.unix}/${AVMSHELL_EXE}"/>
-			</exec>
+            <delete>
+                <fileset dir="${basedir.unix}/src/generated" includes="**/*.h"/>
+                <fileset dir="${basedir.unix}/src/generated" includes="**/*.hh"/>
+                <fileset dir="${basedir.unix}/src/generated" includes="**/*.cpp"/>
+            </delete>
+            
+            <exec executable="make" dir="${target.debugger32.path}" failonerror="true">
+                <env key="ASC" value="${basedir.unix}/${ASC1}" />
+                <env key="AVM" value="${basedir.unix}/${AVMSHELL_EXE}" />
+                <env key="AVMSHELL_TOOL" value="${basedir.unix}/${AVMSHELL_EXE}" />
+                <arg line="-j3" />
+            </exec>
 
         </then>
         <else>
-        	<exec executable="make" dir="${target.debugger32.path}" failonerror="true" />
+            <exec executable="make" dir="${target.debugger32.path}" failonerror="true">
+                <arg line="-j3" />
+            </exec>
         </else>
         </if>
 
-	</target>
+    </target>
 
-	<target name="after">
+    <target name="after">
 
-		<!-- create output folder if not found -->
-		<if>
-			<not>
-			<available file="${app.release}/${SDK_OS}/${target.debugger32.output}" type="dir"/>
-			</not>
-			<then>
-				<mkdir dir="${app.release}/${SDK_OS}/${target.debugger32.output}"/>
-			</then>
-		</if>
+        <!-- create output folder if not found -->
+        <if>
+            <not>
+            <available file="${app.release}/${SDK_OS}/${target.debugger32.output}" type="dir"/>
+            </not>
+            <then>
+                <mkdir dir="${app.release}/${SDK_OS}/${target.debugger32.output}"/>
+            </then>
+        </if>
 
-		<!-- move and rename avmshell -->
-		<copy file="${target.debugger32.path}/shell/${AVMSHELL}" tofile="${app.release}/${SDK_OS}/${target.debugger32.output}/${TARGET_DD}"/>
+        <!-- move and rename avmshell -->
+        <copy file="${target.debugger32.path}/shell/${AVMSHELL}" tofile="${app.release}/${SDK_OS}/${target.debugger32.output}/${TARGET_DD}"/>
 
-		<!-- executable bit -->
-		<chmod file="${app.release}/${SDK_OS}/${target.debugger32.output}/${TARGET_DD}" perm="+x"/>
-		
-	</target>
+        <!-- executable bit -->
+        <chmod file="${app.release}/${SDK_OS}/${target.debugger32.output}/${TARGET_DD}" perm="+x"/>
+        
+    </target>
 
 </project>
