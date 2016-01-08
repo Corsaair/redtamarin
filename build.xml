@@ -198,7 +198,34 @@
         </condition>
 
 
+        <!-- special case for Windows -->
+        <if>
+            <equals arg1="${SDK_OS}" arg2="windows"/>
+        <then>
+            
+            <!-- <echo message="found Windows"/> -->
+            <exec executable="which" outputProperty="winpython_path" failonerror="false">
+                <arg line="python" />
+            </exec>
+            <!-- <echo message="python which = ${winpython_path}"/> -->
 
+            <exec executable="realpath" outputProperty="winpython_realpath" failonerror="false">
+                <arg line="${winpython_path}" />
+            </exec>
+            <!-- <echo message="python realpath = ${winpython_realpath}"/> -->
+
+            <exec executable="basename" outputProperty="winpython_base" failonerror="false">
+                <arg line="${winpython_realpath}" />
+            </exec>
+            <!-- <echo message="python base = ${winpython_base}"/> -->
+
+            <property name="PYTHON_EXE" value="${winpython_base}"/>
+
+        </then>
+        <else>
+            <property name="PYTHON_EXE" value="python"/>
+        </else>
+        </if>
 
     </target>
 
@@ -425,6 +452,7 @@
             <echo message="        SDK_OS = ${SDK_OS}"/>
             <echo message="      AVMSHELL = ${AVMSHELL}"/>
             <echo message="  AVMSHELL_EXE = ${AVMSHELL_EXE}"/>
+            <echo message="    PYTHON_EXE = ${PYTHON_EXE}"/>
             <echo message=""/>
 
             <echo message="building:"/>
