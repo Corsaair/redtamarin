@@ -6,8 +6,10 @@
 
 package shell
 {
-	import C.unistd.*;
-	import shell.Runtime;
+    import C.unistd.*;
+    import shell.Program;
+    import shell.Runtime;
+    import shell.FileSystem;
 
     /**
      * The OperatingSystem class provide informations about the Operating System.
@@ -16,90 +18,147 @@ package shell
      * @playerversion AVM 0.4
      */
     [native(cls="::avmshell::OperatingSystemClass", methods="auto", construct="none")]
-	public class OperatingSystem
-	{
+    public class OperatingSystem
+    {
 
-		private static var _hostname:String;
+        /* Common */
+        private static const EMPTY:String   = "";
+        private static const UNKNOWN:String = "Unknown";
+        
+        private static var _name:String = "";
+        private static var _version:String = "";
 
-		private static var _vendor:String;
+        private static var _hostname:String = "";
+        private static var _username:String = "";
 
+        private static var _vendor:String = "";
+        private static var _vendorName:String = "";
+        private static var _vendorVersion:String = "";
+        private static var _vendorBuild:String = "";
+        private static var _vendorDescription:String = "";
 
-		/* NOTE:
-           How can I reliably get the operating system's name?
-		   http://unix.stackexchange.com/questions/92199/how-can-i-reliably-get-the-operating-systems-name
-
-		   Detecting Underlying Linux Distro
-		   http://www.novell.com/coolsolutions/feature/11251.html
-
-		   scenario:
-		   if found lsb_release
-		     run "lsb_release -a"
-		   else if file exists /etc/issue
-		     read /etc/issue
-		   else
-		     loop trough _linuxDistros
-		     check if the associated file exists
-		
-		*/
-		private static var _linuxDistros:Array = [];
-						   _linuxDistros[ 0] = { name: "Novell SUSE",   file: "/etc/SUSE-release" };
-						   _linuxDistros[ 1] = { name: "openSUSE",      file: "/etc/SuSE-release" };
-						   _linuxDistros[ 2] = { name: "Red Hat",       file: "/etc/redhat-release" };
-						   _linuxDistros[ 3] = { name: "Red Hat",       file: "/etc/redhat_version" };
-						   _linuxDistros[ 4] = { name: "Fedora",        file: "/etc/fedora-release" };
-						   _linuxDistros[ 5] = { name: "Slackware",     file: "/etc/slackware-release" };
-						   _linuxDistros[ 6] = { name: "Slackware",     file: "/etc/slackware-version" };
-						   _linuxDistros[ 7] = { name: "Debian",        file: "/etc/debian_release" };
-						   _linuxDistros[ 8] = { name: "Debian",        file: "/etc/debian_version" };
-						   _linuxDistros[ 9] = { name: "Mandrake",      file: "/etc/mandrake-release" };
-						   _linuxDistros[10] = { name: "Yellow dog",    file: "/etc/yellowdog-release" };
-						   _linuxDistros[11] = { name: "Sun JDS",       file: "/etc/sun-release" };
-						   _linuxDistros[12] = { name: "Solaris/Sparc", file: "/etc/release" };
-						   _linuxDistros[13] = { name: "Gentoo",        file: "/etc/gentoo-release" };
-						   _linuxDistros[14] = { name: "UnitedLinux",   file: "/etc/UnitedLinux-release" };
-						   _linuxDistros[15] = { name: "Ubuntu",        file: "/etc/lsb-release" };
-						   /*
-						   _linuxDistros[16] = { name: "check origin",  file: "/etc/mandriva-release" };
-						   _linuxDistros[17] = { name: "check origin",  file: "/etc/arch-release" };
-						   _linuxDistros[18] = { name: "check origin",  file: "/etc/oracle-release" };
-						   _linuxDistros[19] = { name: "check origin",  file: "/etc/enterprise-release" };
-						   _linuxDistros[20] = { name: "check origin",  file: "/etc/ovs-release" };
-						   _linuxDistros[21] = { name: "check origin",  file: "/etc/vmware-release" };
-						   _linuxDistros[22] = { name: "check origin",  file: "/etc/bluewhite64-version" };
-						   _linuxDistros[23] = { name: "check origin",  file: "/etc/slamd64-version" };
-						   _linuxDistros[24] = { name: "check origin",  file: "/etc/alpine-release" };
-						   _linuxDistros[25] = { name: "check origin",  file: "/etc/system-release" };
-						   _linuxDistros[26] = { name: "check origin",  file: "/etc/centos-release" };
-						   */
+        private static var _codename:String = "";
+        private static var _longDescription:String = "";
 
 
-        private static function getVendorAll():String
+        /**
+         * @internal
+         * 
+         * parse the result of a <code>regexp.exec()</code>
+         * which kind of a bastard mix between array/object
+         * and return a cleaner <code>Object</code>
+         */
+        private static function _parseRegExpResult( result:Object, findIndexes:Boolean = false ):Object
         {
-        	var platform:String = Runtime.platform;
+            var o:Object = {};
+            var a:Array  = [];
+            var m:String;
 
-            switch( platform )
+            for( m in result )
             {
-                case "linux":
-                return "(Distro)"; //temporary, should be: Ubuntu, Debian, CentOS, etc.
+                switch( m )
+                {
+                    case "0":
+                    case "1":
+                    case "2":
+                    case "3":
+                    case "4":
+                    case "5":
+                    case "6":
+                    case "7":
+                    case "8":
+                    case "9":
+                    a[ parseInt(m) ] = result[ parseInt(m) ];
+                    break;
 
-                case "macintosh":
-                return "Apple";
-                
-                case "windows":
-                return "Microsoft";
-
-                default:
-                return "Unknown";
+                    case "input":
+                    case "index":
+                    // ignore
+                    break;
+                    
+                    default:
+                    o[ m ] = result[ m ];
+                }
             }
+
+            if( findIndexes && (a.length > 0) )
+            {
+                o._indexes = a;
+            }
+
+            return o;
+        }
+
+        /**
+         * @internal
+         * 
+         * parse any raw string and search for
+         * <code>major.minor.release.build</code>
+         * returns a litteral version object
+         */
+        private static function _getVersionFrom( str:String ):Object
+        {
+            // version = major . minor . release . build
+            //              mandatory        optional
+            var re:RegExp = /\bv?(?P<major>[0-9]+)\.(?P<minor>[0-9]+)(?:\.(?P<release>[0-9]+))?(?:\.(?P<build>[0-9]+))?\b/;
+
+            if( re.test( str ) )
+            {
+                var result:* = re.exec( str );
+                
+                if( result )
+                {
+                    var version:Object = _parseRegExpResult( result, false );
+                    return version;
+                }
+            }
+
+            return null;
+        }
+
+        /**
+         * @internal
+         * 
+         * scan an <code>Array</code> and look into each index
+         * properties to find the <code>value</code>
+         * and if found returns the index Object
+         * 
+         * the <code>key</code> allow to specify the property to look into
+         */
+        private static function _findWithin( data:Array, value:String, key:String = "" ):Object
+        {
+            var i:uint;
+            var len:uint = data.length;
+            var o:Object;
+            var m:String;
+
+            for( i = 0; i < len; i++ )
+            {
+                o = data[i];
+                for( m in o  )
+                {
+                    if( ((key != "") && (key == m)) || (key == "") )
+                    {
+                        if( value == o[m] )
+                        {
+                            return o;
+                        }
+                    }
+                }
+            }
+
+            return null;
         }
 
 
-		/**
-		 * 
-		 * @langversion 3.0
-		 * @playerversion AVM 0.4
-		 */
-		public native static function isWindowsStore():Boolean;
+        /**
+         * Returns <code>true</code> is the program is a
+         * Windows Store Apps.
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4
+         */
+        public native static function isWindowsStore():Boolean;
 
 
         /**
@@ -126,10 +185,10 @@ package shell
         {
             if( _vendor ) { return _vendor; }
 
-            _vendor = getVendorAll();
+            _vendor = _getVendorAll();
             return _vendor;
         }
 
-	}
+    }
 
 }
