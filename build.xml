@@ -377,15 +377,16 @@
         
         <property file="build/version.properties" prefix="app." />
         <property name="app.version.tag" value="${app.version.serie}${app.version.cycle}${app.version.build}" />
-        <property name="app.version.number" value="${app.version.major}.${app.version.minor}.${app.version.build}" />
+        <property name="app.version.number" value="${app.version.major}.${app.version.minor}.${app.version.patch}.${app.version.tag}" />
         
         <propertyfile file="build/tmp.properties">
             <entry key="version.buildclean" type="int" operation="=" value="${app.version.build}"/>
         </propertyfile>
         <property file="build/tmp.properties" prefix="app." />
         
-        <property name="app.version.numberclean" value="${app.version.major}.${app.version.minor}.${app.version.buildclean}" />
-        <property name="app.version.shortnumberclean" value="${app.version.major}.${app.version.minor}" />
+        <property name="app.version.semver" value="${app.version.major}.${app.version.minor}.${app.version.patch}" />
+        <!-- <property name="app.version.numberclean" value="${app.version.major}.${app.version.minor}.${app.version.buildclean}" /> -->
+        <!-- <property name="app.version.shortnumberclean" value="${app.version.major}.${app.version.minor}" /> -->
         <delete file="build/tmp.properties"/>
 
     </target>
@@ -401,10 +402,10 @@
 
 
     <target name="header">
-        <echo message="Build version [${app.version.shortnumberclean}] tag [${app.version.tag}] (version locked: ${build.lockversion})"/>
+        <echo message="Build version [${app.version.semver}] tag [${app.version.tag}] (version locked: ${build.lockversion})"/>
 
-        <property name="app.desc" value="${app.name}-${app.version.shortnumberclean}-${app.label}[${app.version.tag}]" />
-        <property name="doc.footer" value="${app.name} v${app.version.shortnumberclean} ${app.label} [${app.version.tag}]" />
+        <property name="app.desc" value="${app.name}-${app.version.number}-${app.label}" />
+        <property name="doc.footer" value="${app.name} v${app.version.semver} ${app.label} [${app.version.tag}]" />
 
         <echo file="src/as3/shell/description.incl" append="false">private static var _localAvmplusDescription = "${app.desc}";
         </echo>
