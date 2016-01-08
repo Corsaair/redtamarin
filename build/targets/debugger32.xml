@@ -69,7 +69,7 @@
             <available file="${target.debugger32.path}/Makefile" type="file"/>
         </not>
             <then>
-                <exec executable="python" dir="${target.debugger32.path}" failonerror="true">
+                <exec executable="${PYTHON_EXE}" dir="${target.debugger32.path}" failonerror="true">
                     <arg line="${commandline}"/>
                 </exec>
             </then>
