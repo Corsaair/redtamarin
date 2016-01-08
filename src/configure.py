@@ -73,8 +73,20 @@ def _setSDKParams(sdk_version, os_ver, xcode_version):
         os_ver,sdk_number = '10.8','10.8'
         if xcode_version is None:
             xcode_version = '4'
+    elif sdk_version == '109':
+        os_ver,sdk_number = '10.9','10.9'
+        if xcode_version is None:
+            xcode_version = '5'
+    elif sdk_version == '1010':
+        os_ver,sdk_number = '10.10','10.10'
+        if xcode_version is None:
+            xcode_version = '6'
+    elif sdk_version == '1011':
+        os_ver,sdk_number = '10.11','10.11'
+        if xcode_version is None:
+            xcode_version = '7'
     else:
-        print'Unknown SDK version -> %s. Expected values are 104u, 105, 106 or 107.' % sdk_version
+        print'Unknown SDK version -> %s. Expected values are 104u, 105, 106, 107, 108, 109, 1010 or 1011.' % sdk_version
         sys.exit(2)
 
     sdk_prefix = None
