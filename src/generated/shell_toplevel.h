@@ -1099,395 +1099,441 @@ const uint32_t shell_Runtime_private__getAvmplusDescription = 913; // native
 const uint32_t shell_Runtime_private__getFeatures = 914; // native
 const uint32_t shell_Runtime_private__getRunmode = 915; // native
 const uint32_t shell_Runtime_private__getEndian = 916; // native
-const uint32_t shell_Runtime_apiVersion_get = 917; // native
-const uint32_t shell_Runtime_api_get = 918; // abc
-const uint32_t shell_Runtime_swfVersion_get = 919; // native
-const uint32_t shell_Runtime_platform_get = 920; // abc
-const uint32_t shell_Runtime_architecture_get = 921; // abc
-const uint32_t shell_Runtime_version_get = 922; // abc
-const uint32_t shell_Runtime_description_get = 923; // abc
-const uint32_t shell_Runtime_features_get = 924; // abc
-const uint32_t shell_Runtime_runmode_get = 925; // abc
-const uint32_t shell_Runtime_endian_get = 926; // abc
-const uint32_t shell_Runtime_redtamarin_get = 927; // abc
-const uint32_t shell_Runtime_loop_get = 928; // abc
-const uint32_t shell_Runtime_loop_set = 929; // abc
-const uint32_t shell_Runtime_eval = 930; // native
-const uint32_t shell_Runtime_returnEval = 931; // native
-const uint32_t shell_Runtime_is64bit = 932; // native
-const uint32_t shell_Diagnostics_private__isGlobal = 935; // native
-const uint32_t shell_Diagnostics_private__isIntptr = 936; // native
-const uint32_t shell_Diagnostics_private__canonicalizeNumber = 937; // native
-const uint32_t shell_Diagnostics_private__deopt = 938; // native
-const uint32_t shell_Diagnostics_private__runInSafepoint = 939; // native
-const uint32_t shell_Diagnostics_private__log = 940; // native
-const uint32_t shell_Diagnostics_private__initializeLogging = 941; // native
-const uint32_t shell_Diagnostics_debugger = 942; // native
-const uint32_t shell_Diagnostics_isDebugger = 943; // native
-const uint32_t shell_Diagnostics_AVM2_log = 944; // abc
-const uint32_t shell_Diagnostics_AVM2_initializeLogging = 945; // abc
-const uint32_t shell_Diagnostics_AVM2_isGlobal = 946; // abc
-const uint32_t shell_Diagnostics_AVM2_isIntptr = 947; // abc
-const uint32_t shell_Diagnostics_AVM2_canonicalizeNumber = 948; // abc
-const uint32_t shell_Diagnostics_AVM2_deopt = 949; // abc
-const uint32_t shell_Diagnostics_AVM2_runInSafepoint = 950; // abc
-const uint32_t shell_HardwareInformation_private__getProcessorCountAtBoot = 953; // native
-const uint32_t shell_HardwareInformation_private__getMemorySize = 954; // native
-const uint32_t shell_HardwareInformation_private__getMemoryUsage = 955; // native
-const uint32_t shell_HardwareInformation_private__getMemoryPeakUsage = 956; // native
-const uint32_t shell_HardwareInformation_processors_get = 957; // abc
-const uint32_t shell_HardwareInformation_memory_get = 958; // abc
-const uint32_t shell_HardwareInformation_memoryUsage_get = 959; // abc
-const uint32_t shell_HardwareInformation_memoryPeakUsage_get = 960; // abc
-const uint32_t shell_OperatingSystem_private_getVendorAll = 963; // abc
-const uint32_t shell_OperatingSystem_isWindowsStore = 964; // native
-const uint32_t shell_OperatingSystem_hostname_get = 965; // abc
-const uint32_t shell_OperatingSystem_vendor_get = 966; // abc
-const uint32_t shell_FileSystem_private__isAttributeHidden = 969; // native
-const uint32_t shell_FileSystem_private__getLogicalDrives = 970; // native
-const uint32_t shell_FileSystem_private__findLogicalDrives = 971; // abc
-const uint32_t shell_FileSystem_private__findRootDirectory = 972; // abc
-const uint32_t shell_FileSystem_private__findHomeDirectory = 973; // abc
-const uint32_t shell_FileSystem_private__filterWithRegexp = 975; // abc
-const uint32_t shell_FileSystem_drives_get = 976; // abc
-const uint32_t shell_FileSystem_lineEnding_get = 977; // abc
-const uint32_t shell_FileSystem_rootDirectory_get = 978; // abc
-const uint32_t shell_FileSystem_homeDirectory_get = 979; // abc
-const uint32_t shell_FileSystem_separators_get = 980; // abc
-const uint32_t shell_FileSystem_pathSeparator_get = 981; // abc
-const uint32_t shell_FileSystem_nativeRead = 982; // native
-const uint32_t shell_FileSystem_nativeWrite = 983; // native
-const uint32_t shell_FileSystem_nativeReadByteArray = 984; // native
-const uint32_t shell_FileSystem_nativeWriteByteArray = 985; // native
-const uint32_t shell_FileSystem_absolutePath = 986; // abc
-const uint32_t shell_FileSystem_normalizePath = 987; // abc
-const uint32_t shell_FileSystem_getBasenameFromPath = 988; // abc
-const uint32_t shell_FileSystem_getDirectoryFromPath = 989; // abc
-const uint32_t shell_FileSystem_getComponentsFromPath = 990; // abc
-const uint32_t shell_FileSystem_containsPath = 991; // abc
-const uint32_t shell_FileSystem_create = 992; // abc
-const uint32_t shell_FileSystem_createByteArray = 993; // abc
-const uint32_t shell_FileSystem_createDirectory = 994; // abc
-const uint32_t shell_FileSystem_copyFile = 995; // abc
-const uint32_t shell_FileSystem_copyFiles = 996; // abc
-const uint32_t shell_FileSystem_bufferedCopyFile = 997; // abc
-const uint32_t shell_FileSystem_bufferedFastCopyFile = 998; // abc
-const uint32_t shell_FileSystem_copyDirectory = 999; // abc
-const uint32_t shell_FileSystem_exists = 1000; // abc
-const uint32_t shell_FileSystem_move = 1001; // abc
-const uint32_t shell_FileSystem_remove = 1002; // abc
-const uint32_t shell_FileSystem_removeFile = 1003; // abc
-const uint32_t shell_FileSystem_removeDirectory = 1004; // abc
-const uint32_t shell_FileSystem_read = 1005; // abc
-const uint32_t shell_FileSystem_readByteArray = 1006; // abc
-const uint32_t shell_FileSystem_bufferedReadByteArray = 1007; // abc
-const uint32_t shell_FileSystem_write = 1008; // abc
-const uint32_t shell_FileSystem_writeByteArray = 1009; // abc
-const uint32_t shell_FileSystem_bufferedWriteByteArray = 1010; // abc
-const uint32_t shell_FileSystem_canAccess = 1011; // abc
-const uint32_t shell_FileSystem_canRead = 1012; // abc
-const uint32_t shell_FileSystem_canWrite = 1013; // abc
-const uint32_t shell_FileSystem_hasDriveLetter = 1014; // abc
-const uint32_t shell_FileSystem_getFileMode = 1015; // abc
-const uint32_t shell_FileSystem_getFileAccessTime = 1016; // abc
-const uint32_t shell_FileSystem_getFileModifiedTime = 1017; // abc
-const uint32_t shell_FileSystem_getFileChangedTime = 1018; // abc
-const uint32_t shell_FileSystem_getFileSize = 1019; // abc
-const uint32_t shell_FileSystem_getSize = 1020; // abc
-const uint32_t shell_FileSystem_getDirectorySize = 1021; // abc
-const uint32_t shell_FileSystem_getFreeDiskSpace = 1022; // native
-const uint32_t shell_FileSystem_getTotalDiskSpace = 1023; // native
-const uint32_t shell_FileSystem_getUsedDiskSpace = 1024; // abc
-const uint32_t shell_FileSystem_isRegularFile = 1025; // abc
-const uint32_t shell_FileSystem_isRegularFileMode = 1026; // abc
-const uint32_t shell_FileSystem_isDirectory = 1027; // abc
-const uint32_t shell_FileSystem_isDirectoryMode = 1028; // abc
-const uint32_t shell_FileSystem_isHidden = 1029; // abc
-const uint32_t shell_FileSystem_isDotOrDotdot = 1030; // abc
-const uint32_t shell_FileSystem_isSeparator = 1031; // abc
-const uint32_t shell_FileSystem_isEmptyDirectory = 1032; // abc
-const uint32_t shell_FileSystem_isValidWindowsComponent = 1033; // abc
-const uint32_t shell_FileSystem_isValidMacintoshComponent = 1034; // abc
-const uint32_t shell_FileSystem_isValidLinuxComponent = 1035; // abc
-const uint32_t shell_FileSystem_isValidComponent = 1036; // abc
-const uint32_t shell_FileSystem_isValidEverywhereComponent = 1037; // abc
-const uint32_t shell_FileSystem_isValid = 1038; // abc
-const uint32_t shell_FileSystem_isValidEverywhere = 1039; // abc
-const uint32_t shell_FileSystem_endsWithSeparator = 1040; // abc
-const uint32_t shell_FileSystem_ensureEndsWithSeparator = 1041; // abc
-const uint32_t shell_FileSystem_stripTrailingSeparators = 1042; // abc
-const uint32_t shell_FileSystem_listFilesOrDirectories = 1043; // abc
-const uint32_t shell_FileSystem_listFilesOrDirectoriesWithFilter = 1044; // abc
-const uint32_t shell_FileSystem_listFilesOrDirectoriesWithRegexp = 1045; // abc
-const uint32_t shell_FileSystem_listFiles = 1046; // abc
-const uint32_t shell_FileSystem_listFilesWithFilter = 1047; // abc
-const uint32_t shell_FileSystem_listFilesWithRegexp = 1048; // abc
-const uint32_t shell_FileSystem_listDirectories = 1049; // abc
-const uint32_t shell_FileSystem_listDirectoriesWithFilter = 1050; // abc
-const uint32_t shell_FileSystem_listDirectoriesWithRegexp = 1051; // abc
-const uint32_t shell_FileSystem_listByDepth = 1052; // abc
-const uint32_t shell_FileSystem_listByBreadth = 1053; // abc
-const uint32_t shell_Domain_currentDomain_get = 1058; // native
-const uint32_t shell_Domain_MIN_DOMAIN_MEMORY_LENGTH_get = 1059; // native
-const uint32_t shell_Domain_private_init = 1060; // native
-const uint32_t shell_Domain_parentDomain_get = 1062; // abc
-const uint32_t shell_Domain_loadBytes = 1063; // native
-const uint32_t shell_Domain_getClass = 1064; // native
-const uint32_t shell_Domain_getDefinition = 1065; // abc
-const uint32_t shell_Domain_hasDefinition = 1066; // abc
-const uint32_t shell_Domain_load = 1067; // abc
-const uint32_t shell_Domain_domainMemory_get = 1068; // native
-const uint32_t shell_Domain_domainMemory_set = 1069; // native
-const uint32_t shell_Environment_private__parse = 1072; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_callProperty = 1073; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_deleteProperty = 1074; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_getProperty = 1075; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_setProperty = 1076; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_hasProperty = 1077; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextNameIndex = 1078; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextName = 1079; // abc
-const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextValue = 1080; // abc
-const uint32_t shell_Environment_length_get = 1081; // abc
-const uint32_t shell_Environment_refresh = 1082; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_running_get = 1086; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_running_set = 1087; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_frequency_get = 1088; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_frequency_set = 1089; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_timers_get = 1090; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_timers_set = 1091; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_frame_get = 1092; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_started_get = 1093; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_elapsed_get = 1094; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_timerPending_get = 1095; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_setCallback = 1096; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_handleTimers = 1097; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_start = 1098; // abc
-const uint32_t shell_async_EventLoop_shell_async_EventLoop_stop = 1099; // abc
-const uint32_t flash_accessibility_ISearchableText_flash_accessibility_ISearchableText_searchText_get = 1102; // abc
-const uint32_t flash_accessibility_ISimpleTextSelection_flash_accessibility_ISimpleTextSelection_selectionAnchorIndex_get = 1105; // abc
-const uint32_t flash_accessibility_ISimpleTextSelection_flash_accessibility_ISimpleTextSelection_selectionActiveIndex_get = 1106; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accRole = 1112; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accName = 1113; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accValue = 1114; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accState = 1115; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accDefaultAction = 1116; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_accDoDefaultAction = 1117; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_isLabeledBy = 1118; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_getChildIDArray = 1119; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_accLocation = 1120; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accSelection = 1121; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_accFocus = 1122; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_accSelect = 1123; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_selectionAnchorIndex = 1124; // abc
-const uint32_t flash_accessibility_AccessibilityImplementation_get_selectionActiveIndex = 1125; // abc
-const uint32_t flash_data_EncryptedLocalStore_isSupported_get = 1129; // abc
-const uint32_t flash_display_Scene_name_get = 1179; // abc
-const uint32_t flash_display_Scene_labels_get = 1180; // abc
-const uint32_t flash_display_Scene_numFrames_get = 1181; // abc
-const uint32_t flash_errors_SQLError_operation_get = 1208; // abc
-const uint32_t flash_errors_SQLError_details_get = 1209; // abc
-const uint32_t flash_errors_SQLError_detailID_get = 1210; // abc
-const uint32_t flash_errors_SQLError_detailArguments_get = 1211; // abc
-const uint32_t flash_errors_DRMManagerError_subErrorID_get = 1214; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_addEventListener = 1216; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_dispatchEvent = 1217; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_hasEventListener = 1218; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_removeEventListener = 1219; // abc
-const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_willTrigger = 1220; // abc
-const uint32_t flash_events_Event_private_ctor = 1224; // abc
-const uint32_t flash_events_Event_type_get = 1225; // abc
-const uint32_t flash_events_Event_bubbles_get = 1226; // abc
-const uint32_t flash_events_Event_cancelable_get = 1227; // abc
-const uint32_t flash_events_Event_target_get = 1228; // abc
-const uint32_t flash_events_Event_currentTarget_get = 1229; // abc
-const uint32_t flash_events_Event_eventPhase_get = 1230; // abc
-const uint32_t flash_events_Event_formatToString = 1231; // abc
-const uint32_t flash_events_Event_clone = 1232; // abc
-const uint32_t flash_events_Event_isDefaultPrevented = 1233; // abc
-const uint32_t flash_events_Event_preventDefault = 1234; // abc
-const uint32_t flash_events_Event_stopImmediatePropagation = 1235; // abc
-const uint32_t flash_events_Event_stopPropagation = 1236; // abc
-const uint32_t flash_events_Event_toString = 1237; // abc
-const uint32_t flash_filesystem_File_isDummy = 1239; // native
-const uint32_t flash_filesystem_File_isLocalDummy = 1240; // native
-const uint32_t flash_filesystem_File_url_get = 1242; // abc
-const uint32_t flash_filesystem_File_url_set = 1243; // abc
-const uint32_t flash_filesystem_File_nativePath_get = 1244; // abc
-const uint32_t flash_filesystem_File_nativePath_set = 1245; // abc
-const uint32_t flash_filesystem_FileStream_open = 1250; // abc
-const uint32_t flash_filesystem_FileStream_openAsync = 1251; // abc
-const uint32_t flash_filesystem_FileStream_truncate = 1252; // abc
-const uint32_t flash_filesystem_FileStream_close = 1253; // abc
-const uint32_t flash_geom_Point_interpolate = 1257; // abc
-const uint32_t flash_geom_Point_distance = 1258; // abc
-const uint32_t flash_geom_Point_polar = 1259; // abc
-const uint32_t flash_geom_Point_length_get = 1261; // abc
-const uint32_t flash_geom_Point_clone = 1262; // abc
-const uint32_t flash_geom_Point_offset = 1263; // abc
-const uint32_t flash_geom_Point_equals = 1264; // abc
-const uint32_t flash_geom_Point_subtract = 1265; // abc
-const uint32_t flash_geom_Point_add = 1266; // abc
-const uint32_t flash_geom_Point_normalize = 1267; // abc
-const uint32_t flash_geom_Point_toString = 1268; // abc
-const uint32_t flash_geom_Rectangle_left_get = 1271; // abc
-const uint32_t flash_geom_Rectangle_left_set = 1272; // abc
-const uint32_t flash_geom_Rectangle_right_get = 1273; // abc
-const uint32_t flash_geom_Rectangle_right_set = 1274; // abc
-const uint32_t flash_geom_Rectangle_top_get = 1275; // abc
-const uint32_t flash_geom_Rectangle_top_set = 1276; // abc
-const uint32_t flash_geom_Rectangle_bottom_get = 1277; // abc
-const uint32_t flash_geom_Rectangle_bottom_set = 1278; // abc
-const uint32_t flash_geom_Rectangle_topLeft_get = 1279; // abc
-const uint32_t flash_geom_Rectangle_topLeft_set = 1280; // abc
-const uint32_t flash_geom_Rectangle_bottomRight_get = 1281; // abc
-const uint32_t flash_geom_Rectangle_bottomRight_set = 1282; // abc
-const uint32_t flash_geom_Rectangle_size_get = 1283; // abc
-const uint32_t flash_geom_Rectangle_size_set = 1284; // abc
-const uint32_t flash_geom_Rectangle_clone = 1285; // abc
-const uint32_t flash_geom_Rectangle_isEmpty = 1286; // abc
-const uint32_t flash_geom_Rectangle_setEmpty = 1287; // abc
-const uint32_t flash_geom_Rectangle_inflate = 1288; // abc
-const uint32_t flash_geom_Rectangle_inflatePoint = 1289; // abc
-const uint32_t flash_geom_Rectangle_offset = 1290; // abc
-const uint32_t flash_geom_Rectangle_offsetPoint = 1291; // abc
-const uint32_t flash_geom_Rectangle_contains = 1292; // abc
-const uint32_t flash_geom_Rectangle_containsPoint = 1293; // abc
-const uint32_t flash_geom_Rectangle_containsRect = 1294; // abc
-const uint32_t flash_geom_Rectangle_intersection = 1295; // abc
-const uint32_t flash_geom_Rectangle_intersects = 1296; // abc
-const uint32_t flash_geom_Rectangle_union = 1297; // abc
-const uint32_t flash_geom_Rectangle_equals = 1298; // abc
-const uint32_t flash_geom_Rectangle_toString = 1299; // abc
-const uint32_t flash_net_FileReference_isDummy = 1301; // native
-const uint32_t flash_net_FileReference_isLocalDummy = 1302; // native
-const uint32_t flash_net_FileReference_private__reset = 1304; // abc
-const uint32_t flash_net_FileReference_creationDate_get = 1305; // abc
-const uint32_t flash_net_FileReference_creator_get = 1306; // abc
-const uint32_t flash_net_FileReference_modificationDate_get = 1307; // abc
-const uint32_t flash_net_FileReference_name_get = 1308; // abc
-const uint32_t flash_net_FileReference_size_get = 1309; // abc
-const uint32_t flash_net_FileReference_type_get = 1310; // abc
-const uint32_t flash_net_FileReference_data_get = 1311; // abc
-const uint32_t flash_net_FileReference_extension_get = 1312; // abc
-const uint32_t flash_net_FileReference_browse = 1313; // abc
-const uint32_t flash_net_FileReference_AVM2_browseOverride = 1314; // abc
-const uint32_t flash_net_FileReference_private__load = 1315; // abc
-const uint32_t flash_net_FileReference_load = 1316; // abc
-const uint32_t flash_net_FileReference_private__save = 1317; // abc
-const uint32_t flash_net_FileReference_save = 1318; // abc
-const uint32_t flash_net_FileReference_AVM2_saveOverride = 1319; // abc
-const uint32_t flash_net_FileReference_uploadUnencoded = 1320; // abc
-const uint32_t flash_net_URLRequest_private_setRequestHeaders = 1323; // abc
-const uint32_t flash_net_URLRequest_private_filterRequestHeaders = 1324; // abc
-const uint32_t flash_net_URLRequest_requestHeaders_get = 1325; // abc
-const uint32_t flash_net_URLRequest_requestHeaders_set = 1326; // abc
-const uint32_t flash_net_URLRequest_userAgent_get = 1327; // abc
-const uint32_t flash_net_URLRequest_userAgent_set = 1328; // abc
-const uint32_t flash_net_URLRequestDefaults_private_initLoginCredentials = 1330; // abc
-const uint32_t flash_net_URLRequestDefaults_private_initUA = 1331; // abc
-const uint32_t flash_net_URLRequestDefaults_setLoginCredentialsForHost = 1332; // abc
-const uint32_t flash_net_URLRequestDefaults_followRedirects_get = 1333; // abc
-const uint32_t flash_net_URLRequestDefaults_followRedirects_set = 1334; // abc
-const uint32_t flash_net_URLRequestDefaults_idleTimeout_get = 1335; // abc
-const uint32_t flash_net_URLRequestDefaults_idleTimeout_set = 1336; // abc
-const uint32_t flash_sampler_StackFrame_toString = 1341; // abc
-const uint32_t flash_system_Capabilities_avHardwareDisable_get = 1348; // abc
-const uint32_t flash_system_Capabilities_cpuArchitecture_get = 1349; // abc
-const uint32_t flash_system_Capabilities_manufacturer_get = 1350; // abc
-const uint32_t flash_system_Capabilities_playerType_get = 1351; // abc
-const uint32_t flash_system_Capabilities_isDebugger_get = 1352; // abc
-const uint32_t flash_system_Capabilities_supports32BitProcesses_get = 1353; // abc
-const uint32_t flash_system_Capabilities_supports64BitProcesses_get = 1354; // abc
-const uint32_t flash_system_Capabilities_hasMultiChannelAudio = 1355; // abc
-const uint32_t flash_system_Security_sandboxType_get = 1358; // abc
-const uint32_t flash_system_Security_AVM2_sandboxType_set = 1359; // abc
-const uint32_t flash_system_System_setClipboard = 1364; // abc
-const uint32_t flash_system_System_totalMemory_get = 1365; // abc
-const uint32_t flash_system_System_totalMemoryNumber_get = 1366; // abc
-const uint32_t flash_system_System_freeMemory_get = 1367; // native
-const uint32_t flash_system_System_privateMemory_get = 1368; // abc
-const uint32_t flash_system_System_useCodePage_get = 1369; // abc
-const uint32_t flash_system_System_useCodePage_set = 1370; // abc
-const uint32_t flash_system_System_vmVersion_get = 1371; // abc
-const uint32_t flash_system_System_pause = 1372; // abc
-const uint32_t flash_system_System_resume = 1373; // abc
-const uint32_t flash_system_System_exit = 1374; // abc
-const uint32_t flash_system_System_gc = 1375; // abc
-const uint32_t flash_system_System_disposeXML = 1376; // abc
-const uint32_t flash_system_WorkerState_code = 1379; // abc
-const uint32_t flash_system_Worker_current_get = 1382; // abc
-const uint32_t flash_system_Worker_pr = 1383; // native
-const uint32_t flash_system_Worker_state_get = 1385; // native
-const uint32_t flash_system_Worker_start = 1386; // native
-const uint32_t flash_system_Worker_isParentOf = 1387; // native
-const uint32_t flash_system_Worker_isPrimordial_get = 1388; // native
-const uint32_t flash_system_Worker_setSharedProperty = 1389; // native
-const uint32_t flash_system_Worker_getSharedProperty = 1390; // native
-const uint32_t flash_system_Worker_terminate = 1391; // native
-const uint32_t flash_system_WorkerEvent_currentState_get = 1394; // abc
-const uint32_t flash_system_WorkerEvent_previousState_get = 1395; // abc
-const uint32_t flash_system_WorkerEvent_target_get = 1396; // abc
-const uint32_t flash_system_WorkerDomain_current_get = 1398; // abc
-const uint32_t flash_system_WorkerDomain_createWorkerFromByteArray = 1400; // abc
-const uint32_t flash_system_WorkerDomain_createWorkerFromPrimordial = 1401; // abc
-const uint32_t flash_system_WorkerDomain_private_createWorkerFromByteArrayInternal = 1402; // native
-const uint32_t flash_system_WorkerDomain_listWorkers = 1403; // native
-const uint32_t flash_trace_Trace_setLevel = 1405; // native
-const uint32_t flash_trace_Trace_getLevel = 1406; // native
-const uint32_t flash_trace_Trace_setListener = 1407; // native
-const uint32_t flash_trace_Trace_getListener = 1408; // native
-const uint32_t shell_async_CoreEventLoop_running_get = 1414; // abc
-const uint32_t shell_async_CoreEventLoop_running_set = 1415; // abc
-const uint32_t shell_async_CoreEventLoop_frequency_get = 1416; // abc
-const uint32_t shell_async_CoreEventLoop_frequency_set = 1417; // abc
-const uint32_t shell_async_CoreEventLoop_timers_get = 1418; // abc
-const uint32_t shell_async_CoreEventLoop_timers_set = 1419; // abc
-const uint32_t shell_async_CoreEventLoop_frame_get = 1420; // abc
-const uint32_t shell_async_CoreEventLoop_started_get = 1421; // abc
-const uint32_t shell_async_CoreEventLoop_elapsed_get = 1422; // abc
-const uint32_t shell_async_CoreEventLoop_private_tick = 1423; // abc
-const uint32_t shell_async_CoreEventLoop_setCallback = 1424; // abc
-const uint32_t shell_async_CoreEventLoop_private__loop = 1425; // abc
-const uint32_t shell_async_CoreEventLoop_timerPending_get = 1426; // abc
-const uint32_t shell_async_CoreEventLoop_handleTimers = 1427; // abc
-const uint32_t shell_async_CoreEventLoop_start = 1428; // abc
-const uint32_t shell_async_CoreEventLoop_stop = 1429; // abc
-const uint32_t flash_events_EventDispatcher_private_trimHeaderValue = 1431; // abc
-const uint32_t flash_events_EventDispatcher_private_ctor = 1433; // abc
-const uint32_t flash_events_EventDispatcher_private_dispatchEventFunction = 1434; // abc
-const uint32_t flash_events_EventDispatcher_private_dispatchHttpStatusEvent = 1436; // abc
-const uint32_t flash_events_EventDispatcher_addEventListener = 1437; // abc
-const uint32_t flash_events_EventDispatcher_dispatchEvent = 1438; // abc
-const uint32_t flash_events_EventDispatcher_hasEventListener = 1439; // abc
-const uint32_t flash_events_EventDispatcher_removeEventListener = 1440; // abc
-const uint32_t flash_events_EventDispatcher_willTrigger = 1441; // abc
-const uint32_t flash_events_EventDispatcher_toString = 1442; // abc
-const uint32_t flash_events_HTTPStatusEvent_status_get = 1445; // abc
-const uint32_t flash_events_HTTPStatusEvent_responseURL_get = 1446; // abc
-const uint32_t flash_events_HTTPStatusEvent_responseURL_set = 1447; // abc
-const uint32_t flash_events_HTTPStatusEvent_responseHeaders_get = 1448; // abc
-const uint32_t flash_events_HTTPStatusEvent_responseHeaders_set = 1449; // abc
-const uint32_t flash_events_HTTPStatusEvent_redirected_get = 1450; // abc
-const uint32_t flash_events_HTTPStatusEvent_redirected_set = 1451; // abc
-const uint32_t flash_events_HTTPStatusEvent_clone = 1452; // abc
-const uint32_t flash_events_HTTPStatusEvent_toString = 1453; // abc
-const uint32_t flash_events_TimerEvent_clone = 1456; // abc
-const uint32_t flash_events_TimerEvent_toString = 1457; // abc
-const uint32_t flash_events_TimerEvent_updateAfterEvent = 1458; // abc
-const uint32_t flash_sampler_NewObjectSample_object_get = 1460; // native
-const uint32_t flash_sampler_NewObjectSample_size_get = 1461; // native
-const uint32_t flash_utils_Timer_private__timerDispatch = 1467; // abc
-const uint32_t flash_utils_Timer_private__start = 1468; // abc
-const uint32_t flash_utils_Timer_tick = 1469; // abc
-const uint32_t flash_utils_Timer_delay_get = 1470; // abc
-const uint32_t flash_utils_Timer_delay_set = 1471; // abc
-const uint32_t flash_utils_Timer_repeatCount_get = 1472; // abc
-const uint32_t flash_utils_Timer_repeatCount_set = 1473; // abc
-const uint32_t flash_utils_Timer_currentCount_get = 1474; // abc
-const uint32_t flash_utils_Timer_running_get = 1475; // abc
-const uint32_t flash_utils_Timer_reset = 1476; // abc
-const uint32_t flash_utils_Timer_start = 1477; // abc
-const uint32_t flash_utils_Timer_stop = 1478; // abc
+const uint32_t shell_Runtime_private__parseRegExpResult = 917; // abc
+const uint32_t shell_Runtime_private__parseVersion = 918; // abc
+const uint32_t shell_Runtime_private__parseTag = 919; // abc
+const uint32_t shell_Runtime_private__redtamarinDetect = 921; // abc
+const uint32_t shell_Runtime_apiVersion_get = 922; // native
+const uint32_t shell_Runtime_api_get = 923; // abc
+const uint32_t shell_Runtime_swfVersion_get = 924; // native
+const uint32_t shell_Runtime_platform_get = 925; // abc
+const uint32_t shell_Runtime_architecture_get = 926; // abc
+const uint32_t shell_Runtime_AVMversion_get = 927; // abc
+const uint32_t shell_Runtime_description_get = 928; // abc
+const uint32_t shell_Runtime_version_get = 929; // abc
+const uint32_t shell_Runtime_tag_get = 930; // abc
+const uint32_t shell_Runtime_codename_get = 931; // abc
+const uint32_t shell_Runtime_label_get = 932; // abc
+const uint32_t shell_Runtime_features_get = 933; // abc
+const uint32_t shell_Runtime_runmode_get = 934; // abc
+const uint32_t shell_Runtime_endian_get = 935; // abc
+const uint32_t shell_Runtime_redtamarin_get = 936; // abc
+const uint32_t shell_Runtime_loop_get = 937; // abc
+const uint32_t shell_Runtime_loop_set = 938; // abc
+const uint32_t shell_Runtime_eval = 939; // native
+const uint32_t shell_Runtime_returnEval = 940; // native
+const uint32_t shell_Runtime_is64bit = 941; // native
+const uint32_t shell_Diagnostics_private__isGlobal = 944; // native
+const uint32_t shell_Diagnostics_private__isIntptr = 945; // native
+const uint32_t shell_Diagnostics_private__canonicalizeNumber = 946; // native
+const uint32_t shell_Diagnostics_private__deopt = 947; // native
+const uint32_t shell_Diagnostics_private__runInSafepoint = 948; // native
+const uint32_t shell_Diagnostics_private__log = 949; // native
+const uint32_t shell_Diagnostics_private__initializeLogging = 950; // native
+const uint32_t shell_Diagnostics_debugger = 951; // native
+const uint32_t shell_Diagnostics_isDebugger = 952; // native
+const uint32_t shell_Diagnostics_AVM2_log = 953; // abc
+const uint32_t shell_Diagnostics_AVM2_initializeLogging = 954; // abc
+const uint32_t shell_Diagnostics_AVM2_isGlobal = 955; // abc
+const uint32_t shell_Diagnostics_AVM2_isIntptr = 956; // abc
+const uint32_t shell_Diagnostics_AVM2_canonicalizeNumber = 957; // abc
+const uint32_t shell_Diagnostics_AVM2_deopt = 958; // abc
+const uint32_t shell_Diagnostics_AVM2_runInSafepoint = 959; // abc
+const uint32_t shell_HardwareInformation_private__getProcessorCountAtBoot = 962; // native
+const uint32_t shell_HardwareInformation_private__getMemorySize = 963; // native
+const uint32_t shell_HardwareInformation_private__getMemoryUsage = 964; // native
+const uint32_t shell_HardwareInformation_private__getMemoryPeakUsage = 965; // native
+const uint32_t shell_HardwareInformation_processors_get = 966; // abc
+const uint32_t shell_HardwareInformation_memory_get = 967; // abc
+const uint32_t shell_HardwareInformation_memoryUsage_get = 968; // abc
+const uint32_t shell_HardwareInformation_memoryPeakUsage_get = 969; // abc
+const uint32_t shell_OperatingSystem_private__parseRegExpResult = 972; // abc
+const uint32_t shell_OperatingSystem_private__getVersionFrom = 973; // abc
+const uint32_t shell_OperatingSystem_private__findWithin = 974; // abc
+const uint32_t shell_OperatingSystem_private__windowsDetect = 975; // abc
+const uint32_t shell_OperatingSystem_private__windowsReadVerOutput = 976; // abc
+const uint32_t shell_OperatingSystem_private__windowsParseVersion = 977; // abc
+const uint32_t shell_OperatingSystem_private__macintoshDetect = 978; // abc
+const uint32_t shell_OperatingSystem_private__macintoshParseSystemVersionFile = 979; // abc
+const uint32_t shell_OperatingSystem_private__macintoshParseSystemVersion = 980; // abc
+const uint32_t shell_OperatingSystem_private__linuxDetect = 981; // abc
+const uint32_t shell_OperatingSystem_private__linuxParseConfig = 982; // abc
+const uint32_t shell_OperatingSystem_private__linuxParseReleaseFile = 983; // abc
+const uint32_t shell_OperatingSystem_private__linuxParseUbuntuReleaseFile = 984; // abc
+const uint32_t shell_OperatingSystem_private__getNameAll = 985; // abc
+const uint32_t shell_OperatingSystem_private__getVersionAll = 986; // abc
+const uint32_t shell_OperatingSystem_private__getVendorAll = 987; // abc
+const uint32_t shell_OperatingSystem_private__getVendorNameAll = 988; // abc
+const uint32_t shell_OperatingSystem_private__getVendorVersionAll = 989; // abc
+const uint32_t shell_OperatingSystem_private__getVendorBuildAll = 990; // abc
+const uint32_t shell_OperatingSystem_private__getVendorDescriptionAll = 991; // abc
+const uint32_t shell_OperatingSystem_private__getCodenameAll = 992; // abc
+const uint32_t shell_OperatingSystem_private__getLongDescriptionAll = 993; // abc
+const uint32_t shell_OperatingSystem_isWindowsStore = 994; // native
+const uint32_t shell_OperatingSystem_name_get = 995; // abc
+const uint32_t shell_OperatingSystem_version_get = 996; // abc
+const uint32_t shell_OperatingSystem_hostname_get = 997; // abc
+const uint32_t shell_OperatingSystem_username_get = 998; // abc
+const uint32_t shell_OperatingSystem_vendor_get = 999; // abc
+const uint32_t shell_OperatingSystem_vendorName_get = 1000; // abc
+const uint32_t shell_OperatingSystem_vendorVersion_get = 1001; // abc
+const uint32_t shell_OperatingSystem_vendorBuild_get = 1002; // abc
+const uint32_t shell_OperatingSystem_vendorDescription_get = 1003; // abc
+const uint32_t shell_OperatingSystem_codename_get = 1004; // abc
+const uint32_t shell_OperatingSystem_longDescription_get = 1005; // abc
+const uint32_t shell_FileSystem_private__isAttributeHidden = 1008; // native
+const uint32_t shell_FileSystem_private__getLogicalDrives = 1009; // native
+const uint32_t shell_FileSystem_private__findLogicalDrives = 1010; // abc
+const uint32_t shell_FileSystem_private__findRootDirectory = 1011; // abc
+const uint32_t shell_FileSystem_private__findHomeDirectory = 1012; // abc
+const uint32_t shell_FileSystem_private__filterWithRegexp = 1014; // abc
+const uint32_t shell_FileSystem_drives_get = 1015; // abc
+const uint32_t shell_FileSystem_lineEnding_get = 1016; // abc
+const uint32_t shell_FileSystem_rootDirectory_get = 1017; // abc
+const uint32_t shell_FileSystem_homeDirectory_get = 1018; // abc
+const uint32_t shell_FileSystem_separators_get = 1019; // abc
+const uint32_t shell_FileSystem_pathSeparator_get = 1020; // abc
+const uint32_t shell_FileSystem_nativeRead = 1021; // native
+const uint32_t shell_FileSystem_nativeWrite = 1022; // native
+const uint32_t shell_FileSystem_nativeReadByteArray = 1023; // native
+const uint32_t shell_FileSystem_nativeWriteByteArray = 1024; // native
+const uint32_t shell_FileSystem_absolutePath = 1025; // abc
+const uint32_t shell_FileSystem_normalizePath = 1026; // abc
+const uint32_t shell_FileSystem_getBasenameFromPath = 1027; // abc
+const uint32_t shell_FileSystem_getDirectoryFromPath = 1028; // abc
+const uint32_t shell_FileSystem_getComponentsFromPath = 1029; // abc
+const uint32_t shell_FileSystem_containsPath = 1030; // abc
+const uint32_t shell_FileSystem_create = 1031; // abc
+const uint32_t shell_FileSystem_createByteArray = 1032; // abc
+const uint32_t shell_FileSystem_createDirectory = 1033; // abc
+const uint32_t shell_FileSystem_copyFile = 1034; // abc
+const uint32_t shell_FileSystem_copyFiles = 1035; // abc
+const uint32_t shell_FileSystem_bufferedCopyFile = 1036; // abc
+const uint32_t shell_FileSystem_bufferedFastCopyFile = 1037; // abc
+const uint32_t shell_FileSystem_copyDirectory = 1038; // abc
+const uint32_t shell_FileSystem_exists = 1039; // abc
+const uint32_t shell_FileSystem_move = 1040; // abc
+const uint32_t shell_FileSystem_remove = 1041; // abc
+const uint32_t shell_FileSystem_removeFile = 1042; // abc
+const uint32_t shell_FileSystem_removeDirectory = 1043; // abc
+const uint32_t shell_FileSystem_read = 1044; // abc
+const uint32_t shell_FileSystem_readByteArray = 1045; // abc
+const uint32_t shell_FileSystem_bufferedReadByteArray = 1046; // abc
+const uint32_t shell_FileSystem_write = 1047; // abc
+const uint32_t shell_FileSystem_writeByteArray = 1048; // abc
+const uint32_t shell_FileSystem_bufferedWriteByteArray = 1049; // abc
+const uint32_t shell_FileSystem_canAccess = 1050; // abc
+const uint32_t shell_FileSystem_canRead = 1051; // abc
+const uint32_t shell_FileSystem_canWrite = 1052; // abc
+const uint32_t shell_FileSystem_hasDriveLetter = 1053; // abc
+const uint32_t shell_FileSystem_getFileMode = 1054; // abc
+const uint32_t shell_FileSystem_getFileAccessTime = 1055; // abc
+const uint32_t shell_FileSystem_getFileModifiedTime = 1056; // abc
+const uint32_t shell_FileSystem_getFileChangedTime = 1057; // abc
+const uint32_t shell_FileSystem_getFileSize = 1058; // abc
+const uint32_t shell_FileSystem_getSize = 1059; // abc
+const uint32_t shell_FileSystem_getDirectorySize = 1060; // abc
+const uint32_t shell_FileSystem_getFreeDiskSpace = 1061; // native
+const uint32_t shell_FileSystem_getTotalDiskSpace = 1062; // native
+const uint32_t shell_FileSystem_getUsedDiskSpace = 1063; // abc
+const uint32_t shell_FileSystem_isRegularFile = 1064; // abc
+const uint32_t shell_FileSystem_isRegularFileMode = 1065; // abc
+const uint32_t shell_FileSystem_isDirectory = 1066; // abc
+const uint32_t shell_FileSystem_isDirectoryMode = 1067; // abc
+const uint32_t shell_FileSystem_isHidden = 1068; // abc
+const uint32_t shell_FileSystem_isDotOrDotdot = 1069; // abc
+const uint32_t shell_FileSystem_isSeparator = 1070; // abc
+const uint32_t shell_FileSystem_isEmptyDirectory = 1071; // abc
+const uint32_t shell_FileSystem_isValidWindowsComponent = 1072; // abc
+const uint32_t shell_FileSystem_isValidMacintoshComponent = 1073; // abc
+const uint32_t shell_FileSystem_isValidLinuxComponent = 1074; // abc
+const uint32_t shell_FileSystem_isValidComponent = 1075; // abc
+const uint32_t shell_FileSystem_isValidEverywhereComponent = 1076; // abc
+const uint32_t shell_FileSystem_isValid = 1077; // abc
+const uint32_t shell_FileSystem_isValidEverywhere = 1078; // abc
+const uint32_t shell_FileSystem_endsWithSeparator = 1079; // abc
+const uint32_t shell_FileSystem_ensureEndsWithSeparator = 1080; // abc
+const uint32_t shell_FileSystem_stripTrailingSeparators = 1081; // abc
+const uint32_t shell_FileSystem_listFilesOrDirectories = 1082; // abc
+const uint32_t shell_FileSystem_listFilesOrDirectoriesWithFilter = 1083; // abc
+const uint32_t shell_FileSystem_listFilesOrDirectoriesWithRegexp = 1084; // abc
+const uint32_t shell_FileSystem_listFiles = 1085; // abc
+const uint32_t shell_FileSystem_listFilesWithFilter = 1086; // abc
+const uint32_t shell_FileSystem_listFilesWithRegexp = 1087; // abc
+const uint32_t shell_FileSystem_listDirectories = 1088; // abc
+const uint32_t shell_FileSystem_listDirectoriesWithFilter = 1089; // abc
+const uint32_t shell_FileSystem_listDirectoriesWithRegexp = 1090; // abc
+const uint32_t shell_FileSystem_listByDepth = 1091; // abc
+const uint32_t shell_FileSystem_listByBreadth = 1092; // abc
+const uint32_t shell_Domain_currentDomain_get = 1097; // native
+const uint32_t shell_Domain_MIN_DOMAIN_MEMORY_LENGTH_get = 1098; // native
+const uint32_t shell_Domain_private_init = 1099; // native
+const uint32_t shell_Domain_parentDomain_get = 1101; // abc
+const uint32_t shell_Domain_loadBytes = 1102; // native
+const uint32_t shell_Domain_getClass = 1103; // native
+const uint32_t shell_Domain_getDefinition = 1104; // abc
+const uint32_t shell_Domain_hasDefinition = 1105; // abc
+const uint32_t shell_Domain_load = 1106; // abc
+const uint32_t shell_Domain_domainMemory_get = 1107; // native
+const uint32_t shell_Domain_domainMemory_set = 1108; // native
+const uint32_t shell_Environment_private__parse = 1111; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_callProperty = 1112; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_deleteProperty = 1113; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_getProperty = 1114; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_setProperty = 1115; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_hasProperty = 1116; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextNameIndex = 1117; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextName = 1118; // abc
+const uint32_t shell_Environment_http___www_adobe_com_2006_actionscript_flash_proxy_nextValue = 1119; // abc
+const uint32_t shell_Environment_length_get = 1120; // abc
+const uint32_t shell_Environment_refresh = 1121; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_running_get = 1125; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_running_set = 1126; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_frequency_get = 1127; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_frequency_set = 1128; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_timers_get = 1129; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_timers_set = 1130; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_frame_get = 1131; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_started_get = 1132; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_elapsed_get = 1133; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_timerPending_get = 1134; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_setCallback = 1135; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_handleTimers = 1136; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_start = 1137; // abc
+const uint32_t shell_async_EventLoop_shell_async_EventLoop_stop = 1138; // abc
+const uint32_t flash_accessibility_ISearchableText_flash_accessibility_ISearchableText_searchText_get = 1141; // abc
+const uint32_t flash_accessibility_ISimpleTextSelection_flash_accessibility_ISimpleTextSelection_selectionAnchorIndex_get = 1144; // abc
+const uint32_t flash_accessibility_ISimpleTextSelection_flash_accessibility_ISimpleTextSelection_selectionActiveIndex_get = 1145; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accRole = 1151; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accName = 1152; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accValue = 1153; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accState = 1154; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accDefaultAction = 1155; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_accDoDefaultAction = 1156; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_isLabeledBy = 1157; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_getChildIDArray = 1158; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_accLocation = 1159; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accSelection = 1160; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_accFocus = 1161; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_accSelect = 1162; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_selectionAnchorIndex = 1163; // abc
+const uint32_t flash_accessibility_AccessibilityImplementation_get_selectionActiveIndex = 1164; // abc
+const uint32_t flash_data_EncryptedLocalStore_isSupported_get = 1168; // abc
+const uint32_t flash_display_Scene_name_get = 1218; // abc
+const uint32_t flash_display_Scene_labels_get = 1219; // abc
+const uint32_t flash_display_Scene_numFrames_get = 1220; // abc
+const uint32_t flash_errors_SQLError_operation_get = 1247; // abc
+const uint32_t flash_errors_SQLError_details_get = 1248; // abc
+const uint32_t flash_errors_SQLError_detailID_get = 1249; // abc
+const uint32_t flash_errors_SQLError_detailArguments_get = 1250; // abc
+const uint32_t flash_errors_DRMManagerError_subErrorID_get = 1253; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_addEventListener = 1255; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_dispatchEvent = 1256; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_hasEventListener = 1257; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_removeEventListener = 1258; // abc
+const uint32_t flash_events_IEventDispatcher_flash_events_IEventDispatcher_willTrigger = 1259; // abc
+const uint32_t flash_events_Event_private_ctor = 1263; // abc
+const uint32_t flash_events_Event_type_get = 1264; // abc
+const uint32_t flash_events_Event_bubbles_get = 1265; // abc
+const uint32_t flash_events_Event_cancelable_get = 1266; // abc
+const uint32_t flash_events_Event_target_get = 1267; // abc
+const uint32_t flash_events_Event_currentTarget_get = 1268; // abc
+const uint32_t flash_events_Event_eventPhase_get = 1269; // abc
+const uint32_t flash_events_Event_formatToString = 1270; // abc
+const uint32_t flash_events_Event_clone = 1271; // abc
+const uint32_t flash_events_Event_isDefaultPrevented = 1272; // abc
+const uint32_t flash_events_Event_preventDefault = 1273; // abc
+const uint32_t flash_events_Event_stopImmediatePropagation = 1274; // abc
+const uint32_t flash_events_Event_stopPropagation = 1275; // abc
+const uint32_t flash_events_Event_toString = 1276; // abc
+const uint32_t flash_filesystem_File_isDummy = 1278; // native
+const uint32_t flash_filesystem_File_isLocalDummy = 1279; // native
+const uint32_t flash_filesystem_File_url_get = 1281; // abc
+const uint32_t flash_filesystem_File_url_set = 1282; // abc
+const uint32_t flash_filesystem_File_nativePath_get = 1283; // abc
+const uint32_t flash_filesystem_File_nativePath_set = 1284; // abc
+const uint32_t flash_filesystem_FileStream_open = 1289; // abc
+const uint32_t flash_filesystem_FileStream_openAsync = 1290; // abc
+const uint32_t flash_filesystem_FileStream_truncate = 1291; // abc
+const uint32_t flash_filesystem_FileStream_close = 1292; // abc
+const uint32_t flash_geom_Point_interpolate = 1296; // abc
+const uint32_t flash_geom_Point_distance = 1297; // abc
+const uint32_t flash_geom_Point_polar = 1298; // abc
+const uint32_t flash_geom_Point_length_get = 1300; // abc
+const uint32_t flash_geom_Point_clone = 1301; // abc
+const uint32_t flash_geom_Point_offset = 1302; // abc
+const uint32_t flash_geom_Point_equals = 1303; // abc
+const uint32_t flash_geom_Point_subtract = 1304; // abc
+const uint32_t flash_geom_Point_add = 1305; // abc
+const uint32_t flash_geom_Point_normalize = 1306; // abc
+const uint32_t flash_geom_Point_toString = 1307; // abc
+const uint32_t flash_geom_Rectangle_left_get = 1310; // abc
+const uint32_t flash_geom_Rectangle_left_set = 1311; // abc
+const uint32_t flash_geom_Rectangle_right_get = 1312; // abc
+const uint32_t flash_geom_Rectangle_right_set = 1313; // abc
+const uint32_t flash_geom_Rectangle_top_get = 1314; // abc
+const uint32_t flash_geom_Rectangle_top_set = 1315; // abc
+const uint32_t flash_geom_Rectangle_bottom_get = 1316; // abc
+const uint32_t flash_geom_Rectangle_bottom_set = 1317; // abc
+const uint32_t flash_geom_Rectangle_topLeft_get = 1318; // abc
+const uint32_t flash_geom_Rectangle_topLeft_set = 1319; // abc
+const uint32_t flash_geom_Rectangle_bottomRight_get = 1320; // abc
+const uint32_t flash_geom_Rectangle_bottomRight_set = 1321; // abc
+const uint32_t flash_geom_Rectangle_size_get = 1322; // abc
+const uint32_t flash_geom_Rectangle_size_set = 1323; // abc
+const uint32_t flash_geom_Rectangle_clone = 1324; // abc
+const uint32_t flash_geom_Rectangle_isEmpty = 1325; // abc
+const uint32_t flash_geom_Rectangle_setEmpty = 1326; // abc
+const uint32_t flash_geom_Rectangle_inflate = 1327; // abc
+const uint32_t flash_geom_Rectangle_inflatePoint = 1328; // abc
+const uint32_t flash_geom_Rectangle_offset = 1329; // abc
+const uint32_t flash_geom_Rectangle_offsetPoint = 1330; // abc
+const uint32_t flash_geom_Rectangle_contains = 1331; // abc
+const uint32_t flash_geom_Rectangle_containsPoint = 1332; // abc
+const uint32_t flash_geom_Rectangle_containsRect = 1333; // abc
+const uint32_t flash_geom_Rectangle_intersection = 1334; // abc
+const uint32_t flash_geom_Rectangle_intersects = 1335; // abc
+const uint32_t flash_geom_Rectangle_union = 1336; // abc
+const uint32_t flash_geom_Rectangle_equals = 1337; // abc
+const uint32_t flash_geom_Rectangle_toString = 1338; // abc
+const uint32_t flash_net_FileReference_isDummy = 1340; // native
+const uint32_t flash_net_FileReference_isLocalDummy = 1341; // native
+const uint32_t flash_net_FileReference_private__reset = 1343; // abc
+const uint32_t flash_net_FileReference_creationDate_get = 1344; // abc
+const uint32_t flash_net_FileReference_creator_get = 1345; // abc
+const uint32_t flash_net_FileReference_modificationDate_get = 1346; // abc
+const uint32_t flash_net_FileReference_name_get = 1347; // abc
+const uint32_t flash_net_FileReference_size_get = 1348; // abc
+const uint32_t flash_net_FileReference_type_get = 1349; // abc
+const uint32_t flash_net_FileReference_data_get = 1350; // abc
+const uint32_t flash_net_FileReference_extension_get = 1351; // abc
+const uint32_t flash_net_FileReference_browse = 1352; // abc
+const uint32_t flash_net_FileReference_AVM2_browseOverride = 1353; // abc
+const uint32_t flash_net_FileReference_private__load = 1354; // abc
+const uint32_t flash_net_FileReference_load = 1355; // abc
+const uint32_t flash_net_FileReference_private__save = 1356; // abc
+const uint32_t flash_net_FileReference_save = 1357; // abc
+const uint32_t flash_net_FileReference_AVM2_saveOverride = 1358; // abc
+const uint32_t flash_net_FileReference_uploadUnencoded = 1359; // abc
+const uint32_t flash_net_URLRequest_private_setRequestHeaders = 1362; // abc
+const uint32_t flash_net_URLRequest_private_filterRequestHeaders = 1363; // abc
+const uint32_t flash_net_URLRequest_requestHeaders_get = 1364; // abc
+const uint32_t flash_net_URLRequest_requestHeaders_set = 1365; // abc
+const uint32_t flash_net_URLRequest_userAgent_get = 1366; // abc
+const uint32_t flash_net_URLRequest_userAgent_set = 1367; // abc
+const uint32_t flash_net_URLRequestDefaults_private_initLoginCredentials = 1369; // abc
+const uint32_t flash_net_URLRequestDefaults_private_initUA = 1370; // abc
+const uint32_t flash_net_URLRequestDefaults_setLoginCredentialsForHost = 1371; // abc
+const uint32_t flash_net_URLRequestDefaults_followRedirects_get = 1372; // abc
+const uint32_t flash_net_URLRequestDefaults_followRedirects_set = 1373; // abc
+const uint32_t flash_net_URLRequestDefaults_idleTimeout_get = 1374; // abc
+const uint32_t flash_net_URLRequestDefaults_idleTimeout_set = 1375; // abc
+const uint32_t flash_sampler_StackFrame_toString = 1380; // abc
+const uint32_t flash_system_Capabilities_avHardwareDisable_get = 1387; // abc
+const uint32_t flash_system_Capabilities_cpuArchitecture_get = 1388; // abc
+const uint32_t flash_system_Capabilities_manufacturer_get = 1389; // abc
+const uint32_t flash_system_Capabilities_playerType_get = 1390; // abc
+const uint32_t flash_system_Capabilities_isDebugger_get = 1391; // abc
+const uint32_t flash_system_Capabilities_supports32BitProcesses_get = 1392; // abc
+const uint32_t flash_system_Capabilities_supports64BitProcesses_get = 1393; // abc
+const uint32_t flash_system_Capabilities_hasMultiChannelAudio = 1394; // abc
+const uint32_t flash_system_Security_exactSettings_get = 1397; // abc
+const uint32_t flash_system_Security_exactSettings_set = 1398; // abc
+const uint32_t flash_system_Security_pageDomain_get = 1399; // abc
+const uint32_t flash_system_Security_AVM2_pageDomain_set = 1400; // abc
+const uint32_t flash_system_Security_sandboxType_get = 1401; // abc
+const uint32_t flash_system_Security_AVM2_sandboxType_set = 1402; // abc
+const uint32_t flash_system_Security_allowDomain = 1403; // abc
+const uint32_t flash_system_Security_allowInsecureDomain = 1404; // abc
+const uint32_t flash_system_Security_loadPolicyFile = 1405; // abc
+const uint32_t flash_system_Security_showSettings = 1406; // abc
+const uint32_t flash_system_System_setClipboard = 1411; // abc
+const uint32_t flash_system_System_totalMemory_get = 1412; // abc
+const uint32_t flash_system_System_totalMemoryNumber_get = 1413; // abc
+const uint32_t flash_system_System_freeMemory_get = 1414; // native
+const uint32_t flash_system_System_privateMemory_get = 1415; // abc
+const uint32_t flash_system_System_useCodePage_get = 1416; // abc
+const uint32_t flash_system_System_useCodePage_set = 1417; // abc
+const uint32_t flash_system_System_vmVersion_get = 1418; // abc
+const uint32_t flash_system_System_pause = 1419; // abc
+const uint32_t flash_system_System_resume = 1420; // abc
+const uint32_t flash_system_System_exit = 1421; // abc
+const uint32_t flash_system_System_gc = 1422; // abc
+const uint32_t flash_system_System_disposeXML = 1423; // abc
+const uint32_t flash_system_WorkerState_code = 1426; // abc
+const uint32_t flash_system_Worker_current_get = 1429; // abc
+const uint32_t flash_system_Worker_pr = 1430; // native
+const uint32_t flash_system_Worker_state_get = 1432; // native
+const uint32_t flash_system_Worker_start = 1433; // native
+const uint32_t flash_system_Worker_isParentOf = 1434; // native
+const uint32_t flash_system_Worker_isPrimordial_get = 1435; // native
+const uint32_t flash_system_Worker_setSharedProperty = 1436; // native
+const uint32_t flash_system_Worker_getSharedProperty = 1437; // native
+const uint32_t flash_system_Worker_terminate = 1438; // native
+const uint32_t flash_system_WorkerEvent_currentState_get = 1441; // abc
+const uint32_t flash_system_WorkerEvent_previousState_get = 1442; // abc
+const uint32_t flash_system_WorkerEvent_target_get = 1443; // abc
+const uint32_t flash_system_WorkerDomain_current_get = 1445; // abc
+const uint32_t flash_system_WorkerDomain_createWorkerFromByteArray = 1447; // abc
+const uint32_t flash_system_WorkerDomain_createWorkerFromPrimordial = 1448; // abc
+const uint32_t flash_system_WorkerDomain_private_createWorkerFromByteArrayInternal = 1449; // native
+const uint32_t flash_system_WorkerDomain_listWorkers = 1450; // native
+const uint32_t flash_trace_Trace_setLevel = 1452; // native
+const uint32_t flash_trace_Trace_getLevel = 1453; // native
+const uint32_t flash_trace_Trace_setListener = 1454; // native
+const uint32_t flash_trace_Trace_getListener = 1455; // native
+const uint32_t shell_async_CoreEventLoop_running_get = 1461; // abc
+const uint32_t shell_async_CoreEventLoop_running_set = 1462; // abc
+const uint32_t shell_async_CoreEventLoop_frequency_get = 1463; // abc
+const uint32_t shell_async_CoreEventLoop_frequency_set = 1464; // abc
+const uint32_t shell_async_CoreEventLoop_timers_get = 1465; // abc
+const uint32_t shell_async_CoreEventLoop_timers_set = 1466; // abc
+const uint32_t shell_async_CoreEventLoop_frame_get = 1467; // abc
+const uint32_t shell_async_CoreEventLoop_started_get = 1468; // abc
+const uint32_t shell_async_CoreEventLoop_elapsed_get = 1469; // abc
+const uint32_t shell_async_CoreEventLoop_private_tick = 1470; // abc
+const uint32_t shell_async_CoreEventLoop_setCallback = 1471; // abc
+const uint32_t shell_async_CoreEventLoop_private__loop = 1472; // abc
+const uint32_t shell_async_CoreEventLoop_timerPending_get = 1473; // abc
+const uint32_t shell_async_CoreEventLoop_handleTimers = 1474; // abc
+const uint32_t shell_async_CoreEventLoop_start = 1475; // abc
+const uint32_t shell_async_CoreEventLoop_stop = 1476; // abc
+const uint32_t flash_events_EventDispatcher_private_trimHeaderValue = 1478; // abc
+const uint32_t flash_events_EventDispatcher_private_ctor = 1480; // abc
+const uint32_t flash_events_EventDispatcher_private_dispatchEventFunction = 1481; // abc
+const uint32_t flash_events_EventDispatcher_private_dispatchHttpStatusEvent = 1483; // abc
+const uint32_t flash_events_EventDispatcher_addEventListener = 1484; // abc
+const uint32_t flash_events_EventDispatcher_dispatchEvent = 1485; // abc
+const uint32_t flash_events_EventDispatcher_hasEventListener = 1486; // abc
+const uint32_t flash_events_EventDispatcher_removeEventListener = 1487; // abc
+const uint32_t flash_events_EventDispatcher_willTrigger = 1488; // abc
+const uint32_t flash_events_EventDispatcher_toString = 1489; // abc
+const uint32_t flash_events_HTTPStatusEvent_status_get = 1492; // abc
+const uint32_t flash_events_HTTPStatusEvent_responseURL_get = 1493; // abc
+const uint32_t flash_events_HTTPStatusEvent_responseURL_set = 1494; // abc
+const uint32_t flash_events_HTTPStatusEvent_responseHeaders_get = 1495; // abc
+const uint32_t flash_events_HTTPStatusEvent_responseHeaders_set = 1496; // abc
+const uint32_t flash_events_HTTPStatusEvent_redirected_get = 1497; // abc
+const uint32_t flash_events_HTTPStatusEvent_redirected_set = 1498; // abc
+const uint32_t flash_events_HTTPStatusEvent_clone = 1499; // abc
+const uint32_t flash_events_HTTPStatusEvent_toString = 1500; // abc
+const uint32_t flash_events_TimerEvent_clone = 1503; // abc
+const uint32_t flash_events_TimerEvent_toString = 1504; // abc
+const uint32_t flash_events_TimerEvent_updateAfterEvent = 1505; // abc
+const uint32_t flash_sampler_NewObjectSample_object_get = 1507; // native
+const uint32_t flash_sampler_NewObjectSample_size_get = 1508; // native
+const uint32_t flash_utils_Timer_private__timerDispatch = 1514; // abc
+const uint32_t flash_utils_Timer_private__start = 1515; // abc
+const uint32_t flash_utils_Timer_tick = 1516; // abc
+const uint32_t flash_utils_Timer_delay_get = 1517; // abc
+const uint32_t flash_utils_Timer_delay_set = 1518; // abc
+const uint32_t flash_utils_Timer_repeatCount_get = 1519; // abc
+const uint32_t flash_utils_Timer_repeatCount_set = 1520; // abc
+const uint32_t flash_utils_Timer_currentCount_get = 1521; // abc
+const uint32_t flash_utils_Timer_running_get = 1522; // abc
+const uint32_t flash_utils_Timer_reset = 1523; // abc
+const uint32_t flash_utils_Timer_start = 1524; // abc
+const uint32_t flash_utils_Timer_stop = 1525; // abc
 
 extern avmplus::Atom native_script_function_C_assert__debugBreak_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom native_script_function_C_assert__debugBreak_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
@@ -6628,7 +6674,12 @@ class avmshell_RuntimeClassSlots
     friend class avmshell::RuntimeClass;
 private:
     avmplus::AtomWB m_private__localAvmplusDescription;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_CODENAME;
     MMgc::GCTraceableObject::GCMember<avmplus::ArrayObject> m_private__API;
+    avmplus::AtomWB m_private__version;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__tag;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__codename;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__label;
     MMgc::GCTraceableObject::GCMember<avmplus::EventLoopInterface> m_private__loop;
     MMgc::GCTraceableObject::GCMember<avmplus::FunctionObject> m_goAsync;
 };
@@ -6674,8 +6725,23 @@ private:
         REALLY_INLINE avmplus::Atom get__localAvmplusDescription() const { return m_slots_RuntimeClass.m_private__localAvmplusDescription; } \
         REALLY_INLINE void set__localAvmplusDescription(avmplus::Atom newVal) { m_slots_RuntimeClass.m_private__localAvmplusDescription = newVal; } \
     protected: \
+        REALLY_INLINE avmplus::String* get_CODENAME() const { return m_slots_RuntimeClass.m_private_CODENAME; } \
+        REALLY_INLINE void setconst_CODENAME(avmplus::String* newVal) { m_slots_RuntimeClass.m_private_CODENAME = newVal; } \
+    protected: \
         REALLY_INLINE avmplus::ArrayObject* get__API() const { return m_slots_RuntimeClass.m_private__API; } \
         REALLY_INLINE void set__API(avmplus::ArrayObject* newVal) { m_slots_RuntimeClass.m_private__API = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::Atom get__version() const { return m_slots_RuntimeClass.m_private__version; } \
+        REALLY_INLINE void set__version(avmplus::Atom newVal) { m_slots_RuntimeClass.m_private__version = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__tag() const { return m_slots_RuntimeClass.m_private__tag; } \
+        REALLY_INLINE void set__tag(avmplus::String* newVal) { m_slots_RuntimeClass.m_private__tag = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__codename() const { return m_slots_RuntimeClass.m_private__codename; } \
+        REALLY_INLINE void set__codename(avmplus::String* newVal) { m_slots_RuntimeClass.m_private__codename = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__label() const { return m_slots_RuntimeClass.m_private__label; } \
+        REALLY_INLINE void set__label(avmplus::String* newVal) { m_slots_RuntimeClass.m_private__label = newVal; } \
     protected: \
         REALLY_INLINE avmplus::EventLoopInterface* get__loop() const { return m_slots_RuntimeClass.m_private__loop; } \
         REALLY_INLINE void set__loop(avmplus::EventLoopInterface* newVal) { m_slots_RuntimeClass.m_private__loop = newVal; } \
@@ -6826,9 +6892,61 @@ class avmshell_OperatingSystemClassSlots
     friend class SlotOffsetsAndAsserts;
     friend class avmshell::OperatingSystemClass;
 private:
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_EMPTY;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_UNKNOWN;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__name;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__version;
     MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__hostname;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__username;
     MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__vendor;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__vendorName;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__vendorVersion;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__vendorBuild;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__vendorDescription;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__codename;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__longDescription;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_MICROSOFT;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_NT;
+    MMgc::GCTraceableObject::GCMember<avmplus::ArrayObject> m_private__windows;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__windowsName;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__windowsVersion;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__windowsProductName;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__windowsReleaseVersion;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__windowsBuild;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__windowsDescription;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__windowsLongDescription;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__windowsCodename;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_APPLE;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_MAC_OS_X;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_PRODUCT_NAME;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_PRODUCT_BUILD_VERSION;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_PRODUCT_VERSION;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_PRODUCT_USER_VISIBLE_VERSION;
+    MMgc::GCTraceableObject::GCMember<avmplus::ArrayObject> m_private__macintosh;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__macintoshName;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__macintoshVersion;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__macintoshProductName;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__macintoshProductBuildVersion;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__macintoshProductVersion;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__macintoshProductUserVisibleVersion;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__macintoshProductDescription;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__macintoshLongDescription;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__macintoshCodename;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_LINUX;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_DISTRIB_ID;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_DISTRIB_RELEASE;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_DISTRIB_DESCRIPTION;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private_DISTRIB_CODENAME;
     MMgc::GCTraceableObject::GCMember<avmplus::ArrayObject> m_private__linuxDistros;
+    MMgc::GCTraceableObject::GCMember<avmplus::ArrayObject> m_private__ubuntu;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__linuxName;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__linuxVersion;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__linuxVendorName;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__linuxVendorVersion;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__linuxVendorBuild;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__linuxVendorDescription;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__linuxLongDescription;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__linuxCodename;
 };
 #define DECLARE_SLOTS_OperatingSystemClass \
     public: \
@@ -6869,14 +6987,170 @@ private:
     private: \
         friend class avmplus::NativeID::SlotOffsetsAndAsserts; \
     protected: \
+        REALLY_INLINE avmplus::String* get_EMPTY() const { return m_slots_OperatingSystemClass.m_private_EMPTY; } \
+        REALLY_INLINE void setconst_EMPTY(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_EMPTY = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_UNKNOWN() const { return m_slots_OperatingSystemClass.m_private_UNKNOWN; } \
+        REALLY_INLINE void setconst_UNKNOWN(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_UNKNOWN = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__name() const { return m_slots_OperatingSystemClass.m_private__name; } \
+        REALLY_INLINE void set__name(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__name = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__version() const { return m_slots_OperatingSystemClass.m_private__version; } \
+        REALLY_INLINE void set__version(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__version = newVal; } \
+    protected: \
         REALLY_INLINE avmplus::String* get__hostname() const { return m_slots_OperatingSystemClass.m_private__hostname; } \
         REALLY_INLINE void set__hostname(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__hostname = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__username() const { return m_slots_OperatingSystemClass.m_private__username; } \
+        REALLY_INLINE void set__username(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__username = newVal; } \
     protected: \
         REALLY_INLINE avmplus::String* get__vendor() const { return m_slots_OperatingSystemClass.m_private__vendor; } \
         REALLY_INLINE void set__vendor(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__vendor = newVal; } \
     protected: \
+        REALLY_INLINE avmplus::String* get__vendorName() const { return m_slots_OperatingSystemClass.m_private__vendorName; } \
+        REALLY_INLINE void set__vendorName(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__vendorName = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__vendorVersion() const { return m_slots_OperatingSystemClass.m_private__vendorVersion; } \
+        REALLY_INLINE void set__vendorVersion(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__vendorVersion = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__vendorBuild() const { return m_slots_OperatingSystemClass.m_private__vendorBuild; } \
+        REALLY_INLINE void set__vendorBuild(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__vendorBuild = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__vendorDescription() const { return m_slots_OperatingSystemClass.m_private__vendorDescription; } \
+        REALLY_INLINE void set__vendorDescription(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__vendorDescription = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__codename() const { return m_slots_OperatingSystemClass.m_private__codename; } \
+        REALLY_INLINE void set__codename(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__codename = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__longDescription() const { return m_slots_OperatingSystemClass.m_private__longDescription; } \
+        REALLY_INLINE void set__longDescription(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__longDescription = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_MICROSOFT() const { return m_slots_OperatingSystemClass.m_private_MICROSOFT; } \
+        REALLY_INLINE void setconst_MICROSOFT(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_MICROSOFT = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_NT() const { return m_slots_OperatingSystemClass.m_private_NT; } \
+        REALLY_INLINE void setconst_NT(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_NT = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::ArrayObject* get__windows() const { return m_slots_OperatingSystemClass.m_private__windows; } \
+        REALLY_INLINE void set__windows(avmplus::ArrayObject* newVal) { m_slots_OperatingSystemClass.m_private__windows = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__windowsName() const { return m_slots_OperatingSystemClass.m_private__windowsName; } \
+        REALLY_INLINE void set__windowsName(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__windowsName = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__windowsVersion() const { return m_slots_OperatingSystemClass.m_private__windowsVersion; } \
+        REALLY_INLINE void set__windowsVersion(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__windowsVersion = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__windowsProductName() const { return m_slots_OperatingSystemClass.m_private__windowsProductName; } \
+        REALLY_INLINE void set__windowsProductName(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__windowsProductName = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__windowsReleaseVersion() const { return m_slots_OperatingSystemClass.m_private__windowsReleaseVersion; } \
+        REALLY_INLINE void set__windowsReleaseVersion(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__windowsReleaseVersion = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__windowsBuild() const { return m_slots_OperatingSystemClass.m_private__windowsBuild; } \
+        REALLY_INLINE void set__windowsBuild(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__windowsBuild = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__windowsDescription() const { return m_slots_OperatingSystemClass.m_private__windowsDescription; } \
+        REALLY_INLINE void set__windowsDescription(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__windowsDescription = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__windowsLongDescription() const { return m_slots_OperatingSystemClass.m_private__windowsLongDescription; } \
+        REALLY_INLINE void set__windowsLongDescription(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__windowsLongDescription = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__windowsCodename() const { return m_slots_OperatingSystemClass.m_private__windowsCodename; } \
+        REALLY_INLINE void set__windowsCodename(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__windowsCodename = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_APPLE() const { return m_slots_OperatingSystemClass.m_private_APPLE; } \
+        REALLY_INLINE void setconst_APPLE(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_APPLE = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_MAC_OS_X() const { return m_slots_OperatingSystemClass.m_private_MAC_OS_X; } \
+        REALLY_INLINE void setconst_MAC_OS_X(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_MAC_OS_X = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_PRODUCT_NAME() const { return m_slots_OperatingSystemClass.m_private_PRODUCT_NAME; } \
+        REALLY_INLINE void setconst_PRODUCT_NAME(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_PRODUCT_NAME = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_PRODUCT_BUILD_VERSION() const { return m_slots_OperatingSystemClass.m_private_PRODUCT_BUILD_VERSION; } \
+        REALLY_INLINE void setconst_PRODUCT_BUILD_VERSION(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_PRODUCT_BUILD_VERSION = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_PRODUCT_VERSION() const { return m_slots_OperatingSystemClass.m_private_PRODUCT_VERSION; } \
+        REALLY_INLINE void setconst_PRODUCT_VERSION(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_PRODUCT_VERSION = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_PRODUCT_USER_VISIBLE_VERSION() const { return m_slots_OperatingSystemClass.m_private_PRODUCT_USER_VISIBLE_VERSION; } \
+        REALLY_INLINE void setconst_PRODUCT_USER_VISIBLE_VERSION(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_PRODUCT_USER_VISIBLE_VERSION = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::ArrayObject* get__macintosh() const { return m_slots_OperatingSystemClass.m_private__macintosh; } \
+        REALLY_INLINE void set__macintosh(avmplus::ArrayObject* newVal) { m_slots_OperatingSystemClass.m_private__macintosh = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__macintoshName() const { return m_slots_OperatingSystemClass.m_private__macintoshName; } \
+        REALLY_INLINE void set__macintoshName(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__macintoshName = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__macintoshVersion() const { return m_slots_OperatingSystemClass.m_private__macintoshVersion; } \
+        REALLY_INLINE void set__macintoshVersion(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__macintoshVersion = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__macintoshProductName() const { return m_slots_OperatingSystemClass.m_private__macintoshProductName; } \
+        REALLY_INLINE void set__macintoshProductName(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__macintoshProductName = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__macintoshProductBuildVersion() const { return m_slots_OperatingSystemClass.m_private__macintoshProductBuildVersion; } \
+        REALLY_INLINE void set__macintoshProductBuildVersion(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__macintoshProductBuildVersion = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__macintoshProductVersion() const { return m_slots_OperatingSystemClass.m_private__macintoshProductVersion; } \
+        REALLY_INLINE void set__macintoshProductVersion(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__macintoshProductVersion = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__macintoshProductUserVisibleVersion() const { return m_slots_OperatingSystemClass.m_private__macintoshProductUserVisibleVersion; } \
+        REALLY_INLINE void set__macintoshProductUserVisibleVersion(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__macintoshProductUserVisibleVersion = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__macintoshProductDescription() const { return m_slots_OperatingSystemClass.m_private__macintoshProductDescription; } \
+        REALLY_INLINE void set__macintoshProductDescription(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__macintoshProductDescription = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__macintoshLongDescription() const { return m_slots_OperatingSystemClass.m_private__macintoshLongDescription; } \
+        REALLY_INLINE void set__macintoshLongDescription(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__macintoshLongDescription = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__macintoshCodename() const { return m_slots_OperatingSystemClass.m_private__macintoshCodename; } \
+        REALLY_INLINE void set__macintoshCodename(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__macintoshCodename = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_LINUX() const { return m_slots_OperatingSystemClass.m_private_LINUX; } \
+        REALLY_INLINE void setconst_LINUX(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_LINUX = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_DISTRIB_ID() const { return m_slots_OperatingSystemClass.m_private_DISTRIB_ID; } \
+        REALLY_INLINE void setconst_DISTRIB_ID(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_DISTRIB_ID = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_DISTRIB_RELEASE() const { return m_slots_OperatingSystemClass.m_private_DISTRIB_RELEASE; } \
+        REALLY_INLINE void setconst_DISTRIB_RELEASE(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_DISTRIB_RELEASE = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_DISTRIB_DESCRIPTION() const { return m_slots_OperatingSystemClass.m_private_DISTRIB_DESCRIPTION; } \
+        REALLY_INLINE void setconst_DISTRIB_DESCRIPTION(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_DISTRIB_DESCRIPTION = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get_DISTRIB_CODENAME() const { return m_slots_OperatingSystemClass.m_private_DISTRIB_CODENAME; } \
+        REALLY_INLINE void setconst_DISTRIB_CODENAME(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private_DISTRIB_CODENAME = newVal; } \
+    protected: \
         REALLY_INLINE avmplus::ArrayObject* get__linuxDistros() const { return m_slots_OperatingSystemClass.m_private__linuxDistros; } \
         REALLY_INLINE void set__linuxDistros(avmplus::ArrayObject* newVal) { m_slots_OperatingSystemClass.m_private__linuxDistros = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::ArrayObject* get__ubuntu() const { return m_slots_OperatingSystemClass.m_private__ubuntu; } \
+        REALLY_INLINE void set__ubuntu(avmplus::ArrayObject* newVal) { m_slots_OperatingSystemClass.m_private__ubuntu = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__linuxName() const { return m_slots_OperatingSystemClass.m_private__linuxName; } \
+        REALLY_INLINE void set__linuxName(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__linuxName = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__linuxVersion() const { return m_slots_OperatingSystemClass.m_private__linuxVersion; } \
+        REALLY_INLINE void set__linuxVersion(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__linuxVersion = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__linuxVendorName() const { return m_slots_OperatingSystemClass.m_private__linuxVendorName; } \
+        REALLY_INLINE void set__linuxVendorName(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__linuxVendorName = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__linuxVendorVersion() const { return m_slots_OperatingSystemClass.m_private__linuxVendorVersion; } \
+        REALLY_INLINE void set__linuxVendorVersion(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__linuxVendorVersion = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__linuxVendorBuild() const { return m_slots_OperatingSystemClass.m_private__linuxVendorBuild; } \
+        REALLY_INLINE void set__linuxVendorBuild(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__linuxVendorBuild = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__linuxVendorDescription() const { return m_slots_OperatingSystemClass.m_private__linuxVendorDescription; } \
+        REALLY_INLINE void set__linuxVendorDescription(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__linuxVendorDescription = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__linuxLongDescription() const { return m_slots_OperatingSystemClass.m_private__linuxLongDescription; } \
+        REALLY_INLINE void set__linuxLongDescription(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__linuxLongDescription = newVal; } \
+    protected: \
+        REALLY_INLINE avmplus::String* get__linuxCodename() const { return m_slots_OperatingSystemClass.m_private__linuxCodename; } \
+        REALLY_INLINE void set__linuxCodename(avmplus::String* newVal) { m_slots_OperatingSystemClass.m_private__linuxCodename = newVal; } \
     private: \
         avmplus::NativeID::avmshell_OperatingSystemClassSlots m_slots_OperatingSystemClass \
 
@@ -8947,6 +9221,8 @@ class avmplus_SecurityClassSlots
     friend class SlotOffsetsAndAsserts;
     friend class avmplus::SecurityClass;
 private:
+    avmplus::bool32 m_private__exactSettings;
+    MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__pageDomain;
     MMgc::GCTraceableObject::GCMember<avmplus::String> m_private__sandboxType;
     MMgc::GCTraceableObject::GCMember<avmplus::String> m_REMOTE;
     MMgc::GCTraceableObject::GCMember<avmplus::String> m_LOCAL_WITH_FILE;
@@ -8956,6 +9232,7 @@ private:
 public:
     REALLY_INLINE void gcTracePrivateProperties(MMgc::GC* gc)
     {
+        gc->TraceLocation(&m_private__pageDomain);
         gc->TraceLocation(&m_private__sandboxType);
         gc->TraceLocation(&m_REMOTE);
         gc->TraceLocation(&m_LOCAL_WITH_FILE);

@@ -7156,6 +7156,12 @@ public:
 private:
     friend class avmplus::NativeID::SlotOffsetsAndAsserts;
 protected:
+    REALLY_INLINE bool get__exactSettings() const { return m_slots_SecurityClass.m_private__exactSettings != 0; }
+    REALLY_INLINE void set__exactSettings(avmplus::bool32 newVal) { m_slots_SecurityClass.m_private__exactSettings = newVal; }
+protected:
+    REALLY_INLINE avmplus::String* get__pageDomain() const { return m_slots_SecurityClass.m_private__pageDomain; }
+    REALLY_INLINE void set__pageDomain(avmplus::String* newVal) { m_slots_SecurityClass.m_private__pageDomain = newVal; }
+protected:
     REALLY_INLINE avmplus::String* get__sandboxType() const { return m_slots_SecurityClass.m_private__sandboxType; }
     REALLY_INLINE void set__sandboxType(avmplus::String* newVal) { m_slots_SecurityClass.m_private__sandboxType = newVal; }
 public:
