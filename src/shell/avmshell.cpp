@@ -31,7 +31,7 @@ namespace avmshell
         , do_selftest(false)
         , do_repl(false)
         , do_log(false)
-        , do_projector(false)
+        /*, do_projector(false) */
         , numthreads(1)
         , numworkers(1)
         , repeats(1)
@@ -104,10 +104,29 @@ namespace avmshell
             }
 
             avmplus::FixedHeapRef<Shell> instance(mmfx_new(Shell));
-            instance->parseCommandLine(argc, argv);
+            //instance->parseCommandLine(argc, argv);
 
-            if (instance->settings.do_log)
-              initializeLogging(instance->settings.numfiles > 0 ? instance->settings.filenames[0] : "AVMLOG");
+            //instance->settings.programFilename = argv[0]; // How portable / reliable is this?
+
+            instance->settings.programFilename = argv[0]; // How portable / reliable is this?
+#ifdef AVMSHELL_PROJECTOR_SUPPORT
+            ShellCore::gatherProjectorSettings(instance->settings);
+
+            if(instance->settings.projectorHasArgs && argc > 0) {
+                instance->settings.arguments = &argv[1];
+                instance->settings.numargs = argc-1;
+            }
+
+            if(!(instance->settings.do_projector && instance->settings.projectorHasArgs)) {
+                instance->parseCommandLine(argc, argv, instance->settings);
+            }
+#else
+            instance->parseCommandLine(argc, argv, instance->settings);
+#endif
+
+            if (instance->settings.do_log) {
+                initializeLogging(instance->settings.numfiles > 0 ? instance->settings.filenames[0] : "AVMLOG");
+            }
 
 #ifdef VMCFG_WORKERTHREADS
             if (instance->settings.numworkers == 1 && instance->settings.numthreads == 1 && instance->settings.repeats == 1) 
@@ -278,6 +297,12 @@ namespace avmshell
 
             avmplus::EnterSafepointManager enterSafepointManager(shell);
 
+#ifdef AVMSHELL_PROJECTOR_SUPPORT
+            if (settings.do_projector) {
+                AvmAssert(settings.programFilename != NULL);
+                shell->runProjectorArguments(settings);
+            }
+#endif
             ShellToplevel* toplevel = shell->setup(settings);
             // inlined singleWorkerHelper
             if (toplevel == NULL) // FIXME abort?
@@ -297,9 +322,26 @@ namespace avmshell
 #ifdef AVMSHELL_PROJECTOR_SUPPORT
         if (settings.do_projector) {
             AvmAssert(settings.programFilename != NULL);
-            int exitCode = shell->executeProjector(settings.programFilename);
-            if (exitCode != 0)
+            //int exitCode = shell->executeProjector(settings.programFilename);
+            int exitCode = shell->executeProjector(settings);
+            if (exitCode != 0) {
                 Platform::GetInstance()->exit(exitCode);
+            }
+
+            aggregate->requestAggregateExit();
+            aggregate->beforeCoreDeletion(this);
+            delete shell;
+            mmfx_delete( gc );
+            aggregate->afterGCDeletion(this);
+
+            /* Note:
+               we know we are a projector and have executed
+               and so we force the exit as we are sure
+               we don't want to
+               eval other files and/or run REPL
+            */
+            Platform::GetInstance()->exit(exitCode);
+            return;
         }
 #endif
 
@@ -316,19 +358,23 @@ namespace avmshell
 #endif
 
         // For -testswf we must have exactly one file
-        if (settings.do_testSWFHasAS3 && settings.numfiles != 1)
+        if (settings.do_testSWFHasAS3 && settings.numfiles != 1) {
             Platform::GetInstance()->exit(1);
+        }
 
         // execute each abc file
         for (int i=0 ; i < settings.numfiles ; i++ ) {
             int exitCode = shell->evaluateFile(settings, settings.filenames[i]);
-            if (exitCode != 0)
+            if (exitCode != 0) {
                 Platform::GetInstance()->exit(exitCode);
+            }
         }
+        
 
 #ifdef VMCFG_EVAL
-        if (settings.do_repl)
-                Shell::repl(shell);
+        if (settings.do_repl) {
+            Shell::repl(shell);
+        }
 #endif
 		aggregate->requestAggregateExit();
         aggregate->beforeCoreDeletion(this);
@@ -657,6 +703,7 @@ namespace avmshell
 #ifdef _DEBUG
                 self->corenode->core->codeContextThread = VMPI_currentThread();
 #endif
+                avmplus::AvmLog( "SlaveThread::run() --> evaluateFile\n" );
                 self->corenode->core->evaluateFile(state.settings, self->filename); // Ignore the exit code for now
             }
             LOGGING( avmplus::AvmLog("T%d: Work completed\n", self->id); )
@@ -780,14 +827,42 @@ namespace avmshell
     }
 
     /* static */
-    void Shell::parseCommandLine(int argc, char* argv[])
+    //void Shell::parseCommandLine(int argc, char* argv[])
+    void Shell::parseCommandLine(int argc, char* argv[], ShellSettings &settings)
     {
         bool print_version = false;
 
-        // options filenames -- args
+        /* Note:
+           parseCommandLine() can be called from 2 contexts
+           when we are a projector or when we are the shell
 
-        settings.programFilename = argv[0];     // How portable / reliable is this?
-        for (int i=1; i < argc ; i++) {
+           the shell starts at index 1 as we ignore the program file name
+           for ex: ./redshell -api SWF_12 helloworld.abc
+                        |       |     |        |
+                        0       1     2        3
+           but the projector starts at index 0 as we are parsinga a string
+           from the header, for ex: "-api SWF_12"
+                                       |     |
+                                       0     1
+        */
+        int index_start;
+
+        // options filenames -- args
+        
+        //settings.programFilename = argv[0];     // How portable / reliable is this?
+
+#ifdef AVMSHELL_PROJECTOR_SUPPORT
+        if (settings.do_projector && settings.projectorHasArgs) {
+            index_start = 0;
+        } else {
+            index_start = 1;
+        }
+#else
+        index_start = 1;
+#endif
+
+        //for (int i=1; i < argc ; i++) {
+        for (int i=index_start; i < argc ; i++) {
             const char * const arg = argv[i];
             bool mmgcSaysArgIsWrong = false;
 
@@ -1175,16 +1250,29 @@ namespace avmshell
         // Vetting the options
 
 #ifdef AVMSHELL_PROJECTOR_SUPPORT
-        if (settings.programFilename != NULL && ShellCore::isValidProjectorFile(settings.programFilename)) {
+        //if (settings.programFilename != NULL && ShellCore::isValidProjectorFile(settings.programFilename)) {
+        if (settings.do_projector) {
+            /* Note:
+               changed because we want to be able to do that ./program a b c
+               instead of ./program -- a b c
+            */
+            /*
             if (settings.do_selftest || settings.do_repl || settings.numfiles > 0) {
                 avmplus::AvmLog("Projector files can't be used with -repl, -Dselftest, or program file arguments.\n");
                 usage();
             }
+            */
+            
+            if (settings.do_selftest || settings.do_repl) {
+                avmplus::AvmLog("Projector files can't be used with -repl, or -Dselftest arguments.\n");
+                usage();
+            }
+            
             if (settings.numthreads > 1 || settings.numworkers > 1) {
                 avmplus::AvmLog("A projector requires exactly one worker on one thread.\n");
                 usage();
             }
-            settings.do_projector = 1;
+            //settings.do_projector = 1;
             return;
         }
 #endif
