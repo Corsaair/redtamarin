@@ -27,6 +27,9 @@ package shell
         AVM2 static var _shell:String;
 
         /** @private */
+        AVM2 static var _type:String;
+
+        /** @private */
         AVM2 static var _exitcall:Array = [];
 
         /** @private */
@@ -39,10 +42,32 @@ package shell
         private native static function _getProgramFilename():String;
 
         /** @private */
+        private native static function _isProjector():Boolean;
+
+        /** @private */
         private native static function _setExitListener( f:Function ):void;
 
         /** @private */
         private native static function _popenRead( command:String ):String;
+
+        /**
+         * @internal
+         * The function to execute by default to find the type of executable.
+         * 
+         * for shell scripts we can overrdie by doing
+         * <listing>
+         * Program.AVM2::_type = ShellType.SCRIPT;
+         * </listing>
+         */
+        private static function _findType():String
+        {
+            if( _isProjector() )
+            {
+                return ShellType.PROJECTOR;
+            }
+
+            return ShellType.RUNTIME;
+        }
 
 
 
@@ -128,6 +153,20 @@ package shell
 
             _shell = findShell();
             return _shell;
+        }
+
+        /**
+         * Returns the current execution type.
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4.1
+         */
+        public static function get type():String
+        {
+            if( _type ) { return _type; }
+
+            _type = _findType();
+            return _type;
         }
 
         /**
