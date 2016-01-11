@@ -37,6 +37,7 @@ namespace avmshell
     int ProgramClass::user_argc;
     char **ProgramClass::user_argv;
     char *ProgramClass::exec_name;
+    bool ProgramClass::is_projector;
     //extern "C" char **environ;
 
     ArrayObject * ProgramClass::_getArgv()
@@ -87,6 +88,11 @@ namespace avmshell
     Stringp ProgramClass::_getProgramFilename()
     {
         return core()->newStringUTF8( exec_name );
+    }
+
+    bool ProgramClass::_isProjector()
+    {
+        return is_projector;
     }
 
     void ProgramClass::_setExitListener(FunctionObject* f)
