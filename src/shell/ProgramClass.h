@@ -35,12 +35,14 @@ namespace avmshell
         static int user_argc;
         static char **user_argv;
         static char *exec_name;
+        static bool is_projector;
 
         GCMember<FunctionObject> GC_POINTER(exit_callback);
 
         ArrayObject * _getArgv();
         ArrayObject * _getEnviron();
         Stringp _getProgramFilename();
+        bool _isProjector();
 
         void _setExitListener(FunctionObject* f);
 
