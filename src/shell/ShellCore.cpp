@@ -23,6 +23,7 @@ namespace avmshell
         , do_verbose(0)
         , verboseOnlyArg(NULL)
         , enter_debugger_on_launch(false)
+        , do_projector(false)
         , interrupts(avmplus::AvmCore::interrupts_default)
         , verifyall(avmplus::AvmCore::verifyall_default)
         , verifyonly(avmplus::AvmCore::verifyonly_default)
@@ -330,6 +331,7 @@ namespace avmshell
 
 #ifdef AVMSHELL_PROJECTOR_SUPPORT
 
+    /*
     // Run a known projector file
     int ShellCore::executeProjector(char *executablePath)
     {
@@ -354,24 +356,149 @@ namespace avmshell
         ShellCoreSettings settings;
         return handleArbitraryExecutableContent(settings.do_testSWFHasAS3, code, executablePath);
     }
+    */
+
+    const int projectorHeaderLength = 12;
+
+    void ShellCore::runProjectorArguments(ShellSettings &settings)
+    {
+        AvmAssert(isValidProjectorFile(settings.programFilename));
+
+        FileInputStream file(settings.programFilename);
+
+        avmplus::ScriptBuffer code = newScriptBuffer(settings.projectorContentLength);
+        file.seek(file.length() - projectorHeaderLength - settings.projectorArgsLength - settings.projectorContentLength);
+        file.read(code.getBuffer(), settings.projectorContentLength);
+
+        if(settings.projectorArgsLength) {
+            char *vmargstr = mmfx_new_array(char, settings.projectorArgsLength);
+            file.seek(file.length() - projectorHeaderLength - settings.projectorArgsLength);
+            file.read(vmargstr, settings.projectorArgsLength);
+
+            int vmargc = 0;
+            for(int i=0; i<settings.projectorArgsLength; i++) {
+                if(vmargstr[i] == 0x0) {
+                    vmargc++;
+                }
+            }
+            
+            char **vmargv = mmfx_new_array(char*, vmargc);
+            AvmAssert(vmargc > 0);
+            int cur = 0;
+            vmargv[cur++] = &vmargstr[0];
+
+            for(int i=1; i<settings.projectorArgsLength; i++) {
+                if(vmargstr[i-1] == 0x0) {
+                    vmargv[cur++] = &vmargstr[i];
+                }
+            }
+            
+            Shell::parseCommandLine(vmargc, vmargv, settings);
+        }
+
+    }
+
+    // Run a known projector file
+    int ShellCore::executeProjector(ShellSettings &settings)
+    {
+        AvmAssert(isValidProjectorFile(settings.programFilename));
+
+        FileInputStream file(settings.programFilename);
+
+        avmplus::ScriptBuffer code = newScriptBuffer(settings.projectorContentLength);
+        file.seek(file.length() - projectorHeaderLength - settings.projectorArgsLength - settings.projectorContentLength);
+        file.read(code.getBuffer(), settings.projectorContentLength);
+
+        /*
+        if(settings.projectorArgsLength) {
+            char *vmargstr = mmfx_new_array(char, settings.projectorArgsLength);
+            file.seek(file.length() - projectorHeaderLength - settings.projectorArgsLength);
+            file.read(vmargstr, settings.projectorArgsLength);
+
+            int vmargc = 0;
+            for(int i=0; i<settings.projectorArgsLength; i++) {
+                if(vmargstr[i] == 0x0) {
+                    vmargc++;
+                }
+            }
+            
+            char **vmargv = mmfx_new_array(char*, vmargc);
+            AvmAssert(vmargc > 0);
+            int cur = 0;
+            vmargv[cur++] = &vmargstr[0];
+
+            for(int i=1; i<settings.projectorArgsLength; i++) {
+                if(vmargstr[i-1] == 0x0) {
+                    vmargv[cur++] = &vmargstr[i];
+                }
+            }
+            
+            Shell::parseCommandLine(vmargc, vmargv, settings);
+        }
+        */
+
+        return handleArbitraryExecutableContent(settings.do_testSWFHasAS3, code, settings.programFilename);
+    }
 
     /* static */
     bool ShellCore::isValidProjectorFile(const char* filename)
     {
         FileInputStream file(filename);
-        uint8_t header[8];
+        //uint8_t header[8];
+        uint8_t header[projectorHeaderLength];
 
         if (!file.valid())
             return false;
 
-        file.seek(file.length() - 8);
-        file.read(header, 8);
+        //file.seek(file.length() - 8);
+        //file.read(header, 8);
+        file.seek(file.length() - projectorHeaderLength);
+        file.read(header, projectorHeaderLength);
 
         // Check the magic number
         if (header[0] != 0x56 || header[1] != 0x34 || header[2] != 0x12 || header[3] != 0xFA)
             return false;
 
         return true;
+    }
+
+    /* static */
+    void ShellCore::gatherProjectorSettings(ShellSettings &settings)
+    {
+        settings.do_projector = false;
+        settings.projectorHasArgs = false;
+        settings.projectorContentLength = 0;
+        settings.projectorArgsLength = 0;
+
+        FileInputStream file(settings.programFilename);
+        uint8_t header[projectorHeaderLength];
+
+        if (!file.valid()) {
+            return;
+        }
+
+        file.seek(file.length() - projectorHeaderLength);
+        file.read(header, projectorHeaderLength);
+
+        // Check the magic number
+        if (header[0] != 0x56 || header[1] != 0x34 || header[2] != 0x12 || header[3] != 0xFA) {
+            settings.do_projector = false;
+            return;
+        }
+
+        settings.do_projector = true;
+        settings.projectorContentLength = (header[4] | header[5]<<8 | header[6]<<16 | header[7]<<24);
+        settings.projectorArgsLength = (header[8] | header[9]<<8 | header[10]<<16 | header[11]<<24);
+
+        // INT_MAX is used as a sentinel value to indicate that the projector
+        // does not contain any arguments and that the projector should parse
+        // vm arguments from the commandline.
+        if(settings.projectorArgsLength == INT_MAX) {
+            settings.projectorArgsLength = 0;
+            settings.projectorHasArgs = false;
+        } else {
+            settings.projectorHasArgs = true;
+        }
     }
 
 #endif // AVMSHELL_PROJECTOR_SUPPORT
@@ -450,6 +577,16 @@ namespace avmshell
             ProgramClass::user_argc = settings.numargs;
             ProgramClass::user_argv = settings.arguments;
             ProgramClass::exec_name = settings.programFilename;
+
+            // by defautl we are not a projector
+            ProgramClass::is_projector = false;
+#ifdef AVMSHELL_PROJECTOR_SUPPORT
+            // if do_projector==true then we are definitively a projector
+            if( settings.do_projector ) {
+                ProgramClass::is_projector = true;
+            }
+#endif
+
 
 #ifdef DEBUGGER
             initBuiltinPool((avmplus::Debugger::TraceLevel)settings.astrace_console);
