@@ -46,6 +46,7 @@ namespace avmshell
         uint32_t do_verbose;            // copy to config
         const char* verboseOnlyArg;     // copy to config (raw unprocessed)
         bool enter_debugger_on_launch;
+        bool do_projector;
         bool interrupts;                // copy to config
         bool verifyall;                 // copy to config
         bool verifyonly;                // copy to config
@@ -152,7 +153,9 @@ namespace avmshell
 #endif
 
 #ifdef AVMSHELL_PROJECTOR_SUPPORT
-        int executeProjector(char *executablePath);
+        //int executeProjector(char *executablePath);
+        void runProjectorArguments(ShellSettings &settings);
+        int executeProjector(ShellSettings &settings);
 #endif
 
 #ifdef VMCFG_SELFTEST
@@ -165,6 +168,7 @@ namespace avmshell
 
 #ifdef AVMSHELL_PROJECTOR_SUPPORT
         static bool isValidProjectorFile(const char* filename);
+        static void gatherProjectorSettings(ShellSettings &settings);
 #endif
 
         /*virtual*/ inline avmplus::ApiVersion getDefaultAPI() { return this->defaultAPIVersion; }
