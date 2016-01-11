@@ -82,6 +82,15 @@ namespace avmshell
             while (readU8() != 0)
             {}
         }
+
+        avmplus::Stringp readString(avmplus::AvmCore *core) {
+            avmplus::StringBuffer sb(core);
+            char c;
+            while ((c = readU8()) != 0) {
+                sb.writeN(&c, 1);
+            }
+            return sb.toString();
+        }
     };
 
     /**
@@ -107,6 +116,7 @@ namespace avmshell
         int tagstart = parser.pos;
         const int kDoAbcLazyInitializeFlag = 1;
         uint32_t flags = 0;
+        avmplus::Stringp name = NULL;
 
         if (type == stagDoABC2)
         {
@@ -117,7 +127,10 @@ namespace avmshell
             flags = parser.readU32();
 
             // skip the abc name
-            parser.skipString();
+            // parser.skipString();
+
+            // read the abc name
+            name = parser.readString(core);
         }
 
         // parse and execute the abc.
@@ -132,11 +145,13 @@ namespace avmshell
         // FIXME get api from the SWF
         avmplus::ApiVersion apiVersion = core->getApiVersionFromCallStack();
         if (flags & kDoAbcLazyInitializeFlag) {
-            avmplus::PoolObject* pool = core->parseActionBlock(code, 0, toplevel, codeContext->domainEnv()->domain(), NULL, apiVersion);
+            //avmplus::PoolObject* pool = core->parseActionBlock(code, 0, toplevel, codeContext->domainEnv()->domain(), NULL, apiVersion);
+            avmplus::PoolObject* pool = core->parseActionBlock(code, 0, toplevel, codeContext->domainEnv()->domain(), NULL, apiVersion, name);
             deferred.add(pool);
             // defer: handleActionPool(pool/* result of parse */, domainEnv, toplevel, codeContext);
         } else {
-            core->handleActionBlock(code, 0, toplevel, NULL, codeContext, apiVersion);
+            //core->handleActionBlock(code, 0, toplevel, NULL, codeContext, apiVersion);
+            core->handleActionBlock(code, 0, toplevel, NULL, codeContext, apiVersion, name);
         }
         parser.pos += abclen;
     }
