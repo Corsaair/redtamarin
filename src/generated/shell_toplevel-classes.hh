@@ -1573,6 +1573,98 @@ private:
 
 #define avmplus_RunModeClass_isExactInterlock 1
 //-----------------------------------------------------------
+// shell::ShellType
+//-----------------------------------------------------------
+class ShellTypeObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmplus::ShellTypeClass;
+    REALLY_INLINE explicit ShellTypeObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit ShellTypeObject(const ShellTypeObject&); // unimplemented
+    void operator=(const ShellTypeObject&); // unimplemented
+};
+
+#define avmplus_ShellTypeObject_isExactInterlock 1
+//-----------------------------------------------------------
+// shell::ShellType$
+//-----------------------------------------------------------
+class ShellTypeClass : public avmplus::ClassClosure
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
+public:
+    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+public:
+    inline GCRef<avmplus::ShellTypeObject> constructObject()
+    {
+        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(0, args);
+        return GCRef<avmplus::ShellTypeObject>((avmplus::ShellTypeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::ShellTypeObject> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::ShellTypeObject>((avmplus::ShellTypeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::ShellTypeObject> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::ShellTypeObject>((avmplus::ShellTypeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::ShellTypeObject> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::ShellTypeObject>((avmplus::ShellTypeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::ShellTypeObject> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::ShellTypeObject>((avmplus::ShellTypeObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+public:
+    REALLY_INLINE avmplus::String* get_RUNTIME() const { return m_slots_ShellTypeClass.m_RUNTIME; }
+    REALLY_INLINE void setconst_RUNTIME(avmplus::String* newVal) { m_slots_ShellTypeClass.m_RUNTIME = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_PROJECTOR() const { return m_slots_ShellTypeClass.m_PROJECTOR; }
+    REALLY_INLINE void setconst_PROJECTOR(avmplus::String* newVal) { m_slots_ShellTypeClass.m_PROJECTOR = newVal; }
+public:
+    REALLY_INLINE avmplus::String* get_SCRIPT() const { return m_slots_ShellTypeClass.m_SCRIPT; }
+    REALLY_INLINE void setconst_SCRIPT(avmplus::String* newVal) { m_slots_ShellTypeClass.m_SCRIPT = newVal; }
+private:
+    avmplus::NativeID::avmplus_ShellTypeClassSlots m_slots_ShellTypeClass;
+protected:
+    inline explicit ShellTypeClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit ShellTypeClass(const ShellTypeClass&); // unimplemented
+    void operator=(const ShellTypeClass&); // unimplemented
+};
+
+#define avmplus_ShellTypeClass_isExactInterlock 1
+//-----------------------------------------------------------
 // shell::Environment
 //-----------------------------------------------------------
 class EnvironmentObject : public avmplus::ProxyObject
