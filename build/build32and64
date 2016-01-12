@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# 32-bit build
+exec > >(tee ./out1.file) 2>&1
+
+export VS_ARCH=32
+source "$HOME/.profile"
+ant -Dbuild.32bit=true -Dbuild.64bit=false
+
+time1=$(cat ./out1.file | grep "Total time" | awk -F": " '{ print $2 }')
+
+retcode32=$?
+if [[ $retcode32 != 0 ]] ; then
+	echo "BUILD FAILED (32-bit)"
+	echo "Total time: $time1"
+	exit $retcode32
+fi
+
+# echo "BUILD SUCCESSFUL (32-bit)"
+# echo "Total time: $time1"
+
+# 64-bit build
+exec > >(tee ./out2.file) 2>&1
+rm ./out1.file
+
+export VS_ARCH=64
+source "$HOME/.profile"
+ant -Dbuild.32bit=false -Dbuild.64bit=true
+
+time2=$(cat ./out2.file | grep "Total time" | awk -F": " '{ print $2 }')
+
+retcode64=$?
+if [[ $retcode64 != 0 ]] ; then
+	echo "BUILD FAILED (64-bit)"
+	echo "Total time: $time2"
+	exit $retcode64
+fi
+
+echo ""
+echo "BUILD SUCCESSFUL (32-bit)"
+echo "Total time: $time1"
+echo "BUILD SUCCESSFUL (64-bit)"
+echo "Total time: $time2"
+
+rm ./out2.file
