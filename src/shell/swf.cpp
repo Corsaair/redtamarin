@@ -7,6 +7,15 @@
 #include "avmshell.h"
 #include "zlib.h"
 
+/**
+ * MSVC compile with the /W4 warning level which is
+ * quite picky. Disable warnings we don't care about.
+ */
+#ifdef _MSC_VER
+    #pragma warning(disable:4242) // warning C4242: '=' : conversion from 'int' to 'char', possible loss of data
+    #pragma warning(disable:4244) // warning C4244: '=' : conversion from 'int' to 'char', possible loss of data
+#endif
+
 namespace avmshell
 {
     // it's silly to write this again, but i'm being lazy.
@@ -91,6 +100,7 @@ namespace avmshell
             }
             return sb.toString();
         }
+        
     };
 
     /**
