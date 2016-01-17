@@ -178,6 +178,8 @@
 			<doc-sources path-element="${basedir}/src/as3/shell/OperatingSystem.as" />
 			<doc-sources path-element="${basedir}/src/as3/shell/FileSystem.as" />
 			<doc-sources path-element="${basedir}/src/as3/shell/RunMode.as" />
+			<doc-sources path-element="${basedir}/src/as3/shell/ShellType.as" />
+			<doc-sources path-element="${basedir}/src/as3/shell/Cygwin.as" />
 			<doc-sources path-element="${basedir}/src/as3/shell/Domain.as" />
 			<!-- <doc-sources path-element="${basedir}/src/as3/shell/FileIO.as" /> -->
 			<doc-sources path-element="${basedir}/src/as3/shell/Environment.as" />
