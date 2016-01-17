@@ -54,6 +54,33 @@
   for Linux, some updates in configure.py to supports GCC 4.8.*
   and build.makejobs which allow to setup the number
   of make jobs to run silmutaneously (default to 3 for dual core)
+- fixed shell.RunMode documentation
+- added shell.ShellType
+  ShellType.RUNTIME for when executed by redshell
+  ShellType.PROJECTOR for when executed by a projector
+  ShellType.SCRIPT for when executed as a shell script
+- new property in Program
+  Program.type = ShellType.RUNTIME;
+- implemented issue #14
+  need to support projectors arguments
+  https://github.com/Corsaair/redtamarin/issues/14
+- added extras
+  in extras/windows/
+  redtamarin-setup.bat
+  the Redtamarin Windows Environment Setup
+  batch file for end-users who want to sue redtamarin
+  in extras/cygwin
+  redtamarin-dev-setup.bat
+  same as above bur for developers who want to compile under Windows
+  also updated readme.txt with usage/documentation/tutorial/etc.
+- add build/build32and64
+  bash script helper to build both 32-bit and 64-bit binaries under Windows
+- added an helper class
+  shell.Cygwin
+  it can detect if Cygwin is installed, the install dir
+  and allow to call bash even from cmd.exe or other non-bash
+  environment like running as CGI
+- fixed C.stdlib.exec() asdoc
 
 * 0.4.0 Akihabara (from tag 1T174)
 - release
