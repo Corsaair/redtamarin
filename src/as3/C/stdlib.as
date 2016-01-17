@@ -325,13 +325,13 @@ package C.stdlib
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
-     *
-     * @private
-     * we can not directly hook to the native function exit()
-     * because our code run inside a VM!
      */
     public function exit( status:int = -1 ):void
     {
+        /* Note:
+           we can not directly hook to the native function exit()
+           because our code run inside a VM!
+        */
         if( status == -1 ) { status = EXIT_SUCCESS; }
         Program.exit( status );
     }
