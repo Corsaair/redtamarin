@@ -27,6 +27,9 @@ package shell
         AVM2 static var _shell:String;
 
         /** @private */
+        AVM2 static var _filename:String;
+
+        /** @private */
         AVM2 static var _type:String;
 
         /** @private */
@@ -49,6 +52,73 @@ package shell
 
         /** @private */
         private native static function _popenRead( command:String ):String;
+
+        /**
+         * The function to execute by default to find a shell command.
+         *
+         * <p>
+         * This is setup by the boot system.
+         * </p>
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4
+         */
+        /**
+         * Allows to define a custom shell
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4
+         */
+        /**
+         * @internal
+         * The function to execute by default to find a shell command.
+         * 
+         * you can still override it this way
+         * <listing>
+         * Program.AVM2::_shell = "/some/other/path";
+         * </listing>
+         */        
+        private static function _findShell():String
+        {
+            var sh:String = "";
+
+            /* Note:
+               The logic to find the current operating system
+               command shell or command interpreter.
+
+               Windows:
+               always use COMSPEC, even if we run under Cygwin
+               why ?
+               a Cygwin bash shell inherits from cmd.exe context
+               for ex: you can execute commands like
+               ver
+               reg query
+               etc.
+               but
+                 - we have no guarantee that Cygwin is installed
+                 - even with Cygwin installedyou can still
+                   run from cmd.exe
+                 - only thign we can be sure of is that we run under cmd.exe
+                   because it is Windows, so we consider that our default
+
+               so yeah Windows is a bit of a psecial case
+               and tha's why we can also use the Cygwin helper
+               to run commands in "Cygwin bash shell emulation mode"
+            */
+            switch( Runtime.platform )
+            {
+                case "windows":
+                sh = getenv( "COMSPEC" );
+                break;
+
+                case "macintosh":
+                case "linux":
+                sh = getenv( "SHELL" );
+                break;
+            }
+            
+            return sh;
+        }
 
         /**
          * @internal
@@ -78,14 +148,6 @@ package shell
          * @playerversion AVM 0.4
          */
         public static const argv:Array = _getArgv();
-
-        /**
-         * Returns the program filename.
-         * 
-         * @langversion 3.0
-         * @playerversion AVM 0.4
-         */
-        public static const filename:String = _getProgramFilename();
 
         /**
          * The original directory when the application started.
@@ -131,6 +193,25 @@ package shell
         }
         
         /**
+         * Returns the program filename.
+         * 
+         * <p>
+         * This is not a constant anymore, the property can
+         * be internally updated by a shell script.
+         * </p>
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4.1
+         */
+        public static function get filename():String
+        {
+            if( _filename ) { return _filename; }
+
+            _filename = _getProgramFilename();
+            return _filename;
+        }
+
+        /**
          * Returns the current process id.
          * 
          * @langversion 3.0
@@ -151,7 +232,7 @@ package shell
         {
             if( _shell ) { return _shell; }
 
-            _shell = findShell();
+            _shell = _findShell();
             return _shell;
         }
 
@@ -222,17 +303,6 @@ package shell
         }
 
         /**
-         * Allows to define a custom shell
-         * 
-         * @langversion 3.0
-         * @playerversion AVM 0.4
-         */
-        AVM2 static function setShell( path:String ):void
-        {
-            _shell = path;
-        }
-
-        /**
          * The function to execute by default when the AVM terminate.
          *
          * <p>
@@ -243,18 +313,6 @@ package shell
          * @playerversion AVM 0.4
          */
         AVM2 static var onExit:Function = null;
-
-        /**
-         * The function to execute by default to find a shell command.
-         *
-         * <p>
-         * This is setup by the boot system.
-         * </p>
-         * 
-         * @langversion 3.0
-         * @playerversion AVM 0.4
-         */
-        AVM2 static var findShell:Function = null;
         
         /**
          * TODO
@@ -271,12 +329,6 @@ package shell
             {
                 message += "errno is not zero from the start of the application" + "\n";
                 message += "errno = " + errno.valueOf() + " - " + errno.toString() + "\n";
-            }
-
-            if( !Program.findShell )
-            {
-                message += "Program.findShell not defined" + "\n";
-                message += "command shell fallback will not work" + "\n";
             }
 
             if( !Program.onExit )
