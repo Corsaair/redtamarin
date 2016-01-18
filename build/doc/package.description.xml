@@ -1,16 +1,55 @@
 <overviews>
 	<all-packages>
-		<description><![CDATA[All packages available in RedTamarin.]]></description>
+		<description><![CDATA[
+            &lt;img src="images/redtamarin_letters.png" alt="Logo"&gt;
+            &lt;br&gt;
+            &lt;b&gt;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;ActionScript 3.0 running on the command-line&lt;/b&gt;&lt;br&gt;
+            &lt;br&gt;
+            &lt;br&gt;
+            Redtamarin is a runtime based on the ActionScript Virtual Machine (AVM2)&lt;br&gt;
+            write your code in ActionScript 3.0 and target Windows, Mac OS X and Linux (both 32-bit and 64-bit)&lt;br&gt;
+            it allows you to do the following:
+			&lt;ul&gt;
+				&lt;li&gt;
+				Execute AS3 on the command-line
+				using one of the &lt;b&gt;redshell&lt;/b&gt; (Redtamarin shell).
+				&lt;li&gt;
+				Build projectors (standalone executable)
+				with our build tool &lt;b&gt;redbean&lt;/b&gt;.
+				&lt;/li&gt;
+				&lt;li&gt;
+				Run shell scripts with &lt;b&gt;as3shebang&lt;/b&gt;,
+				no need to compile the AS3 source code.
+				&lt;/li&gt;
+				&lt;li&gt;
+				Run AS3 server side as CGI
+				with Apache, IIS, and other HTTP servers.
+				&lt;/li&gt;
+			&lt;/ul>
+            &lt;br&gt;
+            All packages available in Redtamarin are listed here.&lt;br&gt;
+            You don't need to load them, they are already embedded in the runtime by default.
+            &lt;br&gt;
+			&lt;br&gt;
+			Please read the &lt;a href="https://github.com/Corsaair/redtamarin/wiki/Documentation" target="_blank"&gt;Wiki Documentation&lt;/a&gt; for more detailled informations.
+		]]></description>
 	</all-packages>
 	<packages>
 		<package name="__Global__" >
 			<shortDescription><![CDATA[The top level contains the core ActionScript classes and global functions.]]></shortDescription>
 			<description><![CDATA[this is the global scope.]]></description>
 		</package>
-		<!-- <package name="C" >
+		<package name="C" >
 			<shortDescription><![CDATA[The C standard library for AS3.]]></shortDescription>
-			<description><![CDATA[The C standard library for AS3 combine ANSI C (C89) / ISO C (C90) and POSIX.1.]]></description>
-		</package> -->
+			<description><![CDATA[
+				The C standard library for AS3 combine ANSI C (C89) / ISO C (C90) and POSIX.1.&lt;br&gt;
+				This package define C global variables.&lt;br&gt;
+				&lt;br&gt;
+				&lt;a href="http://blogs.adobe.com/kiwi/2006/05/as3_language_101_for_cc_coders.html" target="_blank"&gt;AS3 language 101 for C/C++ coders&lt;/a&gt;
+				&lt;br&gt;
+				&lt;a href="http://blogs.adobe.com/kiwi/2006/05/as3_programming_101_for_cc_cod_1.html" target="_blank"&gt;AS3 programming 101 for C/C++ coders&lt;/a&gt;
+			]]></description>
+		</package>
 		<package name="C.arpa.inet" >
 			<shortDescription><![CDATA[Definitions for internet operations.]]></shortDescription>
 			<description><![CDATA[Functions for manipulating numeric IP addresses.]]></description>
