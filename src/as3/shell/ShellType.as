@@ -29,11 +29,11 @@ package shell
         public static const RUNTIME:String = "runtime";
 
         /**
-         * The <b>projector/b> type is when the code is executed from within a projector executable.
+         * The <b>projector</b> type is when the code is executed from within a projector executable.
          * 
          * <p>
          * A projector is the result of merging a redshell executable with ABC and/or SWF pre-compiled
-         * code to produce a standaloen executable (static binary).
+         * code to produce a standalone executable (static binary).
          * </p>
          * 
          * @langversion 3.0
