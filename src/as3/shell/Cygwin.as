@@ -42,7 +42,7 @@ package shell
      * 
      * // under CGI you will detect Cygwin
      * // but the shell will not be declared
-     * if( Cygwin.isAvailable && ( Cygwin.shell == "") )
+     * if( Cygwin.isAvailable &#38;&#38; ( Cygwin.shell == "") )
      * {
      *     Cygwin.forceShell( "/bin/bash" );
      *     Cygwin.addToEnvironment();
