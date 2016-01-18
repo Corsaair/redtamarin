@@ -14,9 +14,13 @@ package shell
     /**
      * The Domain class is a container for discrete groups of class definitions.
      * 
+     * <p>
+     * This class is the little twin of <code>ApplicationDomain</code>
+     * with more or less the same features.
+     * </p>
+     * 
      * @langversion 3.0
-     * @playerversion Flash 9
-     * @playerversion AIR 1.0
+     * @playerversion AVM 0.4
      */
     [native(cls="DomainClass", gc="exact", instance="DomainObject", methods="auto")]
     public class Domain
@@ -31,8 +35,7 @@ package shell
          * @param base If no parent domain is passed in, this program domain takes the system domain as its parent.
          *
          * @langversion 3.0
-         * @playerversion Flash 9
-         * @playerversion AIR 1.0
+         * @playerversion AVM 0.4
          */
         public function Domain( base:Domain = null )
         {
@@ -40,6 +43,12 @@ package shell
             init( base );
         }
         
+        /**
+         * [parentDomain description]
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4
+         */
         public function get parentDomain():Domain
         {
             return _parentDomain;
@@ -81,8 +90,7 @@ package shell
          * @return      The object associated with the definition.
          *
          * @langversion 3.0
-         * @playerversion Flash 9
-         * @playerversion AIR 1.0
+         * @playerversion AVM 0.4
          */
         public function getDefinition( name:String ):Object
         {
@@ -101,8 +109,7 @@ package shell
          *              otherwise, <code>false</code>.
          *
          * @langversion 3.0
-         * @playerversion Flash 9
-         * @playerversion AIR 1.0
+         * @playerversion AVM 0.4
          */
         public function hasDefinition( name:String ):Boolean
         {
@@ -129,8 +136,7 @@ package shell
          * Gets the current program domain in which your code is executing.
          * 
          * @langversion 3.0
-         * @playerversion Flash 9
-         * @playerversion AIR 1.0
+         * @playerversion AVM 0.4
          */
         public native static function get currentDomain():Domain;
 
@@ -139,6 +145,9 @@ package shell
          * @param  filename   [description]
          * @param  swfVersion [description]
          * @return            [description]
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4
          */
         public function load( filename:String, swfVersion:uint = 0 )
         {
@@ -150,9 +159,12 @@ package shell
          * Gets the minimum length of a ByteArray required to be used as
          * ApplicationDomain.globalMemory
          *
-         * @tiptext
-         * @playerversion Flash 10
+         * <p>
+         * note: playerversion Flash 10
+         * </p>
+         * 
          * @langversion 3.0
+         * @playerversion AVM 0.4
          */
         public native static function get MIN_DOMAIN_MEMORY_LENGTH():uint;
 
@@ -160,9 +172,12 @@ package shell
          * Gets and sets the ByteArray object on which global memory operations
          * will operate within this ApplicationDomain
          *
+         * <p>
+         * note: playerversion Flash 10, AIR 1.5
+         * </p>
+         * 
          * @langversion 3.0
-         * @playerversion Flash 10
-         * @playerversion AIR 1.5
+         * @playerversion AVM 0.4
          */
         public native function get domainMemory():ByteArray;
         
