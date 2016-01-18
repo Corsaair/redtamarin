@@ -37,37 +37,7 @@ package shell
     */
     errno.value = 0;
 
-    /* 2. we setup the findShell() function
-
-       Here we define the logic to find the current operating system
-       command shell or command interpreter
-
-       This allow in some case to use the shell as a fallback
-       if a native command fail or is missing
-    */
-    Program.findShell = function():String
-    {
-        var sh:String = "";
-
-        switch( Runtime.platform )
-        {
-            case "windows":
-            sh = getenv( "COMSPEC" );
-            break;
-
-            case "macintosh":
-            sh = getenv( "SHELL" );
-            break;
-
-            case "linux":
-            sh = getenv( "SHELL" );
-            break;
-        }
-        
-        return sh;
-    }
-
-    /* 3. we setup the onExit() function
+    /* 2. we setup the onExit() function
 
        this function basically loop trough the _exitcall array
        and call each one of the functions it may contain
@@ -96,11 +66,11 @@ package shell
         Program.setExitListener( null );
     }
     
-    /* 3a. the onExit function is defined as the "exit listener"
+    /* 2a. the onExit function is defined as the "exit listener"
     */
     Program.setExitListener( Program.onExit );
 
-    /* 4. we setup the goAsync() function
+    /* 3. we setup the goAsync() function
        
        this function only check if the loop is not null
        and then start the loop
@@ -117,7 +87,7 @@ package shell
         
     }
     
-    /* 5. we run the program selfCheck() function
+    /* 4. we run the program selfCheck() function
        no we don't
     */
     //Program.selfCheck();
