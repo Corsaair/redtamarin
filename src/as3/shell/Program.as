@@ -182,14 +182,73 @@ package shell
         public native static function get privateMemory():Number;
 
         /**
-         * Get a list of all environment variables value-pair accessible by the program.
+         * Get a list of all environment variables value-pair
+         * accessible by the program.
          *
+         * <p>
+         * Each call returns the current environment variables
+         * value-pair of the program session. nothing is saved or cached.
+         * </p>
+         * 
+         * 
+         * 
          * @langversion 3.0
          * @playerversion AVM 0.4
          */
         public static function get environ():Array
         {
             return _getEnviron();
+        }
+
+        /**
+         * Get a synchronised instance of <code>Environment</code>,
+         * an environment variables manager/helper.
+         * 
+         * <p>
+         * The first call create the instance, then any followign call
+         * returns the cached instance, for as long as the program session is open.
+         * </p>
+         * 
+         * @example Usage
+         * <listing>
+         * import shell.Program;
+         * 
+         * trace( "SHELL = " + Program.environment.SHELL );
+         * // equivalent to getenv( "SHELL" );
+         * 
+         * // test if an env var exists
+         * if( "EDITOR" in Program.environment )
+         * {
+         *     // update the content of an env var
+         *     if( Program.environment.EDITOR != "nano" )
+         *     {
+         *         Program.environment.EDITOR = "nano";
+         *     }
+         * }
+         * else
+         * {
+         *     // create a new env var
+         *     Program.environment.EDITOR = "nano";
+         * }
+         * 
+         * // delete an env var
+         * if( "SVN_EDITOR" in Program.environment )
+         * {
+         *     delete Program.environment.SVN_EDITOR;
+         * }
+         * </listing>
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4.1
+         * 
+         * @see shell.Environment Environment
+         */
+        public static function get environment():Environment
+        {
+            if( _environment ) { return _environment; }
+
+            _environment = new Environment( true );
+            return _environment;
         }
         
         /**
