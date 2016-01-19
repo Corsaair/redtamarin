@@ -1,158 +1,420 @@
+/* -*- c-basic-offset: 4; indent-tabs-mode: nil; tab-width: 4 -*- */
+/* vi: set ts=4 sw=4 expandtab: (add to ~/.vimrc: set modeline modelines=5) */
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 package shell
 {
-	import flash.utils.Proxy;
+    import flash.utils.Proxy;
     import flash.utils.flash_proxy;
     import shell.Program;
+    import C.errno.*;
+    import C.stdlib.*;
 
-    /* TODO:
-       this class is just a test for now
-       need to be worked on and tested
-
-       should work also with getenv() / setenv() etc.
-
-       eg.
-       deleting a property should remove it from the current environ
-       getenv() should not find it
-       at least for the current session of the program
-
-       see if it's possible to have a GlobalEnvironment class
-       allowing to update/create/delete env vars that persist after the end of the program session
-
-       also Environment is not to be used "as is"
-       it is supposed to be initialised in the Program class
-       public const environment:Environment = new Environment();
-       and then used from Program
-	   trace( Program.environment.HOME );
-	   Program.environment.TEST = "hello world"
-
-	   later if we impl. subprocesses we should be able to pass
-	   a copy of the current env vars
-	   eg. new subprocess( someprogram,exe, Program.environment );
-    */
     /**
-    * Environment class
-    * to access the current environment variables
-    */
-	public dynamic class Environment extends Proxy
-	{
-		private var _vars:Array;
-		private var _idx:Array;
-		private var _env:Object;
+     * Environment class to access the current environment variables.
+     * 
+     * @example Usage
+     * <listing>
+     * import shell.Environment;
+     * 
+     * var env:Environment = new Environment();
+     * 
+     * if( "SHELL" in env )
+     * {
+     *     trace( "found the SHELL env var" );
+     *     trace( "SHELL = " + env.SHELL );
+     * }
+     * </listing>
+     * 
+     * @langversion 3.0
+     * @playerversion AVM 0.4.1
+     * 
+     * @see shell.Program#environment Program.environment
+     * @see C.stdlib#execve execve()
+     */
+    public dynamic class Environment extends Proxy
+    {
+        private var _vars:Array;
+        private var _idx:Array;
+        private var _env:Object;
 
-		public function Environment()
-		{
-			trace( "Environment ctor" );
-			refresh();
-		}
+        private var _synchronise:Boolean;
+        private var _allowEmpty:Boolean;
 
-		private function _parse():void
-		{
-			var i:uint;
-			var len:uint = _vars.length;
-			var line:String;
-			var pos:int;
-			var name:String;
-			var value:String;
+        /**
+         * Create an <code>Environment</code> instance.
+         * 
+         * <p>
+         * You can access a synchronised instance of this class from <code>Program.environment</code>,
+         * but you can also use an independant instance to create snapshop of the current environment variables,
+         * for example you could delete a bunch of variables before passing an array to a call to <code>execve()</code>.
+         * </p>
+         * 
+         * @param synchronise Synchronise add/delete/update with session environment variables
+         * @param allowEmpty  Alllow empty environment variables
+         * @param data the data set to scan, if <code>null</code>
+         *             will use <code>Program.environ</code>.
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4.1
+         */
+        public function Environment( synchronise:Boolean = false,
+                                     allowEmpty:Boolean = false,
+                                     data:Array = null )
+        {
+            super();
 
-			for( i=0; i<len; i++ )
-			{
-				line = _vars[ i ];
-				pos  = line.indexOf( "=" );
-				name = line.substr( 0, pos );
-				value = line.substring( pos+1 );
-				_env[ name ] = value;
-				_idx[ i ] = name;
-			}
-		}
+            _vars = [];
+            _idx  = [];
+            _env  = {};
 
-		/** @private */
-		override flash_proxy function callProperty( methodName:*, ... args ):*
-		{
-			trace( "Environment callProperty - " + methodName + "( " + args.join(", ") + " )" );
-		}
+            _synchronise = synchronise;
+            _allowEmpty  = allowEmpty;
 
-		/** @private */
-		override flash_proxy function deleteProperty( name:* ):Boolean
-		{
-			return delete _env[ name ];
-		}
+            refresh();
+        }
 
-		/** @private */
-		override flash_proxy function getProperty( name:* ):*
-		{
-			return _env[ name ];
-		}
+        private function _parse():void
+        {
+            var i:uint;
+            var len:uint = _vars.length;
+            var line:String;
+            var pos:int;
+            var name:String;
+            var value:String;
 
-		/** @private */
-		override flash_proxy function setProperty( name:*, value:* ):void
-		{
-			/* TODO:
-			   if the property already exists update it -done
+            for( i=0; i<len; i++ )
+            {
+                line = _vars[ i ];
+                pos  = line.indexOf( "=" );
+                name = line.substr( 0, pos );
+                value = line.substring( pos+1 );
+                
+                if( !_allowEmpty &&
+                    ((value == "") || (value == null)) )
+                {
+                    continue;
+                }
 
-			   if the property does not exists, create it - not done
-			*/
-			if( hasProperty( name ) )
-			{
-				_env[ name ] = value;
-			}
-		}
-		
-		/** @private */
-		override flash_proxy function hasProperty( name:* ):Boolean
-		{
-			return name in _env;
-		}
+                _env[ name ] = value;
+                _idx[ i ] = name;
+            }
+        }
 
-		/** @private */
-		override flash_proxy function nextNameIndex( index:int ):int
-		{
-			if( index > (_idx.length-1) )
-			{
-				return 0;
-			}
+        private function _findIndexBy( name:String ):int
+        {
+            var i:uint;
+            var len:uint = _idx.length;
+            var index:String;
+            for( i = 0; i < len; i++ )
+            {
+                index = _idx[ i ];
+                if( index == name )
+                {
+                    return i;
+                }
+            }
 
-			return index + 1;
-		}
+            return -1; //not found
+        }
 
-		/** @private */
-		override flash_proxy function nextName( index:int ):String
-		{
-			return String( _idx[ index - 1 ] );
-		}
+        /** @private */
+        override flash_proxy function callProperty( methodName:*, ... args ):*
+        {
+            // we want to ignore any function calls not defined by us
+            // void
+        }
 
-		/** @private */
-		override flash_proxy function nextValue( index:int ):*
-		{
-			return String( _env[ _idx[ index - 1 ] ] );
-		}
+        /** @private */
+        override flash_proxy function deleteProperty( name:* ):Boolean
+        {
+            if( synchronised )
+            {
+                /* Note:
+                   putenv( name+"=" ) shoudl work too
+                   maybe one or the other work better on different OS
+                */
+                var result:int = setenv( name, "", true );
+                if( result < 0 )
+                {
+                    //trace( "Could not delete session env var `" + name + "`" );
+                    //trace( new CError( "", errno ) );
+                    return false;
+                }
+            }
 
-		/**
-		* TODO
-		*/
-		public function get length():uint
-		{
-			return _idx.length;
-		}
+            var deleted:Boolean = delete _env[ name ];
+            if( deleted )
+            {
+                var index:int = _findIndexBy( name );
+                if( index > -1 )
+                {
+                    _idx.splice( index, 1 );
+                }
+                else
+                {
+                    //trace( "Could not find index for `" + name + "`" );
+                    return false;
+                }
+            }
+            /*else
+            {
+                trace( "delete failed on `" + name + "`" );
+            }*/
 
-		/**
-		* TODO
-		*/
-		public function refresh():void
-		{
-			/* TODO:
-			   by default we inherit the system env vars
-			   we should also have the option to create an empty environment
-			   that can isolated from the system env vars
-			   eg. case of a subprocess where you want only
-			   to passtrough some env vars
-			*/
-			_vars = Program.getEnviron();
-			if( _idx ) { _idx.length = 0; }
-			_idx  = new Array();
-			_env  = new Object();
+            return deleted;
+        }
 
-			_parse();
-		}
-	}
+        /** @private */
+        override flash_proxy function getProperty( name:* ):*
+        {
+            return _env[ name ];
+        }
+
+        /** @private */
+        override flash_proxy function setProperty( name:*, value:* ):void
+        {
+            // we accept only String type
+            if( !(value is String) )
+            {
+                return;
+            }
+
+            // no empty strings
+            if( !_allowEmpty &&
+                ((value == undefined) || (value == null) || (value == "")) )
+            {
+                return;
+            }
+
+            /* Note:
+               the equals char `=` is not allowed
+            */
+            if( value.indexOf( "=" ) > -1 )
+            {
+                return;
+            }
+
+            if( synchronised )
+            {
+                var result:int = setenv( name, value, true );
+                if( result < 0 )
+                {
+                    //trace( "Could not set session env var `" + name  + "=" + value + "`" );
+                    //trace( new CError( "", errno ) );
+                    return;
+                }
+            }
+
+            if( flash_proxy::hasProperty( name ) )
+            {
+                _env[ name ] = value;
+            }
+            else
+            {
+                _env[ name ] = value;
+                _idx[ this.length ] = name;
+            }
+        }
+        
+        /** @private */
+        override flash_proxy function hasProperty( name:* ):Boolean
+        {
+            return name in _env;
+        }
+
+        /** @private */
+        override flash_proxy function nextNameIndex( index:int ):int
+        {
+            if( index > (_idx.length-1) )
+            {
+                return 0;
+            }
+
+            return index + 1;
+        }
+
+        /** @private */
+        override flash_proxy function nextName( index:int ):String
+        {
+            return String( _idx[ index - 1 ] );
+        }
+
+        /** @private */
+        override flash_proxy function nextValue( index:int ):*
+        {
+            return String( _env[ _idx[ index - 1 ] ] );
+        }
+
+        /**
+         * The number of environment variables entries.
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4.1
+         */
+        public function get length():uint
+        {
+            return _idx.length;
+        }
+
+        /**
+         * Indicates whether an object has a specified property defined.
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4.1
+         */
+        public function hasOwnProperty( name:String ):Boolean
+        {
+            /* Note:
+               could be handled in callProperty()
+               but faster to execute when defined here
+            */
+            return this.AS3::hasOwnProperty( name );
+        }
+
+        /**
+         * Indicates whether the specified property exists and is enumerable.
+         * If <code>true</code>, then the property exists and can be enumerated
+         * in a <code>for..in</code> loop.
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4.1
+         */
+        public function propertyIsEnumerable( name:String ):Boolean
+        {
+            /* Note:
+               this.AS3::propertyIsEnumerable( name );
+               return false as we don't really have real properties inside a Proxy
+               but we consider that if we detect the property then it is enumerable,
+               and in fact it is for..in enumerable
+            */
+            return this.AS3::hasOwnProperty( name );
+        }
+
+        /**
+         * Returns <code>true</code> if the environment variables
+         * are synchronised with the system environment variables.
+         * 
+         * <p>
+         * The synchronisation occurs on add, delete and update of the variables.
+         * </p>
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4.1
+         */
+        public function get synchronised():Boolean
+        {
+            return _synchronise;
+        }
+
+        /**
+         * Scan the current session environment variables
+         * or the <code>data</code> set, if provided..
+         * 
+         * @param data the data set to scan, if <code>null</code>
+         *             will use <code>Program.environ</code>.
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4.1
+         * 
+         * @see shell.Program#environ Program.environ
+         */
+        public function refresh( data:Array = null ):void
+        {
+            /* Note:
+               by default we inherit the system env vars
+            */
+            if( data == null )
+            {
+                data = Program.environ;
+            }
+
+            // clean up
+            _vars.length = 0;
+            _idx.length = 0;
+            _env = null;
+
+            // reset
+            _vars = data;
+            _idx  = [];
+            _env  = {};
+
+            // populate
+            if( data.length > 0 )
+            {
+                _parse();
+            }
+        }
+
+        /**
+         * Export the environment variables as an
+         * <code>Array</code> data structure.
+         * 
+         * <p>
+         * Format is <code>[ "NAME=value", ... ]</code>.
+         * </p>
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4.1
+         */
+        public function toArray():Array
+        {
+            /* Note:
+               we need to return an array of the form
+               [ "HOME=/usr/home", "LOGNAME=home", etc. ]
+            */
+
+            var a:Array = [];
+            var m:String;
+            var value:String;
+            for( m in _env )
+            {
+                value = _env[ m ];
+
+                if( !_allowEmpty &&
+                    ((value == "") || (value == null)) )
+                {
+                    continue;
+                }
+
+                a.push( m + "=" + value );
+            }
+
+            return a;
+        }
+
+        /**
+         * Export the environment variables as an
+         * <code>Object</code> data structure.
+         * 
+         * <p>
+         * Format is <code>{ NAME: "value", ... }</code>.
+         * </p>
+         * 
+         * @langversion 3.0
+         * @playerversion AVM 0.4.1
+         */
+        public function toObject():Object
+        {
+            var o:Object = {};
+            var m:String;
+            var value:String;
+            for( m in _env )
+            {
+                value = _env[ m ];
+
+                if( !_allowEmpty &&
+                    ((value == "") || (value == null)) )
+                {
+                    continue;
+                }
+
+                o[ m ] = value;
+            }
+
+            return o;
+        }
+    }
 }
