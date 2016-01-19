@@ -81,6 +81,29 @@
   and allow to call bash even from cmd.exe or other non-bash
   environment like running as CGI
 - fixed C.stdlib.exec() asdoc
+- fixed C package
+  implemenation of argc, arv and environ have changed
+  and now the doc is showing in asdoc
+  note: we need to sync changes with as3shebang
+- updated Redtamarin asdoc main page
+  logo, link to wiki doc etc.
+  and basic descriptions
+- removed Program.findShell
+  replaced by internal static fucntion _findShell
+  we do not want the user or have no need to override this anymore
+  removed Program.setShell
+  updated boot.as to reflect the changes
+- updated Program.filename
+  not a constant anymore
+  because we want to be able to override it
+  from a shell scripts
+- fixed shell.Domain asdoc
+- fixed shell.Environment asdoc
+- updated shell.Environment
+  was bit broken, use Program.environ now
+- fully implemented shell.Environment features
+- added a new property Program.environment
+  which returns a synchronised Environment instance
 
 * 0.4.0 Akihabara (from tag 1T174)
 - release
