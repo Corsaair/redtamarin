@@ -4,11 +4,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-// DOCUMENTATION ONLY - DO NOT COMPILE IN ABC/SWC
+// DOCUMENTATION ONLY - DO NOT COMPILE IN ABC
 package C
 {
     /**
      * C standard library.
+     * 
+     * <p>
+     * <b>Documentation Stub:</b>
+     * this definition is here only for documentation purpose.
+     * </p>
      * 
      * <p>
      * <b>ANSI C (C89) / ISO C (C90)</b> documentation.
@@ -62,7 +67,7 @@ package C
      * @see http://en.wikipedia.org/wiki/ISO_C
      * @see http://en.wikipedia.org/wiki/ANSI_C
      */
-	public const ISO_C:String = "ISO C / ANSI C documentation";
+    public const ISO_C:String = "ISO C / ANSI C API";
 
      /**
       * assert.h - verify program assertion
@@ -83,7 +88,7 @@ package C
       * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/assert.h.html
       * @see http://en.wikipedia.org/wiki/Assert.h
       */
-     public const ASSERT_H:String = "assert.h documentation";
+     //public const ASSERT_H:String = "assert.h documentation";
 
      /**
       * ctype.h - character types
@@ -108,7 +113,7 @@ package C
       * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/ctype.h.html
       * @see http://en.wikipedia.org/wiki/Ctype.h
       */
-     public const CTYPE_H:String = "ctype.h documentation";
+     //public const CTYPE_H:String = "ctype.h documentation";
 
      /**
       * errno.h - system error numbers
@@ -128,10 +133,10 @@ package C
       * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/errno.h.html
       * @see http://en.wikipedia.org/wiki/Errno.h
       */
-     public const ERRNO_H:String = "errno.h documentation";
+     //public const ERRNO_H:String = "errno.h documentation";
 
      /** not supported */
-     public const FLOAT_H:String = "float.h not supported";
+     //public const FLOAT_H:String = "float.h not supported";
 
      /**
       * limits.h - implementation-defined constants
@@ -151,7 +156,7 @@ package C
       * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/limits.h.html
       * @see http://en.wikipedia.org/wiki/Limits.h#limits.h
       */
-     public const LIMITS_H:String = "limits.h documentation";
+     //public const LIMITS_H:String = "limits.h documentation";
 
      /**
       * locale.h - localization category macros
@@ -171,7 +176,7 @@ package C
       * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap07.html
       * @see http://en.wikipedia.org/wiki/Locale.h
       */
-     public const LOCALE_H:String = "locale.h documentation";
+     //public const LOCALE_H:String = "locale.h documentation";
 
      /**
       * math.h - mathematical declarations
@@ -182,19 +187,19 @@ package C
       * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/math.h.html
       * @see http://en.wikipedia.org/wiki/Math.h
       */
-     public const MATH_H:String = "math.h documentation";
+     //public const MATH_H:String = "math.h documentation";
 
      /** not supported */
-     public const SETJMP_H:String = "setjmp.h not supported";
+     //public const SETJMP_H:String = "setjmp.h not supported";
 
      /** not supported */
-     public const SIGNAL_H:String = "signal.h not supported";
+     //public const SIGNAL_H:String = "signal.h not supported";
 
      /** not supported */
-     public const STDARG_H:String = "stdarg.h not supported";
+     //public const STDARG_H:String = "stdarg.h not supported";
 
      /** not supported */
-     public const STDDEF_H:String = "stddef.h not supported";
+     //public const STDDEF_H:String = "stddef.h not supported";
 
      /**
       * stdio.h - standard buffered input/output
@@ -215,7 +220,7 @@ package C
       * @see http://www.acm.uiuc.edu/webmonkeys/book/c_guide/2.12.html
       * @see http://beej.us/guide/bgc/output/html/multipage/stdio.html
       */
-     public const STDIO_H:String = "stdio.h documentation";
+     //public const STDIO_H:String = "stdio.h documentation";
 
      /**
       * stdlib.h - standard library definitions
@@ -234,7 +239,7 @@ package C
       * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/stdlib.h.html
       * @see http://www.acm.uiuc.edu/webmonkeys/book/c_guide/2.13.html
       */
-     public const STDLIB_H:String = "stdlib.h documentation";
+     //public const STDLIB_H:String = "stdlib.h documentation";
 
      /**
       * string.h - string operations
@@ -254,7 +259,7 @@ package C
       * @see http://en.wikipedia.org/wiki/String.h
       * @see http://www.acm.uiuc.edu/webmonkeys/book/c_guide/2.14.html
       */
-     public const STRING_H:String = "string.h documentation";
+     //public const STRING_H:String = "string.h documentation";
 
      /**
       * time.h - time types
@@ -274,6 +279,23 @@ package C
       * @see http://en.wikipedia.org/wiki/Assert.h
       * @see http://www.acm.uiuc.edu/webmonkeys/book/c_guide/2.15.html
       */
-     public const TIME_H:String = "time.h documentation";
+     //public const TIME_H:String = "time.h documentation";
+
+    /**
+     * A C Main class.
+     * 
+     * <p>
+     * <b>Documentation Stub:</b>
+     * this definition is here only for documentation purpose.
+     * </p>
+     */
+    public class CMain
+    {
+
+        public function CMain()
+        {
+
+        }
+    }
 
 }
