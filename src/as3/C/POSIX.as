@@ -4,10 +4,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+// DOCUMENTATION ONLY - DO NOT COMPILE IN ABC
 package C
 {
     /**
      * C POSIX Library.
+     * 
+     * <p>
+     * <b>Documentation Stub:</b>
+     * this definition is here only for documentation purpose.
+     * </p>
      *
      * <p>
      * <b>POSIX.1</b> documentation.
@@ -53,7 +59,7 @@ package C
      * @see http://code.google.com/p/redtamarin/wiki/clib
      * @see http://en.wikipedia.org/wiki/POSIX
      */
-	public const POSIX:uint = 1;
+    public const POSIX:String = "POSIX.1-2008 API";
 
      /**
       * sys/stat.h - data returned by the <code>stat()</code> function
@@ -72,7 +78,7 @@ package C
       * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/sys_stat.h.html
       * @see http://en.wikibooks.org/wiki/C_Programming/POSIX_Reference/sys/stat.h
       */
-     public const SYS_STAT_H:String = "sys/stat.h documentation";
+     //public const SYS_STAT_H:String = "sys/stat.h documentation";
 
      /**
       * unistd.h - standard symbolic constants and types
@@ -91,5 +97,5 @@ package C
       * @see http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/unistd.h.html
       * @see http://en.wikipedia.org/wiki/Unistd.h
       */
-     public const UNISTD_H:String = "unistd.h documentation";
+     //public const UNISTD_H:String = "unistd.h documentation";
 }
