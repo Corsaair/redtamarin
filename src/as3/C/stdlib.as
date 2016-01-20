@@ -137,13 +137,13 @@ package C.stdlib
      * 
      * @langversion 3.0
      * @playerversion AVM 0.4
-     *
-     * @private
-     * we can not directly hook to the native function atexit()
-     * because our code run inside a VM!
      */
     public function abort():void
     {
+        /* Note:
+           we can not directly hook to the native function atexit()
+           because our code run inside a VM!
+        */
         Program.abort();
     }
     
@@ -205,15 +205,15 @@ package C.stdlib
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see C.stdlib#exit()
+     * @see C.stdlib#exit() exit()
      * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/atexit.html
-     *
-     * @private
-     * we can not directly hook to the native function atexit()
-     * because our code run inside a VM!
      */
     public function atexit( f:Function ):int
     {
+        /* Note:
+           we can not directly hook to the native function atexit()
+           because our code run inside a VM!
+        */
         try
         {
             Program.AVM2::atExit( f );
