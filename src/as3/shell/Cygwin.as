@@ -37,6 +37,12 @@ package shell
      * and you want to use "/bin/bash" instead of the default "cmd.exe".
      * </p>
      * 
+     * <p>
+     * <b>Note:</b> This class is only for Windows,
+     * even if you can instanciate it from Linux or Mac OS X,
+     * any properties or method calls will result in a no-op.
+     * </p>
+     * 
      * <listing>
      * import shell.Cygwin;
      * 
@@ -229,6 +235,7 @@ package shell
          * 
          * @langversion 3.0
          * @playerversion AVM 0.4.1
+         * @playerversion WIN +
          */
         public static function get isAvailable():Boolean
         {
@@ -244,6 +251,7 @@ package shell
          * 
          * @langversion 3.0
          * @playerversion AVM 0.4.1
+         * @playerversion WIN +
          */
         public static function get installDirectory():String
         {
@@ -265,6 +273,7 @@ package shell
          * 
          * @langversion 3.0
          * @playerversion AVM 0.4.1
+         * @playerversion WIN +
          */
         public static function get shell():String
         {
@@ -308,6 +317,7 @@ package shell
          * 
          * @langversion 3.0
          * @playerversion AVM 0.4.1
+         * @playerversion WIN +
          */
         public static function addToEnvironment():void
         {
@@ -337,10 +347,12 @@ package shell
          * 
          * @langversion 3.0
          * @playerversion AVM 0.4.1
+         * @playerversion WIN +
          */
         public static function forceInstallDirectory( path:String ):void
         {
-            if( FileSystem.exists( path ) )
+            if( (Runtime.platform == "windows") &&
+                FileSystem.exists( path ) )
             {
                 _availability = "true";
                 _isAvailable  = true;
@@ -364,12 +376,16 @@ package shell
          * 
          * @langversion 3.0
          * @playerversion AVM 0.4.1
+         * @playerversion WIN +
          */
         public static function forceShell( path:String ):void
         {
-            //setenv( "SHELL", path );
-            putenv( "SHELL=" + path );
-            _shell = _getCygwinShell();
+            if( isAvailable )
+            {
+                //setenv( "SHELL", path );
+                putenv( "SHELL=" + path );
+                _shell = _getCygwinShell();
+            }
         }
 
         /**
@@ -393,6 +409,7 @@ package shell
          * 
          * @langversion 3.0
          * @playerversion AVM 0.4.1
+         * @playerversion WIN +
          */
         public static function open( command:String ):String
         {
