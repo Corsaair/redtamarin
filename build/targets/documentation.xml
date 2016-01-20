@@ -127,7 +127,7 @@
 			<doc-sources path-element="${basedir}/src/core/PromiseChannel.as" />
 
 			<!-- fast memory opcodes -->
-			<doc-sources path-element="${basedir}/src/as3/avm2/intrinsics/memory.as" />
+<!-- DOC --><doc-sources path-element="${basedir}/src/as3/avm2/intrinsics/memory.as" />
 			
 
 
@@ -138,7 +138,7 @@
 
 
 			<!-- clib documentation -->
-			<!-- <doc-sources path-element="${basedir}/src/as3/C/ISO_C.as" /> -->
+<!-- DOC --><doc-sources path-element="${basedir}/src/as3/C/ISO_C.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/globals.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/assert.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/ctype.as" />
@@ -152,7 +152,7 @@
 			<doc-sources path-element="${basedir}/src/as3/C/string.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/time.as" />
 
-			<!-- <doc-sources path-element="${basedir}/src/as3/C/POSIX.as" /> -->
+<!-- DOC --><doc-sources path-element="${basedir}/src/as3/C/POSIX.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/arpa/inet.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/conio.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/cpio.as" />
@@ -196,6 +196,7 @@
 
 			
 			<!-- avmglue documentation -->
+<!-- DOC --><doc-sources path-element="${basedir}/src/as3/flash/platform.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/accessibility/ISearchableText.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/accessibility/ISimpleTextSelection.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/accessibility/Accessibility.as" />
