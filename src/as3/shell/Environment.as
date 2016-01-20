@@ -28,11 +28,11 @@ package shell
      * }
      * </listing>
      * 
-     * @langversion 3.0
      * @playerversion AVM 0.4.1
      * 
+     * @langversion 3.0
      * @see shell.Program#environment Program.environment
-     * @see C.stdlib#execve execve()
+     * @see http://www.dwheeler.com/secure-programs/Secure-Programs-HOWTO/environment-variables.html Secure Programming HOWTO 5.4. Environment Variables
      */
     public dynamic class Environment extends Proxy
     {
@@ -59,6 +59,8 @@ package shell
          * 
          * @langversion 3.0
          * @playerversion AVM 0.4.1
+         * 
+         * @see C.unistd#execve()
          */
         public function Environment( synchronise:Boolean = false,
                                      allowEmpty:Boolean = false,
@@ -356,8 +358,33 @@ package shell
          * Format is <code>[ "NAME=value", ... ]</code>.
          * </p>
          * 
+	     * @example Pass modified environment variables to another process
+	     * <listing>
+	     * import C.unistd.&#42;;
+	     * 
+	     * // we obtain a snapshot of our current env vars
+	     * var env:Environment = new Environment();
+	     * 
+	     * // we delete what we don't need
+	     * delete env.USER;
+	     * delete env.LOGNAME;
+	     * delete env.HOME;
+	     * delete env.SHELL;
+	     * 
+	     * // we can also add new ones
+	     * env.GATEWAY_INTERFACE = "CGI/1.1";
+	     * env.HTTP_HOST = "www.as3lang.org";
+	     * // etc.
+	     * 
+	     * // then we pass those env vars to a new process
+	     * execve( "someprogram", [ "-arg1", "-arg2" ], env.toArray() );
+	     * 
+	     * </listing>
+         * 
          * @langversion 3.0
          * @playerversion AVM 0.4.1
+         * 
+         * @see C.unistd#execve()
          */
         public function toArray():Array
         {
