@@ -67,7 +67,6 @@ include "as3/AVM2.as";
 
 /* C standard library for AS3 */
 
-//include "as3/C/ISO_C.as";
 include "as3/C/globals.as";
 include "as3/C/assert.as"; //not implemented
 include "as3/C/ctype.as";
@@ -85,7 +84,7 @@ include "as3/C/stdlib.as";
 include "as3/C/string.as";
 include "as3/C/time.as";
 
-//include "as3/C/POSIX.as";
+
 include "as3/C/arpa/inet.as";
 include "as3/C/conio.as";
 include "as3/C/cpio.as";
@@ -116,6 +115,7 @@ include "as3/C/unistd.as";
 //include "as3/C/socket.as"; //deprecated
 
 
+
 /* redtamarin native library */
 
 include "as3/shell/Program.as";
@@ -143,6 +143,8 @@ include "as3/readLine.as";
 
 //redtamarin boot sequence
 include "as3/shell/boot.as";
+
+
 
 /* avmglue library */
 
@@ -268,7 +270,6 @@ include "as3/shell/boot.as";
 
 //-- com.adobe.viewsource --
 //ViewSource
-
 
 
 //-- flash.accessibility --
