@@ -241,7 +241,7 @@ package C.stdio
      * @playerversion AVM 0.4
      * 
      * @see FILE
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/clearerr.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/clearerr.html clearerr (POSIX)
      */
     [native("::avmshell::CStdioClass::clearerr")]
     public native function clearerr( stream:FILE ):void;
@@ -314,8 +314,8 @@ package C.stdio
      * @see C.errno#ENOSPC
      * @see C.errno#EPIPE
      * @see C.errno#ENXIO
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fclose.html
-     * @see http://beej.us/guide/bgc/output/html/multipage/fclose.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fclose.html fclose (POSIX)
+     * @see http://beej.us/guide/bgc/output/html/multipage/fclose.html fclose (Beej Guide)
      */
     [native("::avmshell::CStdioClass::fclose")]
     public native function fclose( stream:FILE ):int;
@@ -330,7 +330,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fdopen.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fdopen.html fdopen (POSIX)
      */
     [native("::avmshell::CStdioClass::fdopen")]
     public native function fdopen( fildes:int, mode:String ):FILE;
@@ -345,7 +345,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/feof.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/feof.html feof (POSIX)
      */
     [native("::avmshell::CStdioClass::feof")]
     public native function feof( stream:FILE ):int;
@@ -360,7 +360,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/ferror.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/ferror.html ferror (POSIX)
      */
     [native("::avmshell::CStdioClass::ferror")]
     public native function ferror( stream:FILE ):int;
@@ -375,7 +375,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fflush.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fflush.html fflush (POSIX)
      */
     [native("::avmshell::CStdioClass::fflush")]
     public native function fflush( stream:FILE ):int;
@@ -464,8 +464,8 @@ package C.stdio
      * @see C.errno#EOVERFLOW
      * @see C.errno#ENOMEM
      * @see C.errno#ENXIO
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fgetc.html
-     * @see http://beej.us/guide/bgc/output/html/multipage/getc.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fgetc.html fgetc (POSIX)
+     * @see http://beej.us/guide/bgc/output/html/multipage/getc.html getc (Beej Guide)
      */
     [native("::avmshell::CStdioClass::fgetc")]
     public native function fgetc( stream:FILE ):int;
@@ -531,8 +531,8 @@ package C.stdio
      * @see C.errno#EBADF
      * @see C.errno#EOVERFLOW
      * @see C.errno#ESPIPE
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fgetpos.html
-     * @see http://beej.us/guide/bgc/output/html/multipage/fgetpos.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fgetpos.html fgetpos (POSIX)
+     * @see http://beej.us/guide/bgc/output/html/multipage/fgetpos.html fgetpos (Beej Guide)
      */
     [native("::avmshell::CStdioClass::fgetpos")]
     public native function fgetpos( stream:FILE, pos:fpos_t ):int;
@@ -606,8 +606,8 @@ package C.stdio
      * @see C.errno#EOVERFLOW
      * @see C.errno#ENOMEM
      * @see C.errno#ENXIO
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fgets.html
-     * @see http://beej.us/guide/bgc/output/html/multipage/gets.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fgets.html fgets (POSIX)
+     * @see http://beej.us/guide/bgc/output/html/multipage/gets.html gets (Beej Guide)
      */
     [native("::avmshell::CStdioClass::fgets")]
     public native function fgets( n:int, stream:FILE ):String;
@@ -645,7 +645,7 @@ package C.stdio
      * 
      * @see FILE
      * @see C.errno#EBADF
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fileno.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fileno.html fileno (POSIX)
      */
     [native("::avmshell::CStdioClass::fileno")]
     public native function fileno( stream:FILE ):int;
@@ -784,7 +784,7 @@ package C.stdio
      * @see C.errno#EROFS
      * @see C.errno#EINVAL
      * @see C.errno#ETXTBSY
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fopen.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fopen.html fopen (POSIX)
      */
     [native("::avmshell::CStdioClass::fopen")]
     public native function fopen( pathname:String, mode:String ):FILE;
@@ -795,7 +795,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fputc.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fputc.html fputc (POSIX)
      */
     [native("::avmshell::CStdioClass::fputc")]
     public native function fputc( c:int, stream:FILE ):int;
@@ -852,7 +852,7 @@ package C.stdio
      * @see C.errno#EAGAIN
      * @see C.errno#EBADF
      * @see C.errno#EFBIG
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fputs.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fputs.html fputs (POSIX)
      */
     [native("::avmshell::CStdioClass::fputs")]
     public native function fputs( s:String, stream:FILE ):int;
@@ -957,7 +957,7 @@ package C.stdio
      * @see C.errno#EOVERFLOW
      * @see C.errno#ENOMEM
      * @see C.errno#ENXIO
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fread.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fread.html fread (POSIX)
      */
     [native("::avmshell::CStdioClass::fread")]
     public native function fread( bytes:ByteArray, nitems:int, stream:FILE ):int;
@@ -968,7 +968,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/freopen.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/freopen.html freopen (POSIX)
      */
     [native("::avmshell::CStdioClass::freopen")]
     public native function freopen( pathname:String, mode:String, stream:FILE ):FILE;
@@ -1076,8 +1076,8 @@ package C.stdio
      * @see C.errno#EPIPE
      * @see C.errno#ESPIPE
      * @see C.errno#ENXIO
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fseek.html
-     * @see http://beej.us/guide/bgc/output/html/multipage/fseek.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fseek.html fseek (POSIX)
+     * @see http://beej.us/guide/bgc/output/html/multipage/fseek.html fseek (Beej Guide)
      */
     [native("::avmshell::CStdioClass::fseek")]
     public native function fseek( stream:FILE, offset:Number, whence:int ):int;
@@ -1122,8 +1122,8 @@ package C.stdio
      * @see C.errno#EAGAIN
      * @see C.errno#EBADF
      * @see C.errno#EFBIG
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fsetpos.html
-     * @see http://beej.us/guide/bgc/output/html/multipage/fgetpos.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fsetpos.html fsetpos (POSIX)
+     * @see http://beej.us/guide/bgc/output/html/multipage/fgetpos.html fgetpos (Beej Guide)
      */
     [native("::avmshell::CStdioClass::fsetpos")]
     public native function fsetpos( stream:FILE, pos:fpos_t ):int;
@@ -1156,7 +1156,7 @@ package C.stdio
      * @see C.errno#EBADF
      * @see C.errno#EOVERFLOW
      * @see C.errno#ESPIPE
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/ftell.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/ftell.html ftell (POSIX)
      */
     [native("::avmshell::CStdioClass::ftell")]
     public native function ftell( stream:FILE ):Number;
@@ -1191,7 +1191,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fwrite.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/fwrite.html fwrite (POSIX)
      */
     [native("::avmshell::CStdioClass::fwrite")]
     public native function fwrite( bytes:ByteArray, nitems:int, stream:FILE ):int;
@@ -1202,7 +1202,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/getc.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/getc.html getc (POSIX)
      */
     public function getc( stream:FILE ):int
     {
@@ -1215,7 +1215,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/getchar.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/getchar.html getchar (POSIX)
      */
     [native("::avmshell::CStdioClass::getchar")]
     public native function getchar():int;
@@ -1226,7 +1226,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/getc.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/getc.html getc (POSIX)
      */
     public function getc_unlocked( stream:FILE ):int
     {
@@ -1239,7 +1239,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/getchar.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/getchar.html getchar (POSIX)
      */
     public function getchar_unlocked():int
     {
@@ -1273,7 +1273,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/pclose.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/pclose.html pclose (POSIX)
      */
     [native("::avmshell::CStdioClass::pclose")]
     public native function pclose( stream:FILE ):int;
@@ -1284,7 +1284,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/perror.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/perror.html perror (POSIX)
      */
     [native("::avmshell::CStdioClass::perror")]
     public native function perror( s:String = "" ):void;
@@ -1296,7 +1296,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/popen.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/popen.html popen (POSIX)
      */
     [native("::avmshell::CStdioClass::popen")]
     public native function popen( command:String, mode:String ):FILE;
@@ -1352,7 +1352,7 @@ package C.stdio
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/remove.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/remove.html remove (POSIX)
      */
     [native("::avmshell::CStdioClass::remove")]
     public native function remove( path:String ):int;
@@ -1408,7 +1408,7 @@ package C.stdio
      * @see C.errno#ENOTEMPTY
      * @see C.errno#EINVAL
      * @see C.errno#EIO
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/rename.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/rename.html rename (POSIX)
      */
     [native("::avmshell::CStdioClass::rename")]
     public native function rename( oldname:String, newname:String ):int;
@@ -1461,7 +1461,7 @@ package C.stdio
      * @see C.errno#EPIPE
      * @see C.errno#ESPIPE
      * @see C.errno#ENXIO
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/rewind.html
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/functions/rewind.html rewind (POSIX)
      */
     [native("::avmshell::CStdioClass::rewind")]
     public native function rewind( stream:FILE ):void;
@@ -1573,50 +1573,5 @@ package C.stdio
     {
 
     }
-
-
-
-
-    
-
-    //NONSTANDARD - RedTamarin Extension to ISO C standard.
-    /**
-     * Change the console stream mode to blocking or non-blocking.
-     * 
-     * @productversion redtamarin 0.3
-     * @since 0.3.2
-     */
-    /*public function con_stream_mode( state:int ):void
-    {
-        return __stdio.con_stream_mode( state );
-    }*/
-
-    //NONSTANDARD - RedTamarin Extension to ISO C standard.
-    /**
-     * Change the console translation mode to binary or text.
-     * 
-     * @productversion redtamarin 0.3
-     * @since 0.3.2
-     */
-    /*public function con_trans_mode( state:int ):void
-    {
-        return __stdio.con_trans_mode( state );
-    }*/
-
-    //NONSTANDARD - RedTamarin Extension to ISO C standard.
-    /*
-     * Checks the console for keyboard input.
-     * 
-     * @productversion redtamarin 0.3
-     * @since 0.3.2
-     */
-    /*public function kbhit():int
-    {
-        return __stdio.kbhit();
-    }*/
-
-
-
-
 
 }
