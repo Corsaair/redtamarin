@@ -235,9 +235,9 @@ package flash.utils
      *   <li>For each method of the class, the name, number of parameters, return type, and parameter types</li>
      * </ul>
      * 
-	 * @playerversion Flash 9
-	 * @playerversion AIR 1.0
-	 * @langversion 3.0
+     * @playerversion Flash 9
+     * @playerversion AIR 1.0
+     * @langversion 3.0
      *
      * @see flash.utils#getQualifiedClassName() getQualifiedClassName()
      * @see flash.utils#getQualifiedSuperclassName() getQualifiedSuperclassName()
