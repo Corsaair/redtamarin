@@ -82,7 +82,7 @@
   environment like running as CGI
 - fixed C.stdlib.exec() asdoc
 - fixed C package
-  implemenation of argc, arv and environ have changed
+  implementation of argc, arv and environ have changed
   and now the doc is showing in asdoc
   note: we need to sync changes with as3shebang
 - updated Redtamarin asdoc main page

@@ -1142,7 +1142,7 @@ else if( window.attachEvent ) // Microsoft
 									</a>
 								</xsl:if>
 								<xsl:if test="$config/feedback[@type='livedocs']">
-									<a href="http://code.google.com/p/redtamarin/issues/list" target="_blank">
+									<a href="http://github.com/Corsaair/redtamarin/issues" target="_blank">
 										<xsl:value-of select="$config/feedback/feedbackLiveDocs/label/."/>
 									</a>
 								</xsl:if>
@@ -1161,7 +1161,7 @@ else if( window.attachEvent ) // Microsoft
 			<div class="feedbackLink">
 				<center>
 					<xsl:if test="$config/feedback[@type='livedocs']">
-						<a href="http://code.google.com/p/redtamarin/issues/list" target="_blank">
+						<a href="http://github.com/Corsaair/redtamarin/issues" target="_blank">
 							<xsl:value-of select="$config/feedback/feedbackLiveDocs/label/."/>
 						</a>
 					</xsl:if>

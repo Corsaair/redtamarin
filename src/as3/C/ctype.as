@@ -51,6 +51,9 @@ package C.ctype
         public native static function _avm_toupper( c:int ):int;
     }
 
+    /** @internal */
+    public const ASDOC:int = 1;
+
     /** 
      * Test for an alphanumeric character.
      *
