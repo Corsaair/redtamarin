@@ -34,7 +34,7 @@
   <feedback show="true" type="livedocs">
     <feedbackLiveDocs>
       <label>File a Bug Report or a Feature Request</label>
-      <url>http://code.google.com/p/redtamarin/issues/list</url>
+      <url>http://github.com/Corsaair/redtamarin/issues</url>
       <target>_blank</target>
     </feedbackLiveDocs>
   </feedback>
