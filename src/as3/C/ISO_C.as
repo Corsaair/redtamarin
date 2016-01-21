@@ -47,25 +47,27 @@ package C
      * @langversion 3.0
      * @playerversion AVM 0.4
      * 
-     * @see C.assert
-     * @see C.ctype
-     * @see C.errno
-     * @see C.float
-     * @see C.limits
-     * @see C.locale
-     * @see C.math
-     * @see C.setjmp
-     * @see C.signal
-     * @see C.stdarg
-     * @see C.stddef
-     * @see C.stdio
-     * @see C.stdlib
-     * @see C.string
-     * @see C.time
-     * @see http://pubs.opengroup.org/onlinepubs/9699919799/
-     * @see http://code.google.com/p/redtamarin/wiki/clib
-     * @see http://en.wikipedia.org/wiki/ISO_C
-     * @see http://en.wikipedia.org/wiki/ANSI_C
+     * @see C.assert C.assert (not working / crash)
+     * @see C.ctype C.ctype (implemented)
+     * @see C.errno C.errno (almost implemented)
+     * @see C.float C.float (not planned)
+     * @see C.limits C.limits (almost implemented)
+     * @see C.locale C.locale (not implemented)
+     * @see C.math C.math (not implemented)
+     * @see C.setjmp C.setjmp (not planned)
+     * @see C.signal C.signal (not implemented)
+     * @see C.stdarg C.stdarg (not planned)
+     * @see C.stdbool C.stdbool (not planned)
+     * @see C.stddef C.stddef (not planned)
+     * @see C.stdint C.stdint (not planned)
+     * @see C.stdio C.stdio (almost implemented)
+     * @see C.stdlib C.stdlib (almost implemented)
+     * @see C.string C.string (almost implemented)
+     * @see C.time C.time (not implemented)
+     * @see http://en.wikipedia.org/wiki/C_standard_library C standard library (Wikipedia)
+     * @see http://en.wikipedia.org/wiki/ISO_C ISO C (Wikipedia)
+     * @see http://en.wikipedia.org/wiki/ANSI_C ANSI C (Wikipedia)
+     * @see http://pubs.opengroup.org/onlinepubs/9699919799/ POSIX.1-2008 (The Open Group Base Specifications)
      */
     public const ISO_C:String = "ISO C / ANSI C API";
 
