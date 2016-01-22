@@ -553,6 +553,13 @@ package C.stdio
      * that returns data not supplied by a prior call to <code>ungetc()</code>.
      * </p>
      * 
+     * <p>
+     * <b>Note:</b> There is an important difference between <code>fgets()</code> and <code>fread()</code>,
+     * <code>fgets()</code> read lines and so will read a <code>String</code> till the end of the buffer
+     * or till it encounters a newline char <code>\n</code> or <code>EOF</code>, and so is not fit to read binary files.
+     * While <code>fread()</code> will read anything into a <code>ByteArray</code> and so ca nread binary files.
+     * </p>
+     * 
      * @example Usage
      * <listing>
      * import C.errno.&#42;;
@@ -562,6 +569,7 @@ package C.stdio
      * var fp:FILE = fopen( "hello_world.txt", "r" );
      * 
      * // read a line (100bytes) from the file
+     * // or less if \n or EOF encountered
      * var read:String = fgets( 100, fp );
      * 
      * // if null a read error had occured
