@@ -10,6 +10,87 @@
 namespace avmplus {
 
 //-----------------------------------------------------------
+// C::__c
+//-----------------------------------------------------------
+class __cObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmplus::__cClass;
+    REALLY_INLINE explicit __cObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit __cObject(const __cObject&); // unimplemented
+    void operator=(const __cObject&); // unimplemented
+};
+
+#define avmplus___cObject_isExactInterlock 1
+//-----------------------------------------------------------
+// C::__c$
+//-----------------------------------------------------------
+class __cClass : public avmplus::ClassClosure
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
+public:
+    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+public:
+    inline GCRef<avmplus::__cObject> constructObject()
+    {
+        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(0, args);
+        return GCRef<avmplus::__cObject>((avmplus::__cObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::__cObject> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::__cObject>((avmplus::__cObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::__cObject> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::__cObject>((avmplus::__cObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::__cObject> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::__cObject>((avmplus::__cObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::__cObject> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::__cObject>((avmplus::__cObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    inline explicit __cClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit __cClass(const __cClass&); // unimplemented
+    void operator=(const __cClass&); // unimplemented
+};
+
+#define avmplus___cClass_isExactInterlock 1
+//-----------------------------------------------------------
 // C.ctype::__ctype
 //-----------------------------------------------------------
 class __ctypeObject : public avmplus::ScriptObject
@@ -1665,6 +1746,110 @@ private:
 
 #define avmplus_ShellTypeClass_isExactInterlock 1
 //-----------------------------------------------------------
+// shell::Cygwin
+//-----------------------------------------------------------
+class CygwinObject : public avmplus::ScriptObject
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmplus::CygwinClass;
+    REALLY_INLINE explicit CygwinObject(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit CygwinObject(const CygwinObject&); // unimplemented
+    void operator=(const CygwinObject&); // unimplemented
+};
+
+#define avmplus_CygwinObject_isExactInterlock 1
+//-----------------------------------------------------------
+// shell::Cygwin$
+//-----------------------------------------------------------
+class CygwinClass : public avmplus::ClassClosure
+{
+    GC_DECLARE_EXACT_METHODS
+public:
+    static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable);
+public:
+    static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*);
+public:
+    AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); )
+private:
+    AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
+public:
+    inline GCRef<avmplus::CygwinObject> constructObject()
+    {
+        avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(0, args);
+        return GCRef<avmplus::CygwinObject>((avmplus::CygwinObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::CygwinObject> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::CygwinObject>((avmplus::CygwinObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::CygwinObject> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::CygwinObject>((avmplus::CygwinObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::CygwinObject> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::CygwinObject>((avmplus::CygwinObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::CygwinObject> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::CygwinObject>((avmplus::CygwinObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    REALLY_INLINE bool get__isAvailable() const { return m_slots_CygwinClass.m_private__isAvailable != 0; }
+    REALLY_INLINE void set__isAvailable(avmplus::bool32 newVal) { m_slots_CygwinClass.m_private__isAvailable = newVal; }
+protected:
+    REALLY_INLINE bool get__addedToEnvironment() const { return m_slots_CygwinClass.m_private__addedToEnvironment != 0; }
+    REALLY_INLINE void set__addedToEnvironment(avmplus::bool32 newVal) { m_slots_CygwinClass.m_private__addedToEnvironment = newVal; }
+protected:
+    REALLY_INLINE avmplus::String* get_CYGWIN_REGISTRY() const { return m_slots_CygwinClass.m_private_CYGWIN_REGISTRY; }
+    REALLY_INLINE void setconst_CYGWIN_REGISTRY(avmplus::String* newVal) { m_slots_CygwinClass.m_private_CYGWIN_REGISTRY = newVal; }
+protected:
+    REALLY_INLINE avmplus::String* get_CYGWIN_ROOT() const { return m_slots_CygwinClass.m_private_CYGWIN_ROOT; }
+    REALLY_INLINE void setconst_CYGWIN_ROOT(avmplus::String* newVal) { m_slots_CygwinClass.m_private_CYGWIN_ROOT = newVal; }
+protected:
+    REALLY_INLINE avmplus::String* get__availability() const { return m_slots_CygwinClass.m_private__availability; }
+    REALLY_INLINE void set__availability(avmplus::String* newVal) { m_slots_CygwinClass.m_private__availability = newVal; }
+protected:
+    REALLY_INLINE avmplus::String* get__installDirectory() const { return m_slots_CygwinClass.m_private__installDirectory; }
+    REALLY_INLINE void set__installDirectory(avmplus::String* newVal) { m_slots_CygwinClass.m_private__installDirectory = newVal; }
+protected:
+    REALLY_INLINE avmplus::String* get__shell() const { return m_slots_CygwinClass.m_private__shell; }
+    REALLY_INLINE void set__shell(avmplus::String* newVal) { m_slots_CygwinClass.m_private__shell = newVal; }
+private:
+    avmplus::NativeID::avmplus_CygwinClassSlots m_slots_CygwinClass;
+protected:
+    inline explicit CygwinClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit CygwinClass(const CygwinClass&); // unimplemented
+    void operator=(const CygwinClass&); // unimplemented
+};
+
+#define avmplus_CygwinClass_isExactInterlock 1
+//-----------------------------------------------------------
 // shell::Environment
 //-----------------------------------------------------------
 class EnvironmentObject : public avmplus::ProxyObject
@@ -1676,6 +1861,12 @@ private:
     AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
 private:
     friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    REALLY_INLINE bool get__synchronise() const { return m_slots_EnvironmentObject.m_private__synchronise != 0; }
+    REALLY_INLINE void set__synchronise(avmplus::bool32 newVal) { m_slots_EnvironmentObject.m_private__synchronise = newVal; }
+protected:
+    REALLY_INLINE bool get__allowEmpty() const { return m_slots_EnvironmentObject.m_private__allowEmpty != 0; }
+    REALLY_INLINE void set__allowEmpty(avmplus::bool32 newVal) { m_slots_EnvironmentObject.m_private__allowEmpty = newVal; }
 protected:
     REALLY_INLINE avmplus::ArrayObject* get__vars() const { return m_slots_EnvironmentObject.m_private__vars; }
     REALLY_INLINE void set__vars(avmplus::ArrayObject* newVal) { m_slots_EnvironmentObject.m_private__vars = newVal; }
@@ -1711,6 +1902,24 @@ public:
 private:
     AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } )
 public:
+    inline GCRef<avmplus::EnvironmentObject> constructObject(bool arg1, bool arg2, GCRef<avmplus::ArrayObject> arg3)
+    {
+        avmplus::Atom args[4] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), ((arg1) ? trueAtom : falseAtom), ((arg2) ? trueAtom : falseAtom), arg3.reinterpretCast<avmplus::ScriptObject>()->atom() };
+        avmplus::Atom const result = this->construct(3, args);
+        return GCRef<avmplus::EnvironmentObject>((avmplus::EnvironmentObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    inline GCRef<avmplus::EnvironmentObject> constructObject(bool arg1, bool arg2)
+    {
+        avmplus::Atom args[3] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), ((arg1) ? trueAtom : falseAtom), ((arg2) ? trueAtom : falseAtom) };
+        avmplus::Atom const result = this->construct(2, args);
+        return GCRef<avmplus::EnvironmentObject>((avmplus::EnvironmentObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    inline GCRef<avmplus::EnvironmentObject> constructObject(bool arg1)
+    {
+        avmplus::Atom args[2] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom(), ((arg1) ? trueAtom : falseAtom) };
+        avmplus::Atom const result = this->construct(1, args);
+        return GCRef<avmplus::EnvironmentObject>((avmplus::EnvironmentObject*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
     inline GCRef<avmplus::EnvironmentObject> constructObject()
     {
         avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() };
