@@ -662,6 +662,12 @@ int VMPI_kbhit()
 {
     return _kbhit();
 }
+
+bool VMPI_setBinaryMode(int fd, bool binary)
+{
+    int mode = binary ? _O_BINARY : _O_TEXT;
+    return _setmode( fd, mode ) != _O_TEXT;
+}
 // ---- C.conio ---- END
 
 

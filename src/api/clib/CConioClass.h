@@ -22,6 +22,7 @@ namespace avmshell
         //static int getch(ScriptObject*);
         //static int getche(ScriptObject*);
         static int kbhit(ScriptObject*);
+        static bool set_binary_mode(ScriptObject*, int fd, bool binary);
 
         //DECLARE_SLOTS_CConioClass;
     };

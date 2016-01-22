@@ -46,4 +46,9 @@ namespace avmshell
         return VMPI_kbhit();
     }
 
+    /*static*/ bool CConioClass::set_binary_mode(ScriptObject*, int fd, bool binary)
+    {
+        return VMPI_setBinaryMode( fd, binary );
+    }
+
 }

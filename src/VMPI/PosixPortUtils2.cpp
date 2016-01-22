@@ -367,6 +367,13 @@ int VMPI_kbhit()
     select(STDIN_FILENO+1, &fds, NULL, NULL, &tv);
     return FD_ISSET(STDIN_FILENO, &fds);
 }
+
+bool VMPI_setBinaryMode(int fd, bool binary)
+{
+    (void)fd;
+    (void)binary;
+    return true;
+}
 // ---- C.conio ---- END
 
 

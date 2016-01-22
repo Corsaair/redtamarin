@@ -222,6 +222,7 @@ extern void VMPI_echo(bool status);
 //extern int VMPI_getch();
 //extern int VMPI_getche();
 extern int VMPI_kbhit();
+extern bool VMPI_setBinaryMode(int fd, bool binary);
 // ---- C.conio ---- END
 
 

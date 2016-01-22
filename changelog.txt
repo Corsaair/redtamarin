@@ -104,6 +104,9 @@
 - fully implemented shell.Environment features
 - added a new property Program.environment
   which returns a synchronised Environment instance
+- edited a lot of asdoc
+- added binary_mode() in C.conio
+  
 
 * 0.4.0 Akihabara (from tag 1T174)
 - release
