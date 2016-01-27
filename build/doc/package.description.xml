@@ -32,6 +32,13 @@
             &lt;br&gt;
             &lt;br&gt;
             Please read the &lt;a href="https://github.com/Corsaair/redtamarin/wiki/Documentation" target="_blank"&gt;Wiki Documentation&lt;/a&gt; for more detailled informations.&lt;br&gt;
+            &lt;br&gt;
+            &lt;b&gt;Documentation Stub:&lt;/b&gt;
+            the definition is only available in asdoc, not in the ABC or SWC.&lt;br&gt;
+            &lt;br&gt;
+            &lt;b&gt;Documentation Signature:&lt;/b&gt;
+            the definition shown in asdoc is differently implemented in the ABC or SWC.&lt;br&gt;
+            &lt;br&gt;
         ]]></description>
     </all-packages>
     <packages>
