@@ -139,7 +139,8 @@
 
 			<!-- clib documentation -->
 <!-- DOC --><doc-sources path-element="${basedir}/src/as3/C/ISO_C.as" />
-			<doc-sources path-element="${basedir}/src/as3/C/globals.as" />
+			<!-- <doc-sources path-element="${basedir}/src/as3/C/globals.as" /> -->
+<!-- DOC --><doc-sources path-element="${basedir}/src/as3/C/globals_asdoc.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/assert.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/ctype.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/errno.as" />
@@ -155,7 +156,9 @@
 <!-- DOC --><doc-sources path-element="${basedir}/src/as3/C/POSIX.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/arpa/inet.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/conio.as" />
+<!-- DOC --><doc-sources path-element="${basedir}/src/as3/C/conio_asdoc.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/cpio.as" />
+<!-- DOC --><doc-sources path-element="${basedir}/src/as3/C/cpio_asdoc.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/dirent.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/fcntl.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/netdb.as" />
