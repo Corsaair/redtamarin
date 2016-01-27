@@ -85,6 +85,10 @@
   implementation of argc, arv and environ have changed
   and now the doc is showing in asdoc
   note: we need to sync changes with as3shebang
+  DON'T DO THAT
+  see https://github.com/Corsaair/redtamarin/issues/58
+- duplicated asdoc for src/as3/C/globals.as
+  see: https://github.com/Corsaair/redtamarin/wiki/specific-asdoc-for-Redtamarin
 - updated Redtamarin asdoc main page
   logo, link to wiki doc etc.
   and basic descriptions
@@ -105,7 +109,9 @@
 - added a new property Program.environment
   which returns a synchronised Environment instance
 - edited a lot of asdoc
-- added binary_mode() in C.conio
+- added set_binary_mode() in C.conio
+- rewrite some asdoc
+  set some rules for special cases
   
 
 * 0.4.0 Akihabara (from tag 1T174)
