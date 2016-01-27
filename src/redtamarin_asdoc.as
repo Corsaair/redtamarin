@@ -16,6 +16,7 @@
 // CLIB
 include "as3/C/ISO_C.as";
 include "as3/C/POSIX.as";
+include "as3/C/globals_asdoc.as";
 
 // RNL
 
