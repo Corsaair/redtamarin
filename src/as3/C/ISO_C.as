@@ -283,21 +283,4 @@ package C
       */
      //public const TIME_H:String = "time.h documentation";
 
-    /**
-     * A C Main class.
-     * 
-     * <p>
-     * <b>Documentation Stub:</b>
-     * this definition is here only for documentation purpose.
-     * </p>
-     */
-    public class CMain
-    {
-
-        public function CMain()
-        {
-
-        }
-    }
-
 }
