@@ -190,14 +190,5 @@ package C.cpio
 	 */
 	public const MAGIC:String = "070707";
 	
-    /**
-     * @private
-     * only here for asdocs
-     */
-    [Inspectable(environment="none")]
-    internal function dummy():void
-    {
-        //do nothing
-    }
 
 }
