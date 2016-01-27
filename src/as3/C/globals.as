@@ -8,31 +8,6 @@ package C
 {
     import shell.Program;
 
-    /** @internal */
-    [Inspectable(environment="none")]
-    internal class __c
-    {
-
-        public static function getArgc():uint
-        {
-            return Program.argv.length + 1;
-        }
-
-        public static function getArgv():Array
-        {
-            var args:Array = [];
-                args.push( Program.filename );
-                args = args.concat( Program.argv );
-
-            return args;
-        }
-
-        public static function getEnviron():Array
-        {
-            return Program.environ;
-        }
-    }
-    
     /**
      * The count of the arguments supplied to the program.
      * 
@@ -89,7 +64,10 @@ package C
      * @see http://en.cppreference.com/w/cpp/language/main_function CPP Reference - C++ Main function
      * @see http://en.cppreference.com/w/c/language/main_function CPP Reference - C Main function
      */
-    public const argc:uint = __c.getArgc();
+    public function get argc():uint
+    {
+        return Program.argv.length + 1;
+    }
 
     /**
      * The array of arguments supplied to the program.
@@ -112,7 +90,14 @@ package C
      * 
      * @see shell.Program#filename Program.filename
      */
-    public const argv:Array = __c.getArgv();
+    public function get argv():Array
+    {
+        var args:Array = [];
+            args.push( Program.filename );
+            args = args.concat( Program.argv );
+
+        return args;
+    }
 
     /**
      * Array of environment variables.
@@ -125,6 +110,9 @@ package C
      * @see http://pubs.opengroup.org/onlinepubs/007908799/xsh/environ.html environ
      * @see http://pubs.opengroup.org/onlinepubs/007908799/xbd/envvar.html Environment Variables
      */
-    public const environ:Array = __c.getEnviron();
+    public function get environ():Array
+    {
+        return Program.environ;
+    }
 
 }
