@@ -1013,7 +1013,8 @@ double VMPI_SystemMemorySize()
         /* Note:
            uint64_t is equivalent to unsigned long long
            and sscanf() would need to use %SCNu64
-           and yes we want to return dobule (Number in AS3)
+           %llu work only on 32-bit but fail in 64-bit
+           and yes we want to return double (Number in AS3)
            to not hit the MAX_UINT32 limit
         */
         uint64_t value = 0;
