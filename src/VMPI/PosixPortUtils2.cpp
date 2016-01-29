@@ -977,12 +977,13 @@ double VMPI_SystemMemorySize()
 
 #else
 
-    //alternative
     /* Note:
-       on a system with 8GB RAM, it reports only 4GB RAM
-       seems (total_ram * mem_unit) can not deal with
-       sizes bigger than MAX_UINT32 eg. 4GB
+       on a Linux Ubuntu system with 8GB RAM, 
+       alternative1 and alternative2
+       reports only around 4GB RAM
     */
+
+    //alternative1
     /*
     struct sysinfo info;
     sysinfo( &info );
@@ -991,12 +992,43 @@ double VMPI_SystemMemorySize()
 
     result_size = (double)(total_ram * mem_unit);
     */
-        
+    
+    //alternative2
+    /*  
     size_t pagesize = (size_t)sysconf( _SC_PAGESIZE );
     size_t pages = (size_t)sysconf( _SC_PHYS_PAGES );
     
     result_size = (double)(pages * pagesize);
-    
+    */
+
+    //the Linux way
+    FILE* fp = fopen( "/proc/meminfo", "r" );
+    if( fp != NULL )
+    {
+        size_t bufsize = 1024 * sizeof(char);
+        char* buf      = (char*)malloc( bufsize );
+        long value     = -1L;
+
+        while( getline( &buf, &bufsize, fp ) >= 0 )
+        {
+            if( strncmp( buf, "MemTotal", 8 ) != 0 )
+            {
+                continue;
+            }
+
+            sscanf( buf, "%*s%ld", &value );
+            break;
+        }
+
+        fclose( fp );
+        free( (void*)buf );
+
+        if( value != -1L )
+        {
+            result_size = (double)((size_t)value * 1024L);
+        }
+    }
+
 #endif
 
     return result_size;
@@ -1027,7 +1059,7 @@ double VMPI_SystemMemoryFree()
 
 #else
 
-    //alternative - limited to max 4GB ?
+    //alternative1
     /*
     struct sysinfo info;
     sysinfo( &info );
@@ -1037,10 +1069,41 @@ double VMPI_SystemMemoryFree()
     result_free = (double)(free_ram * mem_unit);
     */
 
+    //alternative2
+    /*
     size_t pagesize = (size_t)sysconf( _SC_PAGESIZE );
     size_t availpages = (size_t)sysconf( _SC_AVPHYS_PAGES );
     
     result_free = (double)(availpages * pagesize);
+    */
+
+    //the Linux way
+    FILE* fp = fopen( "/proc/meminfo", "r" );
+    if( fp != NULL )
+    {
+        size_t bufsize = 1024 * sizeof(char);
+        char* buf      = (char*)malloc( bufsize );
+        long value     = -1L;
+
+        while( getline( &buf, &bufsize, fp ) >= 0 )
+        {
+            if( strncmp( buf, "MemAvailable", 12 ) != 0 )
+            {
+                continue;
+            }
+
+            sscanf( buf, "%*s%ld", &value );
+            break;
+        }
+
+        fclose( fp );
+        free( (void*)buf );
+
+        if( value != -1L )
+        {
+            result_free = (double)((size_t)value * 1024L);
+        }
+    }
 
 #endif
     
