@@ -1023,9 +1023,9 @@ double VMPI_SystemMemorySize()
         fclose( fp );
         free( (void*)buf );
 
-        printf( "MemTotal1 = %d\n", value );
+        printf( "MemTotal1 = %ld\n", value );
         size_t value2 = (size_t)value * 1024L;
-        printf( "MemTotal2 = %d\n", value2 );
+        printf( "MemTotal2 = %zu\n", value2 );
         double value3 = (double)((size_t)value * 1024L);
         printf( "MemTotal3 = %d\n", value3 );
 
