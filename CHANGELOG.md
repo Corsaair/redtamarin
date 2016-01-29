@@ -142,7 +142,14 @@
   - added `set_binary_mode()` in `C.conio`
 
   - rewrite some asdoc  
-    set some rules for special cases
+    set some rules for special cases  
+    now we use asdoc stubs for cases where  
+    asdoc can not generate the HTML doc  
+    files ending in `_asdoc.as`
+
+  - re-implemented `HardwareInformation` memory usage
+
+  - fixed `FileSystem.isHidden()` for Windows
 
 
 0.4.0 Akihabara (from tag 1T174)
