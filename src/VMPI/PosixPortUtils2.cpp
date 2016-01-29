@@ -1010,7 +1010,7 @@ double VMPI_SystemMemorySize()
     {
         size_t bufsize = 1024 * sizeof(char);
         char* buf      = (char*)malloc( bufsize );
-        long value     = -1L;
+        uint64_t value = 0;
 
         while( getline( &buf, &bufsize, fp ) >= 0 )
         {
@@ -1019,16 +1019,16 @@ double VMPI_SystemMemorySize()
                 continue;
             }
 
-            sscanf( buf, "%*s%ld", &value );
+            sscanf( buf, "%*s%llu", &value );
             break;
         }
 
         fclose( fp );
         free( (void*)buf );
 
-        if( value != -1L )
+        if( value != 0 )
         {
-            result_size = (double)(value * 1024L);
+            result_size = (double)(value * 1024);
         }
     }
 
