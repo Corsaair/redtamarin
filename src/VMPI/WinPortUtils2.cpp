@@ -1674,7 +1674,7 @@ double VMPI_SystemMemoryFree()
     MEMORYSTATUSEX status;
     status.dwLength = sizeof(status);
     GlobalMemoryStatusEx( &status );
-    result_size = (double) status.ullAvailPhys;
+    result_free = (double) status.ullAvailPhys;
 
     return result_free;
 }
