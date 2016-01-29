@@ -1012,7 +1012,7 @@ double VMPI_SystemMemorySize()
         char* buf      = (char*)malloc( bufsize );
         /* Note:
            uint64_t is equivalent to unsigned long long
-           and sscanf() would need to use %llu
+           and sscanf() would need to use %SCNu64
            and yes we want to return dobule (Number in AS3)
            to not hit the MAX_UINT32 limit
         */
@@ -1025,7 +1025,7 @@ double VMPI_SystemMemorySize()
                 continue;
             }
 
-            sscanf( buf, "%*s%llu", &value );
+            sscanf( buf, "%*s%" SCNu64 , &value );
             break;
         }
 
@@ -1101,7 +1101,7 @@ double VMPI_SystemMemoryFree()
                 continue;
             }
 
-            sscanf( buf, "%*s%llu", &value );
+            sscanf( buf, "%*s%" SCNu64, &value );
             break;
         }
 
