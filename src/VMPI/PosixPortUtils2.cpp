@@ -981,6 +981,9 @@ double VMPI_SystemMemorySize()
        on a Linux Ubuntu system with 8GB RAM, 
        alternative1 and alternative2
        reports only around 4GB RAM
+
+       it is because of size_t
+       eg. don't use size_t
     */
 
     //alternative1
@@ -1023,15 +1026,9 @@ double VMPI_SystemMemorySize()
         fclose( fp );
         free( (void*)buf );
 
-        printf( "MemTotal1 = %ld\n", value );
-        size_t value2 = (size_t)value * 1024L;
-        printf( "MemTotal2 = %zu\n", value2 );
-        double value3 = (double)((size_t)value * 1024L);
-        printf( "MemTotal3 = %f\n", value3 );
-
         if( value != -1L )
         {
-            result_size = (double)((size_t)value * 1024L);
+            result_size = (double)(value * 1024L);
         }
     }
 
@@ -1107,7 +1104,7 @@ double VMPI_SystemMemoryFree()
 
         if( value != -1L )
         {
-            result_free = (double)((size_t)value * 1024L);
+            result_free = (double)(value * 1024L);
         }
     }
 
