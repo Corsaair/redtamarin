@@ -16,7 +16,16 @@
     #include <malloc/malloc.h>
     #include <CoreServices/CoreServices.h>
     #include <crt_externs.h>
-#endif //AVMPLUS_MAC
+    #include <mach/vm_statistics.h>
+    #include <mach/mach.h>
+    #include <mach/mach_types.h>
+    #include <mach/mach_init.h>
+    #include <mach/mach_host.h>
+#else
+    #include <sys/sysinfo.h>
+    #include <sys/sysctl.h>
+    #include <sys/types.h>
+#endif
 
 //for termios, ttystate, tcgetattr, ICANON, WMIN, TCSANOW, tcsetattr in C.stdio
 #include <termios.h>
@@ -834,104 +843,268 @@ void VMPI_exitCleanup()
 // ---- shell.Program ---- END
 
 // ---- shell.HardwareInformation ---- 
+
+/*
+double VMPI_getPerformanceClockTicks()
+{
+    return (double)sysconf(_SC_CLK_TCK);
+}
+*/
+
+/* cpu ticks to milliseconds */
+/*
+#define CPU_MSEC 1000L
+#define CPU_TICK2MSEC(s) \
+    ((uint64_t)(s) * ((uint64_t)CPU_MSEC / (double)VMPI_getPerformanceClockTicks()))
+*/
+
+/*
+void VMPI_GatherCPUUsage( double &cpu_kernel, double &cpu_user, double &cpu_nice, double &cpu_idle )
+{
+
+#ifdef AVMPLUS_MAC
+
+    mach_msg_type_number_t count;
+    host_cpu_load_info_data_t cpu_load;
+    mach_port_t mach_port;
+
+    count = HOST_CPU_LOAD_INFO_COUNT;
+    mach_port = mach_host_self();
+
+    if( host_statistics(mach_port, HOST_CPU_LOAD_INFO, 
+      ( host_info_t )&cpu_load, &count ) != KERN_SUCCESS )
+    {
+        cpu_load = host_cpu_load_info_data_t();
+    }
+
+    
+    //unsigned long long current_system = CPU_TICK2MSEC( cpu_load.cpu_ticks[CPU_STATE_SYSTEM] );
+    //unsigned long long current_user   = CPU_TICK2MSEC( cpu_load.cpu_ticks[CPU_STATE_USER] );
+    //unsigned long long current_nice   = CPU_TICK2MSEC( cpu_load.cpu_ticks[CPU_STATE_NICE] );
+    //unsigned long long current_idle   = CPU_TICK2MSEC( cpu_load.cpu_ticks[CPU_STATE_IDLE] );
+    
+    unsigned long long current_system = cpu_load.cpu_ticks[CPU_STATE_SYSTEM];
+    unsigned long long current_user   = cpu_load.cpu_ticks[CPU_STATE_USER];
+    unsigned long long current_nice   = cpu_load.cpu_ticks[CPU_STATE_NICE];
+    unsigned long long current_idle   = cpu_load.cpu_ticks[CPU_STATE_IDLE];
+    
+    cpu_kernel = (double)( current_system );
+    cpu_user   = (double)( current_user );
+    cpu_nice   = (double)( current_nice );
+    cpu_idle   = (double)( current_idle );
+
+#endif
+
+}
+
+double VMPI_SystemCPUUsage()
+{
+    double cpu_used = 0;
+
+#ifdef AVMPLUS_MAC
+
+    mach_msg_type_number_t count;
+    host_cpu_load_info_data_t cpu_load;
+    mach_port_t mach_port;
+
+    count = HOST_CPU_LOAD_INFO_COUNT;
+    mach_port = mach_host_self();
+
+    if( host_statistics(mach_port, HOST_CPU_LOAD_INFO, 
+      ( host_info_t )&cpu_load, &count ) != KERN_SUCCESS )
+    {
+        cpu_load = host_cpu_load_info_data_t();
+    }
+
+    //unsigned long long current_user = cpu_load.cpu_ticks[CPU_STATE_USER];
+    unsigned long long current_system = CPU_TICK2MSEC( cpu_load.cpu_ticks[CPU_STATE_SYSTEM] );
+    //unsigned long long current_nice = cpu_load.cpu_ticks[CPU_STATE_NICE];
+    //unsigned long long current_idle = cpu_load.cpu_ticks[CPU_STATE_IDLE];
+    
+    cpu_used = (double)( current_system );
+
+#endif
+
+    return cpu_used;
+}
+
+double VMPI_UserCPUUsage()
+{
+    double cpu_used = 0;
+
+#ifdef AVMPLUS_MAC
+
+    mach_msg_type_number_t count;
+    host_cpu_load_info_data_t cpu_load;
+    mach_port_t mach_port;
+
+    count = HOST_CPU_LOAD_INFO_COUNT;
+    mach_port = mach_host_self();
+
+    if( host_statistics(mach_port, HOST_CPU_LOAD_INFO, 
+      ( host_info_t )&cpu_load, &count ) != KERN_SUCCESS )
+    {
+        cpu_load = host_cpu_load_info_data_t();
+    }
+
+    unsigned long long current_user = CPU_TICK2MSEC( cpu_load.cpu_ticks[CPU_STATE_USER] );
+    
+    cpu_used = (double)( current_user );
+
+#endif
+
+    return cpu_used;
+}
+*/
+
 double VMPI_SystemMemorySize()
 {
     double result_size = 0;
 
-    /*#if defined(CTL_HW) && defined(HW_MEMSIZE)
-    printf( "---> use CTL_HW\n" );
+#ifdef AVMPLUS_MAC
+    
     int mib[2];
+    int64_t physical_memory;
+    size_t length;
+
     mib[0] = CTL_HW;
     mib[1] = HW_MEMSIZE;
-    
-
-    int64_t size = 0;
-    size_t len = sizeof( size );
-    if( sysctl( mib, 2, &size, &len, NULL, 0 ) == 0 )
+    length = sizeof(int64_t);
+    if( sysctl(mib, 2, &physical_memory, &length, NULL, 0) == 0 )
     {
-        printf( "---> sysctl()\n" );
-        //return (size_t)size;
-        result_size = (size_t)size;
-    }*/
+        result_size = (double)physical_memory;
+    }
+
+#else
+
+    struct sysinfo info;
+    sysinfo( &info );
+    size_t total_ram = (size_t)info.totalram;
+    size_t mem_unit = (size_t)info.mem_unit;
+
+    result_size = (double)(total_ram * mem_unit);
+
+    //alternative
+    /*
+    size_t pagesize = (size_t)sysconf( _SC_PAGESIZE );
+    size_t pages = (size_t)sysconf( _SC_PHYS_PAGES );
     
-    /*if( (result_size == 0) && (sysctlbyname("hw.memsize", &size, &len, NULL, 0) == 0) )
-    {
-        printf( "---> sysctlbyname()\n" );
-        result_size = (size_t)size;
-    }*/
-    /*#elif defined(_SC_PHYS_PAGES) && defined(_SC_PAGESIZE)
-        printf( "---> _SC_PAGESIZE\n" );
-        result_size = (size_t)sysconf( _SC_PHYS_PAGES ) * (size_t)sysconf( _SC_PAGESIZE );
-    #endif*/
+    result_size = (double)(pages * pagesize);
+    */
 
-    #if AVMSYSTEM_MAC
-        /*int64_t size = 0;
-        size_t len = sizeof( size );
-
-        if( sysctlbyname("hw.memsize", &size, &len, NULL, 0) == 0 )
-        {
-            printf( "---> sysctlbyname()\n" );
-            result_size = (size_t)size;
-        }*/
-
-        int mib[2];
-        int64_t physical_memory;
-        size_t length;
-
-        // Get the Physical memory size
-        mib[0] = CTL_HW;
-        mib[1] = HW_MEMSIZE;
-        length = sizeof(int64_t);
-        if( sysctl(mib, 2, &physical_memory, &length, NULL, 0) == 0 )
-        {
-            //printf( "---> sysctl()\n" );
-            //printf( "physical_memory = %" PRId64 "\n", physical_memory );
-            result_size = (double)physical_memory;
-        }
-
-        /*printf( "misc stuff\n" );
-        printf( "---> sysctlbyname()\n" );
-        uint64_t mem;
-        size_t len = sizeof(mem);
-        sysctlbyname("hw.memsize", &mem, &len, NULL, 0);
-        printf( "mem = %" PRIu64 "\n", mem );*/
-    #endif
-
+#endif
 
     return result_size;
 }
 
-double VMPI_SystemMemoryUse()
+double VMPI_SystemMemoryFree()
+{
+    double result_free = 0;
+
+#ifdef AVMPLUS_MAC
+    
+    vm_size_t page_size;
+    mach_port_t mach_port;
+    mach_msg_type_number_t count;
+    vm_statistics64_data_t vm_stats;
+
+    mach_port = mach_host_self();
+    count = sizeof(vm_stats) / sizeof(natural_t);
+
+    if( (host_page_size(mach_port, &page_size) == KERN_SUCCESS) &&
+        (host_statistics64(mach_port, HOST_VM_INFO,(host_info64_t)&vm_stats, &count) == KERN_SUCCESS) )
+    {
+        long long free_memory  = (int64_t)vm_stats.free_count;
+                  free_memory *= (int64_t)page_size;
+
+        result_free = (double)free_memory;
+    }
+
+#else
+
+    struct sysinfo info;
+    sysinfo( &info );
+    size_t free_ram = (size_t)info.freeram;
+    size_t mem_unit = (size_t)info.mem_unit;
+
+    result_free = (double)(free_ram * mem_unit);
+
+#endif
+    
+    return result_free;
+}
+
+double VMPI_ProcessMemoryUse()
+{
+    double result_used = 0;
+
+#ifdef AVMPLUS_MAC
+    
+    struct mach_task_basic_info info;
+    mach_msg_type_number_t infoCount = MACH_TASK_BASIC_INFO_COUNT;
+
+    if ( task_info( mach_task_self( ), MACH_TASK_BASIC_INFO, (task_info_t)&info, &infoCount ) != KERN_SUCCESS )
+    {
+        result_used = 0; // can't access
+    }
+    else
+    {
+        result_used = (double)info.resident_size;
+    }
+    
+
+#else
+
+    long rss = 0L;
+    FILE* fp = NULL;
+    size_t current = 0;
+    size_t pagesize = (size_t)sysconf( _SC_PAGESIZE );
+
+    if( (fp = fopen( "/proc/self/statm", "r" )) == NULL )
+    {
+        current = 0; // can't open
+    }
+    else
+    {
+        if( fscanf( fp, "%*s%ld", &rss ) != 1 )
+        {
+            current = 0; // can't read
+        }
+        else
+        {
+            current = (size_t)rss;
+        }
+
+        fclose( fp );
+    }
+
+    result_used = (double)(current * pagesize);
+
+#endif
+
+    return result_used;
+}
+
+double VMPI_ProcessMemoryPeak()
 {
     double result_peak = 0;
 
-    #if AVMSYSTEM_MAC
-        struct mach_task_basic_info info;
-        mach_msg_type_number_t infoCount = MACH_TASK_BASIC_INFO_COUNT;
+    struct rusage rusage;
+    getrusage( RUSAGE_SELF, &rusage );
 
-        if ( task_info( mach_task_self( ), MACH_TASK_BASIC_INFO, (task_info_t)&info, &infoCount ) == KERN_SUCCESS )
-        {
-            result_peak = (double)info.resident_size;
-        }
-    #endif
+#ifdef AVMPLUS_MAC
+
+    result_peak = (double)rusage.ru_maxrss;
+
+#else
+
+    result_peak = (double)(rusage.ru_maxrss * 1024);
+
+#endif
 
     return result_peak;
 }
 
-double VMPI_SystemMemoryPeak()
-{
-    double result_used = 0;
-
-        struct rusage rusage;
-        getrusage( RUSAGE_SELF, &rusage );
-    #if AVMSYSTEM_MAC
-        result_used = (double)rusage.ru_maxrss;
-    #elif AVMSYSTEM_UNIX
-        result_used = (double)(rusage.ru_maxrss * 1024);
-    #endif
-
-    return result_used;
-}
 // ---- shell.HardwareInformation ---- END
 
 // ---- shell.OperatingSystem ---- 
