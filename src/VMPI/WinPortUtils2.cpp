@@ -1628,6 +1628,32 @@ void VMPI_exitCleanup()
 
 
 // ---- shell.HardwareInformation ---- 
+
+/*
+double VMPI_getPerformanceClockTicks()
+{
+    return 0;
+}
+
+void VMPI_GatherCPUUsage( double &cpu_kernel, double &cpu_user, double &cpu_nice, double &cpu_idle )
+{
+    (void)cpu_kernel;
+    (void)cpu_user;
+    (void)cpu_nice;
+    (void)cpu_idle;
+}
+
+double VMPI_SystemCPUUsage()
+{
+    return 0;
+}
+
+double VMPI_UserCPUUsage()
+{
+    return 0;
+}
+*/
+
 double VMPI_SystemMemorySize()
 {
     double result_size = 0L;
@@ -1640,7 +1666,20 @@ double VMPI_SystemMemorySize()
     return result_size;
 }
 
-double VMPI_SystemMemoryUse()
+
+double VMPI_SystemMemoryFree()
+{
+    double result_free = 0L;
+
+    MEMORYSTATUSEX status;
+    status.dwLength = sizeof(status);
+    GlobalMemoryStatusEx( &status );
+    result_size = (double) status.ullAvailPhys;
+
+    return result_free;
+}
+
+double VMPI_ProcessMemoryUse()
 {
     double result_used = 0L;
 
@@ -1651,7 +1690,7 @@ double VMPI_SystemMemoryUse()
     return result_used;
 }
 
-double VMPI_SystemMemoryPeak()
+double VMPI_ProcessMemoryPeak()
 {
     double result_peak = 0L;
 
