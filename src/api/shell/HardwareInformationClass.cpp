@@ -30,19 +30,42 @@ namespace avmshell
         return (uint32_t)VMPI_processorQtyAtBoot();
     }
 
+    /*
+    double HardwareInformationClass::_getPerformanceFrequency()
+    {
+        return (double)VMPI_getPerformanceFrequency();
+    }
+
+    double HardwareInformationClass::_getPerformanceCounter()
+    {
+        return (double)VMPI_getPerformanceCounter();
+    }
+
+    double HardwareInformationClass::_getPerformanceClockTicks()
+    {
+        return VMPI_getPerformanceClockTicks();
+    }
+    */
+
+
     double HardwareInformationClass::_getMemorySize()
     {
         return VMPI_SystemMemorySize();
     }
 
-    double HardwareInformationClass::_getMemoryUsage()
+    double HardwareInformationClass::_getMemoryFree()
     {
-        return VMPI_SystemMemoryUse();
+        return VMPI_SystemMemoryFree();
     }
 
-    double HardwareInformationClass::_getMemoryPeakUsage()
+    double HardwareInformationClass::_getProcMemoryUsage()
     {
-        return VMPI_SystemMemoryPeak();
+        return VMPI_ProcessMemoryUse();
+    }
+
+    double HardwareInformationClass::_getProcMemoryPeakUsage()
+    {
+        return VMPI_ProcessMemoryPeak();
     }
 
 }
