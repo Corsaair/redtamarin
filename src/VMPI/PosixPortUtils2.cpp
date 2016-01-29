@@ -1010,6 +1010,12 @@ double VMPI_SystemMemorySize()
     {
         size_t bufsize = 1024 * sizeof(char);
         char* buf      = (char*)malloc( bufsize );
+        /* Note:
+           uint64_t is equivalent to unsigned long long
+           and sscanf() would need to use %llu
+           and yes we want to return dobule (Number in AS3)
+           to not hit the MAX_UINT32 limit
+        */
         uint64_t value = 0;
 
         while( getline( &buf, &bufsize, fp ) >= 0 )
@@ -1086,7 +1092,7 @@ double VMPI_SystemMemoryFree()
     {
         size_t bufsize = 1024 * sizeof(char);
         char* buf      = (char*)malloc( bufsize );
-        long value     = -1L;
+        uint64_t value = 0;
 
         while( getline( &buf, &bufsize, fp ) >= 0 )
         {
@@ -1095,16 +1101,16 @@ double VMPI_SystemMemoryFree()
                 continue;
             }
 
-            sscanf( buf, "%*s%ld", &value );
+            sscanf( buf, "%*s%llu", &value );
             break;
         }
 
         fclose( fp );
         free( (void*)buf );
 
-        if( value != -1L )
+        if( value != 0 )
         {
-            result_free = (double)(value * 1024L);
+            result_free = (double)(value * 1024);
         }
     }
 
