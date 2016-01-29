@@ -977,21 +977,26 @@ double VMPI_SystemMemorySize()
 
 #else
 
+    //alternative
+    /* Note:
+       on a system with 8GB RAM, it reports only 4GB RAM
+       seems (total_ram * mem_unit) can not deal with
+       sizes bigger than MAX_UINT32 eg. 4GB
+    */
+    /*
     struct sysinfo info;
     sysinfo( &info );
     size_t total_ram = (size_t)info.totalram;
     size_t mem_unit = (size_t)info.mem_unit;
 
     result_size = (double)(total_ram * mem_unit);
-
-    //alternative
-    /*
+    */
+        
     size_t pagesize = (size_t)sysconf( _SC_PAGESIZE );
     size_t pages = (size_t)sysconf( _SC_PHYS_PAGES );
     
     result_size = (double)(pages * pagesize);
-    */
-
+    
 #endif
 
     return result_size;
@@ -1022,12 +1027,20 @@ double VMPI_SystemMemoryFree()
 
 #else
 
+    //alternative - limited to max 4GB ?
+    /*
     struct sysinfo info;
     sysinfo( &info );
     size_t free_ram = (size_t)info.freeram;
     size_t mem_unit = (size_t)info.mem_unit;
 
     result_free = (double)(free_ram * mem_unit);
+    */
+
+    size_t pagesize = (size_t)sysconf( _SC_PAGESIZE );
+    size_t availpages = (size_t)sysconf( _SC_AVPHYS_PAGES );
+    
+    result_free = (double)(pages * pagesize);
 
 #endif
     
