@@ -398,9 +398,16 @@ extern void VMPI_exitCleanup();
 
 // ---- shell.HardwareInformation ---- 
 // extern int VMPI_processorQtyAtBoot(); // defined in VMPI.h
+/*
+extern double VMPI_getPerformanceClockTicks();
+extern void VMPI_GatherCPUUsage( double &cpu_kernel, double &cpu_user, double &cpu_nice, double &cpu_idle );
+extern double VMPI_SystemCPUUsage();
+extern double VMPI_UserCPUUsage();
+*/
 extern double VMPI_SystemMemorySize();
-extern double VMPI_SystemMemoryUse();
-extern double VMPI_SystemMemoryPeak();
+extern double VMPI_SystemMemoryFree();
+extern double VMPI_ProcessMemoryUse();
+extern double VMPI_ProcessMemoryPeak();
 // ---- shell.HardwareInformation ---- END
 
 // ---- shell.OperatingSystem ---- 
