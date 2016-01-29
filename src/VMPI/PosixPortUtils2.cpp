@@ -1040,7 +1040,7 @@ double VMPI_SystemMemoryFree()
     size_t pagesize = (size_t)sysconf( _SC_PAGESIZE );
     size_t availpages = (size_t)sysconf( _SC_AVPHYS_PAGES );
     
-    result_free = (double)(pages * pagesize);
+    result_free = (double)(availpages * pagesize);
 
 #endif
     
