@@ -6,8 +6,6 @@
 
 package shell
 {
-    import C.unistd.*;
-    import shell.Runtime;
 
     /**
      * The HardwareInformation class provide informations about the underlying hardware.
@@ -132,19 +130,7 @@ package shell
          */
         public static function get memoryUsage():Number
         {
-            switch( Runtime.platform )
-            {
-                case "linux":
-                return 0;
-
-                case "macintosh":
-                return _getMemorySize() - _getMemoryFree();
-
-                case "windows":
-                return _getMemorySize() - _getMemoryFree();
-            }
-
-            return 0;
+            return _getMemorySize() - _getMemoryFree();
         }
 
         /**
