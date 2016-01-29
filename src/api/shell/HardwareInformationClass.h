@@ -18,9 +18,16 @@ namespace avmshell
         ~HardwareInformationClass();
         
         uint32_t _getProcessorCountAtBoot();
+        /*
+        double _getPerformanceFrequency();
+        double _getPerformanceCounter();
+        double _getPerformanceClockTicks();
+        */
+        
         double _getMemorySize();
-        double _getMemoryUsage();
-        double _getMemoryPeakUsage();
+        double _getMemoryFree();
+        double _getProcMemoryUsage();
+        double _getProcMemoryPeakUsage();
         
         DECLARE_SLOTS_HardwareInformationClass;
     };
