@@ -2702,9 +2702,12 @@ package shell
 				   to support Unicode filename we need to prepend
 				   the path with "\\?\"
 				   see: http://msdn.microsoft.com/en-us/library/windows/desktop/aa364944(v=vs.85).aspx
+
+				   we also need to use an absolute path to prevent bugs
+				   when we pass a relative path in filename
 				*/
 				case "windows":
-				return _isAttributeHidden( "\\\\?\\" + filename );
+				return _isAttributeHidden( "\\\\?\\" + realpath(filename) );
 
 				case "macintosh":
 				var hidden:Boolean = _isAttributeHidden( filename );
