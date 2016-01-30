@@ -149,6 +149,7 @@
 			<doc-sources path-element="${basedir}/src/as3/C/math.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/signal.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/stdio.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/stdio/fcopy.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/stdlib.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/string.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/time.as" />
@@ -167,9 +168,11 @@
 			<doc-sources path-element="${basedir}/src/as3/C/sys/select.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/sys/socket.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/sys/stat.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/sys/stat/mkdirp.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/sys/utsname.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/sys/wait.as" />
 			<doc-sources path-element="${basedir}/src/as3/C/unistd.as" />
+			<doc-sources path-element="${basedir}/src/as3/C/unistd/which.as" />
 			
 
 
