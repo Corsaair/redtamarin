@@ -151,6 +151,12 @@
 
   - fixed `FileSystem.isHidden()` for Windows
 
+  - added `mkdirp()` in `C.sys.stat` from betalib
+
+  - added `which()` in `C.unistd` from betalib
+
+  - added `fcopy()` in `C.stdio` from betalib
+
 
 0.4.0 Akihabara (from tag 1T174)
 --------------------------------
