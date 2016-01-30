@@ -138,6 +138,8 @@ package shell
          * 
          * @langversion 3.0
          * @playerversion AVM 0.4.1
+         * 
+         * @see http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=34e431b0ae398fc54ea69ff85ec700722c9da773 /proc/meminfo: provide estimated available memory
          */
         public static function get memoryFree():Number
         {
