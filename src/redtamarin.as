@@ -80,6 +80,7 @@ include "as3/C/signal.as";
 //C.stdarg -- not supported
 //C.stddef -- not supported
 include "as3/C/stdio.as";
+include "as3/C/stdio/fcopy.as";
 include "as3/C/stdlib.as";
 include "as3/C/string.as";
 include "as3/C/time.as";
@@ -103,6 +104,7 @@ include "as3/C/spawn.as";
 include "as3/C/sys/select.as";
 include "as3/C/sys/socket.as";
 include "as3/C/sys/stat.as";
+include "as3/C/sys/stat/mkdirp.as";
 //C.sys.time
 //C.sys.types
 include "as3/C/sys/utsname.as";
@@ -110,6 +112,7 @@ include "as3/C/sys/wait.as";
 //C.tar
 //C.termios
 include "as3/C/unistd.as";
+include "as3/C/unistd/which.as";
 //C.utime
 
 //include "as3/C/socket.as"; //deprecated
