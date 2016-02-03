@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 UNAME="$(uname)"
 BITS="32"
