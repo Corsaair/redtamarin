@@ -29,13 +29,13 @@ mkdir -p $DEST/share/doc/redbean
 
 find $DIST -type d | xargs chmod 755
 
-# cp bin-deps/bin-release/windows/64/debugger/redshell_dd redshell_dd_win64
-# chmod +x redshell_dd_win64
+# cp bin-deps/bin-release/windows/64/debugger/redshell_dd redshell_dd_win64.exe
+# chmod +x redshell_dd_win64.exe
 
 # redtamarin projector / man
 cp bin-deps/redtamarin-release/redtamarin.swf $RELEASE/
 cp bin-deps/redtamarin-release/redtamarin.1.gz $RELEASE/
-./redshell_dd_win64 projectormake.abc -- -o bin-release/redtamarin redshell_dd_win64 bin-release/redtamarin.swf  -- -Dlanguage en
+./redshell_dd_win64.exe projectormake.abc -- -o bin-release/redtamarin redshell_dd_win64.exe bin-release/redtamarin.swf  -- -Dlanguage en
 sudo chmod 755 $RELEASE/redtamarin
 # sudo chown root:root $RELEASE/redtamarin
 sudo chmod 644 $RELEASE/redtamarin.1.gz
@@ -52,7 +52,7 @@ sudo chmod 664 $DIST/lib/redtamarin/lib/*
 # redbean projector / man
 cp bin-deps/redbean-release/redbean.abc $RELEASE/
 cp bin-deps/redbean-release/redbean.1.gz $RELEASE/
-./redshell_dd_win64 projectormake.abc -- -o bin-release/redbean redshell_dd_win64 bin-release/redbean.abc  -- -Dlanguage en
+./redshell_dd_win64.exe projectormake.abc -- -o bin-release/redbean redshell_dd_win64.exe bin-release/redbean.abc  -- -Dlanguage en
 sudo chmod 755 $RELEASE/redbean
 # sudo chown root:root $RELEASE/redbean
 sudo chmod 644 $RELEASE/redbean.1.gz
