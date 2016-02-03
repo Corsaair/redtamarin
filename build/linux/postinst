@@ -24,17 +24,17 @@ cp $BIN $SDKBIN
 cp $BIN_D $SDKBIN
 cp $BIN_DD $SDKBIN
 
-echo -e '#!/bin/bash\n$SDKBIN/redshell $@' > /usr/bin/redshell
+echo -e '#!/bin/bash\n'$SDKBIN'/redshell $@' > /usr/bin/redshell
 chmod +x /usr/bin/redshell
 
-echo -e '#!/bin/bash\n$SDKBIN/redshell_d $@' > /usr/bin/redshell_d
+echo -e '#!/bin/bash\n'$SDKBIN'/redshell_d $@' > /usr/bin/redshell_d
 chmod +x /usr/bin/redshell_d
 
-echo -e '#!/bin/bash\n$SDKBIN/redshell_dd $@' > /usr/bin/redshell_dd
+echo -e '#!/bin/bash\n'$SDKBIN'/redshell_dd $@' > /usr/bin/redshell_dd
 chmod +x /usr/bin/redshell_dd
 
-echo -e '#!/bin/bash\n$SDKBIN/redtamarin $@' > /usr/bin/redtamarin
+echo -e '#!/bin/bash\n'$SDKBIN'/redtamarin $@' > /usr/bin/redtamarin
 chmod +x /usr/bin/redtamarin
 
-echo -e '#!/bin/bash\n$SDKBIN/redbean $@' > /usr/bin/redbean
+echo -e '#!/bin/bash\n'$SDKBIN'/redbean $@' > /usr/bin/redbean
 chmod +x /usr/bin/redbean
