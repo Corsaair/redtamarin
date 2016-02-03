@@ -5,7 +5,7 @@ STARTTIME=$(date +%s)
 
 RELEASE=bin-release
 BINDEPS=bin-deps
-ARCHITECTURE=win64
+ARCHITECTURE=win32
 DEBVER=0.4.1
 BASE=redtamarin-sdk_${DEBVER}_${ARCHITECTURE}
 ROOTDIR=$RELEASE/$BASE
@@ -29,13 +29,13 @@ mkdir -p $DEST/share/doc/redbean
 
 find $DIST -type d | xargs chmod 755
 
-# cp bin-deps/bin-release/windows/64/debugger/redshell_dd redshell_dd_win64.exe
-# chmod +x redshell_dd_win64.exe
+# cp bin-deps/bin-release/windows/32/debugger/redshell_dd redshell_dd_win32.exe
+# chmod +x redshell_dd_win32.exe
 
 # redtamarin projector / man
 cp bin-deps/redtamarin-release/redtamarin.swf $RELEASE/
 cp bin-deps/redtamarin-release/redtamarin.1.gz $RELEASE/
-./redshell_dd_win64.exe projectormake.abc -- -o bin-release/redtamarin.exe redshell_dd_win64.exe bin-release/redtamarin.swf  -- -Dlanguage en
+./redshell_dd_win64.exe projectormake.abc -- -o bin-release/redtamarin.exe redshell_dd_win32.exe bin-release/redtamarin.swf  -- -Dlanguage en
 sudo chmod 755 $RELEASE/redtamarin.exe
 # sudo chown root:root $RELEASE/redtamarin.exe
 sudo chmod 644 $RELEASE/redtamarin.1.gz
@@ -52,7 +52,7 @@ sudo chmod 664 $DIST/lib/redtamarin/lib/*
 # redbean projector / man
 cp bin-deps/redbean-release/redbean.abc $RELEASE/
 cp bin-deps/redbean-release/redbean.1.gz $RELEASE/
-./redshell_dd_win64.exe projectormake.abc -- -o bin-release/redbean.exe redshell_dd_win64.exe bin-release/redbean.abc  -- -Dlanguage en
+./redshell_dd_win64.exe projectormake.abc -- -o bin-release/redbean.exe redshell_dd_win32.exe bin-release/redbean.abc  -- -Dlanguage en
 sudo chmod 755 $RELEASE/redbean.exe
 # sudo chown root:root $RELEASE/redbean.exe
 sudo chmod 644 $RELEASE/redbean.1.gz
@@ -122,9 +122,9 @@ sudo chmod -R 755 $DIST/lib/redtamarin/runtimes/*
 
 SDKBIN="/usr/lib/redtamarin/bin"
 
-cp $DIST/lib/redtamarin/runtimes/redshell/windows/64/redshell.exe $DIST/lib/redtamarin/bin
-cp $DIST/lib/redtamarin/runtimes/redshell/windows/64/redshell_d.exe $DIST/lib/redtamarin/bin
-cp $DIST/lib/redtamarin/runtimes/redshell/windows/64/redshell_dd.exe $DIST/lib/redtamarin/bin
+cp $DIST/lib/redtamarin/runtimes/redshell/windows/32/redshell.exe $DIST/lib/redtamarin/bin
+cp $DIST/lib/redtamarin/runtimes/redshell/windows/32/redshell_d.exe $DIST/lib/redtamarin/bin
+cp $DIST/lib/redtamarin/runtimes/redshell/windows/32/redshell_dd.exe $DIST/lib/redtamarin/bin
 
 echo -e '#!/bin/bash\n'$SDKBIN'/redshell.exe $@' > $DIST/bin/redshell.exe
 chmod +x $DIST/bin/redshell.exe
