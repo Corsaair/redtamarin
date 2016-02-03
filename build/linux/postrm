@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm /usr/bin/redshell
+rm /usr/bin/redshell_d
+rm /usr/bin/redshell_dd
+rm /usr/bin/redtamarin
+rm /usr/bin/redbean

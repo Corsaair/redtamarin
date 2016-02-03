@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm /usr/bin/redshell.exe
+rm /usr/bin/redshell_d.exe
+rm /usr/bin/redshell_dd.exe
+rm /usr/bin/redtamarin.exe
+rm /usr/bin/redbean.exe
