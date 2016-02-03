@@ -1,0 +1,180 @@
+#!/bin/bash
+
+# redtamarin-sdk packaging
+STARTTIME=$(date +%s)
+
+RELEASE=bin-release
+BINDEPS=bin-deps
+ARCHITECTURE=win64
+DEBVER=0.4.1
+BASE=redtamarin-sdk_${DEBVER}_${ARCHITECTURE}
+ROOTDIR=$RELEASE/$BASE
+
+rm -Rf $RELEASE
+mkdir -p $ROOTDIR
+
+DIST=`pwd`/$ROOTDIR
+DEST=$DIST/usr
+
+mkdir -p $DIST/bin
+mkdir -p $DIST/lib/redtamarin
+mkdir -p $DIST/lib/redtamarin/bin
+mkdir -p $DIST/lib/redtamarin/support
+mkdir -p $DIST/lib/redtamarin/lib
+mkdir -p $DIST/lib/redtamarin/runtimes
+mkdir -p $DIST/lib/redtamarin/run
+mkdir -p $DEST/share/man/man1
+mkdir -p $DEST/share/doc/redtamarin
+mkdir -p $DEST/share/doc/redbean
+
+find $DIST -type d | xargs chmod 755
+
+# cp bin-deps/bin-release/windows/64/debugger/redshell_dd redshell_dd_win64.exe
+# chmod +x redshell_dd_win64.exe
+
+# redtamarin projector / man
+cp bin-deps/redtamarin-release/redtamarin.swf $RELEASE/
+cp bin-deps/redtamarin-release/redtamarin.1.gz $RELEASE/
+./redshell_dd_win64.exe projectormake.abc -- -o bin-release/redtamarin.exe redshell_dd_win64.exe bin-release/redtamarin.swf  -- -Dlanguage en
+sudo chmod 755 $RELEASE/redtamarin.exe
+# sudo chown root:root $RELEASE/redtamarin.exe
+sudo chmod 644 $RELEASE/redtamarin.1.gz
+# sudo chown root:root $RELEASE/redtamarin.1.gz
+sudo mv $RELEASE/redtamarin.exe $DIST/lib/redtamarin/bin/
+sudo mv $RELEASE/redtamarin.1.gz $DEST/share/man/man1/
+rm $RELEASE/redtamarin.swf
+
+cp bin-deps/redtamarin-release/components/redtamarin.abc $DIST/lib/redtamarin/lib/
+cp bin-deps/redtamarin-release/components/redtamarin.swc $DIST/lib/redtamarin/lib/
+sudo chmod 664 $DIST/lib/redtamarin/lib/*
+# sudo chown root:root $DIST/lib/redtamarin/lib/*
+
+# redbean projector / man
+cp bin-deps/redbean-release/redbean.abc $RELEASE/
+cp bin-deps/redbean-release/redbean.1.gz $RELEASE/
+./redshell_dd_win64.exe projectormake.abc -- -o bin-release/redbean.exe redshell_dd_win64.exe bin-release/redbean.abc  -- -Dlanguage en
+sudo chmod 755 $RELEASE/redbean.exe
+# sudo chown root:root $RELEASE/redbean.exe
+sudo chmod 644 $RELEASE/redbean.1.gz
+# sudo chown root:root $RELEASE/redbean.1.gz
+sudo mv $RELEASE/redbean.exe $DIST/lib/redtamarin/bin/
+sudo mv $RELEASE/redbean.1.gz $DEST/share/man/man1/
+rm $RELEASE/redbean.abc
+
+cp bin-deps/redbean-release/redbean.abc $DIST/lib/redtamarin/run/
+sudo chmod 775 $DIST/lib/redtamarin/run/redbean.abc
+# sudo chown root:root $DIST/lib/redtamarin/run/redbean.abc
+
+cp bin-deps/redbean-release/redbeanlib.abc $DIST/lib/redtamarin/lib/
+cp bin-deps/redbean-release/redbean.swc $DIST/lib/redtamarin/lib/redbeanlib.swc
+sudo chmod 664 $DIST/lib/redtamarin/lib/*
+# sudo chown root:root $DIST/lib/redtamarin/lib/*
+
+cp bin-deps/redbean-release/asc.jar $DIST/lib/redtamarin/support/
+cp bin-deps/redbean-release/asc2.jar $DIST/lib/redtamarin/support/
+sudo chmod 664 $DIST/lib/redtamarin/support/*
+# sudo chown root:root $DIST/lib/redtamarin/support/*
+
+
+# redshell runtimes for Linux
+mkdir -p $DIST/lib/redtamarin/runtimes/redshell/linux
+mkdir -p $DIST/lib/redtamarin/runtimes/redshell/linux/32
+mkdir -p $DIST/lib/redtamarin/runtimes/redshell/linux/64
+
+cp bin-deps/bin-release/linux/32/release/redshell $DIST/lib/redtamarin/runtimes/redshell/linux/32/
+cp bin-deps/bin-release/linux/32/debug/redshell_d $DIST/lib/redtamarin/runtimes/redshell/linux/32/
+cp bin-deps/bin-release/linux/32/debugger/redshell_dd $DIST/lib/redtamarin/runtimes/redshell/linux/32/
+cp bin-deps/bin-release/linux/64/release/redshell $DIST/lib/redtamarin/runtimes/redshell/linux/64/
+cp bin-deps/bin-release/linux/64/debug/redshell_d $DIST/lib/redtamarin/runtimes/redshell/linux/64/
+cp bin-deps/bin-release/linux/64/debugger/redshell_dd $DIST/lib/redtamarin/runtimes/redshell/linux/64/
+
+# redshell runtimes for Mac OS X
+mkdir -p $DIST/lib/redtamarin/runtimes/redshell/macintosh
+mkdir -p $DIST/lib/redtamarin/runtimes/redshell/macintosh/32
+mkdir -p $DIST/lib/redtamarin/runtimes/redshell/macintosh/64
+
+cp bin-deps/bin-release/macintosh/32/release/redshell $DIST/lib/redtamarin/runtimes/redshell/macintosh/32/
+cp bin-deps/bin-release/macintosh/32/debug/redshell_d $DIST/lib/redtamarin/runtimes/redshell/macintosh/32/
+cp bin-deps/bin-release/macintosh/32/debugger/redshell_dd $DIST/lib/redtamarin/runtimes/redshell/macintosh/32/
+cp bin-deps/bin-release/macintosh/64/release/redshell $DIST/lib/redtamarin/runtimes/redshell/macintosh/64/
+cp bin-deps/bin-release/macintosh/64/debug/redshell_d $DIST/lib/redtamarin/runtimes/redshell/macintosh/64/
+cp bin-deps/bin-release/macintosh/64/debugger/redshell_dd $DIST/lib/redtamarin/runtimes/redshell/macintosh/64/
+
+# redshell runtimes for Windows
+mkdir -p $DIST/lib/redtamarin/runtimes/redshell/windows
+mkdir -p $DIST/lib/redtamarin/runtimes/redshell/windows/32
+mkdir -p $DIST/lib/redtamarin/runtimes/redshell/windows/64
+
+cp bin-deps/bin-release/windows/32/release/redshell.exe $DIST/lib/redtamarin/runtimes/redshell/windows/32/
+cp bin-deps/bin-release/windows/32/debug/redshell_d.exe $DIST/lib/redtamarin/runtimes/redshell/windows/32/
+cp bin-deps/bin-release/windows/32/debugger/redshell_dd.exe $DIST/lib/redtamarin/runtimes/redshell/windows/32/
+cp bin-deps/bin-release/windows/64/release/redshell.exe $DIST/lib/redtamarin/runtimes/redshell/windows/64/
+cp bin-deps/bin-release/windows/64/debug/redshell_d.exe $DIST/lib/redtamarin/runtimes/redshell/windows/64/
+cp bin-deps/bin-release/windows/64/debugger/redshell_dd.exe $DIST/lib/redtamarin/runtimes/redshell/windows/64/
+
+# all runtimes
+sudo chmod -R 755 $DIST/lib/redtamarin/runtimes/*
+# sudo chown -R root:root $DIST/lib/redtamarin/runtimes/*
+
+# cover for wpkg limitation with postinst
+# wpkg can not run a bash postinst.sh but only a postinst.bat
+# sorry but fuck bat files
+
+SDKBIN="/usr/lib/redtamarin/bin"
+
+cp $DIST/lib/redtamarin/runtimes/redshell/windows/64/redshell.exe $DIST/lib/redtamarin/bin
+cp $DIST/lib/redtamarin/runtimes/redshell/windows/64/redshell_d.exe $DIST/lib/redtamarin/bin
+cp $DIST/lib/redtamarin/runtimes/redshell/windows/64/redshell_dd.exe $DIST/lib/redtamarin/bin
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redshell.exe $@' > $DIST/bin/redshell.exe
+chmod +x $DIST/bin/redshell.exe
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redshell_d.exe $@' > $DIST/bin/redshell_d.exe
+chmod +x $DIST/bin/redshell_d.exe
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redshell_dd.exe $@' > $DIST/bin/redshell_dd.exe
+chmod +x $DIST/bin/redshell_dd.exe
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redtamarin.exe $@' > $DIST/bin/redtamarin.exe
+chmod +x $DIST/bin/redtamarin.exe
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redbean.exe $@' > $DIST/bin/redbean.exe
+chmod +x $DIST/bin/redbean.exe
+
+# redtamarin API HTML doc
+mkdir $DEST/share/doc/redtamarin/api
+sudo cp -a bin-deps/redtamarin-release/documentation/. $DEST/share/doc/redtamarin/api/
+sudo find $DEST/share/doc/redtamarin/api -type d -exec chmod 0775 {} +
+sudo find $DEST/share/doc/redtamarin/api -type f -exec chmod 0664 {} +
+# sudo chown -R root:root $DEST/share/doc/redtamarin/*
+
+# redbean API HTML doc
+mkdir $DEST/share/doc/redbean/api
+sudo cp -a bin-deps/redbean-release/docs/redbean/. $DEST/share/doc/redbean/api/
+sudo find $DEST/share/doc/redbean/api -type d -exec chmod 0775 {} +
+sudo find $DEST/share/doc/redbean/api -type f -exec chmod 0664 {} +
+# sudo chown -R root:root $DEST/share/doc/redbean/*
+
+# package
+INSTALLED_SIZE=$(du -k -s $DEST | awk '{print $1}')
+mkdir $DIST/DEBIAN
+
+perl -pe "s/VERSION/$DEBVER/" build/windows/control.in | \
+  perl -pe "s/ARCHITECTURE/$ARCHITECTURE/" | \
+  perl -pe "s/INSTALLED_SIZE/$INSTALLED_SIZE/" \
+  > $DIST/DEBIAN/control
+
+# cp build/windows/postinst $DIST/DEBIAN/postinst.sh
+# sudo chmod 755 $DIST/DEBIAN/postinst.sh
+# sudo chown root:root $DIST/DEBIAN/postinst
+
+# cp build/windows/postrm $DIST/DEBIAN/postrm.sh
+# sudo chmod 755 $DIST/DEBIAN/postrm.sh
+# sudo chown root:root $DIST/DEBIAN/postrm
+
+cd $RELEASE
+wpkg --build $BASE
+
+ENDTIME=$(date +%s)
+echo "Packaged ${BASE}.deb in $(($ENDTIME - $STARTTIME)) seconds"
+
