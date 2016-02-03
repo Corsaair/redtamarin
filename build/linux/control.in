@@ -1,0 +1,14 @@
+Package: redtamarin-sdk
+Version: VERSION
+Section: devel
+Priority: optional
+Architecture: ARCHITECTURE
+Installed-Size: INSTALLED_SIZE
+Depends: libc6 (>= 2.14)
+Maintainer: Zwetan Kjukov <zwetan@gmail.com>
+Description: The Redtamarin Software Development Kit
+ This meta-package provides a complete Redtamarin Software Development Kit.
+ .
+ Tools cover IDE support (SWC libraries), redshell runtimes (Windows, Mac OS X, Linux)
+ for both 32-bit and 64-bit, ActionScript Compilers with ABC libraries,
+ and command-line utilities like redtamarin, redshell, redshell_d, redshell_dd, and redbean.
