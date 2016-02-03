@@ -24,8 +24,8 @@ cp $BIN $SDKBIN
 cp $BIN_D $SDKBIN
 cp $BIN_DD $SDKBIN
 
-ln -s $SDKBIN/redshell /usr/bin/redshell
-ln -s $SDKBIN/redshell_d /usr/bin/redshell_d
-ln -s $SDKBIN/redshell_dd /usr/bin/redshell_dd
-ln -s $SDKBIN/redtamarin /usr/bin/redtamarin
-ln -s $SDKBIN/redbean /usr/bin/redbean
+cp $SDKBIN/redshell /usr/bin/redshell
+cp $SDKBIN/redshell_d /usr/bin/redshell_d
+cp $SDKBIN/redshell_dd /usr/bin/redshell_dd
+cp $SDKBIN/redtamarin /usr/bin/redtamarin
+cp $SDKBIN/redbean /usr/bin/redbean
