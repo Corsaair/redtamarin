@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# redtamarin-sdk packaging
+
+RELEASE=bin-release
+BINDEPS=bin-deps
+ARCHITECTURE=amd64
+DEBVER=0.4.1
+BASE=redtamarin-sdk_${DEBVER}_${ARCHITECTURE}
+ROOTDIR=$RELEASE/$BASE
+
+rm -Rf $RELEASE
+mkdir -p $ROOTDIR
+
+DIST=`pwd`/$ROOTDIR
+DEST=$DIST/usr
+
+mkdir -p $DEST/bin
+mkdir -p $DEST/lib/redtamarin
+mkdir -p $DEST/lib/redtamarin/bin
+mkdir -p $DEST/lib/redtamarin/support
+mkdir -p $DEST/lib/redtamarin/lib
+mkdir -p $DEST/lib/redtamarin/runtimes
+mkdir -p $DEST/lib/redtamarin/run
+mkdir -p $DEST/share/man/man1
+mkdir -p $DEST/share/doc/redtamarin
+mkdir -p $DEST/share/doc/redbean
+
+find $DIST -type d | xargs chmod 755
+
+
