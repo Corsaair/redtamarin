@@ -25,7 +25,7 @@
                 Run AS3 server side as CGI
                 with Apache, IIS, and other HTTP servers.
                 &lt;/li&gt;
-            &lt;/ul>
+            &lt;/ul&gt;
             &lt;br&gt;
             All packages available in Redtamarin are listed here.&lt;br&gt;
             You don't need to load them, they are already embedded in the runtime by default.
