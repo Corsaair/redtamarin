@@ -22,8 +22,17 @@ cp $BIN $SDKBIN
 cp $BIN_D $SDKBIN
 cp $BIN_DD $SDKBIN
 
-ln -s $SDKBIN/redshell.exe /bin/redshell.exe
-ln -s $SDKBIN/redshell_d.exe /bin/redshell_d.exe
-ln -s $SDKBIN/redshell_dd.exe /bin/redshell_dd.exe
-ln -s $SDKBIN/redtamarin.exe /bin/redtamarin.exe
-ln -s $SDKBIN/redbean.exe /bin/redbean.exe
+echo -e '#!/bin/bash\n'$SDKBIN'/redshell.exe $@' > /bin/redshell.exe
+chmod +x /bin/redshell.exe
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redshell_d.exe $@' > /bin/redshell_d.exe
+chmod +x /bin/redshell_d.exe
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redshell_dd.exe $@' > /bin/redshell_dd.exe
+chmod +x /bin/redshell_dd.exe
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redtamarin.exe $@' > /bin/redtamarin.exe
+chmod +x /bin/redtamarin.exe
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redbean.exe $@' > /bin/redbean.exe
+chmod +x /bin/redbean.exe
