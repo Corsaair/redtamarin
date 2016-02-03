@@ -116,6 +116,31 @@ cp bin-deps/bin-release/windows/64/debugger/redshell_dd.exe $DIST/lib/redtamarin
 sudo chmod -R 755 $DIST/lib/redtamarin/runtimes/*
 # sudo chown -R root:root $DIST/lib/redtamarin/runtimes/*
 
+# cover for wpkg limitation with postinst
+# wpkg can not run a bash postinst.sh but only a postinst.bat
+# sorry but fuck bat files
+
+SDKBIN="/usr/lib/redtamarin/bin"
+
+cp $DIST/lib/redtamarin/runtimes/redshell/windows/64/redshell.exe $DIST/lib/redtamarin/bin
+cp $DIST/lib/redtamarin/runtimes/redshell/windows/64/redshell_d.exe $DIST/lib/redtamarin/bin
+cp $DIST/lib/redtamarin/runtimes/redshell/windows/64/redshell_dd.exe $DIST/lib/redtamarin/bin
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redshell.exe $@' > $DIST/bin/redshell.exe
+chmod +x $DIST/bin/redshell.exe
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redshell_d.exe $@' > $DIST/bin/redshell_d.exe
+chmod +x $DIST/bin/redshell_d.exe
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redshell_dd.exe $@' > $DIST/bin/redshell_dd.exe
+chmod +x $DIST/bin/redshell_dd.exe
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redtamarin.exe $@' > $DIST/bin/redtamarin.exe
+chmod +x $DIST/bin/redtamarin.exe
+
+echo -e '#!/bin/bash\n'$SDKBIN'/redbean.exe $@' > $DIST/bin/redbean.exe
+chmod +x $DIST/bin/redbean.exe
+
 # redtamarin API HTML doc
 mkdir $DEST/share/doc/redtamarin/api
 sudo cp -a bin-deps/redtamarin-release/documentation/. $DEST/share/doc/redtamarin/api/
@@ -139,12 +164,12 @@ perl -pe "s/VERSION/$DEBVER/" build/windows/control.in | \
   perl -pe "s/INSTALLED_SIZE/$INSTALLED_SIZE/" \
   > $DIST/DEBIAN/control
 
-cp build/windows/postinst $DIST/DEBIAN/postinst.sh
-sudo chmod 755 $DIST/DEBIAN/postinst.sh
+# cp build/windows/postinst $DIST/DEBIAN/postinst.sh
+# sudo chmod 755 $DIST/DEBIAN/postinst.sh
 # sudo chown root:root $DIST/DEBIAN/postinst
 
-cp build/windows/postrm $DIST/DEBIAN/postrm.sh
-sudo chmod 755 $DIST/DEBIAN/postrm.sh
+# cp build/windows/postrm $DIST/DEBIAN/postrm.sh
+# sudo chmod 755 $DIST/DEBIAN/postrm.sh
 # sudo chown root:root $DIST/DEBIAN/postrm
 
 cd $RELEASE
