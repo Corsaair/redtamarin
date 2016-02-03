@@ -1,0 +1,29 @@
+#/bin/bash
+
+UNAME="$(uname)"
+BITS="32"
+SDK="/lib/redtamarin"
+
+if [ "$(uname -o)" == "Cygwin" ]; then
+    OS="windows"
+fi
+
+if [ "$(uname -m)" == "x86_64" ]; then
+    BITS="64"
+fi
+
+SDKBIN=$SDK/bin
+
+BIN="$SDK/runtimes/redshell/$OS/$BITS/redshell.exe"
+BIN_D="$SDK/runtimes/redshell/$OS/$BITS/redshell_d.exe"
+BIN_DD="$SDK/runtimes/redshell/$OS/$BITS/redshell_dd.exe"
+
+cp $BIN $SDKBIN
+cp $BIN_D $SDKBIN
+cp $BIN_DD $SDKBIN
+
+ln -s $SDKBIN/redshell.exe /bin/redshell.exe
+ln -s $SDKBIN/redshell_d.exe /bin/redshell_d.exe
+ln -s $SDKBIN/redshell_dd.exe /bin/redshell_dd.exe
+ln -s $SDKBIN/redtamarin.exe /bin/redtamarin.exe
+ln -s $SDKBIN/redbean.exe /bin/redbean.exe

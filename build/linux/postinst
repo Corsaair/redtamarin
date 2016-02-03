@@ -1,0 +1,31 @@
+#/bin/bash
+
+UNAME="$(uname)"
+BITS="32"
+SDK="/usr/lib/redtamarin"
+
+if [ $UNAME == "Darwin" ]; then
+    OS="macintosh";
+elif [ $UNAME == "Linux" ]; then
+    OS="linux"
+fi
+
+if [ "$(uname -m)" == "x86_64" ]; then
+    BITS="64"
+fi
+
+SDKBIN=$SDK/bin
+
+BIN="$SDK/runtimes/redshell/$OS/$BITS/redshell"
+BIN_D="$SDK/runtimes/redshell/$OS/$BITS/redshell_d"
+BIN_DD="$SDK/runtimes/redshell/$OS/$BITS/redshell_dd"
+
+cp $BIN $SDKBIN
+cp $BIN_D $SDKBIN
+cp $BIN_DD $SDKBIN
+
+ln -s $SDKBIN/redshell /usr/bin/redshell
+ln -s $SDKBIN/redshell_d /usr/bin/redshell_d
+ln -s $SDKBIN/redshell_dd /usr/bin/redshell_dd
+ln -s $SDKBIN/redtamarin /usr/bin/redtamarin
+ln -s $SDKBIN/redbean /usr/bin/redbean
