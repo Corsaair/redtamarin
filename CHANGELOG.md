@@ -157,6 +157,18 @@
 
   - added `fcopy()` in `C.stdio` from betalib
 
+  - added bash scripts to build deb packages  
+    `make_deb_mac32`  
+    `make_deb_mac64`  
+    `make_deb_nix32`  
+    `make_deb_nix64`  
+    `make_deb_win32`  
+    `make_deb_win64`  
+    note:  
+    we build all our packages from Linux  
+    except for the windows one who needs  
+    to be build from WIndows with wpkg
+
 
 0.4.0 Akihabara (from tag 1T174)
 --------------------------------
