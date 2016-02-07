@@ -403,7 +403,7 @@ include "as3/flash/display/Scene.as";
 //Shape
 //SimpleButton
 //SpreadMethod
-//Sprite
+include "as3/flash/display/Sprite.as";
 //Stage
 //Stage3D
 include "as3/flash/display/StageAlign.as";
