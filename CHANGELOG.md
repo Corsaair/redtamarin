@@ -1,5 +1,18 @@
 **note:** [Download our releases][release_download] | [History of our releases][release_history]
 
+0.4.2 Akihabara (tag 1T???)
+---------------------------
+
+  - added `flash.display.Sprite` class  
+    should allow to use MXMLC to compile  
+    SWF depending on SWC and produce  
+    bytecode compatible SWF for redtamarin
+
+  - updated components, documentation  
+    and AVMGLUE API to take into account  
+    the `Sprite` class
+
+
 0.4.1 Akihabara (tag 1T180)
 ---------------------------
 
