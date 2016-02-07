@@ -96,8 +96,6 @@
 			<!-- namespaces -->
 			<!-- see doc/templates/ASDoc_Config_Base.xml -->
 
-			<!-- we need to include the Sprite source to be able to ignore it -->
-			<doc-sources path-element="${basedir}/build/doc/Sprite.as" />
 			
 			<!-- core documentation -->
 			<doc-sources path-element="${basedir}/src/core/builtin.as" />
@@ -239,6 +237,7 @@
 			<doc-sources path-element="${basedir}/src/as3/flash/display/PixelSnapping.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/display/PNGEncoderOptions.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/display/Scene.as" />
+			<doc-sources path-element="${basedir}/src/as3/flash/display/Sprite.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/display/StageAlign.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/display/StageAspectRatio.as" />
 			<doc-sources path-element="${basedir}/src/as3/flash/display/StageDisplayState.as" />
@@ -304,7 +303,7 @@
 
 
 		    <!-- things we don't want documented -->
-			<exclude-classes class="flash.display.Sprite"/>
+			<!-- <exclude-classes class="flash.display.Sprite"/> -->
 			
             <window-title>${doc.window-title}</window-title>
             <main-title>${doc.main-title}</main-title>
