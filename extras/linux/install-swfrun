@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# create /usr/bin/swfrun
+echo -e '#!/bin/sh\n\nSWFNAME=$1\nshift\n/usr/lib/redtamarin/bin/redshell "${SWFNAME}" -- $@' > /usr/bin/swfrun
+
+# make it executable
+chmod +x /usr/bin/swfrun
+
+# install it with
+update-binfmts --package swfrun --install swfrun /usr/bin/swfrun --extension swf
+

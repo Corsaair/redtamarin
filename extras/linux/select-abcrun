@@ -1,0 +1,51 @@
+#!/bin/bash
+
+function show_status {
+if grep -Fq "redshell " /usr/bin/abcrun;
+then
+    echo "abcrun is Release"
+fi
+
+if grep -Fq "redshell_d " /usr/bin/abcrun;
+then
+    echo "abcrun is Debug"
+fi
+
+if grep -Fq "redshell_dd " /usr/bin/abcrun;
+then
+    echo "abcrun is Debugger"
+fi
+}
+
+PS3='Please enter your choice: '
+options=("release" "debug" "debugger" "status" "quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "release")
+            echo "Set abcrun to Release"
+            echo -e '#!/bin/sh\n\nABCNAME=$1\nshift\n/usr/lib/redtamarin/bin/redshell "${ABCNAME}" -- $@' > /usr/bin/abcrun
+            break
+            ;;
+        "debug")
+            echo "Set abcrun to Debug"
+            echo -e '#!/bin/sh\n\nABCNAME=$1\nshift\n/usr/lib/redtamarin/bin/redshell_d "${ABCNAME}" -- $@' > /usr/bin/abcrun
+            break
+            ;;
+        "debugger")
+            echo "Set abcrun to Debugger"
+            echo -e '#!/bin/sh\n\nABCNAME=$1\nshift\n/usr/lib/redtamarin/bin/redshell_dd "${ABCNAME}" -- $@' > /usr/bin/abcrun
+            break
+            ;;
+        "status")
+            #echo "Show abcrun status"
+            show_status
+            break
+            ;;
+        "quit")
+            break
+            ;;
+        *) echo invalid option;;
+    esac
+done
+

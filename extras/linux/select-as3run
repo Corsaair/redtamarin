@@ -1,0 +1,51 @@
+#!/bin/bash
+
+function show_status {
+if grep -Fq "redshell " /usr/bin/as3run;
+then
+    echo "as3run is Release"
+fi
+
+if grep -Fq "redshell_d " /usr/bin/as3run;
+then
+    echo "as3run is Debug"
+fi
+
+if grep -Fq "redshell_dd " /usr/bin/as3run;
+then
+    echo "as3run is Debugger"
+fi
+}
+
+PS3='Please enter your choice: '
+options=("release" "debug" "debugger" "status" "quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "release")
+            echo "Set as3run to Release"
+            echo -e '#!/bin/sh\n\nAS3NAME=$1\nshift\n/usr/lib/redtamarin/bin/redshell "${AS3NAME}" -- $@' > /usr/bin/as3run
+            break
+            ;;
+        "debug")
+            echo "Set as3run to Debug"
+            echo -e '#!/bin/sh\n\nAS3NAME=$1\nshift\n/usr/lib/redtamarin/bin/redshell_d "${AS3NAME}" -- $@' > /usr/bin/as3run
+            break
+            ;;
+        "debugger")
+            echo "Set as3run to Debugger"
+            echo -e '#!/bin/sh\n\nAS3NAME=$1\nshift\n/usr/lib/redtamarin/bin/redshell_dd "${AS3NAME}" -- $@' > /usr/bin/as3run
+            break
+            ;;
+        "status")
+            #echo "Show as3run status"
+            show_status
+            break
+            ;;
+        "quit")
+            break
+            ;;
+        *) echo invalid option;;
+    esac
+done
+

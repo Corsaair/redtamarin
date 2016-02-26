@@ -1,0 +1,5 @@
+#!/bin/sh
+
+AS3NAME=$1
+shift
+/usr/lib/redtamarin/bin/redshell "${AS3NAME}" -- $@

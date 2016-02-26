@@ -1,0 +1,51 @@
+#!/bin/bash
+
+function show_status {
+if grep -Fq "redshell " /usr/bin/swfrun;
+then
+    echo "swfrun is Release"
+fi
+
+if grep -Fq "redshell_d " /usr/bin/swfrun;
+then
+    echo "swfrun is Debug"
+fi
+
+if grep -Fq "redshell_dd " /usr/bin/swfrun;
+then
+    echo "swfrun is Debugger"
+fi
+}
+
+PS3='Please enter your choice: '
+options=("release" "debug" "debugger" "status" "quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "release")
+            echo "Set swfrun to Release"
+            echo -e '#!/bin/sh\n\nSWFNAME=$1\nshift\n/usr/lib/redtamarin/bin/redshell "${SWFNAME}" -- $@' > /usr/bin/swfrun
+            break
+            ;;
+        "debug")
+            echo "Set swfrun to Debug"
+            echo -e '#!/bin/sh\n\nSWFNAME=$1\nshift\n/usr/lib/redtamarin/bin/redshell_d "${SWFNAME}" -- $@' > /usr/bin/swfrun
+            break
+            ;;
+        "debugger")
+            echo "Set swfrun to Debugger"
+            echo -e '#!/bin/sh\n\nSWFNAME=$1\nshift\n/usr/lib/redtamarin/bin/redshell_dd "${SWFNAME}" -- $@' > /usr/bin/swfrun
+            break
+            ;;
+        "status")
+            #echo "Show swfrun status"
+            show_status
+            break
+            ;;
+        "quit")
+            break
+            ;;
+        *) echo invalid option;;
+    esac
+done
+

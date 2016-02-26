@@ -1,0 +1,5 @@
+#!/bin/sh
+
+SWFNAME=$1
+shift
+/usr/lib/redtamarin/bin/redshell "${SWFNAME}" -- $@

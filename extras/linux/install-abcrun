@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# create /usr/bin/abcrun
+echo -e '#!/bin/sh\n\nABCNAME=$1\nshift\n/usr/lib/redtamarin/bin/redshell "${ABCNAME}" -- $@' > /usr/bin/abcrun
+
+# make it executable
+chmod +x /usr/bin/abcrun
+
+# install it with
+update-binfmts --package abcrun --install abcrun /usr/bin/abcrun --extension abc
+

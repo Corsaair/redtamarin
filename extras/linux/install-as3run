@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# create /usr/bin/as3run
+echo -e '#!/bin/sh\n\nAS3NAME=$1\nshift\n/usr/lib/redtamarin/bin/redshell "${AS3NAME}" -- $@' > /usr/bin/as3run
+
+# make it executable
+chmod +x /usr/bin/as3run
+
+# install it with
+update-binfmts --package as3run --install as3run /usr/bin/as3run --extension as3
+

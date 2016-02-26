@@ -1,0 +1,5 @@
+#!/bin/sh
+
+ABCNAME=$1
+shift
+/usr/lib/redtamarin/bin/redshell "${ABCNAME}" -- $@
