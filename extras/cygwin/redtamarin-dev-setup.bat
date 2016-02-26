@@ -49,7 +49,7 @@ REM -- other mirrors can be found https://cygwin.com/mirrors.html
 SET SITE=http://mirrors.kernel.org/sourceware/cygwin/
 SET LOCALDIR=%LOCALAPPDATA%/cygwin
 SET ROOTDIR=C:/cygwin
-SET APTCYG_URL=https://raw.githubusercontent.com/transcode-open/apt-cyg/master/apt-cyg
+SET APTCYG_URL=https://raw.githubusercontent.com/corsaair/redtamarin/master/extras/cygwin/apt-cyg
 
 REM -- These are the cygwin packages we will install
 SET PACKAGES=bash,bash-completion,mintty,ncurses,which
