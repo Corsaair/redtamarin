@@ -12,6 +12,17 @@
     and AVMGLUE API to take into account  
     the `Sprite` class
 
+  - added `apt-cyg` to our own repo  
+    in `extras/cygwin`
+
+  - changed `apt-cyg` download path to  
+    https://raw.githubusercontent.com/corsaair/redtamarin/master/extras/cygwin/apt-cyg  
+    fix [#72 problem with apt-cyg in redtamarin-setup.bat](https://github.com/Corsaair/redtamarin/issues/72)
+
+  - added support for binfmt_misc  
+    in `extras/linux`  
+    see https://github.com/Corsaair/redtamarin/wiki/LinuxBinfmt_misc
+
 
 0.4.1 Akihabara (tag 1T180)
 ---------------------------
